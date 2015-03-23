@@ -1,0 +1,226 @@
+body {
+    background-color: #FCFAF3;
+    font-size: 9pt;
+}
+.tablebar-box {
+    border: 1px solid #4A69A5;
+    background-image: none;
+    margin-bottom: 10px;
+    background-color: #FFFFFF;
+    font-size: 9pt;
+}
+.tablebar-title-on {
+    font-family: "宋体";
+    font-size: 12px;
+    font-weight: bold;
+    color: #4A69A5;
+    text-decoration: none;
+}
+a {
+    FONT-SIZE: 12px;
+    COLOR: #c75f3e;
+    FONT-FAMILY: "宋体", Tahoma, sans-serif;
+    text-decoration: none;
+}
+.edit_table          {
+    border: 1px #000000 solid;
+    background-color: #FFFFFF;
+    cellspacing:0 ;
+    cellpadding:0 ;
+    border-collapse:collapse;
+    padding-top: 3px;
+    padding-right: 1px;
+    padding-bottom: 3px;
+    padding-left: 1px;
+    font-size: 9pt;
+}
+.BtnAction {
+    background: #9EACCD;
+    color: #000000;
+    font-size: 12px;
+    height: 20px;
+    PADDING-RIGHT:4px;
+    PADDING-LEFT :4px;
+    PADDING-TOP  :2px;
+    PADDING-BOTTOM :2px;
+    margin: 2px;
+    font-weight: normal;
+    border-width: 1px;
+    border-style: solid;
+    BORDER-RIGHT: #31557f 1px solid;
+    BORDER-TOP: #cce3ff 1px solid;
+    BORDER-LEFT: #cce3ff 1px solid;
+    BORDER-BOTTOM: #31557f 1px solid;
+    letter-spacing: 0px;
+    vertical-align: middle;
+    word-spacing: 0px;
+}
+
+.button-add {
+    background-image: url(../images/icon/button/add-row.gif);
+    width: 64px;
+    height: 64px;
+}
+.button-add-A {
+    background-position: -448px 0px;
+}
+.tool-bar-bottom{
+    /*
+    border: 1px solid red;
+    */
+    padding-top:5px;
+    border-top: #c1cbfa 1px groove;
+    margin-right: auto;
+    margin-left: auto;
+    margin-top:8px;
+    margin-bottom:8px;
+    width: 95%;
+    text-align:right;
+}
+.tool-bar-top{
+    /*
+    border: 1px solid red;
+    */
+    padding-bottom:5px;
+    border-bottom: #c1cbfa 1px groove;
+    margin-right: auto;
+    margin-left: auto;
+    margin-top:8px;
+    margin-bottom:8px;
+    width: 95%;
+    text-align:right;
+}
+.title-bar-top{
+    /*
+    border: 1px solid red;
+    */
+    padding-bottom:5px;
+    border-bottom: #c1cbfa 1px groove;
+    margin-right: auto;
+    margin-left: auto;
+    margin-top:8px;
+    margin-bottom:8px;
+    width: 95%;
+    text-align:left;
+    font-size:10pt;
+    font-weight: bold;
+}
+.search-bar{
+    border-top: #c1cbfa 1px groove;
+    border-bottom: #c1cbfa 1px groove;
+    text-align: right;
+    padding-bottom:5px;
+    padding-top: 5px;
+    margin-right: auto;
+    margin-left: auto;
+    width:95%;
+    margin-top:5px;
+    margin-bottom:5px;
+    font: bold 12px "Trebuchet MS", Verdana, Arial, Helvetica, sans-serif; 
+    color: #4f6b72;
+}
+td.td-right{
+    text-align: right;
+}
+td.td-left{
+    text-align: left;
+}
+
+div.data-table{
+	margin-right: auto;
+    margin-left: auto;
+    width:95%;
+}
+.test th { 
+font: bold 12px "Trebuchet MS", Verdana, Arial, Helvetica, sans-serif; 
+color: #4f6b72; 
+border-right: 1px solid #C1DAD7; 
+border-bottom: 1px solid #C1DAD7; 
+border-top: 1px solid #C1DAD7; 
+letter-spacing: 2px; 
+text-transform: uppercase; 
+text-align: center; 
+padding: 6px 6px 6px 12px; 
+background: #CAE8EA  no-repeat;
+} 
+
+.tr_test td { 
+border-right: #C1DAD7 1px solid ; 
+border-bottom:#C1DAD7 1px solid ;
+background: #fff; 
+font-size:13px; 
+padding: 6px 6px 6px 12px; 
+color: #4f6b72; 
+}
+
+.buttoncss{
+    background-color:#f5f5f5;
+    border:1px solid #dedede;
+    border-top:1px solid #eee;
+    border-left:1px solid #eee;
+    font-family:"Lucida Grande", Tahoma, Arial, Verdana, sans-serif;
+    font-size:12px;
+    line-height:110%;
+    text-decoration:none;
+    font-weight:bold;
+    color:#565656;
+    cursor:pointer;
+}
+
+.pop-window{
+    font: bold 13px "Trebuchet MS", Verdana, Arial, Helvetica, sans-serif; 
+    color: #4f6b72;
+}
+.search-bar-batch{
+    border-top: #c1cbfa 1px groove;
+    border-bottom: #c1cbfa 1px groove;
+    text-align: center;
+    padding-bottom:5px;
+    padding-top: 5px;
+    margin-right: auto;
+    margin-left: auto;
+    width:95%;
+    margin-top:5px;
+    margin-bottom:5px;
+    font: bold 12px "Trebuchet MS", Verdana, Arial, Helvetica, sans-serif; 
+    color: #4f6b72;
+}
+.tool-bar-top-batch{
+    /*
+    border: 1px solid red;
+    */
+    padding-bottom:5px;
+    border-bottom: #c1cbfa 1px groove;
+    margin-right: auto;
+    margin-left: auto;
+    margin-top:8px;
+    margin-bottom:8px;
+    width: 95%;
+    text-align:center;
+}
+.nosessionClass{
+	
+	background-image: url("../images/page/nosession.png");
+	height: 508px;
+    left: 270px;
+    position: relative;
+    width: 844px;
+    z-index: 1px;
+}
+.sessionContentDiv{
+	background-color: #FFFFFF;
+    height: 60px;
+    left: 108px;
+    position: relative;
+    top: 232px;
+    width: 322px;
+	
+	
+}
+.loginText{
+	color: #767676;
+    font-family: 幼圆;
+    font-size: 15px;
+    font-weight: bold;
+	
+}

@@ -1,0 +1,264 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.st.framework.persistence.mapper.stock.FactProxyMapper" >
+  <resultMap id="BaseResultMap" type="com.st.framework.module.stock.FactProxy" >
+    <id column="PROXY_IP" property="proxyIp" jdbcType="VARCHAR" />
+    <id column="PROXY_PORT" property="proxyPort" jdbcType="INTEGER" />
+    <result column="LOCAL" property="local" jdbcType="VARCHAR" />
+    <result column="TEST_SPEED" property="testSpeed" jdbcType="INTEGER" />
+    <result column="ACTIVE" property="active" jdbcType="BIT" />
+    <result column="LOSE_FACTOR" property="loseFactor" jdbcType="INTEGER" />
+    <result column="TEST_DATE" property="testDate" jdbcType="TIMESTAMP" />
+    <result column="CREATE_DATE" property="createDate" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    PROXY_IP, PROXY_PORT, LOCAL, TEST_SPEED, ACTIVE, LOSE_FACTOR, TEST_DATE, CREATE_DATE
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.st.framework.module.stock.example.FactProxyExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from FACT_PROXY
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+    
+    <if test="start != null and pageSize != null" >
+      limit #{start}, #{pageSize}
+    </if>
+    
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="com.st.framework.module.stock.FactProxyKey" >
+    select 
+    <include refid="Base_Column_List" />
+    from FACT_PROXY
+    where PROXY_IP = #{proxyIp,jdbcType=VARCHAR}
+      and PROXY_PORT = #{proxyPort,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="com.st.framework.module.stock.FactProxyKey" >
+    delete from FACT_PROXY
+    where PROXY_IP = #{proxyIp,jdbcType=VARCHAR}
+      and PROXY_PORT = #{proxyPort,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.st.framework.module.stock.example.FactProxyExample" >
+    delete from FACT_PROXY
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.st.framework.module.stock.FactProxy" >
+    insert into FACT_PROXY (PROXY_IP, PROXY_PORT, LOCAL, 
+      TEST_SPEED, ACTIVE, LOSE_FACTOR, 
+      TEST_DATE, CREATE_DATE)
+    values (#{proxyIp,jdbcType=VARCHAR}, #{proxyPort,jdbcType=INTEGER}, #{local,jdbcType=VARCHAR}, 
+      #{testSpeed,jdbcType=INTEGER}, #{active,jdbcType=BIT}, #{loseFactor,jdbcType=INTEGER}, 
+      #{testDate,jdbcType=TIMESTAMP}, #{createDate,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" parameterType="com.st.framework.module.stock.FactProxy" >
+    insert into FACT_PROXY
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="proxyIp != null" >
+        PROXY_IP,
+      </if>
+      <if test="proxyPort != null" >
+        PROXY_PORT,
+      </if>
+      <if test="local != null" >
+        LOCAL,
+      </if>
+      <if test="testSpeed != null" >
+        TEST_SPEED,
+      </if>
+      <if test="active != null" >
+        ACTIVE,
+      </if>
+      <if test="loseFactor != null" >
+        LOSE_FACTOR,
+      </if>
+      <if test="testDate != null" >
+        TEST_DATE,
+      </if>
+      <if test="createDate != null" >
+        CREATE_DATE,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="proxyIp != null" >
+        #{proxyIp,jdbcType=VARCHAR},
+      </if>
+      <if test="proxyPort != null" >
+        #{proxyPort,jdbcType=INTEGER},
+      </if>
+      <if test="local != null" >
+        #{local,jdbcType=VARCHAR},
+      </if>
+      <if test="testSpeed != null" >
+        #{testSpeed,jdbcType=INTEGER},
+      </if>
+      <if test="active != null" >
+        #{active,jdbcType=BIT},
+      </if>
+      <if test="loseFactor != null" >
+        #{loseFactor,jdbcType=INTEGER},
+      </if>
+      <if test="testDate != null" >
+        #{testDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="createDate != null" >
+        #{createDate,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.st.framework.module.stock.example.FactProxyExample" resultType="java.lang.Integer" >
+    select count(*) from FACT_PROXY
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update FACT_PROXY
+    <set >
+      <if test="record.proxyIp != null" >
+        PROXY_IP = #{record.proxyIp,jdbcType=VARCHAR},
+      </if>
+      <if test="record.proxyPort != null" >
+        PROXY_PORT = #{record.proxyPort,jdbcType=INTEGER},
+      </if>
+      <if test="record.local != null" >
+        LOCAL = #{record.local,jdbcType=VARCHAR},
+      </if>
+      <if test="record.testSpeed != null" >
+        TEST_SPEED = #{record.testSpeed,jdbcType=INTEGER},
+      </if>
+      <if test="record.active != null" >
+        ACTIVE = #{record.active,jdbcType=BIT},
+      </if>
+      <if test="record.loseFactor != null" >
+        LOSE_FACTOR = #{record.loseFactor,jdbcType=INTEGER},
+      </if>
+      <if test="record.testDate != null" >
+        TEST_DATE = #{record.testDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.createDate != null" >
+        CREATE_DATE = #{record.createDate,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update FACT_PROXY
+    set PROXY_IP = #{record.proxyIp,jdbcType=VARCHAR},
+      PROXY_PORT = #{record.proxyPort,jdbcType=INTEGER},
+      LOCAL = #{record.local,jdbcType=VARCHAR},
+      TEST_SPEED = #{record.testSpeed,jdbcType=INTEGER},
+      ACTIVE = #{record.active,jdbcType=BIT},
+      LOSE_FACTOR = #{record.loseFactor,jdbcType=INTEGER},
+      TEST_DATE = #{record.testDate,jdbcType=TIMESTAMP},
+      CREATE_DATE = #{record.createDate,jdbcType=TIMESTAMP}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.st.framework.module.stock.FactProxy" >
+    update FACT_PROXY
+    <set >
+      <if test="local != null" >
+        LOCAL = #{local,jdbcType=VARCHAR},
+      </if>
+      <if test="testSpeed != null" >
+        TEST_SPEED = #{testSpeed,jdbcType=INTEGER},
+      </if>
+      <if test="active != null" >
+        ACTIVE = #{active,jdbcType=BIT},
+      </if>
+      <if test="loseFactor != null" >
+        LOSE_FACTOR = #{loseFactor,jdbcType=INTEGER},
+      </if>
+      <if test="testDate != null" >
+        TEST_DATE = #{testDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="createDate != null" >
+        CREATE_DATE = #{createDate,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where PROXY_IP = #{proxyIp,jdbcType=VARCHAR}
+      and PROXY_PORT = #{proxyPort,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.st.framework.module.stock.FactProxy" >
+    update FACT_PROXY
+    set LOCAL = #{local,jdbcType=VARCHAR},
+      TEST_SPEED = #{testSpeed,jdbcType=INTEGER},
+      ACTIVE = #{active,jdbcType=BIT},
+      LOSE_FACTOR = #{loseFactor,jdbcType=INTEGER},
+      TEST_DATE = #{testDate,jdbcType=TIMESTAMP},
+      CREATE_DATE = #{createDate,jdbcType=TIMESTAMP}
+    where PROXY_IP = #{proxyIp,jdbcType=VARCHAR}
+      and PROXY_PORT = #{proxyPort,jdbcType=INTEGER}
+  </update>
+</mapper>

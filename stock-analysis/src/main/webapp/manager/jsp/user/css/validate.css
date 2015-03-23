@@ -1,0 +1,55 @@
+
+* { margin: 0; padding: 0; }
+
+body, input, select, textarea { 
+	font-family: verdana, arial, helvetica, sans-serif; 
+	font-size: 12px; 
+}
+body { 
+	color: #333;  
+	background-color: #fff; 
+	text-align: center;	 
+}
+	
+h1, h2, h3, h4, h5, h6 { 
+	font-family: "Lucida Grande", "Lucida Sans Unicode", geneva, verdana, arial, helvetica, sans-serif; 
+	font-weight: bold; 
+	color: #666; 
+}
+
+h3 { 
+	text-align:left;
+	font-size: 1.2em;
+	/* margin: 1.2em 0em 0.4em 0em;  */
+	color: #EC5800; 
+	font-weight: bold; 
+}
+
+img { 
+	border: 0px; 
+	vertical-align:text-bottom;
+}
+
+label { 
+	font-weight: bold; 
+	margin-left: 5px;
+}
+
+#signupform label.error {
+  background:url("../images/unchecked.gif") no-repeat 0px 0px;
+  padding-left: 16px;
+  padding-bottom: 2px;
+  font-weight: bold;
+  color: #EA5200;
+  font-size: 12px;
+}
+
+#signupform label.checked {
+  background:url("../images/checked.gif") no-repeat 0px 0px;
+}
+
+#signupform .success_msg {
+  font-weight: bold;
+  color: #0060BF;
+  margin-left: 19px;
+}

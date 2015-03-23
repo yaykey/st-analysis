@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<systemConfig>
+
+	<!-- Mail设置 -->
+	<!-- Smtp服务器地址 -->
+	<defaultSmtpHost>60.194.14.228</defaultSmtpHost>
+	<!-- Smtp服务器用户名 -->
+	<defaultSmtpUser>fetionbiv4</defaultSmtpUser>
+	<!-- Smtp密码 -->
+	<defaultSmtpPassword>fetionbiv4</defaultSmtpPassword>
+
+	<!-- 邮件的发送地址,超级管理员邮件箱 -->
+	<defaultMailFrom>fetionbiv4@fetionyy.com.cn</defaultMailFrom>
+	<!-- 本机节点名字 -->
+	<nodeName>fdc-report</nodeName>
+	
+	<!-- 应用服务域名 -->
+	<appDomainName>127.0.0.1</appDomainName>
+	
+	<!-- 应用title -->
+	<appTitle>开放平台</appTitle>
+	
+	<!-- 端口号 -->
+	<tomcatPort>8080</tomcatPort>
+	
+	
+	<!-- 上面根目录下的子文件夹 -->
+	<downloadFilePath>D:/eclipse/file/downloadFile</downloadFilePath>
+	
+	
+	<!-- 服务器,负载地址 -->
+	<loadBalancePath>127.0.0.1</loadBalancePath>
+	
+	
+</systemConfig>

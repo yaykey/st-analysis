@@ -1,0 +1,420 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.st.framework.persistence.mapper.stock.GStockDayMapper" >
+  <resultMap id="BaseResultMap" type="com.st.framework.module.stock.GStockDay" >
+    <id column="STOCK" property="stock" jdbcType="INTEGER" />
+    <id column="DATE" property="date" jdbcType="DATE" />
+    <result column="OPEN" property="open" jdbcType="DOUBLE" />
+    <result column="HIGH" property="high" jdbcType="DOUBLE" />
+    <result column="LOW" property="low" jdbcType="DOUBLE" />
+    <result column="CLOSE" property="close" jdbcType="DOUBLE" />
+    <result column="VOLUME" property="volume" jdbcType="INTEGER" />
+    <result column="ADJ_CLOSE" property="adjClose" jdbcType="DOUBLE" />
+    <result column="PRICE_CHANGES" property="priceChanges" jdbcType="DOUBLE" />
+    <result column="HIGH_TIME_ID" property="highTimeId" jdbcType="VARCHAR" />
+    <result column="LOW_TIME_ID" property="lowTimeId" jdbcType="VARCHAR" />
+    <result column="AMPLITUDE" property="amplitude" jdbcType="DOUBLE" />
+    <result column="HIGH_PER" property="highPer" jdbcType="DOUBLE" />
+    <result column="LOW_PER" property="lowPer" jdbcType="DOUBLE" />
+    <result column="CLOSE_PER" property="closePer" jdbcType="DOUBLE" />
+    <result column="OPEN_PER" property="openPer" jdbcType="DOUBLE" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    STOCK, DATE, OPEN, HIGH, LOW, CLOSE, VOLUME, ADJ_CLOSE, PRICE_CHANGES, HIGH_TIME_ID, 
+    LOW_TIME_ID, AMPLITUDE, HIGH_PER, LOW_PER, CLOSE_PER, OPEN_PER
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.st.framework.module.stock.example.GStockDayExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from G_STOCK_DAY
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+    <if test="start != null and pageSize != null" >
+      limit #{start}, #{pageSize}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="com.st.framework.module.stock.GStockDayKey" >
+    select 
+    <include refid="Base_Column_List" />
+    from G_STOCK_DAY
+    where STOCK = #{stock,jdbcType=INTEGER}
+      and DATE = #{date,jdbcType=DATE}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="com.st.framework.module.stock.GStockDayKey" >
+    delete from G_STOCK_DAY
+    where STOCK = #{stock,jdbcType=INTEGER}
+      and DATE = #{date,jdbcType=DATE}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.st.framework.module.stock.example.GStockDayExample" >
+    delete from G_STOCK_DAY
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.st.framework.module.stock.GStockDay" >
+    insert into G_STOCK_DAY (STOCK, DATE, OPEN, 
+      HIGH, LOW, CLOSE, VOLUME, 
+      ADJ_CLOSE, PRICE_CHANGES, HIGH_TIME_ID, 
+      LOW_TIME_ID, AMPLITUDE, HIGH_PER, 
+      LOW_PER, CLOSE_PER, OPEN_PER
+      )
+    values (#{stock,jdbcType=INTEGER}, #{date,jdbcType=DATE}, #{open,jdbcType=DOUBLE}, 
+      #{high,jdbcType=DOUBLE}, #{low,jdbcType=DOUBLE}, #{close,jdbcType=DOUBLE}, #{volume,jdbcType=INTEGER}, 
+      #{adjClose,jdbcType=DOUBLE}, #{priceChanges,jdbcType=DOUBLE}, #{highTimeId,jdbcType=VARCHAR}, 
+      #{lowTimeId,jdbcType=VARCHAR}, #{amplitude,jdbcType=DOUBLE}, #{highPer,jdbcType=DOUBLE}, 
+      #{lowPer,jdbcType=DOUBLE}, #{closePer,jdbcType=DOUBLE}, #{openPer,jdbcType=DOUBLE}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.st.framework.module.stock.GStockDay" >
+    insert into G_STOCK_DAY
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="stock != null" >
+        STOCK,
+      </if>
+      <if test="date != null" >
+        DATE,
+      </if>
+      <if test="open != null" >
+        OPEN,
+      </if>
+      <if test="high != null" >
+        HIGH,
+      </if>
+      <if test="low != null" >
+        LOW,
+      </if>
+      <if test="close != null" >
+        CLOSE,
+      </if>
+      <if test="volume != null" >
+        VOLUME,
+      </if>
+      <if test="adjClose != null" >
+        ADJ_CLOSE,
+      </if>
+      <if test="priceChanges != null" >
+        PRICE_CHANGES,
+      </if>
+      <if test="highTimeId != null" >
+        HIGH_TIME_ID,
+      </if>
+      <if test="lowTimeId != null" >
+        LOW_TIME_ID,
+      </if>
+      <if test="amplitude != null" >
+        AMPLITUDE,
+      </if>
+      <if test="highPer != null" >
+        HIGH_PER,
+      </if>
+      <if test="lowPer != null" >
+        LOW_PER,
+      </if>
+      <if test="closePer != null" >
+        CLOSE_PER,
+      </if>
+      <if test="openPer != null" >
+        OPEN_PER,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="stock != null" >
+        #{stock,jdbcType=INTEGER},
+      </if>
+      <if test="date != null" >
+        #{date,jdbcType=DATE},
+      </if>
+      <if test="open != null" >
+        #{open,jdbcType=DOUBLE},
+      </if>
+      <if test="high != null" >
+        #{high,jdbcType=DOUBLE},
+      </if>
+      <if test="low != null" >
+        #{low,jdbcType=DOUBLE},
+      </if>
+      <if test="close != null" >
+        #{close,jdbcType=DOUBLE},
+      </if>
+      <if test="volume != null" >
+        #{volume,jdbcType=INTEGER},
+      </if>
+      <if test="adjClose != null" >
+        #{adjClose,jdbcType=DOUBLE},
+      </if>
+      <if test="priceChanges != null" >
+        #{priceChanges,jdbcType=DOUBLE},
+      </if>
+      <if test="highTimeId != null" >
+        #{highTimeId,jdbcType=VARCHAR},
+      </if>
+      <if test="lowTimeId != null" >
+        #{lowTimeId,jdbcType=VARCHAR},
+      </if>
+      <if test="amplitude != null" >
+        #{amplitude,jdbcType=DOUBLE},
+      </if>
+      <if test="highPer != null" >
+        #{highPer,jdbcType=DOUBLE},
+      </if>
+      <if test="lowPer != null" >
+        #{lowPer,jdbcType=DOUBLE},
+      </if>
+      <if test="closePer != null" >
+        #{closePer,jdbcType=DOUBLE},
+      </if>
+      <if test="openPer != null" >
+        #{openPer,jdbcType=DOUBLE},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.st.framework.module.stock.example.GStockDayExample" resultType="java.lang.Integer" >
+    select count(*) from G_STOCK_DAY
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update G_STOCK_DAY
+    <set >
+      <if test="record.stock != null" >
+        STOCK = #{record.stock,jdbcType=INTEGER},
+      </if>
+      <if test="record.date != null" >
+        DATE = #{record.date,jdbcType=DATE},
+      </if>
+      <if test="record.open != null" >
+        OPEN = #{record.open,jdbcType=DOUBLE},
+      </if>
+      <if test="record.high != null" >
+        HIGH = #{record.high,jdbcType=DOUBLE},
+      </if>
+      <if test="record.low != null" >
+        LOW = #{record.low,jdbcType=DOUBLE},
+      </if>
+      <if test="record.close != null" >
+        CLOSE = #{record.close,jdbcType=DOUBLE},
+      </if>
+      <if test="record.volume != null" >
+        VOLUME = #{record.volume,jdbcType=INTEGER},
+      </if>
+      <if test="record.adjClose != null" >
+        ADJ_CLOSE = #{record.adjClose,jdbcType=DOUBLE},
+      </if>
+      <if test="record.priceChanges != null" >
+        PRICE_CHANGES = #{record.priceChanges,jdbcType=DOUBLE},
+      </if>
+      <if test="record.highTimeId != null" >
+        HIGH_TIME_ID = #{record.highTimeId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.lowTimeId != null" >
+        LOW_TIME_ID = #{record.lowTimeId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.amplitude != null" >
+        AMPLITUDE = #{record.amplitude,jdbcType=DOUBLE},
+      </if>
+      <if test="record.highPer != null" >
+        HIGH_PER = #{record.highPer,jdbcType=DOUBLE},
+      </if>
+      <if test="record.lowPer != null" >
+        LOW_PER = #{record.lowPer,jdbcType=DOUBLE},
+      </if>
+      <if test="record.closePer != null" >
+        CLOSE_PER = #{record.closePer,jdbcType=DOUBLE},
+      </if>
+      <if test="record.openPer != null" >
+        OPEN_PER = #{record.openPer,jdbcType=DOUBLE},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update G_STOCK_DAY
+    set STOCK = #{record.stock,jdbcType=INTEGER},
+      DATE = #{record.date,jdbcType=DATE},
+      OPEN = #{record.open,jdbcType=DOUBLE},
+      HIGH = #{record.high,jdbcType=DOUBLE},
+      LOW = #{record.low,jdbcType=DOUBLE},
+      CLOSE = #{record.close,jdbcType=DOUBLE},
+      VOLUME = #{record.volume,jdbcType=INTEGER},
+      ADJ_CLOSE = #{record.adjClose,jdbcType=DOUBLE},
+      PRICE_CHANGES = #{record.priceChanges,jdbcType=DOUBLE},
+      HIGH_TIME_ID = #{record.highTimeId,jdbcType=VARCHAR},
+      LOW_TIME_ID = #{record.lowTimeId,jdbcType=VARCHAR},
+      AMPLITUDE = #{record.amplitude,jdbcType=DOUBLE},
+      HIGH_PER = #{record.highPer,jdbcType=DOUBLE},
+      LOW_PER = #{record.lowPer,jdbcType=DOUBLE},
+      CLOSE_PER = #{record.closePer,jdbcType=DOUBLE},
+      OPEN_PER = #{record.openPer,jdbcType=DOUBLE}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.st.framework.module.stock.GStockDay" >
+    update G_STOCK_DAY
+    <set >
+      <if test="open != null" >
+        OPEN = #{open,jdbcType=DOUBLE},
+      </if>
+      <if test="high != null" >
+        HIGH = #{high,jdbcType=DOUBLE},
+      </if>
+      <if test="low != null" >
+        LOW = #{low,jdbcType=DOUBLE},
+      </if>
+      <if test="close != null" >
+        CLOSE = #{close,jdbcType=DOUBLE},
+      </if>
+      <if test="volume != null" >
+        VOLUME = #{volume,jdbcType=INTEGER},
+      </if>
+      <if test="adjClose != null" >
+        ADJ_CLOSE = #{adjClose,jdbcType=DOUBLE},
+      </if>
+      <if test="priceChanges != null" >
+        PRICE_CHANGES = #{priceChanges,jdbcType=DOUBLE},
+      </if>
+      <if test="highTimeId != null" >
+        HIGH_TIME_ID = #{highTimeId,jdbcType=VARCHAR},
+      </if>
+      <if test="lowTimeId != null" >
+        LOW_TIME_ID = #{lowTimeId,jdbcType=VARCHAR},
+      </if>
+      <if test="amplitude != null" >
+        AMPLITUDE = #{amplitude,jdbcType=DOUBLE},
+      </if>
+      <if test="highPer != null" >
+        HIGH_PER = #{highPer,jdbcType=DOUBLE},
+      </if>
+      <if test="lowPer != null" >
+        LOW_PER = #{lowPer,jdbcType=DOUBLE},
+      </if>
+      <if test="closePer != null" >
+        CLOSE_PER = #{closePer,jdbcType=DOUBLE},
+      </if>
+      <if test="openPer != null" >
+        OPEN_PER = #{openPer,jdbcType=DOUBLE},
+      </if>
+    </set>
+    where STOCK = #{stock,jdbcType=INTEGER}
+      and DATE = #{date,jdbcType=DATE}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.st.framework.module.stock.GStockDay" >
+    update G_STOCK_DAY
+    set OPEN = #{open,jdbcType=DOUBLE},
+      HIGH = #{high,jdbcType=DOUBLE},
+      LOW = #{low,jdbcType=DOUBLE},
+      CLOSE = #{close,jdbcType=DOUBLE},
+      VOLUME = #{volume,jdbcType=INTEGER},
+      ADJ_CLOSE = #{adjClose,jdbcType=DOUBLE},
+      PRICE_CHANGES = #{priceChanges,jdbcType=DOUBLE},
+      HIGH_TIME_ID = #{highTimeId,jdbcType=VARCHAR},
+      LOW_TIME_ID = #{lowTimeId,jdbcType=VARCHAR},
+      AMPLITUDE = #{amplitude,jdbcType=DOUBLE},
+      HIGH_PER = #{highPer,jdbcType=DOUBLE},
+      LOW_PER = #{lowPer,jdbcType=DOUBLE},
+      CLOSE_PER = #{closePer,jdbcType=DOUBLE},
+      OPEN_PER = #{openPer,jdbcType=DOUBLE}
+    where STOCK = #{stock,jdbcType=INTEGER}
+      and DATE = #{date,jdbcType=DATE}
+  </update>
+  
+  <update id="batchUpdateMMByPrimaryKey"  parameterType="java.util.List">
+	<foreach collection="list" item="item" index="index" open=""
+		close="" separator="">
+		update G_STOCK_DAY
+		set
+			HIGH_TIME_ID = #{item.highTimeId,jdbcType=VARCHAR},
+			LOW_TIME_ID = #{item.lowTimeId,jdbcType=VARCHAR}			      
+		where STOCK = #{item.stock,jdbcType=INTEGER}
+		and DATE = #{item.date,jdbcType=DATE}
+	</foreach>
+  </update>
+  
+  <insert id="insertBatch" parameterType="map" >
+    insert ignore into G_STOCK_DAY
+	(STOCK,DATE,OPEN,HIGH,LOW,CLOSE,VOLUME,ADJ_CLOSE,PRICE_CHANGES,HIGH_TIME_ID,LOW_TIME_ID,AMPLITUDE,HIGH_PER,LOW_PER,CLOSE_PER,OPEN_PER)
+	values
+	<foreach collection="list" item="item" index="index" separator=",">
+		(#{item.stock},#{item.date},#{item.open},#{item.high},#{item.low},#{item.close},#{item.volume},#{item.adjClose},#{item.priceChanges},#{item.highTimeId},#{item.lowTimeId},#{item.amplitude},#{item.highPer},#{item.lowPer},#{item.closePer},#{item.openPer})
+	</foreach>
+  </insert>
+  
+  
+  <update id="updatePriceChanges" parameterType="map">
+  		update G_STOCK_DAY
+		set PRICE_CHANGES = (CLOSE - OPEN)		
+		<if test="stock != null">
+			where
+			STOCK = #{stock,jdbcType=INTEGER}
+		</if>		 
+  </update>
+  
+</mapper>

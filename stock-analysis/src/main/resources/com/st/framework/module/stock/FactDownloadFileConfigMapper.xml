@@ -1,0 +1,291 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.st.framework.persistence.mapper.stock.FactDownloadFileConfigMapper" >
+  <resultMap id="BaseResultMap" type="com.st.framework.module.stock.FactDownloadFileConfig" >
+    <id column="ST_CODE" property="stCode" jdbcType="VARCHAR" />
+    <id column="TIME_ID" property="timeId" jdbcType="VARCHAR" />
+    <result column="FILE_NAME" property="fileName" jdbcType="VARCHAR" />
+    <result column="FILE_PATH" property="filePath" jdbcType="VARCHAR" />
+    <result column="FAIL" property="fail" jdbcType="BIT" />
+    <result column="UPD_DATE" property="updDate" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    ST_CODE, TIME_ID, FILE_NAME, FILE_PATH, FAIL, UPD_DATE
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.st.framework.module.stock.example.FactDownloadFileConfigExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from FACT_DOWNLOAD_FILE_CONFIG
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+    <if test="start != null and pageSize != null" >
+      limit #{start}, #{pageSize}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="com.st.framework.module.stock.FactDownloadFileConfigKey" >
+    select 
+    <include refid="Base_Column_List" />
+    from FACT_DOWNLOAD_FILE_CONFIG
+    where ST_CODE = #{stCode,jdbcType=VARCHAR}
+      and TIME_ID = #{timeId,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="com.st.framework.module.stock.FactDownloadFileConfigKey" >
+    delete from FACT_DOWNLOAD_FILE_CONFIG
+    where ST_CODE = #{stCode,jdbcType=VARCHAR}
+      and TIME_ID = #{timeId,jdbcType=VARCHAR}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.st.framework.module.stock.example.FactDownloadFileConfigExample" >
+    delete from FACT_DOWNLOAD_FILE_CONFIG
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.st.framework.module.stock.FactDownloadFileConfig" >
+    insert into FACT_DOWNLOAD_FILE_CONFIG (ST_CODE, TIME_ID, FILE_NAME, 
+      FILE_PATH, FAIL, UPD_DATE
+      )
+    values (#{stCode,jdbcType=VARCHAR}, #{timeId,jdbcType=VARCHAR}, #{fileName,jdbcType=VARCHAR}, 
+      #{filePath,jdbcType=VARCHAR}, #{fail,jdbcType=BIT}, #{updDate,jdbcType=TIMESTAMP}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.st.framework.module.stock.FactDownloadFileConfig" >
+    insert into FACT_DOWNLOAD_FILE_CONFIG
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="stCode != null" >
+        ST_CODE,
+      </if>
+      <if test="timeId != null" >
+        TIME_ID,
+      </if>
+      <if test="fileName != null" >
+        FILE_NAME,
+      </if>
+      <if test="filePath != null" >
+        FILE_PATH,
+      </if>
+      <if test="fail != null" >
+        FAIL,
+      </if>
+      <if test="updDate != null" >
+        UPD_DATE,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="stCode != null" >
+        #{stCode,jdbcType=VARCHAR},
+      </if>
+      <if test="timeId != null" >
+        #{timeId,jdbcType=VARCHAR},
+      </if>
+      <if test="fileName != null" >
+        #{fileName,jdbcType=VARCHAR},
+      </if>
+      <if test="filePath != null" >
+        #{filePath,jdbcType=VARCHAR},
+      </if>
+      <if test="fail != null" >
+        #{fail,jdbcType=BIT},
+      </if>
+      <if test="updDate != null" >
+        #{updDate,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.st.framework.module.stock.example.FactDownloadFileConfigExample" resultType="java.lang.Integer" >
+    select count(*) from FACT_DOWNLOAD_FILE_CONFIG
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update FACT_DOWNLOAD_FILE_CONFIG
+    <set >
+      <if test="record.stCode != null" >
+        ST_CODE = #{record.stCode,jdbcType=VARCHAR},
+      </if>
+      <if test="record.timeId != null" >
+        TIME_ID = #{record.timeId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.fileName != null" >
+        FILE_NAME = #{record.fileName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.filePath != null" >
+        FILE_PATH = #{record.filePath,jdbcType=VARCHAR},
+      </if>
+      <if test="record.fail != null" >
+        FAIL = #{record.fail,jdbcType=BIT},
+      </if>
+      <if test="record.updDate != null" >
+        UPD_DATE = #{record.updDate,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update FACT_DOWNLOAD_FILE_CONFIG
+    set ST_CODE = #{record.stCode,jdbcType=VARCHAR},
+      TIME_ID = #{record.timeId,jdbcType=VARCHAR},
+      FILE_NAME = #{record.fileName,jdbcType=VARCHAR},
+      FILE_PATH = #{record.filePath,jdbcType=VARCHAR},
+      FAIL = #{record.fail,jdbcType=BIT},
+      UPD_DATE = #{record.updDate,jdbcType=TIMESTAMP}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.st.framework.module.stock.FactDownloadFileConfig" >
+    update FACT_DOWNLOAD_FILE_CONFIG
+    <set >
+      <if test="fileName != null" >
+        FILE_NAME = #{fileName,jdbcType=VARCHAR},
+      </if>
+      <if test="filePath != null" >
+        FILE_PATH = #{filePath,jdbcType=VARCHAR},
+      </if>
+      <if test="fail != null" >
+        FAIL = #{fail,jdbcType=BIT},
+      </if>
+      <if test="updDate != null" >
+        UPD_DATE = #{updDate,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where ST_CODE = #{stCode,jdbcType=VARCHAR}
+      and TIME_ID = #{timeId,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.st.framework.module.stock.FactDownloadFileConfig" >
+    update FACT_DOWNLOAD_FILE_CONFIG
+    set FILE_NAME = #{fileName,jdbcType=VARCHAR},
+      FILE_PATH = #{filePath,jdbcType=VARCHAR},
+      FAIL = #{fail,jdbcType=BIT},
+      UPD_DATE = #{updDate,jdbcType=TIMESTAMP}
+    where ST_CODE = #{stCode,jdbcType=VARCHAR}
+      and TIME_ID = #{timeId,jdbcType=VARCHAR}
+  </update>
+  <insert id="insertBatch" parameterType="map" >
+    insert into FACT_DOWNLOAD_FILE_CONFIG
+	(ST_CODE,TIME_ID,FILE_NAME,FILE_PATH,FAIL,UPD_DATE)
+	values
+	<foreach collection="list" item="item" index="index" separator=",">
+		(#{item.stCode},#{item.timeId},#{item.fileName},#{item.filePath},#{item.fail},#{item.updDate})
+	</foreach>
+  </insert>
+  
+ 
+  <select id="selectStFailTimeId" resultType="java.lang.String" parameterType="map" >
+	select distinct TIME_ID from FACT_DOWNLOAD_FILE_CONFIG
+	where FAIL != 1 
+	<if test="startTime != null">
+		<![CDATA[
+		and TIME_ID >= #{startTime}
+		]]>
+	</if>
+	<if test="endTime != null">
+		<![CDATA[
+		and TIME_ID <= #{endTime}
+		]]>
+	</if>
+	and TIME_ID not in (
+		select distinct TIME_ID from FACT_DOWNLOAD_FILE_CONFIG
+		where FAIL != 1 
+		<if test="startTime != null">
+			<![CDATA[
+			and TIME_ID >= #{startTime}
+			]]>
+		</if>
+		<if test="endTime != null">
+			<![CDATA[
+			and TIME_ID <= #{endTime}
+			]]>
+		</if>
+		and ST_CODE = #{stCode}
+	)	
+	order by TIME_ID
+  </select>
+  
+  <select id="selectStSuccessTimeId"  resultType="java.lang.String" parameterType="map">
+	select distinct TIME_ID from FACT_DOWNLOAD_FILE_CONFIG
+	where (FAIL != 1) 
+	<if test="startTime != null">
+		<![CDATA[
+		and TIME_ID >= #{startTime}
+		]]>
+	</if>
+	<if test="endTime != null">
+		<![CDATA[
+		and TIME_ID <= #{endTime}
+		]]>
+	</if>
+	<if test="stCode != null">
+		and ST_CODE = #{stCode}
+	</if>	
+	order by TIME_ID
+  </select>
+  
+</mapper>

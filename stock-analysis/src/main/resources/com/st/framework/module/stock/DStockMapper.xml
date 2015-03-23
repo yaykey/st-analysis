@@ -1,0 +1,525 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.st.framework.persistence.mapper.stock.DStockMapper" >
+  <resultMap id="BaseResultMap" type="com.st.framework.module.stock.DStock" >
+    <id column="STOCK_CODE" property="stockCode" jdbcType="VARCHAR" />
+    <result column="STOCK_TYPE_CODE" property="stockTypeCode" jdbcType="VARCHAR" />
+    <result column="STOCK_NAME" property="stockName" jdbcType="VARCHAR" />
+    <result column="COMPANY_NAME" property="companyName" jdbcType="VARCHAR" />
+    <result column="COMPANY_EN_NAME" property="companyEnName" jdbcType="VARCHAR" />
+    <result column="ISSUE_PRICE" property="issuePrice" jdbcType="DOUBLE" />
+    <result column="FIRST_DAY_OPENING_PRICE" property="firstDayOpeningPrice" jdbcType="DOUBLE" />
+    <result column="FIRST_DAY_CLOSING_PRICE" property="firstDayClosingPrice" jdbcType="DOUBLE" />
+    <result column="REGISTERED_ADDRESSES" property="registeredAddresses" jdbcType="VARCHAR" />
+    <result column="OFFICE_ADDRESS" property="officeAddress" jdbcType="VARCHAR" />
+    <result column="LISTING_DATE" property="listingDate" jdbcType="DATE" />
+    <result column="MARKET_CAPITALIZATION" property="marketCapitalization" jdbcType="DOUBLE" />
+    <result column="CIRCULATED_STOCK_VALUE" property="circulatedStockValue" jdbcType="DOUBLE" />
+    <result column="TOTAL_CAPITAL" property="totalCapital" jdbcType="DOUBLE" />
+    <result column="CURR_CAPITAL" property="currCapital" jdbcType="DOUBLE" />
+    <result column="LISTED_MARKET" property="listedMarket" jdbcType="VARCHAR" />
+    <result column="LEAD_UNDERWRITER" property="leadUnderwriter" jdbcType="VARCHAR" />
+    <result column="ESTABLISH_DATE" property="establishDate" jdbcType="DATE" />
+    <result column="REGISTERED_CAPITAL" property="registeredCapital" jdbcType="INTEGER" />
+    <result column="ORGANIZATION" property="organization" jdbcType="VARCHAR" />
+    <result column="INTRODUCTION" property="introduction" jdbcType="VARCHAR" />
+    <result column="SCOPE" property="scope" jdbcType="VARCHAR" />
+    <result column="STOCK_STATE" property="stockState" jdbcType="TINYINT" />
+    <result column="UPD_DATE" property="updDate" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    STOCK_CODE, STOCK_TYPE_CODE, STOCK_NAME, COMPANY_NAME, COMPANY_EN_NAME, ISSUE_PRICE, 
+    FIRST_DAY_OPENING_PRICE, FIRST_DAY_CLOSING_PRICE, REGISTERED_ADDRESSES, OFFICE_ADDRESS, 
+    LISTING_DATE, MARKET_CAPITALIZATION, CIRCULATED_STOCK_VALUE, TOTAL_CAPITAL, CURR_CAPITAL, 
+    LISTED_MARKET, LEAD_UNDERWRITER, ESTABLISH_DATE, REGISTERED_CAPITAL, ORGANIZATION, 
+    INTRODUCTION, SCOPE, STOCK_STATE, UPD_DATE
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.st.framework.module.stock.example.DStockExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from D_STOCK
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+    <if test="start != null and pageSize != null" >
+      limit #{start}, #{pageSize}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from D_STOCK
+    where STOCK_CODE = #{stockCode,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from D_STOCK
+    where STOCK_CODE = #{stockCode,jdbcType=VARCHAR}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.st.framework.module.stock.example.DStockExample" >
+    delete from D_STOCK
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.st.framework.module.stock.DStock" >
+    insert into D_STOCK (STOCK_CODE, STOCK_TYPE_CODE, STOCK_NAME, 
+      COMPANY_NAME, COMPANY_EN_NAME, ISSUE_PRICE, 
+      FIRST_DAY_OPENING_PRICE, FIRST_DAY_CLOSING_PRICE, 
+      REGISTERED_ADDRESSES, OFFICE_ADDRESS, LISTING_DATE, 
+      MARKET_CAPITALIZATION, CIRCULATED_STOCK_VALUE, 
+      TOTAL_CAPITAL, CURR_CAPITAL, LISTED_MARKET, 
+      LEAD_UNDERWRITER, ESTABLISH_DATE, REGISTERED_CAPITAL, 
+      ORGANIZATION, INTRODUCTION, SCOPE, 
+      STOCK_STATE, UPD_DATE)
+    values (#{stockCode,jdbcType=VARCHAR}, #{stockTypeCode,jdbcType=VARCHAR}, #{stockName,jdbcType=VARCHAR}, 
+      #{companyName,jdbcType=VARCHAR}, #{companyEnName,jdbcType=VARCHAR}, #{issuePrice,jdbcType=DOUBLE}, 
+      #{firstDayOpeningPrice,jdbcType=DOUBLE}, #{firstDayClosingPrice,jdbcType=DOUBLE}, 
+      #{registeredAddresses,jdbcType=VARCHAR}, #{officeAddress,jdbcType=VARCHAR}, #{listingDate,jdbcType=DATE}, 
+      #{marketCapitalization,jdbcType=DOUBLE}, #{circulatedStockValue,jdbcType=DOUBLE}, 
+      #{totalCapital,jdbcType=DOUBLE}, #{currCapital,jdbcType=DOUBLE}, #{listedMarket,jdbcType=VARCHAR}, 
+      #{leadUnderwriter,jdbcType=VARCHAR}, #{establishDate,jdbcType=DATE}, #{registeredCapital,jdbcType=INTEGER}, 
+      #{organization,jdbcType=VARCHAR}, #{introduction,jdbcType=VARCHAR}, #{scope,jdbcType=VARCHAR}, 
+      #{stockState,jdbcType=TINYINT}, #{updDate,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" parameterType="com.st.framework.module.stock.DStock" >
+    insert into D_STOCK
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="stockCode != null" >
+        STOCK_CODE,
+      </if>
+      <if test="stockTypeCode != null" >
+        STOCK_TYPE_CODE,
+      </if>
+      <if test="stockName != null" >
+        STOCK_NAME,
+      </if>
+      <if test="companyName != null" >
+        COMPANY_NAME,
+      </if>
+      <if test="companyEnName != null" >
+        COMPANY_EN_NAME,
+      </if>
+      <if test="issuePrice != null" >
+        ISSUE_PRICE,
+      </if>
+      <if test="firstDayOpeningPrice != null" >
+        FIRST_DAY_OPENING_PRICE,
+      </if>
+      <if test="firstDayClosingPrice != null" >
+        FIRST_DAY_CLOSING_PRICE,
+      </if>
+      <if test="registeredAddresses != null" >
+        REGISTERED_ADDRESSES,
+      </if>
+      <if test="officeAddress != null" >
+        OFFICE_ADDRESS,
+      </if>
+      <if test="listingDate != null" >
+        LISTING_DATE,
+      </if>
+      <if test="marketCapitalization != null" >
+        MARKET_CAPITALIZATION,
+      </if>
+      <if test="circulatedStockValue != null" >
+        CIRCULATED_STOCK_VALUE,
+      </if>
+      <if test="totalCapital != null" >
+        TOTAL_CAPITAL,
+      </if>
+      <if test="currCapital != null" >
+        CURR_CAPITAL,
+      </if>
+      <if test="listedMarket != null" >
+        LISTED_MARKET,
+      </if>
+      <if test="leadUnderwriter != null" >
+        LEAD_UNDERWRITER,
+      </if>
+      <if test="establishDate != null" >
+        ESTABLISH_DATE,
+      </if>
+      <if test="registeredCapital != null" >
+        REGISTERED_CAPITAL,
+      </if>
+      <if test="organization != null" >
+        ORGANIZATION,
+      </if>
+      <if test="introduction != null" >
+        INTRODUCTION,
+      </if>
+      <if test="scope != null" >
+        SCOPE,
+      </if>
+      <if test="stockState != null" >
+        STOCK_STATE,
+      </if>
+      <if test="updDate != null" >
+        UPD_DATE,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="stockCode != null" >
+        #{stockCode,jdbcType=VARCHAR},
+      </if>
+      <if test="stockTypeCode != null" >
+        #{stockTypeCode,jdbcType=VARCHAR},
+      </if>
+      <if test="stockName != null" >
+        #{stockName,jdbcType=VARCHAR},
+      </if>
+      <if test="companyName != null" >
+        #{companyName,jdbcType=VARCHAR},
+      </if>
+      <if test="companyEnName != null" >
+        #{companyEnName,jdbcType=VARCHAR},
+      </if>
+      <if test="issuePrice != null" >
+        #{issuePrice,jdbcType=DOUBLE},
+      </if>
+      <if test="firstDayOpeningPrice != null" >
+        #{firstDayOpeningPrice,jdbcType=DOUBLE},
+      </if>
+      <if test="firstDayClosingPrice != null" >
+        #{firstDayClosingPrice,jdbcType=DOUBLE},
+      </if>
+      <if test="registeredAddresses != null" >
+        #{registeredAddresses,jdbcType=VARCHAR},
+      </if>
+      <if test="officeAddress != null" >
+        #{officeAddress,jdbcType=VARCHAR},
+      </if>
+      <if test="listingDate != null" >
+        #{listingDate,jdbcType=DATE},
+      </if>
+      <if test="marketCapitalization != null" >
+        #{marketCapitalization,jdbcType=DOUBLE},
+      </if>
+      <if test="circulatedStockValue != null" >
+        #{circulatedStockValue,jdbcType=DOUBLE},
+      </if>
+      <if test="totalCapital != null" >
+        #{totalCapital,jdbcType=DOUBLE},
+      </if>
+      <if test="currCapital != null" >
+        #{currCapital,jdbcType=DOUBLE},
+      </if>
+      <if test="listedMarket != null" >
+        #{listedMarket,jdbcType=VARCHAR},
+      </if>
+      <if test="leadUnderwriter != null" >
+        #{leadUnderwriter,jdbcType=VARCHAR},
+      </if>
+      <if test="establishDate != null" >
+        #{establishDate,jdbcType=DATE},
+      </if>
+      <if test="registeredCapital != null" >
+        #{registeredCapital,jdbcType=INTEGER},
+      </if>
+      <if test="organization != null" >
+        #{organization,jdbcType=VARCHAR},
+      </if>
+      <if test="introduction != null" >
+        #{introduction,jdbcType=VARCHAR},
+      </if>
+      <if test="scope != null" >
+        #{scope,jdbcType=VARCHAR},
+      </if>
+      <if test="stockState != null" >
+        #{stockState,jdbcType=TINYINT},
+      </if>
+      <if test="updDate != null" >
+        #{updDate,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.st.framework.module.stock.example.DStockExample" resultType="java.lang.Integer" >
+    select count(*) from D_STOCK
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update D_STOCK
+    <set >
+      <if test="record.stockCode != null" >
+        STOCK_CODE = #{record.stockCode,jdbcType=VARCHAR},
+      </if>
+      <if test="record.stockTypeCode != null" >
+        STOCK_TYPE_CODE = #{record.stockTypeCode,jdbcType=VARCHAR},
+      </if>
+      <if test="record.stockName != null" >
+        STOCK_NAME = #{record.stockName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.companyName != null" >
+        COMPANY_NAME = #{record.companyName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.companyEnName != null" >
+        COMPANY_EN_NAME = #{record.companyEnName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.issuePrice != null" >
+        ISSUE_PRICE = #{record.issuePrice,jdbcType=DOUBLE},
+      </if>
+      <if test="record.firstDayOpeningPrice != null" >
+        FIRST_DAY_OPENING_PRICE = #{record.firstDayOpeningPrice,jdbcType=DOUBLE},
+      </if>
+      <if test="record.firstDayClosingPrice != null" >
+        FIRST_DAY_CLOSING_PRICE = #{record.firstDayClosingPrice,jdbcType=DOUBLE},
+      </if>
+      <if test="record.registeredAddresses != null" >
+        REGISTERED_ADDRESSES = #{record.registeredAddresses,jdbcType=VARCHAR},
+      </if>
+      <if test="record.officeAddress != null" >
+        OFFICE_ADDRESS = #{record.officeAddress,jdbcType=VARCHAR},
+      </if>
+      <if test="record.listingDate != null" >
+        LISTING_DATE = #{record.listingDate,jdbcType=DATE},
+      </if>
+      <if test="record.marketCapitalization != null" >
+        MARKET_CAPITALIZATION = #{record.marketCapitalization,jdbcType=DOUBLE},
+      </if>
+      <if test="record.circulatedStockValue != null" >
+        CIRCULATED_STOCK_VALUE = #{record.circulatedStockValue,jdbcType=DOUBLE},
+      </if>
+      <if test="record.totalCapital != null" >
+        TOTAL_CAPITAL = #{record.totalCapital,jdbcType=DOUBLE},
+      </if>
+      <if test="record.currCapital != null" >
+        CURR_CAPITAL = #{record.currCapital,jdbcType=DOUBLE},
+      </if>
+      <if test="record.listedMarket != null" >
+        LISTED_MARKET = #{record.listedMarket,jdbcType=VARCHAR},
+      </if>
+      <if test="record.leadUnderwriter != null" >
+        LEAD_UNDERWRITER = #{record.leadUnderwriter,jdbcType=VARCHAR},
+      </if>
+      <if test="record.establishDate != null" >
+        ESTABLISH_DATE = #{record.establishDate,jdbcType=DATE},
+      </if>
+      <if test="record.registeredCapital != null" >
+        REGISTERED_CAPITAL = #{record.registeredCapital,jdbcType=INTEGER},
+      </if>
+      <if test="record.organization != null" >
+        ORGANIZATION = #{record.organization,jdbcType=VARCHAR},
+      </if>
+      <if test="record.introduction != null" >
+        INTRODUCTION = #{record.introduction,jdbcType=VARCHAR},
+      </if>
+      <if test="record.scope != null" >
+        SCOPE = #{record.scope,jdbcType=VARCHAR},
+      </if>
+      <if test="record.stockState != null" >
+        STOCK_STATE = #{record.stockState,jdbcType=TINYINT},
+      </if>
+      <if test="record.updDate != null" >
+        UPD_DATE = #{record.updDate,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update D_STOCK
+    set STOCK_CODE = #{record.stockCode,jdbcType=VARCHAR},
+      STOCK_TYPE_CODE = #{record.stockTypeCode,jdbcType=VARCHAR},
+      STOCK_NAME = #{record.stockName,jdbcType=VARCHAR},
+      COMPANY_NAME = #{record.companyName,jdbcType=VARCHAR},
+      COMPANY_EN_NAME = #{record.companyEnName,jdbcType=VARCHAR},
+      ISSUE_PRICE = #{record.issuePrice,jdbcType=DOUBLE},
+      FIRST_DAY_OPENING_PRICE = #{record.firstDayOpeningPrice,jdbcType=DOUBLE},
+      FIRST_DAY_CLOSING_PRICE = #{record.firstDayClosingPrice,jdbcType=DOUBLE},
+      REGISTERED_ADDRESSES = #{record.registeredAddresses,jdbcType=VARCHAR},
+      OFFICE_ADDRESS = #{record.officeAddress,jdbcType=VARCHAR},
+      LISTING_DATE = #{record.listingDate,jdbcType=DATE},
+      MARKET_CAPITALIZATION = #{record.marketCapitalization,jdbcType=DOUBLE},
+      CIRCULATED_STOCK_VALUE = #{record.circulatedStockValue,jdbcType=DOUBLE},
+      TOTAL_CAPITAL = #{record.totalCapital,jdbcType=DOUBLE},
+      CURR_CAPITAL = #{record.currCapital,jdbcType=DOUBLE},
+      LISTED_MARKET = #{record.listedMarket,jdbcType=VARCHAR},
+      LEAD_UNDERWRITER = #{record.leadUnderwriter,jdbcType=VARCHAR},
+      ESTABLISH_DATE = #{record.establishDate,jdbcType=DATE},
+      REGISTERED_CAPITAL = #{record.registeredCapital,jdbcType=INTEGER},
+      ORGANIZATION = #{record.organization,jdbcType=VARCHAR},
+      INTRODUCTION = #{record.introduction,jdbcType=VARCHAR},
+      SCOPE = #{record.scope,jdbcType=VARCHAR},
+      STOCK_STATE = #{record.stockState,jdbcType=TINYINT},
+      UPD_DATE = #{record.updDate,jdbcType=TIMESTAMP}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.st.framework.module.stock.DStock" >
+    update D_STOCK
+    <set >
+      <if test="stockTypeCode != null" >
+        STOCK_TYPE_CODE = #{stockTypeCode,jdbcType=VARCHAR},
+      </if>
+      <if test="stockName != null" >
+        STOCK_NAME = #{stockName,jdbcType=VARCHAR},
+      </if>
+      <if test="companyName != null" >
+        COMPANY_NAME = #{companyName,jdbcType=VARCHAR},
+      </if>
+      <if test="companyEnName != null" >
+        COMPANY_EN_NAME = #{companyEnName,jdbcType=VARCHAR},
+      </if>
+      <if test="issuePrice != null" >
+        ISSUE_PRICE = #{issuePrice,jdbcType=DOUBLE},
+      </if>
+      <if test="firstDayOpeningPrice != null" >
+        FIRST_DAY_OPENING_PRICE = #{firstDayOpeningPrice,jdbcType=DOUBLE},
+      </if>
+      <if test="firstDayClosingPrice != null" >
+        FIRST_DAY_CLOSING_PRICE = #{firstDayClosingPrice,jdbcType=DOUBLE},
+      </if>
+      <if test="registeredAddresses != null" >
+        REGISTERED_ADDRESSES = #{registeredAddresses,jdbcType=VARCHAR},
+      </if>
+      <if test="officeAddress != null" >
+        OFFICE_ADDRESS = #{officeAddress,jdbcType=VARCHAR},
+      </if>
+      <if test="listingDate != null" >
+        LISTING_DATE = #{listingDate,jdbcType=DATE},
+      </if>
+      <if test="marketCapitalization != null" >
+        MARKET_CAPITALIZATION = #{marketCapitalization,jdbcType=DOUBLE},
+      </if>
+      <if test="circulatedStockValue != null" >
+        CIRCULATED_STOCK_VALUE = #{circulatedStockValue,jdbcType=DOUBLE},
+      </if>
+      <if test="totalCapital != null" >
+        TOTAL_CAPITAL = #{totalCapital,jdbcType=DOUBLE},
+      </if>
+      <if test="currCapital != null" >
+        CURR_CAPITAL = #{currCapital,jdbcType=DOUBLE},
+      </if>
+      <if test="listedMarket != null" >
+        LISTED_MARKET = #{listedMarket,jdbcType=VARCHAR},
+      </if>
+      <if test="leadUnderwriter != null" >
+        LEAD_UNDERWRITER = #{leadUnderwriter,jdbcType=VARCHAR},
+      </if>
+      <if test="establishDate != null" >
+        ESTABLISH_DATE = #{establishDate,jdbcType=DATE},
+      </if>
+      <if test="registeredCapital != null" >
+        REGISTERED_CAPITAL = #{registeredCapital,jdbcType=INTEGER},
+      </if>
+      <if test="organization != null" >
+        ORGANIZATION = #{organization,jdbcType=VARCHAR},
+      </if>
+      <if test="introduction != null" >
+        INTRODUCTION = #{introduction,jdbcType=VARCHAR},
+      </if>
+      <if test="scope != null" >
+        SCOPE = #{scope,jdbcType=VARCHAR},
+      </if>
+      <if test="stockState != null" >
+        STOCK_STATE = #{stockState,jdbcType=TINYINT},
+      </if>
+      <if test="updDate != null" >
+        UPD_DATE = #{updDate,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where STOCK_CODE = #{stockCode,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.st.framework.module.stock.DStock" >
+    update D_STOCK
+    set STOCK_TYPE_CODE = #{stockTypeCode,jdbcType=VARCHAR},
+      STOCK_NAME = #{stockName,jdbcType=VARCHAR},
+      COMPANY_NAME = #{companyName,jdbcType=VARCHAR},
+      COMPANY_EN_NAME = #{companyEnName,jdbcType=VARCHAR},
+      ISSUE_PRICE = #{issuePrice,jdbcType=DOUBLE},
+      FIRST_DAY_OPENING_PRICE = #{firstDayOpeningPrice,jdbcType=DOUBLE},
+      FIRST_DAY_CLOSING_PRICE = #{firstDayClosingPrice,jdbcType=DOUBLE},
+      REGISTERED_ADDRESSES = #{registeredAddresses,jdbcType=VARCHAR},
+      OFFICE_ADDRESS = #{officeAddress,jdbcType=VARCHAR},
+      LISTING_DATE = #{listingDate,jdbcType=DATE},
+      MARKET_CAPITALIZATION = #{marketCapitalization,jdbcType=DOUBLE},
+      CIRCULATED_STOCK_VALUE = #{circulatedStockValue,jdbcType=DOUBLE},
+      TOTAL_CAPITAL = #{totalCapital,jdbcType=DOUBLE},
+      CURR_CAPITAL = #{currCapital,jdbcType=DOUBLE},
+      LISTED_MARKET = #{listedMarket,jdbcType=VARCHAR},
+      LEAD_UNDERWRITER = #{leadUnderwriter,jdbcType=VARCHAR},
+      ESTABLISH_DATE = #{establishDate,jdbcType=DATE},
+      REGISTERED_CAPITAL = #{registeredCapital,jdbcType=INTEGER},
+      ORGANIZATION = #{organization,jdbcType=VARCHAR},
+      INTRODUCTION = #{introduction,jdbcType=VARCHAR},
+      SCOPE = #{scope,jdbcType=VARCHAR},
+      STOCK_STATE = #{stockState,jdbcType=TINYINT},
+      UPD_DATE = #{updDate,jdbcType=TIMESTAMP}
+    where STOCK_CODE = #{stockCode,jdbcType=VARCHAR}
+  </update>
+  <insert id="insertBatch" parameterType="map" >
+    insert into D_STOCK
+	(STOCK_CODE,STOCK_TYPE_CODE,STOCK_NAME,COMPANY_NAME,COMPANY_EN_NAME,ISSUE_PRICE,FIRST_DAY_OPENING_PRICE,FIRST_DAY_CLOSING_PRICE,REGISTERED_ADDRESSES,OFFICE_ADDRESS,LISTING_DATE,MARKET_CAPITALIZATION,CIRCULATED_STOCK_VALUE,TOTAL_CAPITAL,CURR_CAPITAL,LISTED_MARKET,LEAD_UNDERWRITER,ESTABLISH_DATE,REGISTERED_CAPITAL,ORGANIZATION,INTRODUCTION,SCOPE,STOCK_STATE,UPD_DATE)
+	values
+	<foreach collection="list" item="item" index="index" separator=",">
+		(#{item.stockCode},#{item.stockTypeCode},#{item.stockName},#{item.companyName},#{item.companyEnName},#{item.issuePrice},#{item.firstDayOpeningPrice},#{item.firstDayClosingPrice},#{item.registeredAddresses},#{item.officeAddress},#{item.listingDate},#{item.marketCapitalization},#{item.circulatedStockValue},#{item.totalCapital},#{item.currCapital},#{item.listedMarket},#{item.leadUnderwriter},#{item.establishDate},#{item.registeredCapital},#{item.organization},#{item.introduction},#{item.scope},#{item.stockState},#{item.updDate})
+	</foreach>
+  </insert>
+</mapper>

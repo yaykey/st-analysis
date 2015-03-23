@@ -1,0 +1,167 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.st.framework.persistence.mapper.stock.RptTrendMapper" >
+  <resultMap id="BaseResultMap" type="com.st.framework.module.stock.RptTrendKey" >
+    <id column="STOCK_CODE" property="stockCode" jdbcType="INTEGER" />
+    <id column="DATE_ID" property="dateId" jdbcType="DATE" />
+    <id column="DIM_ID" property="dimId" jdbcType="INTEGER" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    STOCK_CODE, DATE_ID, DIM_ID
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.st.framework.module.stock.example.RptTrendExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from RPT_TREND
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="com.st.framework.module.stock.RptTrendKey" >
+    delete from RPT_TREND
+    where STOCK_CODE = #{stockCode,jdbcType=INTEGER}
+      and DATE_ID = #{dateId,jdbcType=DATE}
+      and DIM_ID = #{dimId,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.st.framework.module.stock.example.RptTrendExample" >
+    delete from RPT_TREND
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.st.framework.module.stock.RptTrendKey" >
+    insert into RPT_TREND (STOCK_CODE, DATE_ID, DIM_ID
+      )
+    values (#{stockCode,jdbcType=INTEGER}, #{dateId,jdbcType=DATE}, #{dimId,jdbcType=INTEGER}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.st.framework.module.stock.RptTrendKey" >
+    insert into RPT_TREND
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="stockCode != null" >
+        STOCK_CODE,
+      </if>
+      <if test="dateId != null" >
+        DATE_ID,
+      </if>
+      <if test="dimId != null" >
+        DIM_ID,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="stockCode != null" >
+        #{stockCode,jdbcType=INTEGER},
+      </if>
+      <if test="dateId != null" >
+        #{dateId,jdbcType=DATE},
+      </if>
+      <if test="dimId != null" >
+        #{dimId,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.st.framework.module.stock.example.RptTrendExample" resultType="java.lang.Integer" >
+    select count(*) from RPT_TREND
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update RPT_TREND
+    <set >
+      <if test="record.stockCode != null" >
+        STOCK_CODE = #{record.stockCode,jdbcType=INTEGER},
+      </if>
+      <if test="record.dateId != null" >
+        DATE_ID = #{record.dateId,jdbcType=DATE},
+      </if>
+      <if test="record.dimId != null" >
+        DIM_ID = #{record.dimId,jdbcType=INTEGER},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update RPT_TREND
+    set STOCK_CODE = #{record.stockCode,jdbcType=INTEGER},
+      DATE_ID = #{record.dateId,jdbcType=DATE},
+      DIM_ID = #{record.dimId,jdbcType=INTEGER}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <insert id="insertBatch" parameterType="map" >
+    insert into RPT_TREND
+	(STOCK_CODE,DATE_ID,DIM_ID)
+	values
+	<foreach collection="list" item="item" index="index" separator=",">
+		(#{item.stockCode},#{item.dateId},#{item.dimId})
+	</foreach>
+  </insert>
+</mapper>

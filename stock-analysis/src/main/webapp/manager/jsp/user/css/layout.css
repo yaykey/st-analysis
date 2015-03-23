@@ -1,0 +1,100 @@
+body{
+	font-size: 12px;
+}
+ul{
+	list-style:none;
+}
+.user-operation{
+	overflow:hidden;
+	color:#686868;
+}
+.user-operation li{
+
+}
+.user-operation p{
+	font-size:14px;
+	zoom:1;
+	overflow:hidden;
+	border-bottom:1px #cdd7d9 solid;
+	text-align: right;
+	margin-right: 2%;
+}
+input{
+	border: 1px solid #cdd7d9;
+    padding: 5px;
+    border-radius: 8px;
+    -webkit-border-radius: 8px;
+    -moz-border-radius: 8px;
+}
+.user-operation .search {
+	background-color: white;
+	background: center;
+	width: 22px;
+	height:22px;
+	vertical-align:text-bottom;
+	background-repeat: no-repeat;
+	border:none;
+}
+.user-operation .condition {
+	color: #CDCDCD;
+	font-size: 11px;
+	width: 180px;
+	height:25px;
+}
+.user-operation .term {
+	color: #000;
+	font-size: 12px;
+}
+table.users {
+	width:100%;
+	font-family:arial;
+	background-color: #cdd7d9;
+	font-size: 8pt;
+	text-align: center;
+	border-collapse: collapse;
+    border: none;
+}
+table.users thead tr th, table.users tfoot tr th {
+	background-color: #C4DDF6;
+	font-size: 12px;
+	padding: 4px;
+	border: solid #cdd7d9 1px;
+	color: #4F6B72;
+}
+table.users tbody td {
+	color: #3D3D3D;
+	padding: 4px;
+	background-color: #FFF;
+	vertical-align: middle;
+	border: solid #cdd7d9 1px;
+	height: 25px;
+}
+table.users tbody tr.odd td {
+	background-color:#EAF5F9;
+}
+table.users tbody tr.even td {
+	background-color:#FFF;
+}
+table.users tbody tr.selected td{ 
+	background:#FFFFCC;
+	color:#000;
+}
+.version_4 {
+	background: #fff;
+}
+.tit_1 {
+	background: url(../images/line_bg2.jpg) repeat-x;
+	height: 36px;
+	line-height: 36px;
+	padding-left: 20px;
+	border-left: 1px solid #739bc5;
+	border-right: 1px solid #739bc5;
+}
+.list_bg{_height:547px;min-height:574px; background:#FFF;padding-botton:20px;}
+.fr{float:right;}
+.double_left_tab1{background:url(../images/left1_1.png) no-repeat;cursor:pointer; width:48px;line-height:25px;height:25px;overflow: hidden;text-align:center;FILTER:filph;}
+.double_left_tab2{background:url(../images/left1_2.png) no-repeat; width:48px;line-height:25px;height:25px;overflow: hiddentext-align:center;FILTER:filph;}
+.double_right_tab1{background:url(../images/right1_1.png) no-repeat; width:48px;line-height:25px;height:25px;overflow: hiddentext-align:center;FILTER:filph;}
+.double_right_tab2{background:url(../images/right1_2.png) no-repeat;cursor:pointer; width:48px;line-height:25px;height:25px;overflow: hidden;text-align:center;FILTER:filph;}
+
+

@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<groups xmlns="http://www.isdc.ro/wro" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.isdc.ro/wro wro.xsd">
+
+	<group name="jquery">
+		<js>/js/jquery/jquery-1.8.1.js</js>
+	</group>
+	
+	<group name="jquery-ui">
+		<js>/js/jquery/ui/jquery-ui.js</js>
+		<js>/js/jquery/ui/i18n/jquery.ui.datepicker-zh-CN.js</js>
+		<js>/js/jquery-blockUI/jquery.blockUI.js</js>
+	</group>
+	
+	<group name="jquery-validation">
+		<js>/js/jquery-validation-1.9.0/jquery.validate.js</js>
+		<js>/js/jquery-validation-1.9.0/localization/messages_cn.js</js>
+	</group>
+	<group name="ui-css">
+		<css>/js/jquery/themes/base/jquery.ui.all.css</css>
+		<group-ref>multiselect-css</group-ref>
+		<css>/date/css/datepicker.css</css>
+		<css>/js/messager/msg.css</css>
+	</group>
+	
+	<group name="ui-js">
+		<group-ref>jquery</group-ref>
+		<group-ref>jquery-ui</group-ref>
+		<group-ref>jquery-validation</group-ref>
+		<js>/js/utils/utils.js</js>
+		<!-- <group-ref>dwr</group-ref> -->
+		<group-ref>multiselect-js</group-ref>
+		<group-ref>scrollbar-js</group-ref>
+		<group-ref>date-js</group-ref>
+		<!-- <group-ref>raphael-js</group-ref> -->
+		<group-ref>messager-js</group-ref>
+	</group>
+	
+	<!-- <group name="dwr">	    
+	    <js>/js/dwr/PageQueryCondition.js</js>
+		<js>/js/dwr/engine.js</js>
+		<js>/js/dwr/util.js</js>
+	</group> -->
+	
+	<group name="multiselect-css">
+		<css>/manager/css/multiselect/jquery.multiselect.css</css>
+		<css>/manager/css/multiselect/jquery.multiselect.filter.css</css>
+		<css>/manager/css/multiselect/prettify.css</css>
+		<css>/manager/css/multiselect/style.css</css>
+		<css>/manager/css/multiselect/jquery-ui.css</css>
+		<css>/manager/css/multiselect/jquery-ui-multiselect-redmond.css</css>
+	</group>
+	
+	<group name="multiselect-js">
+	    <js>/manager/js/multiselect/jquery.multiselect.js</js>
+	    <js>/manager/js/multiselect/jquery.multiselect.filter.js</js>
+		<js>/manager/js/multiselect/prettify.js</js>
+	</group>
+	<group name="scrollbar-js">
+	    <js>/manager/js/scrollbar_plugin/jquery.nicescroll.js</js>
+	</group>
+	<!-- <group name="raphael-js">
+	    <js>/js/raphael/rapheal.js</js>
+	    <js>/report/newchartline/js/raphael.js</js>
+	    <js>/report/newchartline/js/lineChart.js</js>
+	</group> -->
+	<!--弹出消息 alert confirm-->
+	<group name="messager-js">
+	    <js>/js/messager/messager.js</js>
+	</group>
+	
+	<group name="date-js">
+	    <js>/date/js/datepicker.js</js>
+		<js>/date/js/week.js</js>
+		<js>/date/js/dateFormat.js</js>
+	</group>
+
+</groups>

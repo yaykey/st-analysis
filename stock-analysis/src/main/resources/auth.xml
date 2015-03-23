@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="GB2312"?>
+<Config>
+	<!-- 系统中受访问限制的URL配置文件 -->
+	<unprotectedurl>/birt</unprotectedurl>
+	<unprotectedurl>/report/birtFile</unprotectedurl>
+	
+</Config>

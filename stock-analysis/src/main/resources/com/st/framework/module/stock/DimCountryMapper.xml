@@ -1,0 +1,212 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.st.framework.persistence.mapper.stock.DimCountryMapper">
+  <resultMap id="BaseResultMap" type="com.st.framework.module.stock.DimCountry">
+    <id column="AB2" jdbcType="VARCHAR" property="ab2" />
+    <result column="AB3" jdbcType="VARCHAR" property="ab3" />
+    <result column="CODE" jdbcType="INTEGER" property="code" />
+    <result column="AB" jdbcType="VARCHAR" property="ab" />
+    <result column="NAME" jdbcType="VARCHAR" property="name" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    AB2, AB3, CODE, AB, NAME
+  </sql>
+  <select id="selectByExample" parameterType="com.st.framework.module.stock.example.DimCountryExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from DIM_COUNTRY
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from DIM_COUNTRY
+    where AB2 = #{ab2,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+    delete from DIM_COUNTRY
+    where AB2 = #{ab2,jdbcType=VARCHAR}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.st.framework.module.stock.example.DimCountryExample">
+    delete from DIM_COUNTRY
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.st.framework.module.stock.DimCountry">
+    insert into DIM_COUNTRY (AB2, AB3, CODE, 
+      AB, NAME)
+    values (#{ab2,jdbcType=VARCHAR}, #{ab3,jdbcType=VARCHAR}, #{code,jdbcType=INTEGER}, 
+      #{ab,jdbcType=VARCHAR}, #{name,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.st.framework.module.stock.DimCountry">
+    insert into DIM_COUNTRY
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="ab2 != null">
+        AB2,
+      </if>
+      <if test="ab3 != null">
+        AB3,
+      </if>
+      <if test="code != null">
+        CODE,
+      </if>
+      <if test="ab != null">
+        AB,
+      </if>
+      <if test="name != null">
+        NAME,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="ab2 != null">
+        #{ab2,jdbcType=VARCHAR},
+      </if>
+      <if test="ab3 != null">
+        #{ab3,jdbcType=VARCHAR},
+      </if>
+      <if test="code != null">
+        #{code,jdbcType=INTEGER},
+      </if>
+      <if test="ab != null">
+        #{ab,jdbcType=VARCHAR},
+      </if>
+      <if test="name != null">
+        #{name,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.st.framework.module.stock.example.DimCountryExample" resultType="java.lang.Integer">
+    select count(*) from DIM_COUNTRY
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update DIM_COUNTRY
+    <set>
+      <if test="record.ab2 != null">
+        AB2 = #{record.ab2,jdbcType=VARCHAR},
+      </if>
+      <if test="record.ab3 != null">
+        AB3 = #{record.ab3,jdbcType=VARCHAR},
+      </if>
+      <if test="record.code != null">
+        CODE = #{record.code,jdbcType=INTEGER},
+      </if>
+      <if test="record.ab != null">
+        AB = #{record.ab,jdbcType=VARCHAR},
+      </if>
+      <if test="record.name != null">
+        NAME = #{record.name,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update DIM_COUNTRY
+    set AB2 = #{record.ab2,jdbcType=VARCHAR},
+      AB3 = #{record.ab3,jdbcType=VARCHAR},
+      CODE = #{record.code,jdbcType=INTEGER},
+      AB = #{record.ab,jdbcType=VARCHAR},
+      NAME = #{record.name,jdbcType=VARCHAR}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.st.framework.module.stock.DimCountry">
+    update DIM_COUNTRY
+    <set>
+      <if test="ab3 != null">
+        AB3 = #{ab3,jdbcType=VARCHAR},
+      </if>
+      <if test="code != null">
+        CODE = #{code,jdbcType=INTEGER},
+      </if>
+      <if test="ab != null">
+        AB = #{ab,jdbcType=VARCHAR},
+      </if>
+      <if test="name != null">
+        NAME = #{name,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where AB2 = #{ab2,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.st.framework.module.stock.DimCountry">
+    update DIM_COUNTRY
+    set AB3 = #{ab3,jdbcType=VARCHAR},
+      CODE = #{code,jdbcType=INTEGER},
+      AB = #{ab,jdbcType=VARCHAR},
+      NAME = #{name,jdbcType=VARCHAR}
+    where AB2 = #{ab2,jdbcType=VARCHAR}
+  </update>
+  
+</mapper>

@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE dwr PUBLIC "-//GetAhead Limited//DTD Direct Web Remoting 3.0//EN" "http://getahead.org/dwr/dwr30.dtd">
+
+<dwr>
+	<allow>
+		
+	    <create creator="new" javascript="PageQueryCondition">
+			<param name="class" value="com.feinno.fdc.report.report.controller.actions.report.PageQueryCondition" />
+		</create>
+		
+		<create creator="new" javascript="refreshReport">
+			<param name="class" value="com.feinno.fdc.report.report.utils.RefreshReportAjax" />
+		</create>
+		
+		<create creator="new" javascript="CmppKpiUtil">
+			<param name="class" value="com.feinno.circle.framework.controller.actions.messagesend.ajax.CmppKpiUtil" />	
+		</create>
+	</allow>
+	</dwr>

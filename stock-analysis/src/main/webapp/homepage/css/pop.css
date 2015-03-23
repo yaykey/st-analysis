@@ -1,0 +1,62 @@
+/*w298_h196*/
+.w298_h196{ width:298px; height:196px; background:url(../images/w298_h196.png) no-repeat; position:relative; }
+.close_btn{ position:absolute; right:13px; top:8px; height:36px; width:36px;}
+.w298_text{ width:205px; margin:0 auto; font-size:14px; text-indent:2em; padding-top:60px; line-height:20px;}
+.pop_w104btn{ position:absolute; left:92px; top:125px; display:block; width:104px; height:31px; background:url(../images/w104_h31.png) no-repeat; text-align:center; line-height:31px; font-size:14px; color:#fff;}
+.pop_share{ display:block;  margin-right:50px;}
+.pop_share input{ width:12px; height:12px;}
+.pop_share input,.pop_share i{ float:right; font-size:14px;}
+
+/*w488_h355*/
+.w488_h335{ position:relative; width:488px; height:335px; background:url(../images/w488_h335.png) no-repeat;}
+.w488_tit{ height:36px; line-height:36px; text-align:center; color:#000; font-size:14px; font-weight:bold; padding-top:5px;}
+.text_instructions{ line-height:18px; color:#965207; width:424px; margin:0 auto 5px; text-indent:2em; border:1px dotted #999; padding:5px;}
+.friendscon{width: 435px;height: 200px; margin:5px auto 0;}
+.search{ height:18px; border-bottom:1px solid #b0cbff; line-height:18px;}
+.list_con .search input{ height:17px; width:180px; padding-left:4px; float:left; color:#b1b1b1; line-height:17px; border:none; background:none; outline:none;}
+.list_con .search .search_icon,.list_con .search .search_close{ float:left; height:14px; width:14px; margin:2px 0 0 8px; display:inline;}
+.list_con p.friends_tit{ height:20px; margin:3px 0 0 10px; background:url(../images/pop_icon1.png) no-repeat left center; color:#403e3e; font-size:14px; font-weight:bold; padding-left:18px; line-height:20px;}
+.list_con .check{ margin:2px 3px 0; float:left;}
+.friends_list{ height:148px; overflow-y:auto; margin-top:5px;}
+.frilist,.upcon{border: 1px solid #b0cbff;}
+.frilist{width: 218px;}
+.seledright{width: 208px;}
+.upcon{margin-bottom: 3px; height:198px;}
+.friendscon .seledright .upcon p{margin:5px 0 0 6px;background:url(../images/pop_icon2.png) no-repeat 0; padding-left:18px; color:#403e3e; font-size:14px; font-weight:bold; height:20px; line-height:20px; float:left; width:180px;}
+.friendscon .seledright .upcon p a{ float:right; width:25px; color:#d51415; font-weight:normal;  font-size:12px;}
+.list_con{ height:198px;}
+.r_box{padding: 3px 0 0 25px;overflow-y: auto;height:168px; }
+.r_box span {background: url(../images/off_icon.gif) no-repeat ;width: 10px;height: 10px;display: block;margin-left: 5px;cursor: pointer;}
+.r_box ul li{padding:2px;height: 16px; line-height:16px;}
+.r_box ul li img,.r_box ul li i,.r_box ul li span{ float:left;}
+.r_box ul li img{ width:16px; height:16px; margin-right:3px;}
+.r_box ul li i{ width:120px;}
+.r_box ul li span{ margin-top:4px;}
+.friends_list dt{margin: 2px 0; line-height:16px; padding-left:10px;}
+.deta_fri p{margin: 2px 0;  height:16px; line-height:16px; padding-left:30px; width:160px;}
+.deta_fri p span{ float:left;}
+.deta_fri p img{ float:left; width:16px; height:15px; margin:2px 2px 0 0}
+.list_con input{ margin:0 3px;  width:13px; height:13px; }
+.list_con .show,.list_con .off{width:9px; height:9px; float:left; margin:3px 3px 0 0;cursor: pointer;}
+.list_con .off{ background:url(../images/invite_friend_show.gif) no-repeat; }
+.list_con .show{ background:url(../images/invite_friend_off.gif) no-repeat; }
+.deta_fri{ display:none;}
+.tiptext{color: #cf0707;line-height: 22px;text-align: left;margin-top:10px; width:435px; margin:5px auto; height:22px;} 
+.invitation{ display:block; height:31px; width:104px; background:url(../images/w104_h31.png) no-repeat; text-align:center; line-height:31px; font-size:18px; color:#fff; font-family:"Microsoft YaHei"; margin:10px auto 0;}
+.pop_table{ width:420px; margin:0 auto;}
+.pop_table1{ width:100%; border:1px solid #89ade6;}
+.pop_table1 th,.pop_table1 td{border:1px solid #89ade6; height:26px;}
+.pop_table1 th{text-align:center; }
+.pop_table1 td{padding-left:10px;}
+.pop_table1 a{ text-decoration:underline;}
+.pop_rules{ width:448px; height:280px; margin:0 auto; overflow-y:auto;}
+.pop_rules p{ text-indent:2em; line-height:18px;}
+
+/*flash_pop*/
+.flash_pop{ width:220px; margin:0 auto; font-size:14px;line-height:20px;}
+.read_btn{ text-decoration:underline; color:#ed0d0d;}
+.share_help{ position:absolute; left:0; top:130px; width:298px; text-align:center; height:31px;}
+.share_help a{ display:inline-block;width:104px; height:31px; background:url(../images/w104_h31.png) no-repeat; text-align:center; line-height:31px; font-size:14px; color:#fff; margin:0 10px;}
+.good_btn{ display:block;width:104px; height:31px; background:url(../images/w104_h31.png) no-repeat; text-align:center; line-height:31px; font-size:14px; color:#fff; margin:10px auto 0;}
+.open_vip_btn{ text-decoration:underline; color:#434343; font-weight:bold;}
+.flash_pop p.fs12{ font-size:12px; margin-top:10px;}

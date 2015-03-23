@@ -1,0 +1,204 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.st.framework.persistence.mapper.stock.GDetailFileErrorMapper" >
+  <resultMap id="BaseResultMap" type="com.st.framework.module.stock.GDetailFileError" >
+    <id column="STOCK_CODE" property="stockCode" jdbcType="VARCHAR" />
+    <id column="DATE_ID" property="dateId" jdbcType="INTEGER" />
+    <result column="BALANCE" property="balance" jdbcType="INTEGER" />
+    <result column="IS_DEAL" property="isDeal" jdbcType="BIT" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    STOCK_CODE, DATE_ID, BALANCE, IS_DEAL
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.st.framework.module.stock.example.GDetailFileErrorExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from G_DETAIL_FILE_ERROR
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="com.st.framework.module.stock.GDetailFileErrorKey" >
+    select 
+    <include refid="Base_Column_List" />
+    from G_DETAIL_FILE_ERROR
+    where STOCK_CODE = #{stockCode,jdbcType=VARCHAR}
+      and DATE_ID = #{dateId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="com.st.framework.module.stock.GDetailFileErrorKey" >
+    delete from G_DETAIL_FILE_ERROR
+    where STOCK_CODE = #{stockCode,jdbcType=VARCHAR}
+      and DATE_ID = #{dateId,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.st.framework.module.stock.example.GDetailFileErrorExample" >
+    delete from G_DETAIL_FILE_ERROR
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.st.framework.module.stock.GDetailFileError" >
+    insert into G_DETAIL_FILE_ERROR (STOCK_CODE, DATE_ID, BALANCE, 
+      IS_DEAL)
+    values (#{stockCode,jdbcType=VARCHAR}, #{dateId,jdbcType=INTEGER}, #{balance,jdbcType=INTEGER}, 
+      #{isDeal,jdbcType=BIT})
+  </insert>
+  <insert id="insertSelective" parameterType="com.st.framework.module.stock.GDetailFileError" >
+    insert into G_DETAIL_FILE_ERROR
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="stockCode != null" >
+        STOCK_CODE,
+      </if>
+      <if test="dateId != null" >
+        DATE_ID,
+      </if>
+      <if test="balance != null" >
+        BALANCE,
+      </if>
+      <if test="isDeal != null" >
+        IS_DEAL,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="stockCode != null" >
+        #{stockCode,jdbcType=VARCHAR},
+      </if>
+      <if test="dateId != null" >
+        #{dateId,jdbcType=INTEGER},
+      </if>
+      <if test="balance != null" >
+        #{balance,jdbcType=INTEGER},
+      </if>
+      <if test="isDeal != null" >
+        #{isDeal,jdbcType=BIT},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.st.framework.module.stock.example.GDetailFileErrorExample" resultType="java.lang.Integer" >
+    select count(*) from G_DETAIL_FILE_ERROR
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update G_DETAIL_FILE_ERROR
+    <set >
+      <if test="record.stockCode != null" >
+        STOCK_CODE = #{record.stockCode,jdbcType=VARCHAR},
+      </if>
+      <if test="record.dateId != null" >
+        DATE_ID = #{record.dateId,jdbcType=INTEGER},
+      </if>
+      <if test="record.balance != null" >
+        BALANCE = #{record.balance,jdbcType=INTEGER},
+      </if>
+      <if test="record.isDeal != null" >
+        IS_DEAL = #{record.isDeal,jdbcType=BIT},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update G_DETAIL_FILE_ERROR
+    set STOCK_CODE = #{record.stockCode,jdbcType=VARCHAR},
+      DATE_ID = #{record.dateId,jdbcType=INTEGER},
+      BALANCE = #{record.balance,jdbcType=INTEGER},
+      IS_DEAL = #{record.isDeal,jdbcType=BIT}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.st.framework.module.stock.GDetailFileError" >
+    update G_DETAIL_FILE_ERROR
+    <set >
+      <if test="balance != null" >
+        BALANCE = #{balance,jdbcType=INTEGER},
+      </if>
+      <if test="isDeal != null" >
+        IS_DEAL = #{isDeal,jdbcType=BIT},
+      </if>
+    </set>
+    where STOCK_CODE = #{stockCode,jdbcType=VARCHAR}
+      and DATE_ID = #{dateId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.st.framework.module.stock.GDetailFileError" >
+    update G_DETAIL_FILE_ERROR
+    set BALANCE = #{balance,jdbcType=INTEGER},
+      IS_DEAL = #{isDeal,jdbcType=BIT}
+    where STOCK_CODE = #{stockCode,jdbcType=VARCHAR}
+      and DATE_ID = #{dateId,jdbcType=INTEGER}
+  </update>
+  <insert id="insertBatch" parameterType="map" >
+    insert into G_DETAIL_FILE_ERROR
+	(STOCK_CODE,DATE_ID,BALANCE,IS_DEAL)
+	values
+	<foreach collection="list" item="item" index="index" separator=",">
+		(#{item.stockCode},#{item.dateId},#{item.balance},#{item.isDeal})
+	</foreach>
+  </insert>
+</mapper>

@@ -1,0 +1,279 @@
+DELISTING
+
+http://hq.sinajs.cn/list=sh600370,sh600371,sh600372,sh600373,sh600375,sh600376,sh600377,sh600378,sh600379,sh600380,sh600382,sh600383,sh600386,sh600387,sh600388,sh600389,sh600390,sh600391,sh600392,sh600393,sh600395,sh600396,sh600397,sh600398,sh600399,sh600400,sh600401,sh600403,sh600405,sh600406,sh600408,sh600409,sh600410,sh600415,sh600416,sh600418,sh600419,sh600420,sh600421,sh600422,sh600423,sh600425,sh600426,sh600428,sh600429,sh600432,sh600433,sh600435,sh600436,sh600438,sh600439,sh600444,sh600446,sh600448,sh600449,sh600452,sh600455,sh600456,sh600458,sh600459
+
+
+DETAIL
+buy , sell
+
+股票代码 Ticker symbol
+股票名称 Stock Name
+交易类别 Types of transactions
+实时买入 Real-time buy 
+交易性质 NATURE of the transaction
+买涨 Buy up
+买跌 Buy or
+买入数量 Quantity to buy
+卖出数量 Quantity sold
+买入价格 Purchase price
+卖出价格 Selling price
+预买价格 Pre-buy
+预卖价格 Pre-selling price
+盈亏（百分比）Profit and loss (percentage)
+扣除费用 Deducting the cost of
+
+
+	,PRICE,PRICE_CHANGES,VOLUME(VOL),AMO  ,NATURE  
+成交时间		成交价	价格变动	成交量(手)	成交额(元)	性质
+15:00:25	30.25	0.02	2702	8173550	买盘
+14:57:01	30.23	-0.01	13	39299	卖盘
+14:56:55	30.24	0.01	113	341712	买盘
+14:56:55	30.23	0.01	10	30230	买盘
+
+成交额
+成交额(英语缩写AMOUNT) 
+
+
+
+缩写对照
+(2007-05-05 01:16:39)
+转载▼
+	
+ 缩写对照
+
+     
+    最高价：HIGH 
+    收盘价：CLOSE 
+    最低价：LOW 
+    开盘价：OPEN 
+    成交量：VOL
+    成交额：AMO
+    类型
+    	
+    热键名
+    	
+    指标名
+
+    趋
+
+    势
+
+    分
+
+    析
+
+    指
+
+    标
+    	
+    　MA
+    	
+    　移动平均线
+    　PUBU
+    	
+    　瀑布线
+    　SAR
+    	
+    　止损线
+    　BOLL
+    	
+    　布林通道
+    　TOWER
+    	
+    　宝塔线
+    　ENV
+    	
+    　ENV指标
+    　CDP
+    	
+    　逆势操作
+    　MIKE
+    	
+    　麦克指标
+    　LINE
+    	
+    　走势图
+    　BAR
+    	
+    　竹线
+    　CDL
+    	
+    　K线
+
+    摆
+
+    动
+
+    指
+
+    数
+
+    分
+
+    析
+
+    指
+
+    标
+    	
+    　MACD
+    	
+    　指数平滑异同移动平均线
+    　RSI
+    	
+    　相对强弱指数
+    　KD
+    	
+    　随机指标
+    　WR　
+    	
+    　威廉指数
+    　MTM
+    	
+    　动力指标
+    　DMI
+    	
+    　趋向指数
+    　BIAS
+    	
+    　乖离率
+    　PSY
+    	
+    　心理线
+    　ARBR
+    	
+    　人气意愿指标
+    　ROC
+    	
+    　超买超卖
+    　OSI
+    	
+    　OSI
+    　LPT
+    	
+    　LPT
+    　ADTM
+    	
+    　动态买卖气指标
+    　ASI
+    	
+    　振动升降指示
+    　ATR
+    	
+    　真实波幅
+    　B3612
+    	
+    　三减六日乖离
+    　BBI
+    	
+    　多空指数
+    　CR
+    	
+    　CR能量指标
+    　DBCB
+    	
+    　异同离差乖离率
+    　DDI
+    	
+    　方向标准离差指数
+    　DMA
+    	
+    　平均线差
+    　DMIQL
+    	
+    　钱龙趋向指标
+    　DPO
+    	
+    　Detrended Price Oscillator
+    　LWR
+    	
+    　LWR威廉指标
+    　MASS
+    	
+    　Mass Index
+    　MI
+    	
+    　动量指标
+    　MICD
+    	
+    　异同离差动力指数
+    　PRICEOSC
+    	
+    　Price Oscillator
+    　QHLSR
+    	
+    　QHLSR阻力指标
+    　RC
+    	
+    　变化率指数
+    　RCCD
+    	
+    　异同离差变化率指数
+    　SI
+    	
+    　Swing Index
+    　SLOWKD
+    	
+    　慢KD
+    　SRDM
+    	
+    　动向速度比率
+    　SRMI
+    	
+    　MI修正指标
+    　WAD
+    	
+    　William's Accumulation/Distribution
+    　ZDZB
+    	
+    　筑底指标
+
+    成
+    交
+    量
+    持
+    仓
+    量
+    分
+    析
+    指
+    标
+    	
+    　MV
+    	
+    　均量线
+    　VOL
+    	
+    　双向成交量
+    　OPI
+    	
+    　持仓量
+    　OBV
+    	
+    　能量潮
+    　VOSC
+    	
+    　Volume Oscillator
+    　VR
+    	
+    　容量比率
+    　VROC
+    	
+    　量变动速率
+    　VRSI
+    	
+    　量相对强弱
+    　WVAD
+    	
+    　威廉变异离散量
+    　PVT
+    	
+    　Price/Volume Trend
+    　AD
+    	
+    　Accumulation/
+    
+DATE,OPEN,HIGH,LOW,CLOSE,VOLUME,ADJ_CLOSE
+    
+   AMPLITUDE  
+    

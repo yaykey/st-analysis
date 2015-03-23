@@ -1,0 +1,199 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.st.framework.persistence.mapper.stock.FactDateHolidayListMapper" >
+  <resultMap id="BaseResultMap" type="com.st.framework.module.stock.FactDateHolidayList" >
+    <id column="FESTIVAL" property="festival" jdbcType="VARCHAR" />
+    <id column="DATE" property="date" jdbcType="VARCHAR" />
+    <result column="STATUS" property="status" jdbcType="INTEGER" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    FESTIVAL, DATE, STATUS
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.st.framework.module.stock.example.FactDateHolidayListExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from FACT_DATE_HOLIDAY_LIST
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+    <if test="start != null and pageSize != null" >
+      limit #{start}, #{pageSize}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="com.st.framework.module.stock.FactDateHolidayListKey" >
+    select 
+    <include refid="Base_Column_List" />
+    from FACT_DATE_HOLIDAY_LIST
+    where FESTIVAL = #{festival,jdbcType=VARCHAR}
+      and DATE = #{date,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="com.st.framework.module.stock.FactDateHolidayListKey" >
+    delete from FACT_DATE_HOLIDAY_LIST
+    where FESTIVAL = #{festival,jdbcType=VARCHAR}
+      and DATE = #{date,jdbcType=VARCHAR}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.st.framework.module.stock.example.FactDateHolidayListExample" >
+    delete from FACT_DATE_HOLIDAY_LIST
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.st.framework.module.stock.FactDateHolidayList" >
+    insert into FACT_DATE_HOLIDAY_LIST (FESTIVAL, DATE, STATUS
+      )
+    values (#{festival,jdbcType=VARCHAR}, #{date,jdbcType=VARCHAR}, #{status,jdbcType=INTEGER}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.st.framework.module.stock.FactDateHolidayList" >
+    insert into FACT_DATE_HOLIDAY_LIST
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="festival != null" >
+        FESTIVAL,
+      </if>
+      <if test="date != null" >
+        DATE,
+      </if>
+      <if test="status != null" >
+        STATUS,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="festival != null" >
+        #{festival,jdbcType=VARCHAR},
+      </if>
+      <if test="date != null" >
+        #{date,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null" >
+        #{status,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.st.framework.module.stock.example.FactDateHolidayListExample" resultType="java.lang.Integer" >
+    select count(*) from FACT_DATE_HOLIDAY_LIST
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update FACT_DATE_HOLIDAY_LIST
+    <set >
+      <if test="record.festival != null" >
+        FESTIVAL = #{record.festival,jdbcType=VARCHAR},
+      </if>
+      <if test="record.date != null" >
+        DATE = #{record.date,jdbcType=VARCHAR},
+      </if>
+      <if test="record.status != null" >
+        STATUS = #{record.status,jdbcType=INTEGER},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update FACT_DATE_HOLIDAY_LIST
+    set FESTIVAL = #{record.festival,jdbcType=VARCHAR},
+      DATE = #{record.date,jdbcType=VARCHAR},
+      STATUS = #{record.status,jdbcType=INTEGER}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.st.framework.module.stock.FactDateHolidayList" >
+    update FACT_DATE_HOLIDAY_LIST
+    <set >
+      <if test="status != null" >
+        STATUS = #{status,jdbcType=INTEGER},
+      </if>
+    </set>
+    where FESTIVAL = #{festival,jdbcType=VARCHAR}
+      and DATE = #{date,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.st.framework.module.stock.FactDateHolidayList" >
+    update FACT_DATE_HOLIDAY_LIST
+    set STATUS = #{status,jdbcType=INTEGER}
+    where FESTIVAL = #{festival,jdbcType=VARCHAR}
+      and DATE = #{date,jdbcType=VARCHAR}
+  </update>
+  
+  
+  <select id="selectDaysOff" resultType="java.lang.String" parameterType="map">
+  	select distinct d.DATE from (
+		select DATE from FACT_DATE_HOLIDAY_LIST	
+		where DATE between #{startDate,jdbcType=VARCHAR} and #{endDate,jdbcType=VARCHAR}
+		union	
+		select DATE from FACT_DATE_ALMANAC
+		where 
+			WEEK in (1,7) and 
+			DATE between #{startDate,jdbcType=VARCHAR} and #{endDate,jdbcType=VARCHAR}
+	) d
+	order by d.DATE
+  </select>
+  
+</mapper>

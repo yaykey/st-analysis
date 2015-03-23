@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Config>
+	<!-- 超时时间,单位小时.由于配置环境问题,有可能有GMT+8时区问题,计算时间差8小时,暂时忽略不计 -->
+	<failedTime>24</failedTime>
+	<!-- 需要缓存的路径 -->
+	<!-- <etagurl>/main</etagurl>
+	<etagurl>/report/amcharts</etagurl>
+	<etagurl>/report/amcharts/getChart</etagurl>
+	<etagurl>/report/birtext</etagurl>
+	<etagurl>/report/birtext/getBirtHtml</etagurl> -->
+	<etagurl>/manager/query/list</etagurl>
+	
+	
+</Config>

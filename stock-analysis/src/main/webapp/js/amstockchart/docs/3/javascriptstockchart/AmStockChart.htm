@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <title>AmStockChart | JavaScript Stock Charts v. 3 | amCharts</title>
+    <meta name="viewport" content="width=device-width; maximum-scale=0.6; minimum-scale=0.6; user-scalable=yes;">
+    <link rel="shortcut icon" href="favicon.ico" type="image/x-icon" />
+
+    <!-- Le styles -->
+    <link href="../lib/bootstrap/css/bootstrap.css" tppabs="http://docs.amcharts.com/3/lib/bootstrap/css/bootstrap.css" rel="stylesheet">
+    <link href="../lib/bootstrap/css/bootstrap-responsive.css" tppabs="http://docs.amcharts.com/3/lib/bootstrap/css/bootstrap-responsive.css" rel="stylesheet">
+    <link href="../lib/style.css" tppabs="http://docs.amcharts.com/3/lib/style.css" rel="stylesheet">
+
+    <!-- Le HTML5 shim, for IE6-8 support of HTML5 elements -->
+    <!--[if lt IE 9]>
+      <script src="../../../html5shim.googlecode.com/svn/trunk/html5.js" tppabs="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <!--[if gte IE 9]>
+      <style type="text/css">
+        #header h2 {
+          filter: none;
+        }
+      </style>
+    <![endif]-->
+
+  </head>
+
+  <body>  
+    <div id="header" class="navbar-fixed-top">
+      <div id="header-top">
+        <div class="inside">
+          <div id="line"></div>
+          <a href="javascript:if(confirm('http://www.amcharts.com/  \n\n该文件无法用 Teleport Ultra 下载, 因为 它是一个域或路径外部被设置为它的启始地址的地址。  \n\n你想在服务器上打开它?'))window.location='http://www.amcharts.com/'" tppabs="http://www.amcharts.com/" id="logo"></a>
+          <div id="back"><a href="javascript:if(confirm('http://www.amcharts.com/  \n\n该文件无法用 Teleport Ultra 下载, 因为 它是一个域或路径外部被设置为它的启始地址的地址。  \n\n你想在服务器上打开它?'))window.location='http://www.amcharts.com/'" tppabs="http://www.amcharts.com/">Back to <strong>amcharts.com</strong></a></div>
+        </div>
+      </div>
+      <div id="header-bottom">
+        <div class="inside">
+          <div id="pick">Pick a product:</div>
+          <ul id="products">
+            <li class="product " id="javascriptcharts">
+              <a title="JavaScript Charts" href="../javascriptcharts.htm" tppabs="http://docs.amcharts.com/3/javascriptcharts"><i class="product-icon javascript-charts"></i><span>JavaScript</span><strong class="app-font transform-uppercase">Charts</strong></a>
+            </li>
+            <li class="product active" id="javascriptstockchart">
+              <a title="JavaScript Charts" href="../javascriptstockchart.htm" tppabs="http://docs.amcharts.com/3/javascriptstockchart"><i class="product-icon stock-charts"></i><span>JavaScript</span><strong class="app-font transform-uppercase">Stock Charts</strong>
+            </a>
+            <li class="product " id="javascriptmaps">
+              <a title="JavaScript Charts" href="../javascriptmaps.htm" tppabs="http://docs.amcharts.com/3/javascriptmaps"><i class="product-icon javascript-charts"></i><span>Interactive JavaScript</span><strong class="app-font transform-uppercase">Maps</strong>
+            </a>
+          </ul>
+          
+                    <h2>AmStockChart            <small>
+              <a href="#properties">Properties</a>
+              <a href="#methods">Methods</a>
+              <a href="#events">Events</a>
+            </small>
+          </h2>
+                  </div>
+      </div>
+    </div>
+
+    <div class="container">
+      
+              <ul class="nav nav-list left">
+  <li class="search-group">
+    <div class="input-group">
+      <form action="http://docs.amcharts.com/3/javascriptstockchart" method="get">
+        <input type="text" name="search" class="form-control" placeholder="Search" />
+      </form>
+    </div><!-- /input-group -->
+  </li>
+  
+  <li class="nav-header">Select a class</li>
+  <li><a href="AmAngularGauge.htm" tppabs="http://docs.amcharts.com/3/javascriptstockchart/AmAngularGauge">AmAngularGauge</a></li><li><a href="AmBalloon.htm" tppabs="http://docs.amcharts.com/3/javascriptstockchart/AmBalloon">AmBalloon</a></li><li><a href="AmChart.htm" tppabs="http://docs.amcharts.com/3/javascriptstockchart/AmChart">AmChart</a></li><li><a href="AmCharts.htm" tppabs="http://docs.amcharts.com/3/javascriptstockchart/AmCharts">AmCharts</a></li><li><a href="AmCoordinateChart.htm" tppabs="http://docs.amcharts.com/3/javascriptstockchart/AmCoordinateChart">AmCoordinateChart</a></li><li><a href="AmExport.htm" tppabs="http://docs.amcharts.com/3/javascriptstockchart/AmExport">AmExport</a></li><li><a href="AmFunnelChart.htm" tppabs="http://docs.amcharts.com/3/javascriptstockchart/AmFunnelChart">AmFunnelChart</a></li><li><a href="AmGraph.htm" tppabs="http://docs.amcharts.com/3/javascriptstockchart/AmGraph">AmGraph</a></li><li><a href="AmLegend.htm" tppabs="http://docs.amcharts.com/3/javascriptstockchart/AmLegend">AmLegend</a></li><li><a href="AmPieChart.htm" tppabs="http://docs.amcharts.com/3/javascriptstockchart/AmPieChart">AmPieChart</a></li><li><a href="AmRadarChart.htm" tppabs="http://docs.amcharts.com/3/javascriptstockchart/AmRadarChart">AmRadarChart</a></li><li><a href="AmRectangularChart.htm" tppabs="http://docs.amcharts.com/3/javascriptstockchart/AmRectangularChart">AmRectangularChart</a></li><li><a href="AmSerialChart.htm" tppabs="http://docs.amcharts.com/3/javascriptstockchart/AmSerialChart">AmSerialChart</a></li><li><a href="AmSlicedChart.htm" tppabs="http://docs.amcharts.com/3/javascriptstockchart/AmSlicedChart">AmSlicedChart</a></li><li class="active"><a href="AmStockChart.htm" tppabs="http://docs.amcharts.com/3/javascriptstockchart/AmStockChart">AmStockChart</a></li><li><a href="AmXYChart.htm" tppabs="http://docs.amcharts.com/3/javascriptstockchart/AmXYChart">AmXYChart</a></li><li><a href="AxisBase.htm" tppabs="http://docs.amcharts.com/3/javascriptstockchart/AxisBase">AxisBase</a></li><li><a href="CategoryAxesSettings.htm" tppabs="http://docs.amcharts.com/3/javascriptstockchart/CategoryAxesSettings">CategoryAxesSettings</a></li><li><a href="CategoryAxis.htm" tppabs="http://docs.amcharts.com/3/javascriptstockchart/CategoryAxis">CategoryAxis</a></li><li><a href="ChartCursor.htm" tppabs="http://docs.amcharts.com/3/javascriptstockchart/ChartCursor">ChartCursor</a></li><li><a href="ChartCursorSettings.htm" tppabs="http://docs.amcharts.com/3/javascriptstockchart/ChartCursorSettings">ChartCursorSettings</a></li><li><a href="ChartScrollbar.htm" tppabs="http://docs.amcharts.com/3/javascriptstockchart/ChartScrollbar">ChartScrollbar</a></li><li><a href="ChartScrollbarSettings.htm" tppabs="http://docs.amcharts.com/3/javascriptstockchart/ChartScrollbarSettings">ChartScrollbarSettings</a></li><li><a href="DataSet.htm" tppabs="http://docs.amcharts.com/3/javascriptstockchart/DataSet">DataSet</a></li><li><a href="DataSetSelector.htm" tppabs="http://docs.amcharts.com/3/javascriptstockchart/DataSetSelector">DataSetSelector</a></li><li><a href="GaugeArrow.htm" tppabs="http://docs.amcharts.com/3/javascriptstockchart/GaugeArrow">GaugeArrow</a></li><li><a href="GaugeAxis.htm" tppabs="http://docs.amcharts.com/3/javascriptstockchart/GaugeAxis">GaugeAxis</a></li><li><a href="GaugeBand.htm" tppabs="http://docs.amcharts.com/3/javascriptstockchart/GaugeBand">GaugeBand</a></li><li><a href="GraphDataItem.htm" tppabs="http://docs.amcharts.com/3/javascriptstockchart/GraphDataItem">GraphDataItem</a></li><li><a href="Guide.htm" tppabs="http://docs.amcharts.com/3/javascriptstockchart/Guide">Guide</a></li><li><a href="Label.htm" tppabs="http://docs.amcharts.com/3/javascriptstockchart/Label">Label</a></li><li><a href="LegendSettings.htm" tppabs="http://docs.amcharts.com/3/javascriptstockchart/LegendSettings">LegendSettings</a></li><li><a href="PanelsSettings.htm" tppabs="http://docs.amcharts.com/3/javascriptstockchart/PanelsSettings">PanelsSettings</a></li><li><a href="PeriodSelector.htm" tppabs="http://docs.amcharts.com/3/javascriptstockchart/PeriodSelector">PeriodSelector</a></li><li><a href="SerialDataItem.htm" tppabs="http://docs.amcharts.com/3/javascriptstockchart/SerialDataItem">SerialDataItem</a></li><li><a href="Slice.htm" tppabs="http://docs.amcharts.com/3/javascriptstockchart/Slice">Slice</a></li><li><a href="StockEvent.htm" tppabs="http://docs.amcharts.com/3/javascriptstockchart/StockEvent">StockEvent</a></li><li><a href="StockEventsSettings.htm" tppabs="http://docs.amcharts.com/3/javascriptstockchart/StockEventsSettings">StockEventsSettings</a></li><li><a href="StockGraph.htm" tppabs="http://docs.amcharts.com/3/javascriptstockchart/StockGraph">StockGraph</a></li><li><a href="StockLegend.htm" tppabs="http://docs.amcharts.com/3/javascriptstockchart/StockLegend">StockLegend</a></li><li><a href="StockPanel.htm" tppabs="http://docs.amcharts.com/3/javascriptstockchart/StockPanel">StockPanel</a></li><li><a href="Title.htm" tppabs="http://docs.amcharts.com/3/javascriptstockchart/Title">Title</a></li><li><a href="TrendLine.htm" tppabs="http://docs.amcharts.com/3/javascriptstockchart/TrendLine">TrendLine</a></li><li><a href="ValueAxesSettings.htm" tppabs="http://docs.amcharts.com/3/javascriptstockchart/ValueAxesSettings">ValueAxesSettings</a></li><li><a href="ValueAxis.htm" tppabs="http://docs.amcharts.com/3/javascriptstockchart/ValueAxis">ValueAxis</a></li></ul>        
+        <div class="inside">
+                    
+          <p>AmStockChart is a main class Stock chart.</p>
+          
+          <h3 class="linkable" id="properties">
+            Properties
+                      </h3>
+          
+          <div style="position: relative; overflow: hidden;">
+            <table class="table table-bordered property-list"><thead><tr><th>Property</th><th>Type</th><th>Default</th><th>Description</th></thead><tr><td class="linkable" id="amExport">amExport</td><td><a href="AmExport.htm" tppabs="http://docs.amcharts.com/3/javascriptstockchart/AmExport">AmExport</a></td><td></td><td><a href="AmExport.htm" tppabs="http://docs.amcharts.com/3/javascriptstockchart/AmExport">AmExport</a> object.</td></tr><tr><td class="linkable" id="animationPlayed">animationPlayed</td><td>Boolean</td><td></td><td>Specifies if animation was already played. Animation is only played once, when chart is rendered for the first time. If you want the animation to be repeated, set this property to false.</td></tr><tr><td class="linkable" id="balloon">balloon</td><td><a href="AmBalloon.htm" tppabs="http://docs.amcharts.com/3/javascriptstockchart/AmBalloon">AmBalloon</a></td><td><a href="AmBalloon.htm" tppabs="http://docs.amcharts.com/3/javascriptstockchart/AmBalloon">AmBalloon</a></td><td>Balloon object.</td></tr><tr><td class="linkable" id="categoryAxesSettings">categoryAxesSettings</td><td><a href="CategoryAxesSettings.htm" tppabs="http://docs.amcharts.com/3/javascriptstockchart/CategoryAxesSettings">CategoryAxesSettings</a></td><td><a href="CategoryAxesSettings.htm" tppabs="http://docs.amcharts.com/3/javascriptstockchart/CategoryAxesSettings">CategoryAxesSettings</a></td><td>Settings for category axes.</td></tr><tr><td class="linkable" id="chartCreated">chartCreated</td><td>Boolean</td><td></td><td>Read-only. Indicates if the chart is created.</td></tr><tr><td class="linkable" id="chartCursorSettings">chartCursorSettings</td><td><a href="ChartCursorSettings.htm" tppabs="http://docs.amcharts.com/3/javascriptstockchart/ChartCursorSettings">ChartCursorSettings</a></td><td><a href="ChartCursorSettings.htm" tppabs="http://docs.amcharts.com/3/javascriptstockchart/ChartCursorSettings">ChartCursorSettings</a></td><td>Chart cursor settings.</td></tr><tr><td class="linkable" id="chartScrollbarSettings">chartScrollbarSettings</td><td><a href="ChartScrollbarSettings.htm" tppabs="http://docs.amcharts.com/3/javascriptstockchart/ChartScrollbarSettings">ChartScrollbarSettings</a></td><td><a href="ChartScrollbarSettings.htm" tppabs="http://docs.amcharts.com/3/javascriptstockchart/ChartScrollbarSettings">ChartScrollbarSettings</a></td><td>Chart scrollbar settings.</td></tr><tr><td class="linkable" id="colors">colors</td><td>Array[Color]</td><td>["#FF6600", "#FCD202", "#B0DE09", "#0D8ECF", "#2A0CD0", "#CD0D74", "#CC0000", "#00CC00", "#0000CC", "#DDDDDD", "#999999", "#333333", "#990000"]</td><td>Array of colors used by data sets if no color was set explicitly on data set itself.</td></tr><tr><td class="linkable" id="comparedDataSets">comparedDataSets</td><td>Array[<a href="DataSet.htm" tppabs="http://docs.amcharts.com/3/javascriptstockchart/DataSet">DataSet</a>]</td><td></td><td>Array of data sets selected for comparing.</td></tr><tr><td class="linkable" id="dataDateFormat">dataDateFormat</td><td>String</td><td></td><td>Data provider of data set can have dates as Date Objects or as Strings. In case you use strings, you need to set data date format and the chart will parse dates to date objects. Check this <a href="javascript:if(confirm('http://www.amcharts.com/tutorials/formatting-dates/  \n\n该文件无法用 Teleport Ultra 下载, 因为 它是一个域或路径外部被设置为它的启始地址的地址。  \n\n你想在服务器上打开它?'))window.location='http://www.amcharts.com/tutorials/formatting-dates/'" tppabs="http://www.amcharts.com/tutorials/formatting-dates/">page for date formatting strings</a>.<br />
+<br><strong>Please note that two-digit years (YY) is NOT supported in this setting.</strong></td></tr><tr><td class="linkable" id="dataSets">dataSets</td><td>Array[<a href="DataSet.htm" tppabs="http://docs.amcharts.com/3/javascriptstockchart/DataSet">DataSet</a>]</td><td></td><td>Array of <a href="DataSet.htm" tppabs="http://docs.amcharts.com/3/javascriptstockchart/DataSet">DataSet</a>s.</td></tr><tr><td class="linkable" id="dataSetSelector">dataSetSelector</td><td><a href="DataSetSelector.htm" tppabs="http://docs.amcharts.com/3/javascriptstockchart/DataSetSelector">DataSetSelector</a></td><td></td><td><a href="DataSetSelector.htm" tppabs="http://docs.amcharts.com/3/javascriptstockchart/DataSetSelector">DataSetSelector</a> object. You can add it if you have more than one data set and want users to be able to select/compare them.</td></tr><tr><td class="linkable" id="endDate">endDate</td><td></td><td></td><td>Read-only. Current end date of the selected period, get only. To set start/end dates, use stockChart.zoom(startDate, endDate) method.</td></tr><tr><td class="linkable" id="exportConfig">exportConfig</td><td>Object</td><td></td><td>Object of export config. Will enable saving chart as an image for all modern browsers except IE9 (IE10+ works fine).</td></tr><tr><td class="linkable" id="extendToFullPeriod">extendToFullPeriod</td><td>Boolean</td><td>true</td><td>Specifies if the chart should always display full first and last data item when data is grouped to a longer period if the chart is zoomed from the beginning or end of the data. </td></tr><tr><td class="linkable" id="firstDayOfWeek">firstDayOfWeek</td><td>Number</td><td>1</td><td>Defines on which day week starts. 0 - Sunday, 1 - Monday...</td></tr><tr><td class="linkable" id="glueToTheEnd">glueToTheEnd</td><td>Boolean</td><td>false</td><td>If set to true the scope of the data view will be set to the end after data update.</td></tr><tr><td class="linkable" id="legendSettings">legendSettings</td><td><a href="LegendSettings.htm" tppabs="http://docs.amcharts.com/3/javascriptstockchart/LegendSettings">LegendSettings</a></td><td><a href="LegendSettings.htm" tppabs="http://docs.amcharts.com/3/javascriptstockchart/LegendSettings">LegendSettings</a></td><td>Legend settings.</td></tr><tr><td class="linkable" id="mainDataSet">mainDataSet</td><td><a href="DataSet.htm" tppabs="http://docs.amcharts.com/3/javascriptstockchart/DataSet">DataSet</a></td><td></td><td>Data set selected as main.</td></tr><tr><td class="linkable" id="mouseWheelScrollEnabled">mouseWheelScrollEnabled</td><td>Boolean</td><td>false</td><td>Specifies if scrolling of a chart with mouse wheel is enabled.</td></tr><tr><td class="linkable" id="panels">panels</td><td>Array[<a href="StockPanel.htm" tppabs="http://docs.amcharts.com/3/javascriptstockchart/StockPanel">StockPanel</a>]</td><td></td><td>Array of <a href="StockPanel.htm" tppabs="http://docs.amcharts.com/3/javascriptstockchart/StockPanel">StockPanel</a>s (charts).</td></tr><tr><td class="linkable" id="panelsSettings">panelsSettings</td><td><a href="PanelsSettings.htm" tppabs="http://docs.amcharts.com/3/javascriptstockchart/PanelsSettings">PanelsSettings</a></td><td><a href="PanelsSettings.htm" tppabs="http://docs.amcharts.com/3/javascriptstockchart/PanelsSettings">PanelsSettings</a></td><td>Settings for stock panels.</td></tr><tr><td class="linkable" id="pathToImages">pathToImages</td><td>String</td><td></td><td>Specifies path to the folder where images like resize grips, lens and similar are.</td></tr><tr><td class="linkable" id="periodSelector">periodSelector</td><td><a href="PeriodSelector.htm" tppabs="http://docs.amcharts.com/3/javascriptstockchart/PeriodSelector">PeriodSelector</a></td><td></td><td>Period selector object. You can add it if you want user's to be able to enter date ranges or zoom chart with predefined period buttons.</td></tr><tr><td class="linkable" id="scrollbarChart">scrollbarChart</td><td><a href="AmSerialChart.htm" tppabs="http://docs.amcharts.com/3/javascriptstockchart/AmSerialChart">AmSerialChart</a></td><td></td><td>Read-only. Scrollbar's chart object.</td></tr><tr><td class="linkable" id="startDate">startDate</td><td></td><td></td><td>Read-only. Current start date of the selected period. To set start/end dates, use stockChart.zoom(startDate, endDate) method.</td></tr><tr><td class="linkable" id="stockEventsSettings">stockEventsSettings</td><td><a href="StockEventsSettings.htm" tppabs="http://docs.amcharts.com/3/javascriptstockchart/StockEventsSettings">StockEventsSettings</a></td><td><a href="StockEventsSettings.htm" tppabs="http://docs.amcharts.com/3/javascriptstockchart/StockEventsSettings">StockEventsSettings</a></td><td>Settings for stock events.</td></tr><tr><td class="linkable" id="type">type</td><td>String</td><td></td><td>Read-only. Type of the chart.</td></tr><tr><td class="linkable" id="valueAxesSettings">valueAxesSettings</td><td><a href="ValueAxesSettings.htm" tppabs="http://docs.amcharts.com/3/javascriptstockchart/ValueAxesSettings">ValueAxesSettings</a></td><td><a href="ValueAxesSettings.htm" tppabs="http://docs.amcharts.com/3/javascriptstockchart/ValueAxesSettings">ValueAxesSettings</a></td><td>Settings for value axes.</td></tr><tr><td class="linkable" id="version">version</td><td>String</td><td></td><td>Read-only. Indicates current version of a script.</td></tr><tr><td class="linkable" id="zoomOutOnDataSetChange">zoomOutOnDataSetChange</td><td>Boolean</td><td>false</td><td>Specifies whether the chart should zoom-out when main data set is changed.</td></tr></table>            
+            <h3 class="linkable" id="methods">
+              Methods
+                          </h3>
+            
+            <table class="table table-bordered method-list"><thead><tr><th>Name</th><th>Parameters</th><th>Returns</th><th>Description</th></thead><tr><td class="linkable" id="addListener">addListener(type, handler)</td><td>type - string like 'dataUpdated' (should be listed in 'events' section of this class). handler - function which is called when event happens</td><td>Adds event listener to the object.</td><td></td></tr><tr><td class="linkable" id="addPanel">addPanel(panel)</td><td>panel - [[StockPanel]]</td><td>Adds panel to the stock chart. Requires stockChart.validateNow() method to be called after this action.</td><td></td></tr><tr><td class="linkable" id="addPanelAt">addPanelAt(panel, index)</td><td>panel - [[StockPanel]], index - Number</td><td>Adds panel to the stock chart at a specified index. Requires stockChart.validateNow() method to be called after this action.</td><td></td></tr><tr><td class="linkable" id="clear">clear()</td><td></td><td></td><td>Destroys chart, all timeouts and listeners.</td></tr><tr><td class="linkable" id="hideStockEvents">hideStockEvents()</td><td> </td><td>Hides event bullets.</td><td></td></tr><tr><td class="linkable" id="removeListener">removeListener(obj, type, handler)</td><td> </td><td>Removes event listener from the object.</td><td></td></tr><tr><td class="linkable" id="removePanel">removePanel(panel)</td><td>panel - [[StockPanel]]</td><td>Removes panel from the stock chart. Requires stockChart.validateNow() method to be called after this action.</td><td></td></tr><tr><td class="linkable" id="showStockEvents">showStockEvents()</td><td> </td><td>Shows event bullets.</td><td></td></tr><tr><td class="linkable" id="validateData">validateData()</td><td> </td><td>Method which should be called after data was changed.</td><td></td></tr><tr><td class="linkable" id="validateNow">validateNow()</td><td> </td><td>Method which forces the stock chart to rebuild. Should be called after properties are changed.</td><td></td></tr><tr><td class="linkable" id="zoom">zoom(startDate, endDate)</td><td>startDate, endDate - Date objects.</td><td>Zooms chart to specified dates.</td><td></td></tr><tr><td class="linkable" id="zoomOut">zoomOut()</td><td> </td><td>Zooms out the chart.</td><td></td></tr></table>            
+            <h3 class="linkable" id="events">
+              Events
+                          </h3>
+            
+            <table class="table table-bordered event-list"><thead><tr><th>Name</th><th>Event object</th><th>Description</th></thead><tr><td class="linkable" id="clickStockEvent">clickStockEvent</td><td>{type:"clickStockEvent", eventObject:eventObject, graph:graph, date:date, chart:AmStockChart}</td><td>Dispatched when the user clicks on the Stock event (bullet).</td></tr><tr><td class="linkable" id="dataUpdated">dataUpdated</td><td>{type:"dataUpdated", chart:AmStockChart}</td><td>Dispatched when the chart was updated with new data.</td></tr><tr><td class="linkable" id="init">init</td><td>{type:"init", chart:AmStockChart}</td><td>Dispatched when the chart is initialized for the first time. In case you want it to fire again after validateNow() method is called, set chart.chartCreated = false.</td></tr><tr><td class="linkable" id="panelRemoved">panelRemoved</td><td>{type:"panelRemoved", panel:panel, chart:AmStockChart}</td><td>Dispatched when the <a href="StockPanel.htm" tppabs="http://docs.amcharts.com/3/javascriptstockchart/StockPanel">StockPanel</a> is removed.</td></tr><tr><td class="linkable" id="rendered">rendered</td><td>{type:"init", chart:AmStockChart}</td><td>Dispatched each when chart is rendered.</td></tr><tr><td class="linkable" id="rollOutStockEvent">rollOutStockEvent</td><td>{type:"rollOutStockEvent", eventObject:eventObject, graph:graph, date:date, chart:AmStockChart}</td><td>Dispatched when the user rolls-out of the Stock event (bullet).</td></tr><tr><td class="linkable" id="rollOverStockEvent">rollOverStockEvent</td><td>{type:"rollOverStockEvent", eventObject:eventObject, graph:graph, date:date, chart:AmStockChart}</td><td>Dispatched when the user rolls-over the Stock event (bullet).</td></tr><tr><td class="linkable" id="zoomed">zoomed</td><td>{type:"zoomed", startDate:startDate, endDate:endDate, period:period, chart:AmStockChart}</td><td>Dispatched when the chart is zoomed (even for the first time, when chart is initialized).</td></tr></table>          </div>
+          
+        </div>
+        
+        
+    </div> <!-- /container -->
+
+    <!-- Le javascript
+    ================================================== -->
+    <!-- Placed at the end of the document so the pages load faster -->
+    <script src="../lib/jquery-1.7.2.min.js" tppabs="http://docs.amcharts.com/3/lib/jquery-1.7.2.min.js"></script>
+    <script src="../lib/jquery.scrollTo-min.js" tppabs="http://docs.amcharts.com/3/lib/jquery.scrollTo-min.js"></script>
+    <script src="../lib/bootstrap/js/bootstrap-transition.js" tppabs="http://docs.amcharts.com/3/lib/bootstrap/js/bootstrap-transition.js"></script>
+    <script src="../lib/bootstrap/js/bootstrap-alert.js" tppabs="http://docs.amcharts.com/3/lib/bootstrap/js/bootstrap-alert.js"></script>
+    <script src="../lib/bootstrap/js/bootstrap-modal.js" tppabs="http://docs.amcharts.com/3/lib/bootstrap/js/bootstrap-modal.js"></script>
+    <script src="../lib/bootstrap/js/bootstrap-dropdown.js" tppabs="http://docs.amcharts.com/3/lib/bootstrap/js/bootstrap-dropdown.js"></script>
+    <script src="../lib/bootstrap/js/bootstrap-scrollspy.js" tppabs="http://docs.amcharts.com/3/lib/bootstrap/js/bootstrap-scrollspy.js"></script>
+    <script src="../lib/bootstrap/js/bootstrap-tab.js" tppabs="http://docs.amcharts.com/3/lib/bootstrap/js/bootstrap-tab.js"></script>
+    <script src="../lib/bootstrap/js/bootstrap-tooltip.js" tppabs="http://docs.amcharts.com/3/lib/bootstrap/js/bootstrap-tooltip.js"></script>
+    <script src="../lib/bootstrap/js/bootstrap-popover.js" tppabs="http://docs.amcharts.com/3/lib/bootstrap/js/bootstrap-popover.js"></script>
+    <script src="../lib/bootstrap/js/bootstrap-button.js" tppabs="http://docs.amcharts.com/3/lib/bootstrap/js/bootstrap-button.js"></script>
+    <script src="../lib/bootstrap/js/bootstrap-collapse.js" tppabs="http://docs.amcharts.com/3/lib/bootstrap/js/bootstrap-collapse.js"></script>
+    <script src="../lib/bootstrap/js/bootstrap-typeahead.js" tppabs="http://docs.amcharts.com/3/lib/bootstrap/js/bootstrap-typeahead.js"></script>
+    
+    <script src="../lib/common.js" tppabs="http://docs.amcharts.com/3/lib/common.js"></script><script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','../../../www.google-analytics.com/analytics.js'/*tpa=http://www.google-analytics.com/analytics.js*/,'ga');
+
+  ga('create', 'UA-22221037-3', 'http://docs.amcharts.com/3/javascriptstockchart/amcharts.com');
+  ga('send', 'pageview');
+
+</script>
+  </body>
+</html>

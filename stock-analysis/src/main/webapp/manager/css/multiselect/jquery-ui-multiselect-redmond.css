@@ -1,0 +1,45 @@
+/*下拉按钮的背景色、边框颜色，字体颜色 */
+.ui-widget-redmond {
+	border: 1px solid #c5dbec;
+	background: #dfeffc url("../jquery-ui-themes/themes/redmond/images/ui-bg_glass_85_dfeffc_1x400.png") 50% 50% repeat-x;
+	font-weight: bold;
+	color: #2e6e9e;
+}
+/*下拉按钮鼠标滑过的背景色、边框颜色，字体颜色  */
+.ui-state-hover-redmond,
+.ui-widget-redmond .ui-state-hover-redmond,
+.ui-state-focus-redmond {
+	border: 1px solid #79b7e7;
+	background: #d0e5f5 url("../jquery-ui-themes/themes/redmond/images/ui-bg_glass_75_d0e5f5_1x400.png") 50% 50% repeat-x;
+	font-weight: bold;
+	color: #1d5987;
+}
+/*下拉按钮上的上下箭头图标  */
+.ui-widget-redmond .ui-icon {
+	background-image: url("../jquery-ui-themes/themes/redmond/images/ui-icons_2e83ff_256x240.png");
+}
+/*下拉窗口 关闭按钮的图片路径  */
+.ui-widget-header-redmond .ui-icon {
+	background-image: url(../jquery-ui-themes/themes/redmond/images/ui-icons_d8e7f3_256x240.png);
+}
+/*下拉窗口的背景色、边框颜色，字体颜色 */
+.ui-widget-content-redmond {
+	border: 1px solid #a6c9e2;
+	background: #fcfdfd url("../jquery-ui-themes/themes/redmond/images/ui-bg_inset-hard_100_fcfdfd_1x100.png") 50% bottom repeat-x;
+	color: #222222;
+}
+/* 下拉窗口 头的背景色、字体颜色 */
+.ui-widget-header-redmond {
+	border: 1px solid #4297d7;
+	background: #5c9ccc url("../jquery-ui-themes/themes/redmond/images/ui-bg_gloss-wave_55_5c9ccc_500x100.png") 50% 50% repeat-x;
+	color: #ffffff;
+	font-weight: bold;
+}
+/*选中选项的字体颜色、边框颜色、背景色  */
+.ui-widget-redmond .ui-state-active,
+.ui-widget-header .ui-state-active {
+	border: 1px solid #79b7e7;
+	background: #f5f8f9 url("../jquery-ui-themes/themes/redmond/images/ui-bg_inset-hard_100_f5f8f9_1x100.png") 50% 50% repeat-x;
+	font-weight: bold;
+	color: #e17009;
+}

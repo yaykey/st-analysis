@@ -1,0 +1,156 @@
+*{
+	margin:0;
+	padding:0;
+}
+body {
+	margin:0px;
+	background-color:#d6e6f5;
+	padding-bottom : 8px;
+}
+
+/*header部分css 开始*/
+.header{
+	height:81px;
+}
+.bannar{
+	background:url(../images/bannar_bg.png) repeat-x;
+	height:54px;
+}
+.logo{
+	background:url(../images/toptitle.png) repeat-x;
+	height:54px;
+	width:875px;
+	float:left;
+}
+.bannar_right{
+	background:url(../images/bannar_right.png) repeat-x;
+	height:54px;
+	width:364px;
+	float:right;
+}
+.menu{
+	background:url(../images/menu_bg.png) repeat-x;
+	height:28px;
+	margin:0px;
+}
+.menu_onfocus{
+	font-size:12px;
+	font-weight:bold;
+	color:#ffffff;
+	line-height:24px;
+	height:24px;
+	padding:3px 7px 1px;
+	background:url(../images/menu_bg1.png) repeat-x center;
+	cursor:pointer;
+	border:1px #6BA4EF solid;
+}
+.menu_onblur{
+	font-size:12px;
+	color:#ffffff;
+	padding-left:7px;
+	padding-right:7px;
+    cursor:pointer;
+	line-height:24px;
+	height:24px;
+}
+.menu_line{
+	padding-left:8px;
+	padding-right:8px;
+}
+/*header部分css 结束*/
+
+
+/*left部分css 开始 */
+.left{ 
+	margin-left__:4px; 
+	margin-top__:4px;
+	margin-bottom__:4px;
+	height:100%;
+	width:97%;
+	border-left:#8db3e2 1px solid; 
+	border-right:#8db3e2 1px solid;
+	border-bottom:#8db3e2 1px solid;
+	
+}
+
+
+.panelBox {
+	padding : 4px 0px 4px 4px;
+	margin-top_ : -4px;
+	
+}
+
+.tree_title_bg1{
+	background:url(../images/tree_title_bg.png) repeat-x;
+	height:28px;
+	font-family:'宋体';
+	font-size:12px;
+	padding:0 2px;
+	color:#003399;
+	line-height:28px;
+}
+.tree_title{
+	float:left;
+	padding-left:10px;
+}
+.showtree{
+	float:right;
+	background:url(../images/hideleft.png) no-repeat center;
+	width:13px;
+	cursor:pointer;
+	height:13px;
+	padding-top:3px;
+	display:inline;
+	margin:5px 0;
+}
+.hideleft{
+	float:left; 
+	padding-top:3px; 
+	display: none;
+}
+.notree{
+	float:right;
+	background:url(../images/hideright.png) no-repeat center;
+	width:13px;
+	cursor:pointer;
+	height:13px;
+	padding-top:3px;
+	margin:5px 0;
+}
+/*left部分css 结束 */
+/*content部分css 开始 */
+.content{
+    margin__:4px;
+	border-left:#8db3e2 1px solid; 
+	border-right:#8db3e2 1px solid; 
+	border-bottom:#8db3e2 1px solid; 
+	height:100%;
+	width:99%;
+}
+
+
+.content_title_bg{
+	background:url(../images/content_title_bg.png) repeat-x;
+	height:28px;
+	font-family:'宋体';
+	font-size:12px;
+	padding-left:5px;
+	color:#003399;
+	line-height:28px;
+}
+.content_title{
+	padding-left:10px;
+}
+/*content部分css 结束 */
+/*footer部分css开始*/
+.footer{
+	background:url(../images/footer_bg.png) repeat-x;
+	font-family:'宋体';
+	font-size:12px;
+	color:#FFFFFF;
+	text-align:center;
+	height:20px;
+	line-height:20px;
+	margin:0px;
+}
+/*footer部分css结束*/

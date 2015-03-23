@@ -1,0 +1,142 @@
+<!DOCTYPE struts PUBLIC "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN" "http://struts.apache.org/dtds/struts-2.0.dtd">
+<struts>
+	<constant name="struts.convention.default.parent.package" value="struts-interceptor" />
+	<constant name="struts.convention.package.locators" value="action,actions" />
+	<constant name="struts.convention.action.name.separator" value="-" />
+	<constant name="struts.convention.result.path" value="/" />
+
+	<package name="struts-interceptor" extends="convention-default">
+		<!-- 定义自己的拦截器 -->
+		<interceptors>
+			<!-- 权限校验拦截器 -->
+			<interceptor name="authInterceptor"	class="com.st.framework.controller.helper.interceptor.AuthorizeInterceptor" />
+			
+			<!-- JSON session拦截器 -->
+			<interceptor name="jsonNosessionInterceptor" class="com.st.framework.controller.helper.interceptor.JsonNoSessionInterceptor" />
+			
+			<!-- 操作日志拦截器 -->
+			<interceptor name="genericLoggerInterceptor" class="com.st.framework.controller.helper.interceptor.GenericLoggerInterceptor" />
+			
+			
+			<!-- 参数的拦截器 -->
+			<interceptor-stack name="common-params">
+				<interceptor-ref name="basicStack" />
+			</interceptor-stack>
+			<!-- 带Action链的参数拦截器 -->
+			<interceptor-stack name="common-params-chain">
+				<interceptor-ref name="chain" />
+				<interceptor-ref name="basicStack" />
+			</interceptor-stack>
+			<!-- 参数拒绝重复提交的拦截器 -->
+			<interceptor-stack name="common-params-token">
+				<interceptor-ref name="token" />
+				<interceptor-ref name="basicStack" />
+			</interceptor-stack>
+			<!-- 带文件上传的参数拦截器 -->
+			<interceptor-stack name="common-params-upload">
+				<interceptor-ref name="fileUpload">
+					<param name="allowedTypes">image/gif,image/jpeg,image/pjpeg,text/xml,application/excel,application/vnd.ms-excel,application/octet-stream,application/x-zip-compressed,application/vnd.openxmlformats-officedocument.spreadsheetml.sheet,application/x-download,application/x-java-archive,application/java-archive</param>
+					<param name="maximumSize">3000000</param>
+				</interceptor-ref>
+				<interceptor-ref name="workflow" />
+				<interceptor-ref name="basicStack" />
+			</interceptor-stack>
+			<!-- 带文件上传拒绝重复提交的参数拦截器 -->
+			<interceptor-stack name="common-params-upload-token">
+				<interceptor-ref name="fileUpload">
+					<param name="allowedTypes">image/gif,image/jpeg,image/pjpeg,text/xml,application/vnd.ms-excel</param>
+					<param name="maximumSize">3000000</param>
+				</interceptor-ref>
+				<interceptor-ref name="workflow" />
+				<interceptor-ref name="token" />
+				<interceptor-ref name="basicStack" />
+			</interceptor-stack>
+			<!-- 带模型驱动的拦截器 -->
+			<interceptor-stack name="common-model">
+				<interceptor-ref name="modelDrivenStack" />
+			</interceptor-stack>
+			
+			<interceptor-stack name="common-prepare-model">
+				<interceptor-ref name="authInterceptor" />
+               <interceptor-ref name="exception"/>
+                <interceptor-ref name="checkbox"/>
+                <interceptor-ref name="params">
+                    <param name="excludeParams">dojo\..*,^struts\..*</param>
+                </interceptor-ref>
+                <interceptor-ref name="servletConfig"/>
+                <interceptor-ref name="prepare"/>
+                <interceptor-ref name="modelDriven"/>
+                <interceptor-ref name="actionMappingParams"/>
+                <interceptor-ref name="params">
+                    <param name="excludeParams">dojo\..*,^struts\..*</param>
+                </interceptor-ref>
+                <interceptor-ref name="conversionError"/>
+            </interceptor-stack>
+            <interceptor-stack name="common-prepare-model-upload">
+            	<interceptor-ref name="authInterceptor" />
+               <interceptor-ref name="exception"/>
+                <interceptor-ref name="checkbox"/>
+                <interceptor-ref name="params">
+                    <param name="excludeParams">dojo\..*,^struts\..*</param>
+                </interceptor-ref>
+                <interceptor-ref name="servletConfig"/>
+                <interceptor-ref name="prepare"/>
+            	<interceptor-ref name="fileUpload"/>
+                <interceptor-ref name="modelDriven"/>
+                <interceptor-ref name="actionMappingParams"/>
+                <interceptor-ref name="params">
+                    <param name="excludeParams">dojo\..*,^struts\..*</param>
+                </interceptor-ref>
+                <interceptor-ref name="conversionError"/>
+            </interceptor-stack>
+			<!-- 带模型驱动拒绝重复提交的拦截器 -->
+			<interceptor-stack name="common-model-token">
+				<interceptor-ref name="token" />
+				<interceptor-ref name="modelDrivenStack" />
+			</interceptor-stack>
+			<!-- 带文件上传拒绝重复提交的模型驱动拦截器 -->
+			<interceptor-stack name="common-model-upload-token">
+				<interceptor-ref name="fileUpload">
+					<param name="allowedTypes">image/gif,image/jpeg,image/pjpeg,text/xml,application/vnd.ms-excel</param>
+					<param name="maximumSize">3000000</param>
+				</interceptor-ref>
+				<interceptor-ref name="workflow" />
+				<interceptor-ref name="token" />
+				<interceptor-ref name="modelDrivenStack" />
+			</interceptor-stack>
+			<!-- 带文件上传的模型驱动拦截器 -->
+			<interceptor-stack name="common-model-upload">
+				<interceptor-ref name="fileUpload">
+					<param name="allowedTypes">image/gif,image/jpeg,image/pjpeg,text/xml,application/vnd.ms-excel</param>
+					<param name="maximumSize">3000000</param>
+				</interceptor-ref>
+				<interceptor-ref name="workflow" />
+				<interceptor-ref name="modelDrivenStack" />
+			</interceptor-stack>			
+
+			<interceptor-stack name="common-params-auth">
+				<interceptor-ref name="basicStack" />
+				<interceptor-ref name="authInterceptor" />
+			</interceptor-stack>
+			
+			<interceptor-stack name="common-json-session">
+				<interceptor-ref name="basicStack" />
+				<interceptor-ref name="jsonNosessionInterceptor" />
+			</interceptor-stack>
+			
+			<interceptor-stack name="common-generic-logger">
+				<interceptor-ref name="basicStack" />
+				<interceptor-ref name="genericLoggerInterceptor" />
+			</interceptor-stack>
+			
+		</interceptors>
+		
+		<default-interceptor-ref name="common-params-auth" />
+		<global-results>
+			<result name="noauthority">/manager/commons/noauthority.jsp</result>
+			<result name="nosession">/manager/commons/nosession.jsp</result>
+			<result name="invalid.token">/compute/error/error.jsp</result>
+		</global-results>
+	</package>
+
+</struts>

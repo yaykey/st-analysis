@@ -1,0 +1,17 @@
+@CHARSET "UTF-8";
+.pop-msg-box{width:300px;border:1px solid #CAC8C8;background:#FCFCFC;height:auto;position: fixed;_position: absolute;z-index: 100001;}
+.pop-msg-box .tit{
+	background:#f6f6f6;
+	height:26px;
+	line-height:26px;
+	border-bottom:1px solid #EAEAEA;
+}
+.pop-msg-box .tit .shut{float:right;width:10px;height:9px;background:url(./img/sp_icon.png) no-repeat 0 -251px;display:inline-block;margin:8px 10px 0 0;}
+.pop-msg-box .tit .title{float:left;padding-left:5px;}
+.pop-msg-box .txt{padding:20px;text-align:left;line-height:20px;}
+.pop-msg-box .txt2{background:url(./img/sp_icon.png) no-repeat 55px -281px;text-align:center;font-size:14px;margin-top:36px;}
+.pop-msg-box .button{padding-bottom:10px;text-align:center;}
+.pop-msg-box .button a{display:inline-block;width:57px;height:22px;}
+.pop-msg-box .button a.b-sure{background:url(./img/001.png) no-repeat;margin-right:10px;padding-top:2px;}
+.pop-msg-box .button a.b-cancel{background:url(./img/002.png) no-repeat;margin-left:10px;padding-top:2px;}
+.pop-bg{display:block;opacity:.2;filter: alpha(opacity = 20);background-color: #666;position:absolute;top:0;left:0;z-index: 100000;}

@@ -1,0 +1,338 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.st.framework.persistence.mapper.stock.FactSinaParamMapMapper" >
+  <resultMap id="BaseResultMap" type="com.st.framework.module.stock.FactSinaParamMap" >
+    <id column="ID" property="id" jdbcType="INTEGER" />
+    <result column="s_i" property="sI" jdbcType="VARCHAR" />
+    <result column="s_a" property="sA" jdbcType="VARCHAR" />
+    <result column="s_c" property="sC" jdbcType="VARCHAR" />
+    <result column="s_t" property="sT" jdbcType="VARCHAR" />
+    <result column="p" property="p" jdbcType="INTEGER" />
+    <result column="IS_VALIDITY" property="isValidity" jdbcType="BIT" />
+    <result column="IS_USE" property="isUse" jdbcType="BIT" />
+    <result column="UPD_DATE" property="updDate" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    ID, s_i, s_a, s_c, s_t, p, IS_VALIDITY, IS_USE, UPD_DATE
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.st.framework.module.stock.example.FactSinaParamMapExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from FACT_SINA_PARAM_MAP
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+    
+    <if test="start != null and pageSize != null" >
+      limit #{start}, #{pageSize}
+    </if>
+  </select>
+  
+  <!-- SELECT * FROM table WHERE id >= (SELECT id FROM table LIMIT 1000000, 1) LIMIT 10;  -->
+    <select id="selectOptimizeByExample" resultMap="BaseResultMap"
+			parameterType="com.st.framework.module.stock.example.FactSinaParamMapExample">
+	SELECT
+	<if test="distinct">
+		distinct
+    </if>
+	<include refid="Base_Column_List" />
+	FROM FACT_SINA_PARAM_MAP
+	<if test="_parameter != null">
+		<include refid="Example_Where_Clause" />
+		
+		<if test="oredCriteria.size == 0">
+			where
+		</if>
+		<if test="oredCriteria.size > 0">
+			and
+		</if>		
+	</if>
+	<if test="_parameter == null">
+		WHERE
+    </if>
+	ID >= (
+		SELECT ID
+		FROM FACT_SINA_PARAM_MAP
+		<if test="_parameter != null">
+			<include refid="Example_Where_Clause" />
+		</if>
+		<if test="orderByClause != null">
+			order by ${orderByClause}
+		</if>
+		<if test="start != null and pageSize != null">
+			LIMIT #{start}, 1
+	    </if>
+	    <if test="start == null or pageSize == null">
+			LIMIT 0, 1
+	    </if>
+	)
+	<if test="orderByClause != null">
+		order by ${orderByClause}
+	</if>
+	<if test="start != null and pageSize != null">
+		LIMIT #{pageSize}
+    </if>
+  </select>
+  
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from FACT_SINA_PARAM_MAP
+    where ID = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from FACT_SINA_PARAM_MAP
+    where ID = #{id,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.st.framework.module.stock.example.FactSinaParamMapExample" >
+    delete from FACT_SINA_PARAM_MAP
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.st.framework.module.stock.FactSinaParamMap" >
+    insert into FACT_SINA_PARAM_MAP (ID, s_i, s_a, s_c, 
+      s_t, p, IS_VALIDITY, IS_USE, 
+      UPD_DATE)
+    values (#{id,jdbcType=INTEGER}, #{sI,jdbcType=VARCHAR}, #{sA,jdbcType=VARCHAR}, #{sC,jdbcType=VARCHAR}, 
+      #{sT,jdbcType=VARCHAR}, #{p,jdbcType=INTEGER}, #{isValidity,jdbcType=BIT}, #{isUse,jdbcType=BIT}, 
+      #{updDate,jdbcType=TIMESTAMP})
+      
+      <selectKey resultType="java.lang.Integer" order="AFTER" keyProperty="id" >
+      	SELECT LAST_INSERT_ID() AS ID
+      </selectKey>
+  </insert>
+  <insert id="insertSelective" parameterType="com.st.framework.module.stock.FactSinaParamMap" >
+    insert into FACT_SINA_PARAM_MAP
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        ID,
+      </if>
+      <if test="sI != null" >
+        s_i,
+      </if>
+      <if test="sA != null" >
+        s_a,
+      </if>
+      <if test="sC != null" >
+        s_c,
+      </if>
+      <if test="sT != null" >
+        s_t,
+      </if>
+      <if test="p != null" >
+        p,
+      </if>
+      <if test="isValidity != null" >
+        IS_VALIDITY,
+      </if>
+      <if test="isUse != null" >
+        IS_USE,
+      </if>
+      <if test="updDate != null" >
+        UPD_DATE,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="sI != null" >
+        #{sI,jdbcType=VARCHAR},
+      </if>
+      <if test="sA != null" >
+        #{sA,jdbcType=VARCHAR},
+      </if>
+      <if test="sC != null" >
+        #{sC,jdbcType=VARCHAR},
+      </if>
+      <if test="sT != null" >
+        #{sT,jdbcType=VARCHAR},
+      </if>
+      <if test="p != null" >
+        #{p,jdbcType=INTEGER},
+      </if>
+      <if test="isValidity != null" >
+        #{isValidity,jdbcType=BIT},
+      </if>
+      <if test="isUse != null" >
+        #{isUse,jdbcType=BIT},
+      </if>
+      <if test="updDate != null" >
+        #{updDate,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.st.framework.module.stock.example.FactSinaParamMapExample" resultType="java.lang.Integer" >
+    select count(*) from FACT_SINA_PARAM_MAP
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update FACT_SINA_PARAM_MAP
+    <set >
+      <if test="record.id != null" >
+        ID = #{record.id,jdbcType=INTEGER},
+      </if>
+      <if test="record.sI != null" >
+        s_i = #{record.sI,jdbcType=VARCHAR},
+      </if>
+      <if test="record.sA != null" >
+        s_a = #{record.sA,jdbcType=VARCHAR},
+      </if>
+      <if test="record.sC != null" >
+        s_c = #{record.sC,jdbcType=VARCHAR},
+      </if>
+      <if test="record.sT != null" >
+        s_t = #{record.sT,jdbcType=VARCHAR},
+      </if>
+      <if test="record.p != null" >
+        p = #{record.p,jdbcType=INTEGER},
+      </if>
+      <if test="record.isValidity != null" >
+        IS_VALIDITY = #{record.isValidity,jdbcType=BIT},
+      </if>
+      <if test="record.isUse != null" >
+        IS_USE = #{record.isUse,jdbcType=BIT},
+      </if>
+      <if test="record.updDate != null" >
+        UPD_DATE = #{record.updDate,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update FACT_SINA_PARAM_MAP
+    set ID = #{record.id,jdbcType=INTEGER},
+      s_i = #{record.sI,jdbcType=VARCHAR},
+      s_a = #{record.sA,jdbcType=VARCHAR},
+      s_c = #{record.sC,jdbcType=VARCHAR},
+      s_t = #{record.sT,jdbcType=VARCHAR},
+      p = #{record.p,jdbcType=INTEGER},
+      IS_VALIDITY = #{record.isValidity,jdbcType=BIT},
+      IS_USE = #{record.isUse,jdbcType=BIT},
+      UPD_DATE = #{record.updDate,jdbcType=TIMESTAMP}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.st.framework.module.stock.FactSinaParamMap" >
+    update FACT_SINA_PARAM_MAP
+    <set >
+      <if test="sI != null" >
+        s_i = #{sI,jdbcType=VARCHAR},
+      </if>
+      <if test="sA != null" >
+        s_a = #{sA,jdbcType=VARCHAR},
+      </if>
+      <if test="sC != null" >
+        s_c = #{sC,jdbcType=VARCHAR},
+      </if>
+      <if test="sT != null" >
+        s_t = #{sT,jdbcType=VARCHAR},
+      </if>
+      <if test="p != null" >
+        p = #{p,jdbcType=INTEGER},
+      </if>
+      <if test="isValidity != null" >
+        IS_VALIDITY = #{isValidity,jdbcType=BIT},
+      </if>
+      <if test="isUse != null" >
+        IS_USE = #{isUse,jdbcType=BIT},
+      </if>
+      <if test="updDate != null" >
+        UPD_DATE = #{updDate,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where ID = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.st.framework.module.stock.FactSinaParamMap" >
+    update FACT_SINA_PARAM_MAP
+    set s_i = #{sI,jdbcType=VARCHAR},
+      s_a = #{sA,jdbcType=VARCHAR},
+      s_c = #{sC,jdbcType=VARCHAR},
+      s_t = #{sT,jdbcType=VARCHAR},
+      p = #{p,jdbcType=INTEGER},
+      IS_VALIDITY = #{isValidity,jdbcType=BIT},
+      IS_USE = #{isUse,jdbcType=BIT},
+      UPD_DATE = #{updDate,jdbcType=TIMESTAMP}
+    where ID = #{id,jdbcType=INTEGER}
+  </update>
+  
+  <!--  批量 ，传入一个长度为1000的list  -->
+	<insert id="insertBatch" parameterType="map">
+	    insert into FACT_SINA_PARAM_MAP
+	    (s_i, s_a, s_c, s_t) 
+	    values 
+	    <foreach collection="list" item="item" index="index" separator=",">
+	        (#{item.sI},#{item.sA},#{item.sC},#{item.sT})
+	    </foreach>
+	</insert>
+</mapper>

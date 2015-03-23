@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <title>LegendSettings | JavaScript Stock Charts v. 3 | amCharts</title>
+    <meta name="viewport" content="width=device-width; maximum-scale=0.6; minimum-scale=0.6; user-scalable=yes;">
+    <link rel="shortcut icon" href="favicon.ico" type="image/x-icon" />
+
+    <!-- Le styles -->
+    <link href="../lib/bootstrap/css/bootstrap.css" tppabs="http://docs.amcharts.com/3/lib/bootstrap/css/bootstrap.css" rel="stylesheet">
+    <link href="../lib/bootstrap/css/bootstrap-responsive.css" tppabs="http://docs.amcharts.com/3/lib/bootstrap/css/bootstrap-responsive.css" rel="stylesheet">
+    <link href="../lib/style.css" tppabs="http://docs.amcharts.com/3/lib/style.css" rel="stylesheet">
+
+    <!-- Le HTML5 shim, for IE6-8 support of HTML5 elements -->
+    <!--[if lt IE 9]>
+      <script src="../../../html5shim.googlecode.com/svn/trunk/html5.js" tppabs="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <!--[if gte IE 9]>
+      <style type="text/css">
+        #header h2 {
+          filter: none;
+        }
+      </style>
+    <![endif]-->
+
+  </head>
+
+  <body>  
+    <div id="header" class="navbar-fixed-top">
+      <div id="header-top">
+        <div class="inside">
+          <div id="line"></div>
+          <a href="javascript:if(confirm('http://www.amcharts.com/  \n\n该文件无法用 Teleport Ultra 下载, 因为 它是一个域或路径外部被设置为它的启始地址的地址。  \n\n你想在服务器上打开它?'))window.location='http://www.amcharts.com/'" tppabs="http://www.amcharts.com/" id="logo"></a>
+          <div id="back"><a href="javascript:if(confirm('http://www.amcharts.com/  \n\n该文件无法用 Teleport Ultra 下载, 因为 它是一个域或路径外部被设置为它的启始地址的地址。  \n\n你想在服务器上打开它?'))window.location='http://www.amcharts.com/'" tppabs="http://www.amcharts.com/">Back to <strong>amcharts.com</strong></a></div>
+        </div>
+      </div>
+      <div id="header-bottom">
+        <div class="inside">
+          <div id="pick">Pick a product:</div>
+          <ul id="products">
+            <li class="product " id="javascriptcharts">
+              <a title="JavaScript Charts" href="../javascriptcharts.htm" tppabs="http://docs.amcharts.com/3/javascriptcharts"><i class="product-icon javascript-charts"></i><span>JavaScript</span><strong class="app-font transform-uppercase">Charts</strong></a>
+            </li>
+            <li class="product active" id="javascriptstockchart">
+              <a title="JavaScript Charts" href="../javascriptstockchart.htm" tppabs="http://docs.amcharts.com/3/javascriptstockchart"><i class="product-icon stock-charts"></i><span>JavaScript</span><strong class="app-font transform-uppercase">Stock Charts</strong>
+            </a>
+            <li class="product " id="javascriptmaps">
+              <a title="JavaScript Charts" href="../javascriptmaps.htm" tppabs="http://docs.amcharts.com/3/javascriptmaps"><i class="product-icon javascript-charts"></i><span>Interactive JavaScript</span><strong class="app-font transform-uppercase">Maps</strong>
+            </a>
+          </ul>
+          
+                    <h2>LegendSettings            <small>
+              <a href="#properties">Properties</a>
+              <a href="#methods">Methods</a>
+              <a href="#events">Events</a>
+            </small>
+          </h2>
+                  </div>
+      </div>
+    </div>
+
+    <div class="container">
+      
+              <ul class="nav nav-list left">
+  <li class="search-group">
+    <div class="input-group">
+      <form action="http://docs.amcharts.com/3/javascriptstockchart" method="get">
+        <input type="text" name="search" class="form-control" placeholder="Search" />
+      </form>
+    </div><!-- /input-group -->
+  </li>
+  
+  <li class="nav-header">Select a class</li>
+  <li><a href="AmAngularGauge.htm" tppabs="http://docs.amcharts.com/3/javascriptstockchart/AmAngularGauge">AmAngularGauge</a></li><li><a href="AmBalloon.htm" tppabs="http://docs.amcharts.com/3/javascriptstockchart/AmBalloon">AmBalloon</a></li><li><a href="AmChart.htm" tppabs="http://docs.amcharts.com/3/javascriptstockchart/AmChart">AmChart</a></li><li><a href="AmCharts.htm" tppabs="http://docs.amcharts.com/3/javascriptstockchart/AmCharts">AmCharts</a></li><li><a href="AmCoordinateChart.htm" tppabs="http://docs.amcharts.com/3/javascriptstockchart/AmCoordinateChart">AmCoordinateChart</a></li><li><a href="AmExport.htm" tppabs="http://docs.amcharts.com/3/javascriptstockchart/AmExport">AmExport</a></li><li><a href="AmFunnelChart.htm" tppabs="http://docs.amcharts.com/3/javascriptstockchart/AmFunnelChart">AmFunnelChart</a></li><li><a href="AmGraph.htm" tppabs="http://docs.amcharts.com/3/javascriptstockchart/AmGraph">AmGraph</a></li><li><a href="AmLegend.htm" tppabs="http://docs.amcharts.com/3/javascriptstockchart/AmLegend">AmLegend</a></li><li><a href="AmPieChart.htm" tppabs="http://docs.amcharts.com/3/javascriptstockchart/AmPieChart">AmPieChart</a></li><li><a href="AmRadarChart.htm" tppabs="http://docs.amcharts.com/3/javascriptstockchart/AmRadarChart">AmRadarChart</a></li><li><a href="AmRectangularChart.htm" tppabs="http://docs.amcharts.com/3/javascriptstockchart/AmRectangularChart">AmRectangularChart</a></li><li><a href="AmSerialChart.htm" tppabs="http://docs.amcharts.com/3/javascriptstockchart/AmSerialChart">AmSerialChart</a></li><li><a href="AmSlicedChart.htm" tppabs="http://docs.amcharts.com/3/javascriptstockchart/AmSlicedChart">AmSlicedChart</a></li><li><a href="AmStockChart.htm" tppabs="http://docs.amcharts.com/3/javascriptstockchart/AmStockChart">AmStockChart</a></li><li><a href="AmXYChart.htm" tppabs="http://docs.amcharts.com/3/javascriptstockchart/AmXYChart">AmXYChart</a></li><li><a href="AxisBase.htm" tppabs="http://docs.amcharts.com/3/javascriptstockchart/AxisBase">AxisBase</a></li><li><a href="CategoryAxesSettings.htm" tppabs="http://docs.amcharts.com/3/javascriptstockchart/CategoryAxesSettings">CategoryAxesSettings</a></li><li><a href="CategoryAxis.htm" tppabs="http://docs.amcharts.com/3/javascriptstockchart/CategoryAxis">CategoryAxis</a></li><li><a href="ChartCursor.htm" tppabs="http://docs.amcharts.com/3/javascriptstockchart/ChartCursor">ChartCursor</a></li><li><a href="ChartCursorSettings.htm" tppabs="http://docs.amcharts.com/3/javascriptstockchart/ChartCursorSettings">ChartCursorSettings</a></li><li><a href="ChartScrollbar.htm" tppabs="http://docs.amcharts.com/3/javascriptstockchart/ChartScrollbar">ChartScrollbar</a></li><li><a href="ChartScrollbarSettings.htm" tppabs="http://docs.amcharts.com/3/javascriptstockchart/ChartScrollbarSettings">ChartScrollbarSettings</a></li><li><a href="DataSet.htm" tppabs="http://docs.amcharts.com/3/javascriptstockchart/DataSet">DataSet</a></li><li><a href="DataSetSelector.htm" tppabs="http://docs.amcharts.com/3/javascriptstockchart/DataSetSelector">DataSetSelector</a></li><li><a href="GaugeArrow.htm" tppabs="http://docs.amcharts.com/3/javascriptstockchart/GaugeArrow">GaugeArrow</a></li><li><a href="GaugeAxis.htm" tppabs="http://docs.amcharts.com/3/javascriptstockchart/GaugeAxis">GaugeAxis</a></li><li><a href="GaugeBand.htm" tppabs="http://docs.amcharts.com/3/javascriptstockchart/GaugeBand">GaugeBand</a></li><li><a href="GraphDataItem.htm" tppabs="http://docs.amcharts.com/3/javascriptstockchart/GraphDataItem">GraphDataItem</a></li><li><a href="Guide.htm" tppabs="http://docs.amcharts.com/3/javascriptstockchart/Guide">Guide</a></li><li><a href="Label.htm" tppabs="http://docs.amcharts.com/3/javascriptstockchart/Label">Label</a></li><li class="active"><a href="LegendSettings.htm" tppabs="http://docs.amcharts.com/3/javascriptstockchart/LegendSettings">LegendSettings</a></li><li><a href="PanelsSettings.htm" tppabs="http://docs.amcharts.com/3/javascriptstockchart/PanelsSettings">PanelsSettings</a></li><li><a href="PeriodSelector.htm" tppabs="http://docs.amcharts.com/3/javascriptstockchart/PeriodSelector">PeriodSelector</a></li><li><a href="SerialDataItem.htm" tppabs="http://docs.amcharts.com/3/javascriptstockchart/SerialDataItem">SerialDataItem</a></li><li><a href="Slice.htm" tppabs="http://docs.amcharts.com/3/javascriptstockchart/Slice">Slice</a></li><li><a href="StockEvent.htm" tppabs="http://docs.amcharts.com/3/javascriptstockchart/StockEvent">StockEvent</a></li><li><a href="StockEventsSettings.htm" tppabs="http://docs.amcharts.com/3/javascriptstockchart/StockEventsSettings">StockEventsSettings</a></li><li><a href="StockGraph.htm" tppabs="http://docs.amcharts.com/3/javascriptstockchart/StockGraph">StockGraph</a></li><li><a href="StockLegend.htm" tppabs="http://docs.amcharts.com/3/javascriptstockchart/StockLegend">StockLegend</a></li><li><a href="StockPanel.htm" tppabs="http://docs.amcharts.com/3/javascriptstockchart/StockPanel">StockPanel</a></li><li><a href="Title.htm" tppabs="http://docs.amcharts.com/3/javascriptstockchart/Title">Title</a></li><li><a href="TrendLine.htm" tppabs="http://docs.amcharts.com/3/javascriptstockchart/TrendLine">TrendLine</a></li><li><a href="ValueAxesSettings.htm" tppabs="http://docs.amcharts.com/3/javascriptstockchart/ValueAxesSettings">ValueAxesSettings</a></li><li><a href="ValueAxis.htm" tppabs="http://docs.amcharts.com/3/javascriptstockchart/ValueAxis">ValueAxis</a></li></ul>        
+        <div class="inside">
+                    
+          <p>Common settings of legends. If you change a property after the chart is initialized, you should call stockChart.validateNow() method in order for it to work. If there is no default value specified, default value of StockLegend class will be used.</p>
+          
+          <h3 class="linkable" id="properties">
+            Properties
+                      </h3>
+          
+          <div style="position: relative; overflow: hidden;">
+            <table class="table table-bordered property-list"><thead><tr><th>Property</th><th>Type</th><th>Default</th><th>Description</th></thead><tr><td class="linkable" id="align">align</td><td>String</td><td></td><td>Alignment of legend entries. Possible values are: "left", "right" and "center".</td></tr><tr><td class="linkable" id="equalWidths">equalWidths</td><td>Boolean</td><td>false</td><td>Specifies if each legend entry should take the same space as the longest legend entry. </td></tr><tr><td class="linkable" id="horizontalGap">horizontalGap</td><td>Number</td><td></td><td>Horizontal space between legend item and left/right border.</td></tr><tr><td class="linkable" id="labelText">labelText</td><td>String</td><td></td><td>The text which will be displayed in the legend. Tag [[title]] will be replaced with the title of the graph.</td></tr><tr><td class="linkable" id="marginBottom">marginBottom</td><td>Number</td><td>0</td><td>Space below the last row of the legend, in pixels.</td></tr><tr><td class="linkable" id="marginTop">marginTop</td><td>Number</td><td>0</td><td>Space above the first row of the legend, in pixels.</td></tr><tr><td class="linkable" id="markerBorderAlpha">markerBorderAlpha</td><td>Number</td><td></td><td>Opacity of marker border.</td></tr><tr><td class="linkable" id="markerBorderColor">markerBorderColor</td><td>Color</td><td></td><td>Marker border color.</td></tr><tr><td class="linkable" id="markerBorderThickness">markerBorderThickness</td><td>Number</td><td></td><td>Thickness of the legend border.</td></tr><tr><td class="linkable" id="markerDisabledColor">markerDisabledColor</td><td>Color</td><td></td><td>The color of the disabled marker (when the graph is hidden).</td></tr><tr><td class="linkable" id="markerLabelGap">markerLabelGap</td><td>Number</td><td></td><td>Space between legend marker and legend text, in pixels.</td></tr><tr><td class="linkable" id="markerSize">markerSize</td><td>Number</td><td></td><td>Size of the legend marker (key).</td></tr><tr><td class="linkable" id="markerType">markerType</td><td>String</td><td></td><td>Shape of the legend marker (key). Possible values are: square, circle, diamond, triangleUp, triangleDown, triangleLeft, triangleDown, bubble, none</td></tr><tr><td class="linkable" id="reversedOrder">reversedOrder</td><td>Boolean</td><td></td><td>Specifies whether legend entries should be placed in reversed order.</td></tr><tr><td class="linkable" id="rollOverColor">rollOverColor</td><td>Color</td><td></td><td>Legend item text color on roll-over.</td></tr><tr><td class="linkable" id="rollOverGraphAlpha">rollOverGraphAlpha</td><td>Number</td><td></td><td>When you roll-over the legend entry, all other graphs can reduce their opacity, so that the graph you rolled-over would be distinguished. This property specifies the opacity of the graphs.</td></tr><tr><td class="linkable" id="switchable">switchable</td><td>Boolean</td><td></td><td>Whether showing/hiding of graphs by clicking on the legend marker is enabled or not.</td></tr><tr><td class="linkable" id="switchColor">switchColor</td><td>Color</td><td></td><td>Legend switch color.</td></tr><tr><td class="linkable" id="switchType">switchType</td><td>String</td><td></td><td>Legend switch type (in case the legend is switchable). Possible values are: "x" and "v".</td></tr><tr><td class="linkable" id="textClickEnabled">textClickEnabled</td><td>Boolean</td><td>false</td><td>Specifies whether the legend text is clickable or not. Clicking on legend text can show/hide value balloons if they are enabled.</td></tr><tr><td class="linkable" id="useMarkerColorForLabels">useMarkerColorForLabels</td><td>Boolean</td><td></td><td>Specifies if legend labels should be use same color as corresponding markers.</td></tr><tr><td class="linkable" id="valueTextComparing">valueTextComparing</td><td>String</td><td></td><td>The text which will be displayed in the value portion of the legend when graph is comparable and at least one dataSet is selected for comparing. You can use tags like [[value]], [[open]], [[high]], [[low]], [[close]], [[percents]], [[description]].</td></tr><tr><td class="linkable" id="valueTextRegular">valueTextRegular</td><td>String</td><td></td><td>The text which will be displayed in the value portion of the legend. You can use tags like [[value]], [[open]], [[high]], [[low]], [[close]], [[percents]], [[description]].</td></tr><tr><td class="linkable" id="valueWidth">valueWidth</td><td>Number</td><td></td><td>Width of the value text. Increase this value if your values do not fit in the allocated space.</td></tr><tr><td class="linkable" id="verticalGap">verticalGap</td><td>Number</td><td></td><td>Vertical space between legend items, in pixels.</td></tr></table>            
+            <h3 class="linkable" id="methods">
+              Methods
+                          </h3>
+            
+            <small>LegendSettings class does not have any methods.</small>            
+            <h3 class="linkable" id="events">
+              Events
+                          </h3>
+            
+            <small>LegendSettings class does not have any events.</small>          </div>
+          
+        </div>
+        
+        
+    </div> <!-- /container -->
+
+    <!-- Le javascript
+    ================================================== -->
+    <!-- Placed at the end of the document so the pages load faster -->
+    <script src="../lib/jquery-1.7.2.min.js" tppabs="http://docs.amcharts.com/3/lib/jquery-1.7.2.min.js"></script>
+    <script src="../lib/jquery.scrollTo-min.js" tppabs="http://docs.amcharts.com/3/lib/jquery.scrollTo-min.js"></script>
+    <script src="../lib/bootstrap/js/bootstrap-transition.js" tppabs="http://docs.amcharts.com/3/lib/bootstrap/js/bootstrap-transition.js"></script>
+    <script src="../lib/bootstrap/js/bootstrap-alert.js" tppabs="http://docs.amcharts.com/3/lib/bootstrap/js/bootstrap-alert.js"></script>
+    <script src="../lib/bootstrap/js/bootstrap-modal.js" tppabs="http://docs.amcharts.com/3/lib/bootstrap/js/bootstrap-modal.js"></script>
+    <script src="../lib/bootstrap/js/bootstrap-dropdown.js" tppabs="http://docs.amcharts.com/3/lib/bootstrap/js/bootstrap-dropdown.js"></script>
+    <script src="../lib/bootstrap/js/bootstrap-scrollspy.js" tppabs="http://docs.amcharts.com/3/lib/bootstrap/js/bootstrap-scrollspy.js"></script>
+    <script src="../lib/bootstrap/js/bootstrap-tab.js" tppabs="http://docs.amcharts.com/3/lib/bootstrap/js/bootstrap-tab.js"></script>
+    <script src="../lib/bootstrap/js/bootstrap-tooltip.js" tppabs="http://docs.amcharts.com/3/lib/bootstrap/js/bootstrap-tooltip.js"></script>
+    <script src="../lib/bootstrap/js/bootstrap-popover.js" tppabs="http://docs.amcharts.com/3/lib/bootstrap/js/bootstrap-popover.js"></script>
+    <script src="../lib/bootstrap/js/bootstrap-button.js" tppabs="http://docs.amcharts.com/3/lib/bootstrap/js/bootstrap-button.js"></script>
+    <script src="../lib/bootstrap/js/bootstrap-collapse.js" tppabs="http://docs.amcharts.com/3/lib/bootstrap/js/bootstrap-collapse.js"></script>
+    <script src="../lib/bootstrap/js/bootstrap-typeahead.js" tppabs="http://docs.amcharts.com/3/lib/bootstrap/js/bootstrap-typeahead.js"></script>
+    
+    <script src="../lib/common.js" tppabs="http://docs.amcharts.com/3/lib/common.js"></script><script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','../../../www.google-analytics.com/analytics.js'/*tpa=http://www.google-analytics.com/analytics.js*/,'ga');
+
+  ga('create', 'UA-22221037-3', 'http://docs.amcharts.com/3/javascriptstockchart/amcharts.com');
+  ga('send', 'pageview');
+
+</script>
+  </body>
+</html>

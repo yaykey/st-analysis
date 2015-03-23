@@ -1,0 +1,56 @@
+<public:component>
+<public:attach event="onmouseover" 	onevent="MouseOver()" />
+<public:attach event="onmouseout" 	onevent="MouseOut()" />
+
+<script language="JScript">
+//-----------------------------------------------
+// MouseOut()
+//-----------------------------------------------
+
+function MouseOut()
+  {
+  var objUnknown;
+
+  objUnknown = window.event.srcElement;
+  //alert("enter MouseOut:"+objUnknown.tagName );
+
+  if (objUnknown.tagName.toUpperCase() == "INPUT")
+    {
+    objUnknown.style.background = "#9eaccd";
+    objUnknown.style.borderRightColor = "#31557f"; 
+    objUnknown.style.borderTopColor  = "#cce3ff"; 
+    objUnknown.style.borderLeftColor = "#cce3ff"; 
+    objUnknown.style.borderBottomColor = "#31557f"; 
+    
+    }
+  return true;
+  }
+
+//-----------------------------------------------
+// MouseOver()
+//-----------------------------------------------
+
+function MouseOver()
+  {
+  
+  var objUnknown;
+
+  objUnknown = window.event.srcElement;
+  //alert("enter MouseOver:"+objUnknown.tagName );
+
+  if (objUnknown.tagName.toUpperCase() == "INPUT")
+    {
+    objUnknown.style.background = "#99aabf";
+    objUnknown.style.borderRightColor = "#cce3ff"; 
+    objUnknown.style.borderTopColor = "#31557f"; 
+    objUnknown.style.borderLeftColor = "#31557f"; 
+    objUnknown.style.borderBottomColor = "#cce3ff"; 
+    
+    }
+  return true;
+  }
+
+
+</script>
+
+</public:component>

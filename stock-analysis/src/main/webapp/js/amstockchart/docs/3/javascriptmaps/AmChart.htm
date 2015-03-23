@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <title>AmChart | JavaScript Maps v. 3 | amCharts</title>
+    <meta name="viewport" content="width=device-width; maximum-scale=0.6; minimum-scale=0.6; user-scalable=yes;">
+    <link rel="shortcut icon" href="favicon.ico" type="image/x-icon" />
+
+    <!-- Le styles -->
+    <link href="../lib/bootstrap/css/bootstrap.css" tppabs="http://docs.amcharts.com/3/lib/bootstrap/css/bootstrap.css" rel="stylesheet">
+    <link href="../lib/bootstrap/css/bootstrap-responsive.css" tppabs="http://docs.amcharts.com/3/lib/bootstrap/css/bootstrap-responsive.css" rel="stylesheet">
+    <link href="../lib/style.css" tppabs="http://docs.amcharts.com/3/lib/style.css" rel="stylesheet">
+
+    <!-- Le HTML5 shim, for IE6-8 support of HTML5 elements -->
+    <!--[if lt IE 9]>
+      <script src="../../../html5shim.googlecode.com/svn/trunk/html5.js" tppabs="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <!--[if gte IE 9]>
+      <style type="text/css">
+        #header h2 {
+          filter: none;
+        }
+      </style>
+    <![endif]-->
+
+  </head>
+
+  <body>  
+    <div id="header" class="navbar-fixed-top">
+      <div id="header-top">
+        <div class="inside">
+          <div id="line"></div>
+          <a href="javascript:if(confirm('http://www.amcharts.com/  \n\n该文件无法用 Teleport Ultra 下载, 因为 它是一个域或路径外部被设置为它的启始地址的地址。  \n\n你想在服务器上打开它?'))window.location='http://www.amcharts.com/'" tppabs="http://www.amcharts.com/" id="logo"></a>
+          <div id="back"><a href="javascript:if(confirm('http://www.amcharts.com/  \n\n该文件无法用 Teleport Ultra 下载, 因为 它是一个域或路径外部被设置为它的启始地址的地址。  \n\n你想在服务器上打开它?'))window.location='http://www.amcharts.com/'" tppabs="http://www.amcharts.com/">Back to <strong>amcharts.com</strong></a></div>
+        </div>
+      </div>
+      <div id="header-bottom">
+        <div class="inside">
+          <div id="pick">Pick a product:</div>
+          <ul id="products">
+            <li class="product " id="javascriptcharts">
+              <a title="JavaScript Charts" href="../javascriptcharts.htm" tppabs="http://docs.amcharts.com/3/javascriptcharts"><i class="product-icon javascript-charts"></i><span>JavaScript</span><strong class="app-font transform-uppercase">Charts</strong></a>
+            </li>
+            <li class="product " id="javascriptstockchart">
+              <a title="JavaScript Charts" href="../javascriptstockchart.htm" tppabs="http://docs.amcharts.com/3/javascriptstockchart"><i class="product-icon stock-charts"></i><span>JavaScript</span><strong class="app-font transform-uppercase">Stock Charts</strong>
+            </a>
+            <li class="product active" id="javascriptmaps">
+              <a title="JavaScript Charts" href="../javascriptmaps.htm" tppabs="http://docs.amcharts.com/3/javascriptmaps"><i class="product-icon javascript-charts"></i><span>Interactive JavaScript</span><strong class="app-font transform-uppercase">Maps</strong>
+            </a>
+          </ul>
+          
+                    <h2>AmChart            <small>
+              <a href="#properties">Properties</a>
+              <a href="#methods">Methods</a>
+              <a href="#events">Events</a>
+            </small>
+          </h2>
+                  </div>
+      </div>
+    </div>
+
+    <div class="container">
+      
+              <ul class="nav nav-list left">
+  <li class="search-group">
+    <div class="input-group">
+      <form action="http://docs.amcharts.com/3/javascriptmaps" method="get">
+        <input type="text" name="search" class="form-control" placeholder="Search" />
+      </form>
+    </div><!-- /input-group -->
+  </li>
+  
+  <li class="nav-header">Select a class</li>
+  <li><a href="AmBalloon.htm" tppabs="http://docs.amcharts.com/3/javascriptmaps/AmBalloon">AmBalloon</a></li><li class="active"><a href="AmChart.htm" tppabs="http://docs.amcharts.com/3/javascriptmaps/AmChart">AmChart</a></li><li><a href="AmCharts.htm" tppabs="http://docs.amcharts.com/3/javascriptmaps/AmCharts">AmCharts</a></li><li><a href="AmExport.htm" tppabs="http://docs.amcharts.com/3/javascriptmaps/AmExport">AmExport</a></li><li><a href="AmLegend.htm" tppabs="http://docs.amcharts.com/3/javascriptmaps/AmLegend">AmLegend</a></li><li><a href="AmMap.htm" tppabs="http://docs.amcharts.com/3/javascriptmaps/AmMap">AmMap</a></li><li><a href="AreasSettings.htm" tppabs="http://docs.amcharts.com/3/javascriptmaps/AreasSettings">AreasSettings</a></li><li><a href="ImagesSettings.htm" tppabs="http://docs.amcharts.com/3/javascriptmaps/ImagesSettings">ImagesSettings</a></li><li><a href="Label.htm" tppabs="http://docs.amcharts.com/3/javascriptmaps/Label">Label</a></li><li><a href="LinesSettings.htm" tppabs="http://docs.amcharts.com/3/javascriptmaps/LinesSettings">LinesSettings</a></li><li><a href="MapArea.htm" tppabs="http://docs.amcharts.com/3/javascriptmaps/MapArea">MapArea</a></li><li><a href="MapData.htm" tppabs="http://docs.amcharts.com/3/javascriptmaps/MapData">MapData</a></li><li><a href="MapImage.htm" tppabs="http://docs.amcharts.com/3/javascriptmaps/MapImage">MapImage</a></li><li><a href="MapLine.htm" tppabs="http://docs.amcharts.com/3/javascriptmaps/MapLine">MapLine</a></li><li><a href="MapObject.htm" tppabs="http://docs.amcharts.com/3/javascriptmaps/MapObject">MapObject</a></li><li><a href="ObjectList.htm" tppabs="http://docs.amcharts.com/3/javascriptmaps/ObjectList">ObjectList</a></li><li><a href="SmallMap.htm" tppabs="http://docs.amcharts.com/3/javascriptmaps/SmallMap">SmallMap</a></li><li><a href="Title.htm" tppabs="http://docs.amcharts.com/3/javascriptmaps/Title">Title</a></li><li><a href="ValueLegend.htm" tppabs="http://docs.amcharts.com/3/javascriptmaps/ValueLegend">ValueLegend</a></li><li><a href="ZoomControl.htm" tppabs="http://docs.amcharts.com/3/javascriptmaps/ZoomControl">ZoomControl</a></li></ul>        
+        <div class="inside">
+                    
+          <p>Base class of <a href="AmCharts.htm" tppabs="http://docs.amcharts.com/3/javascriptmaps/AmCharts">AmCharts</a>. It can not be instantiated explicitly. It's <a href="AmChart.htm#makeChart" tppabs="http://docs.amcharts.com/3/javascriptmaps/AmChart#makeChart">makeChart</a> method gives you the possibility to create charts easily with a single object.<br />
+<h3 class=&quot;linkable&quot; id=&quot;example&quot;>Example</h3><pre>var chart = AmCharts.makeChart(&quot;chartdiv&quot;,{
+	&quot;type&quot;: &quot;serial&quot;,
+	&quot;categoryField&quot;: &quot;category&quot;,
+	&quot;categoryAxis&quot;: {
+		&quot;gridPosition&quot;: &quot;start&quot;
+	},
+	&quot;graphs&quot;: [
+		{
+			&quot;title&quot;: &quot;Graph title&quot;,
+			&quot;valueField&quot;: &quot;column-1&quot;
+		}
+	],
+	&quot;valueAxes&quot;: [
+		{
+			&quot;title&quot;: &quot;Axis title&quot;
+		}
+	],
+	&quot;legend&quot;: {
+		&quot;useGraphSettings&quot;: true
+	},
+	&quot;titles&quot;: [
+		{
+			&quot;size&quot;: 15,
+			&quot;text&quot;: &quot;Chart Title&quot;
+		}
+	],
+	&quot;dataProvider&quot;: [
+		{
+			&quot;category&quot;: &quot;category 1&quot;,
+			&quot;column-1&quot;: 8
+		},
+		{
+			&quot;category&quot;: &quot;category 2&quot;,
+			&quot;column-1&quot;: 10
+		},
+	]
+});</pre></p>
+          
+          <h3 class="linkable" id="properties">
+            Properties
+                      </h3>
+          
+          <div style="position: relative; overflow: hidden;">
+            <table class="table table-bordered property-list"><thead><tr><th>Property</th><th>Type</th><th>Default</th><th>Description</th></thead><tr><td class="linkable" id="allLabels">allLabels</td><td>Array[<a href="Label.htm" tppabs="http://docs.amcharts.com/3/javascriptmaps/Label">Label</a>]</td><td>[]</td><td>Array of <a href="../javascriptcharts/Label.htm" tppabs="http://docs.amcharts.com/3/javascriptcharts/Label">Labels</a>. Example of label object, with all possible properties:<br />
+{"x": 20, "y": 20, "text": "this is label", "align": "left", "size": 12, "color": "#CC0000", "alpha": 1, "rotation": 0, "bold": true, "url": "http://www.amcharts.com"}</td></tr><tr><td class="linkable" id="amExport">amExport</td><td><a href="AmExport.htm" tppabs="http://docs.amcharts.com/3/javascriptmaps/AmExport">AmExport</a></td><td></td><td><a href="AmExport.htm" tppabs="http://docs.amcharts.com/3/javascriptmaps/AmExport">AmExport</a> object.</td></tr><tr><td class="linkable" id="backgroundAlpha">backgroundAlpha</td><td>Number</td><td>0</td><td>Opacity of background. Set it to &gt;0 value if you want backgroundColor to work. However we recommend changing div's background-color style for changing background color.</td></tr><tr><td class="linkable" id="backgroundColor">backgroundColor</td><td>Color</td><td>#FFFFFF</td><td>Background color. You should set backgroundAlpha to &gt;0 value in order background to be visible. We recommend setting background color directly on a chart's DIV instead of using this property.</td></tr><tr><td class="linkable" id="balloon">balloon</td><td><a href="AmBalloon.htm" tppabs="http://docs.amcharts.com/3/javascriptmaps/AmBalloon">AmBalloon</a></td><td><a href="AmBalloon.htm" tppabs="http://docs.amcharts.com/3/javascriptmaps/AmBalloon">AmBalloon</a></td><td>The chart creates <a href="AmBalloon.htm" tppabs="http://docs.amcharts.com/3/javascriptmaps/AmBalloon">AmBalloon</a> class itself. If you want to customize balloon, get balloon instance using this property, and then change balloon's properties.</td></tr><tr><td class="linkable" id="borderAlpha">borderAlpha</td><td>Number</td><td>0</td><td>Opacity of chart's border. Value range is 0 - 1.</td></tr><tr><td class="linkable" id="borderColor">borderColor</td><td>Color</td><td>#000000</td><td>Color of chart's border. You should set borderAlpha &gt;0 in order border to be visible. We recommend setting border color directly on a chart's DIV instead of using this property.</td></tr><tr><td class="linkable" id="color">color</td><td>Color</td><td>#000000</td><td>Text color.</td></tr><tr><td class="linkable" id="creditsPosition">creditsPosition</td><td>String</td><td>top-left</td><td>Non-commercial version only. Specifies position of link to amCharts site.</td></tr><tr><td class="linkable" id="dataProvider">dataProvider</td><td>Array[Object]</td><td></td><td>Array of data objects, for example: [{country:"US", value:524},{country:"UK", value:624},{country:"Lithuania", value:824}]. You can have any number of fields and use any field names. In case of <a href="AmMap.htm" tppabs="http://docs.amcharts.com/3/javascriptmaps/AmMap">AmMap</a>, data provider should be <a href="MapData.htm" tppabs="http://docs.amcharts.com/3/javascriptmaps/MapData">MapData</a> object.</td></tr><tr><td class="linkable" id="decimalSeparator">decimalSeparator</td><td>String</td><td>.</td><td>Decimal separator.</td></tr><tr><td class="linkable" id="exportConfig">exportConfig</td><td>Object</td><td></td><td>Object of export config. Will enable saving chart as an image for all modern browsers except IE9 (IE10+ works fine). Check <a href="javascript:if(confirm('http://www.amcharts.com/tutorials/exporting-charts-and-maps-as-an-image-or-pdf/  \n\n该文件无法用 Teleport Ultra 下载, 因为 它是一个域或路径外部被设置为它的启始地址的地址。  \n\n你想在服务器上打开它?'))window.location='http://www.amcharts.com/tutorials/exporting-charts-and-maps-as-an-image-or-pdf/'" tppabs="http://www.amcharts.com/tutorials/exporting-charts-and-maps-as-an-image-or-pdf/">this article</a> for more info.</td></tr><tr><td class="linkable" id="fontFamily">fontFamily</td><td>String</td><td>Verdana</td><td>Font family.</td></tr><tr><td class="linkable" id="fontSize">fontSize</td><td>Number</td><td>11</td><td>Font size.</td></tr><tr><td class="linkable" id="handDrawn">handDrawn</td><td>Boolean</td><td>false</td><td>If you set this to true, the lines of the chart will be distorted and will produce hand-drawn effect. Try to adjust chart.handDrawScatter and chart.handDrawThickness properties for a more scattered result.</td></tr><tr><td class="linkable" id="handDrawScatter">handDrawScatter</td><td>Number</td><td>2</td><td>Defines by how many pixels hand-drawn line (when handDrawn is set to true) will fluctuate.</td></tr><tr><td class="linkable" id="handDrawThickness">handDrawThickness</td><td>Number</td><td>1</td><td>Defines by how many pixels line thickness will fluctuate (when handDrawn is set to true).</td></tr><tr><td class="linkable" id="hideBalloonTime">hideBalloonTime</td><td>Number</td><td>150</td><td>Time, in milliseconds after which balloon is hidden if the user rolls-out of the object. Might be useful for <a href="AmMap.htm" tppabs="http://docs.amcharts.com/3/javascriptmaps/AmMap">AmMap</a> to avoid balloon flickering while moving mouse over the areas. Note, this is not duration of fade-out. Duration of fade-out is set in <a href="AmBalloon.htm" tppabs="http://docs.amcharts.com/3/javascriptmaps/AmBalloon">AmBalloon</a> class.</td></tr><tr><td class="linkable" id="language">language</td><td>String</td><td></td><td>Allows changing language easily. Note, you should include language js file from amcharts/lang or ammap/lang folder and then use variable name used in this file, like chart.language = "de"; Note, for maps this works differently - you use language only for country names, as there are no other strings in the maps application.</td></tr><tr><td class="linkable" id="legend">legend</td><td><a href="AmLegend.htm" tppabs="http://docs.amcharts.com/3/javascriptmaps/AmLegend">AmLegend</a></td><td></td><td>Legend of a chart.</td></tr><tr><td class="linkable" id="legendDiv">legendDiv</td><td>String</td><td></td><td>Read-only. Reference to the div of the legend.</td></tr><tr><td class="linkable" id="panEventsEnabled">panEventsEnabled</td><td>Boolean</td><td>true</td><td>This setting affects touch-screen devices only. If a chart is on a page, and panEventsEnabled are set to true, the page won't move if the user touches the chart first. If a chart is big enough and occupies all the screen of your touch device, the user won鈥檛 be able to move the page at all. If you think that selecting/panning the chart or moving/pinching the map is a primary purpose of your users, you should set panEventsEnabled to true, otherwise - false.</td></tr><tr><td class="linkable" id="pathToImages">pathToImages</td><td>String</td><td></td><td>Specifies path to the folder where images like resize grips, lens and similar are.</td></tr><tr><td class="linkable" id="percentPrecision">percentPrecision</td><td>Number</td><td>2</td><td>Precision of percent values. -1 means percent values won't be rounded at all and show as they are.</td></tr><tr><td class="linkable" id="precision">precision</td><td>Number</td><td>-1</td><td>Precision of values. -1 means values won't be rounded at all and show as they are.</td></tr><tr><td class="linkable" id="prefixesOfBigNumbers">prefixesOfBigNumbers</td><td>Array[Object]</td><td>[{number:1e+3,prefix:"k"},{number:1e+6,prefix:"M"},{number:1e+9,prefix:"G"},{number:1e+12,prefix:"T"},{number:1e+15,prefix:"P"},{number:1e+18,prefix:"E"},{number:1e+21,prefix:"Z"},{number:1e+24,prefix:"Y"}]</td><td>Prefixes which are used to make big numbers shorter: 2M instead of 2000000, etc. Prefixes are used on value axes and in the legend. To enable prefixes, set usePrefixes property to true.</td></tr><tr><td class="linkable" id="prefixesOfSmallNumbers">prefixesOfSmallNumbers</td><td>Array[Object]</td><td>[{number:1e-24, prefix:"y"},{number:1e-21, prefix:"z"},{number:1e-18, prefix:"a"},{number:1e-15, prefix:"f"},{number:1e-12, prefix:"p"},{number:1e-9, prefix:"n"},{number:1e-6, prefix:"渭"},{number:1e-3, prefix:"m"}]</td><td>Prefixes which are used to make small numbers shorter: 2渭 instead of 0.000002, etc. Prefixes are used on value axes and in the legend. To enable prefixes, set usePrefixes property to true.</td></tr><tr><td class="linkable" id="theme">theme</td><td>String</td><td>none</td><td>Theme of a chart. Config files of themes can be found in amcharts/themes/ folder. More info about <a href="javascript:if(confirm('http://www.amcharts.com/tutorials/working-with-themes/  \n\n该文件无法用 Teleport Ultra 下载, 因为 它是一个域或路径外部被设置为它的启始地址的地址。  \n\n你想在服务器上打开它?'))window.location='http://www.amcharts.com/tutorials/working-with-themes/'" tppabs="http://www.amcharts.com/tutorials/working-with-themes/">using themes</a>.</td></tr><tr><td class="linkable" id="thousandsSeparator">thousandsSeparator</td><td>String</td><td>,</td><td>Thousands separator.</td></tr><tr><td class="linkable" id="titles">titles</td><td>Array[<a href="Title.htm" tppabs="http://docs.amcharts.com/3/javascriptmaps/Title">Title</a>]</td><td>[]</td><td>Array of <a href="Title.htm" tppabs="http://docs.amcharts.com/3/javascriptmaps/Title">Title</a> objects.</td></tr><tr><td class="linkable" id="type">type</td><td>String</td><td></td><td>Type of a chart. Required when creating chart using JSON. Possible types are: serial, pie, xy, radar, funnel, gauge, map, stock.</td></tr><tr><td class="linkable" id="usePrefixes">usePrefixes</td><td>Boolean</td><td>false</td><td>If true, prefixes will be used for big and small numbers. You can set arrays of prefixes via prefixesOfSmallNumbers and prefixesOfBigNumbers properties.</td></tr><tr><td class="linkable" id="version">version</td><td>String</td><td></td><td>Read-only. Indicates current version of a script.</td></tr></table>            
+            <h3 class="linkable" id="methods">
+              Methods
+                          </h3>
+            
+            <table class="table table-bordered method-list"><thead><tr><th>Name</th><th>Parameters</th><th>Returns</th><th>Description</th></thead><tr><td class="linkable" id="addLabel">addLabel(x, y, text, align, size, color, rotation, alpha, bold, url)</td><td>x - horizontal coordinate y - vertical coordinate text - label's text align - alignment (left/right/center) size - text size color - text color rotation - angle of rotation alpha - label alpha bold - specifies if text is bold (true/false), url - url of a </td><td></td><td>Adds a label on a chart. You can use it for labeling axes, adding chart title, etc. x and y coordinates can be set in number, percent, or a number with ! in front of it - coordinate will be calculated from right or bottom instead of left or top.</td></tr><tr><td class="linkable" id="addLegend">addLegend(legend, legendDivID)</td><td>legend - <a href="AmLegend.htm" tppabs="http://docs.amcharts.com/3/javascriptmaps/AmLegend">AmLegend</a>, legendDivID - id or reference to legend div (optional)</td><td></td><td>Adds a legend to the chart. By default, you don't need to create div for your legend, however if you want it to be positioned in some different way, you can create div anywhere you want and pass id or reference to your div as a second parameter. (NOTE: This method will not work on StockPanel.)</td></tr><tr><td class="linkable" id="addListener">addListener(type, handler)</td><td>type - string like 'dataUpdated' (should be listed in 'events' section of this class or classes which extend this class). handler - function which is called when event happens</td><td></td><td>Adds event listener to the object.</td></tr><tr><td class="linkable" id="addTitle">addTitle(text, size, color, alpha, bold)</td><td>text - text of a title size - font size  color - title color  alpha - title opacity  bold - boolean value indicating if title should be bold.</td><td></td><td>Adds title to the top of the chart. Pie, Radar positions are updated so that they won't overlap. Plot area of Serial/XY chart is also updated unless autoMargins property is set to false. You can add any number of titles - each of them will be placed in a new line. To remove titles, simply clear titles array: chart.titles = []; and call chart.validateNow() method.</td></tr><tr><td class="linkable" id="clear">clear()</td><td></td><td></td><td>Clears the chart area, intervals, etc.</td></tr><tr><td class="linkable" id="clearLabels">clearLabels()</td><td></td><td></td><td>Removes all labels added to the chart.</td></tr><tr><td class="linkable" id="invalidateSize">invalidateSize()</td><td></td><td></td><td>Use this method to force the chart to resize to it's current container size.</td></tr><tr><td class="linkable" id="makeChart">makeChart(container, config, delay)</td><td>container - id of a DIV or DIV object which holds the chart - config contains the whole setup for the chart - delay in milliseconds to delay the initiation of the chart</td><td>chart instance</td><td>This method allows to create charts with a single config.</td></tr><tr><td class="linkable" id="removeLegend">removeLegend()</td><td></td><td></td><td>Removes chart's legend.</td></tr><tr><td class="linkable" id="removeListener">removeListener(chart, type, handler)</td><td>chart - chart object, type - event name, handler - method</td><td></td><td>Removes event listener from chart object.</td></tr><tr><td class="linkable" id="validateData">validateData()</td><td></td><td></td><td>This method should be called after data in your data provider changed or a new array was set to dataProvider. After calling this method the chart will parse data and redraw.</td></tr><tr><td class="linkable" id="validateNow">validateNow()</td><td></td><td></td><td>This method should be called after you changed one or more properties of any class. The chart will redraw after this method is called.</td></tr><tr><td class="linkable" id="write">write(container)</td><td>container - id of a DIV or DIV object which will hold the chart</td><td></td><td>Adds chart to the specified DIV.</td></tr></table>            
+            <h3 class="linkable" id="events">
+              Events
+                          </h3>
+            
+            <table class="table table-bordered event-list"><thead><tr><th>Name</th><th>Event object</th><th>Description</th></thead><tr><td class="linkable" id="dataUpdated">dataUpdated</td><td>{type:"dataUpdated", chart:AmChart}</td><td>Dispatched when chart is build for the first time or after validateData() method was called.</td></tr><tr><td class="linkable" id="drawn">drawn</td><td>{type:"drawn", chart:AmChart}</td><td>Fired every time chart is drawn - on zoom, hide graph, etc.</td></tr><tr><td class="linkable" id="init">init</td><td>{type:"init", chart:AmChart}</td><td>Dispatched when chart is build for the first time.</td></tr><tr><td class="linkable" id="rendered">rendered</td><td>{type:"rendered", chart:AmChart}</td><td>Dispatched when the chart is build for the first time and each time after chart.validateNow() method is called and the chart is build.</td></tr></table>          </div>
+          
+        </div>
+        
+        
+    </div> <!-- /container -->
+
+    <!-- Le javascript
+    ================================================== -->
+    <!-- Placed at the end of the document so the pages load faster -->
+    <script src="../lib/jquery-1.7.2.min.js" tppabs="http://docs.amcharts.com/3/lib/jquery-1.7.2.min.js"></script>
+    <script src="../lib/jquery.scrollTo-min.js" tppabs="http://docs.amcharts.com/3/lib/jquery.scrollTo-min.js"></script>
+    <script src="../lib/bootstrap/js/bootstrap-transition.js" tppabs="http://docs.amcharts.com/3/lib/bootstrap/js/bootstrap-transition.js"></script>
+    <script src="../lib/bootstrap/js/bootstrap-alert.js" tppabs="http://docs.amcharts.com/3/lib/bootstrap/js/bootstrap-alert.js"></script>
+    <script src="../lib/bootstrap/js/bootstrap-modal.js" tppabs="http://docs.amcharts.com/3/lib/bootstrap/js/bootstrap-modal.js"></script>
+    <script src="../lib/bootstrap/js/bootstrap-dropdown.js" tppabs="http://docs.amcharts.com/3/lib/bootstrap/js/bootstrap-dropdown.js"></script>
+    <script src="../lib/bootstrap/js/bootstrap-scrollspy.js" tppabs="http://docs.amcharts.com/3/lib/bootstrap/js/bootstrap-scrollspy.js"></script>
+    <script src="../lib/bootstrap/js/bootstrap-tab.js" tppabs="http://docs.amcharts.com/3/lib/bootstrap/js/bootstrap-tab.js"></script>
+    <script src="../lib/bootstrap/js/bootstrap-tooltip.js" tppabs="http://docs.amcharts.com/3/lib/bootstrap/js/bootstrap-tooltip.js"></script>
+    <script src="../lib/bootstrap/js/bootstrap-popover.js" tppabs="http://docs.amcharts.com/3/lib/bootstrap/js/bootstrap-popover.js"></script>
+    <script src="../lib/bootstrap/js/bootstrap-button.js" tppabs="http://docs.amcharts.com/3/lib/bootstrap/js/bootstrap-button.js"></script>
+    <script src="../lib/bootstrap/js/bootstrap-collapse.js" tppabs="http://docs.amcharts.com/3/lib/bootstrap/js/bootstrap-collapse.js"></script>
+    <script src="../lib/bootstrap/js/bootstrap-typeahead.js" tppabs="http://docs.amcharts.com/3/lib/bootstrap/js/bootstrap-typeahead.js"></script>
+    
+    <script src="../lib/common.js" tppabs="http://docs.amcharts.com/3/lib/common.js"></script><script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','../../../www.google-analytics.com/analytics.js'/*tpa=http://www.google-analytics.com/analytics.js*/,'ga');
+
+  ga('create', 'UA-22221037-3', 'http://docs.amcharts.com/3/javascriptmaps/amcharts.com');
+  ga('send', 'pageview');
+
+</script>
+  </body>
+</html>

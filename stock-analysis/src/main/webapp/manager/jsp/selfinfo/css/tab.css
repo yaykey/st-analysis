@@ -1,0 +1,147 @@
+body,div,ul,li { 
+	margin:0;
+	padding:0;
+}
+.wrapper ul {
+	list-style:none;
+}
+html, body {
+	background-color: #fff;
+	font-family: Arial, Helvetica, sans-serif;
+	font-size: 12px;
+	color: #52697E;
+}
+body {
+	text-align: center;
+	overflow: auto;
+}
+.wrapper {
+	width: 95%;
+	margin: 0 auto;
+	text-align: left;
+	height:80%;
+}
+.navigationTabs {
+	height: 23px;
+	line-height: 23px;
+	border-bottom: 1px solid #ccc;
+}
+.navigationTabs li {
+	float: left;
+	height: 23px;
+	line-height: 23px;
+	padding-right: 3px;
+	list-style: none;
+}
+.navigationTabs li a{
+	float: left;
+	dispaly: block;
+	height: 23px;
+	line-height: 23px;
+	padding: 0 10px;
+	overflow: hidden;
+	color: #52697E;
+	background-color: #eee;
+	position: relative;
+	text-decoration: none;
+}
+.navigationTabs li a:hover {
+	background-color: #f0f0f0;
+}
+.navigationTabs li a.active {
+	background-color: #fff;
+	border: 1px solid #ccc;
+	border-bottom: 0px solid;
+}
+.tabsContent {
+	border: 1px solid #ccc;
+	border-top: 0px solid;
+	width: 100%;
+	overflow: hidden;
+	height:400px;
+}
+.tab {
+	padding: 16px;
+	display: none;
+}
+.tab h2 {
+	font-weight: bold;
+	font-size: 16px;
+}
+.user-info-config{
+	overflow:hidden;
+	color:#686868;
+	margin-bottom: 15px;
+}
+.user-info-config li{
+	margin-top:30px;
+}
+.user-info-config h3{
+	color:#000;
+	font-size:14px;
+	font-weight:700;
+	line-height:18px;
+	margin-bottom:6px;
+	border-bottom:1px #cdd7d9 solid;
+	padding-bottom:6px;
+	text-align: left;
+}
+.user-infro-config img{
+	vertical-align:text-bottom;		
+}
+.tab p{
+	line-height:36px;
+	font-size:14px;
+	zoom:1;
+	overflow:hidden;
+	margin-top: 20px;
+}
+.tab .info-label{
+	float:left;
+	width:110px;
+	padding-right:16px;
+	text-align:right;
+}
+.tab .info-content{
+	display:block;
+	margin-left:89px;
+	line-height: 36px;
+	vertical-align: text-bottom;
+}
+.info-content input {
+	width: 320px;
+	border: 1px solid #cdd7d9;
+    padding: 3px; 
+    border-radius: 8px;
+    -webkit-border-radius: 8px;
+    -moz-border-radius: 8px;
+    -moz-box-sizing: border-box;
+	-webkit-box-sizing: border-box;
+	box-sizing: border-box;
+	line-height: 16px;
+	height:28px;
+}
+.info-content select {
+	width:320px;
+	border: 1px solid #cdd7d9;
+ 	padding: 5px;
+    border-radius: 8px;
+    -webkit-border-radius: 8px;
+    -moz-border-radius: 8px;
+    line-height: 16px;
+	height:28px;
+}
+.info-button {
+	margin-top: 5px;
+}
+.info-button input {
+	border: 1px solid #cdd7d9;
+    padding: 5px;
+    border-radius: 8px;
+    -webkit-border-radius: 8px;
+    -moz-border-radius: 8px;
+}
+.info-label label{
+	color: red;
+	line-height: 36px;
+}

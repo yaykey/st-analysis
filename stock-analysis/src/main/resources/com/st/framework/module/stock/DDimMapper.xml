@@ -1,0 +1,239 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.st.framework.persistence.mapper.stock.DDimMapper" >
+  <resultMap id="BaseResultMap" type="com.st.framework.module.stock.DDim" >
+    <id column="DIMTYPE_ID" property="dimtypeId" jdbcType="INTEGER" />
+    <id column="DIM_ID" property="dimId" jdbcType="INTEGER" />
+    <result column="DIMTYPE_NAME" property="dimtypeName" jdbcType="VARCHAR" />
+    <result column="DIM_CODE" property="dimCode" jdbcType="VARCHAR" />
+    <result column="DIM_NAME" property="dimName" jdbcType="VARCHAR" />
+    <result column="UPD_DATE" property="updDate" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    DIMTYPE_ID, DIM_ID, DIMTYPE_NAME, DIM_CODE, DIM_NAME, UPD_DATE
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.st.framework.module.stock.example.DDimExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from D_DIM
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+    <if test="start != null and pageSize != null" >
+      limit #{start}, #{pageSize}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="com.st.framework.module.stock.DDimKey" >
+    select 
+    <include refid="Base_Column_List" />
+    from D_DIM
+    where DIMTYPE_ID = #{dimtypeId,jdbcType=INTEGER}
+      and DIM_ID = #{dimId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="com.st.framework.module.stock.DDimKey" >
+    delete from D_DIM
+    where DIMTYPE_ID = #{dimtypeId,jdbcType=INTEGER}
+      and DIM_ID = #{dimId,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.st.framework.module.stock.example.DDimExample" >
+    delete from D_DIM
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.st.framework.module.stock.DDim" >
+    insert into D_DIM (DIMTYPE_ID, DIM_ID, DIMTYPE_NAME, 
+      DIM_CODE, DIM_NAME, UPD_DATE
+      )
+    values (#{dimtypeId,jdbcType=INTEGER}, #{dimId,jdbcType=INTEGER}, #{dimtypeName,jdbcType=VARCHAR}, 
+      #{dimCode,jdbcType=VARCHAR}, #{dimName,jdbcType=VARCHAR}, #{updDate,jdbcType=TIMESTAMP}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.st.framework.module.stock.DDim" >
+    insert into D_DIM
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="dimtypeId != null" >
+        DIMTYPE_ID,
+      </if>
+      <if test="dimId != null" >
+        DIM_ID,
+      </if>
+      <if test="dimtypeName != null" >
+        DIMTYPE_NAME,
+      </if>
+      <if test="dimCode != null" >
+        DIM_CODE,
+      </if>
+      <if test="dimName != null" >
+        DIM_NAME,
+      </if>
+      <if test="updDate != null" >
+        UPD_DATE,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="dimtypeId != null" >
+        #{dimtypeId,jdbcType=INTEGER},
+      </if>
+      <if test="dimId != null" >
+        #{dimId,jdbcType=INTEGER},
+      </if>
+      <if test="dimtypeName != null" >
+        #{dimtypeName,jdbcType=VARCHAR},
+      </if>
+      <if test="dimCode != null" >
+        #{dimCode,jdbcType=VARCHAR},
+      </if>
+      <if test="dimName != null" >
+        #{dimName,jdbcType=VARCHAR},
+      </if>
+      <if test="updDate != null" >
+        #{updDate,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.st.framework.module.stock.example.DDimExample" resultType="java.lang.Integer" >
+    select count(*) from D_DIM
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update D_DIM
+    <set >
+      <if test="record.dimtypeId != null" >
+        DIMTYPE_ID = #{record.dimtypeId,jdbcType=INTEGER},
+      </if>
+      <if test="record.dimId != null" >
+        DIM_ID = #{record.dimId,jdbcType=INTEGER},
+      </if>
+      <if test="record.dimtypeName != null" >
+        DIMTYPE_NAME = #{record.dimtypeName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.dimCode != null" >
+        DIM_CODE = #{record.dimCode,jdbcType=VARCHAR},
+      </if>
+      <if test="record.dimName != null" >
+        DIM_NAME = #{record.dimName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.updDate != null" >
+        UPD_DATE = #{record.updDate,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update D_DIM
+    set DIMTYPE_ID = #{record.dimtypeId,jdbcType=INTEGER},
+      DIM_ID = #{record.dimId,jdbcType=INTEGER},
+      DIMTYPE_NAME = #{record.dimtypeName,jdbcType=VARCHAR},
+      DIM_CODE = #{record.dimCode,jdbcType=VARCHAR},
+      DIM_NAME = #{record.dimName,jdbcType=VARCHAR},
+      UPD_DATE = #{record.updDate,jdbcType=TIMESTAMP}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.st.framework.module.stock.DDim" >
+    update D_DIM
+    <set >
+      <if test="dimtypeName != null" >
+        DIMTYPE_NAME = #{dimtypeName,jdbcType=VARCHAR},
+      </if>
+      <if test="dimCode != null" >
+        DIM_CODE = #{dimCode,jdbcType=VARCHAR},
+      </if>
+      <if test="dimName != null" >
+        DIM_NAME = #{dimName,jdbcType=VARCHAR},
+      </if>
+      <if test="updDate != null" >
+        UPD_DATE = #{updDate,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where DIMTYPE_ID = #{dimtypeId,jdbcType=INTEGER}
+      and DIM_ID = #{dimId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.st.framework.module.stock.DDim" >
+    update D_DIM
+    set DIMTYPE_NAME = #{dimtypeName,jdbcType=VARCHAR},
+      DIM_CODE = #{dimCode,jdbcType=VARCHAR},
+      DIM_NAME = #{dimName,jdbcType=VARCHAR},
+      UPD_DATE = #{updDate,jdbcType=TIMESTAMP}
+    where DIMTYPE_ID = #{dimtypeId,jdbcType=INTEGER}
+      and DIM_ID = #{dimId,jdbcType=INTEGER}
+  </update>
+  
+  <select id="selectSinaHasSi" resultMap="BaseResultMap">
+	SELECT distinct d.* FROM FACT_SINA_PARAM_MAP f
+	inner join (select * from D_DIM where DIMTYPE_ID=1001) d
+		on f.s_i=d.DIM_CODE
+	order by d.DIM_ID
+  </select>
+  
+</mapper>

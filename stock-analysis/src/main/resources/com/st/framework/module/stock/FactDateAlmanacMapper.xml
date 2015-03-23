@@ -1,0 +1,199 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.st.framework.persistence.mapper.stock.FactDateAlmanacMapper" >
+  <resultMap id="BaseResultMap" type="com.st.framework.module.stock.FactDateAlmanac" >
+    <id column="DATE" property="date" jdbcType="VARCHAR" />
+    <result column="SUIT" property="suit" jdbcType="VARCHAR" />
+    <result column="AVOID" property="avoid" jdbcType="VARCHAR" />
+    <result column="WEEK" property="week" jdbcType="INTEGER" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    DATE, SUIT, AVOID, WEEK
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.st.framework.module.stock.example.FactDateAlmanacExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from FACT_DATE_ALMANAC
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+    <if test="start != null and pageSize != null" >
+      limit #{start}, #{pageSize}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from FACT_DATE_ALMANAC
+    where DATE = #{date,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from FACT_DATE_ALMANAC
+    where DATE = #{date,jdbcType=VARCHAR}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.st.framework.module.stock.example.FactDateAlmanacExample" >
+    delete from FACT_DATE_ALMANAC
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.st.framework.module.stock.FactDateAlmanac" >
+    insert into FACT_DATE_ALMANAC (DATE, SUIT, AVOID, 
+      WEEK)
+    values (#{date,jdbcType=VARCHAR}, #{suit,jdbcType=VARCHAR}, #{avoid,jdbcType=VARCHAR}, 
+      #{week,jdbcType=INTEGER})
+  </insert>
+  <insert id="insertSelective" parameterType="com.st.framework.module.stock.FactDateAlmanac" >
+    insert into FACT_DATE_ALMANAC
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="date != null" >
+        DATE,
+      </if>
+      <if test="suit != null" >
+        SUIT,
+      </if>
+      <if test="avoid != null" >
+        AVOID,
+      </if>
+      <if test="week != null" >
+        WEEK,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="date != null" >
+        #{date,jdbcType=VARCHAR},
+      </if>
+      <if test="suit != null" >
+        #{suit,jdbcType=VARCHAR},
+      </if>
+      <if test="avoid != null" >
+        #{avoid,jdbcType=VARCHAR},
+      </if>
+      <if test="week != null" >
+        #{week,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.st.framework.module.stock.example.FactDateAlmanacExample" resultType="java.lang.Integer" >
+    select count(*) from FACT_DATE_ALMANAC
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update FACT_DATE_ALMANAC
+    <set >
+      <if test="record.date != null" >
+        DATE = #{record.date,jdbcType=VARCHAR},
+      </if>
+      <if test="record.suit != null" >
+        SUIT = #{record.suit,jdbcType=VARCHAR},
+      </if>
+      <if test="record.avoid != null" >
+        AVOID = #{record.avoid,jdbcType=VARCHAR},
+      </if>
+      <if test="record.week != null" >
+        WEEK = #{record.week,jdbcType=INTEGER},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update FACT_DATE_ALMANAC
+    set DATE = #{record.date,jdbcType=VARCHAR},
+      SUIT = #{record.suit,jdbcType=VARCHAR},
+      AVOID = #{record.avoid,jdbcType=VARCHAR},
+      WEEK = #{record.week,jdbcType=INTEGER}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.st.framework.module.stock.FactDateAlmanac" >
+    update FACT_DATE_ALMANAC
+    <set >
+      <if test="suit != null" >
+        SUIT = #{suit,jdbcType=VARCHAR},
+      </if>
+      <if test="avoid != null" >
+        AVOID = #{avoid,jdbcType=VARCHAR},
+      </if>
+      <if test="week != null" >
+        WEEK = #{week,jdbcType=INTEGER},
+      </if>
+    </set>
+    where DATE = #{date,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.st.framework.module.stock.FactDateAlmanac" >
+    update FACT_DATE_ALMANAC
+    set SUIT = #{suit,jdbcType=VARCHAR},
+      AVOID = #{avoid,jdbcType=VARCHAR},
+      WEEK = #{week,jdbcType=INTEGER}
+    where DATE = #{date,jdbcType=VARCHAR}
+  </update>
+</mapper>

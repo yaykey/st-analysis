@@ -1,0 +1,174 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app xmlns="http://java.sun.com/xml/ns/javaee" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	version="2.5"
+	xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd">
+	<display-name>fdc report</display-name>
+	<context-param>
+		<param-name>contextClass</param-name>
+		<param-value>com.st.framework.utils.config.SpringXmlWebApplicationContext</param-value>
+	</context-param>
+	<listener>
+		<listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
+	</listener>
+	<!-- <listener>
+		<listener-class>org.springframework.web.util.IntrospectorCleanupListener</listener-class>
+	</listener> -->
+	<listener>
+		<listener-class>com.st.framework.controller.helper.listener.AppContextListener</listener-class>
+	</listener>
+	
+	<listener>
+		<listener-class>com.st.framework.controller.helper.listener.OnlineUserListener</listener-class>
+	</listener>
+
+	<!-- 配置日志记录 -->
+	<!--<filter>
+		<filter-name>Log4JFilter</filter-name>
+		<filter-class>com.feinno.framework.controller.helper.filter.Log4JFilter</filter-class>
+	</filter>-->
+	<!--<filter-mapping>
+		<filter-name>Log4JFilter</filter-name>
+		<url-pattern>*.feinno</url-pattern>
+		<dispatcher>REQUEST</dispatcher>
+		<dispatcher>FORWARD</dispatcher>
+	</filter-mapping>-->
+
+
+	<!-- etag 码 filter,动态数据浏览器缓存 -->
+	<!-- <filter>
+        <filter-name>etagContentFilter</filter-name>  
+        <filter-class>com.feinno.circle.framework.controller.helper.filter.EtagContentFilter</filter-class>  
+    </filter>
+    <filter-mapping>  
+        <filter-name>etagContentFilter</filter-name>  
+        <url-pattern>/*</url-pattern>  
+    </filter-mapping> -->
+
+	<!-- 
+	2.1.3废弃
+	<filter>
+		<filter-name>struts-cleanup</filter-name>
+		<filter-class>org.apache.struts2.dispatcher.ActionContextCleanUp</filter-class>
+	</filter>
+	<filter-mapping>
+		<filter-name>struts-cleanup</filter-name>
+		<url-pattern>*.feinno</url-pattern>
+		<dispatcher>REQUEST</dispatcher>
+		<dispatcher>FORWARD</dispatcher>
+	</filter-mapping> -->
+
+	<filter>
+		<filter-name>struts2</filter-name>
+		<filter-class>org.apache.struts2.dispatcher.ng.filter.StrutsPrepareAndExecuteFilter</filter-class>
+	</filter>
+	<filter-mapping>
+		<filter-name>struts2</filter-name>
+		<url-pattern>*.feinno</url-pattern>
+		<dispatcher>REQUEST</dispatcher>
+		<dispatcher>FORWARD</dispatcher>
+	</filter-mapping>
+	<filter-mapping>
+		<filter-name>struts2</filter-name>
+		<url-pattern>*.jsp</url-pattern>
+		<dispatcher>REQUEST</dispatcher>
+		<dispatcher>FORWARD</dispatcher>
+	</filter-mapping>
+	
+	<!-- 配置dwr -->
+	<!-- <servlet>
+		<servlet-name>dwr-invoker</servlet-name>
+		<servlet-class>org.directwebremoting.servlet.DwrServlet</servlet-class>
+		<init-param>
+			<param-name>debug</param-name>
+			<param-value>false</param-value>
+		</init-param>
+		<init-param>   
+            <param-name>crossDomainSessionSecurity</param-name>   
+            <param-value>false</param-value>   
+        </init-param>
+		<load-on-startup>1</load-on-startup>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>dwr-invoker</servlet-name>
+		<url-pattern>/dwr/*</url-pattern>
+	</servlet-mapping> -->
+	
+	
+
+
+	<!-- 配置验证码 -->
+	<!--<servlet>
+		<servlet-name>codeImageServlet</servlet-name>
+		<servlet-class>com.feinno.framework.controller.helper.CodeImageServlet</servlet-class>
+	</servlet>-->
+	<!--<servlet-mapping>
+		<servlet-name>codeImageServlet</servlet-name>
+		<url-pattern>/manager/codeImage</url-pattern>
+	</servlet-mapping>-->
+	
+	
+
+	<!-- 静态资源压缩配置 -->
+	<filter>
+		<filter-name>WebResourceOptimizer</filter-name>
+		<filter-class>org.springframework.web.filter.DelegatingFilterProxy</filter-class>
+		<init-param>
+			<param-name>targetBeanName</param-name>
+			<param-value>wroFilter</param-value>
+		</init-param>
+		<init-param>
+			<param-name>targetFilterLifecycle</param-name>
+			<param-value>true</param-value>
+		</init-param>
+		<init-param>
+			<param-name>managerFactoryClassName</param-name>
+			<param-value>com.st.framework.controller.helper.wro.EhcacheWroManagerFactory</param-value>
+		</init-param>
+	</filter>
+	<filter-mapping>
+		<filter-name>WebResourceOptimizer</filter-name>
+		<url-pattern>/wro/*</url-pattern>
+	</filter-mapping>
+	
+	
+	<!-- URL过滤 -->
+	<!--<filter>
+		<filter-name>RightsFilter</filter-name>
+		<filter-class>com.feinno.framework.utils.filter.AuthFilter</filter-class>
+	</filter>-->
+	<!-- URL过滤 -->
+	<!--<filter-mapping>
+		<filter-name>RightsFilter</filter-name>
+		<url-pattern>/*</url-pattern>
+	</filter-mapping>-->
+
+	
+	<!-- session超时配置 -->
+	<session-config>
+		<session-timeout>90</session-timeout>
+	</session-config>
+
+
+	<error-page>
+		<error-code>500</error-code>
+		<location>/errors/error.jsp</location>
+	</error-page>
+	<error-page>
+		<error-code>404</error-code>
+		<location>/errors/404.jsp</location>
+	</error-page>
+	<error-page>
+		<error-code>405</error-code>
+		<location>/errors/405.jsp</location>
+	</error-page>
+	<error-page>
+		<exception-type>java.lang.RuntimeException</exception-type>
+		<location>/errors/error.jsp</location>
+	</error-page>
+	
+	<!-- 默认首页定义 -->
+	<welcome-file-list>
+		<welcome-file>index.jsp</welcome-file>
+		<welcome-file>login.jsp</welcome-file>
+	</welcome-file-list>
+</web-app>

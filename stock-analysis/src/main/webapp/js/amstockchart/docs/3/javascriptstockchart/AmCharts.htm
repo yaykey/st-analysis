@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <title>AmCharts | JavaScript Stock Charts v. 3 | amCharts</title>
+    <meta name="viewport" content="width=device-width; maximum-scale=0.6; minimum-scale=0.6; user-scalable=yes;">
+    <link rel="shortcut icon" href="favicon.ico" type="image/x-icon" />
+
+    <!-- Le styles -->
+    <link href="../lib/bootstrap/css/bootstrap.css" tppabs="http://docs.amcharts.com/3/lib/bootstrap/css/bootstrap.css" rel="stylesheet">
+    <link href="../lib/bootstrap/css/bootstrap-responsive.css" tppabs="http://docs.amcharts.com/3/lib/bootstrap/css/bootstrap-responsive.css" rel="stylesheet">
+    <link href="../lib/style.css" tppabs="http://docs.amcharts.com/3/lib/style.css" rel="stylesheet">
+
+    <!-- Le HTML5 shim, for IE6-8 support of HTML5 elements -->
+    <!--[if lt IE 9]>
+      <script src="../../../html5shim.googlecode.com/svn/trunk/html5.js" tppabs="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <!--[if gte IE 9]>
+      <style type="text/css">
+        #header h2 {
+          filter: none;
+        }
+      </style>
+    <![endif]-->
+
+  </head>
+
+  <body>  
+    <div id="header" class="navbar-fixed-top">
+      <div id="header-top">
+        <div class="inside">
+          <div id="line"></div>
+          <a href="javascript:if(confirm('http://www.amcharts.com/  \n\n该文件无法用 Teleport Ultra 下载, 因为 它是一个域或路径外部被设置为它的启始地址的地址。  \n\n你想在服务器上打开它?'))window.location='http://www.amcharts.com/'" tppabs="http://www.amcharts.com/" id="logo"></a>
+          <div id="back"><a href="javascript:if(confirm('http://www.amcharts.com/  \n\n该文件无法用 Teleport Ultra 下载, 因为 它是一个域或路径外部被设置为它的启始地址的地址。  \n\n你想在服务器上打开它?'))window.location='http://www.amcharts.com/'" tppabs="http://www.amcharts.com/">Back to <strong>amcharts.com</strong></a></div>
+        </div>
+      </div>
+      <div id="header-bottom">
+        <div class="inside">
+          <div id="pick">Pick a product:</div>
+          <ul id="products">
+            <li class="product " id="javascriptcharts">
+              <a title="JavaScript Charts" href="../javascriptcharts.htm" tppabs="http://docs.amcharts.com/3/javascriptcharts"><i class="product-icon javascript-charts"></i><span>JavaScript</span><strong class="app-font transform-uppercase">Charts</strong></a>
+            </li>
+            <li class="product active" id="javascriptstockchart">
+              <a title="JavaScript Charts" href="../javascriptstockchart.htm" tppabs="http://docs.amcharts.com/3/javascriptstockchart"><i class="product-icon stock-charts"></i><span>JavaScript</span><strong class="app-font transform-uppercase">Stock Charts</strong>
+            </a>
+            <li class="product " id="javascriptmaps">
+              <a title="JavaScript Charts" href="../javascriptmaps.htm" tppabs="http://docs.amcharts.com/3/javascriptmaps"><i class="product-icon javascript-charts"></i><span>Interactive JavaScript</span><strong class="app-font transform-uppercase">Maps</strong>
+            </a>
+          </ul>
+          
+                    <h2>AmCharts            <small>
+              <a href="#properties">Properties</a>
+              <a href="#methods">Methods</a>
+              <a href="#events">Events</a>
+            </small>
+          </h2>
+                  </div>
+      </div>
+    </div>
+
+    <div class="container">
+      
+              <ul class="nav nav-list left">
+  <li class="search-group">
+    <div class="input-group">
+      <form action="http://docs.amcharts.com/3/javascriptstockchart" method="get">
+        <input type="text" name="search" class="form-control" placeholder="Search" />
+      </form>
+    </div><!-- /input-group -->
+  </li>
+  
+  <li class="nav-header">Select a class</li>
+  <li><a href="AmAngularGauge.htm" tppabs="http://docs.amcharts.com/3/javascriptstockchart/AmAngularGauge">AmAngularGauge</a></li><li><a href="AmBalloon.htm" tppabs="http://docs.amcharts.com/3/javascriptstockchart/AmBalloon">AmBalloon</a></li><li><a href="AmChart.htm" tppabs="http://docs.amcharts.com/3/javascriptstockchart/AmChart">AmChart</a></li><li class="active"><a href="AmCharts.htm" tppabs="http://docs.amcharts.com/3/javascriptstockchart/AmCharts">AmCharts</a></li><li><a href="AmCoordinateChart.htm" tppabs="http://docs.amcharts.com/3/javascriptstockchart/AmCoordinateChart">AmCoordinateChart</a></li><li><a href="AmExport.htm" tppabs="http://docs.amcharts.com/3/javascriptstockchart/AmExport">AmExport</a></li><li><a href="AmFunnelChart.htm" tppabs="http://docs.amcharts.com/3/javascriptstockchart/AmFunnelChart">AmFunnelChart</a></li><li><a href="AmGraph.htm" tppabs="http://docs.amcharts.com/3/javascriptstockchart/AmGraph">AmGraph</a></li><li><a href="AmLegend.htm" tppabs="http://docs.amcharts.com/3/javascriptstockchart/AmLegend">AmLegend</a></li><li><a href="AmPieChart.htm" tppabs="http://docs.amcharts.com/3/javascriptstockchart/AmPieChart">AmPieChart</a></li><li><a href="AmRadarChart.htm" tppabs="http://docs.amcharts.com/3/javascriptstockchart/AmRadarChart">AmRadarChart</a></li><li><a href="AmRectangularChart.htm" tppabs="http://docs.amcharts.com/3/javascriptstockchart/AmRectangularChart">AmRectangularChart</a></li><li><a href="AmSerialChart.htm" tppabs="http://docs.amcharts.com/3/javascriptstockchart/AmSerialChart">AmSerialChart</a></li><li><a href="AmSlicedChart.htm" tppabs="http://docs.amcharts.com/3/javascriptstockchart/AmSlicedChart">AmSlicedChart</a></li><li><a href="AmStockChart.htm" tppabs="http://docs.amcharts.com/3/javascriptstockchart/AmStockChart">AmStockChart</a></li><li><a href="AmXYChart.htm" tppabs="http://docs.amcharts.com/3/javascriptstockchart/AmXYChart">AmXYChart</a></li><li><a href="AxisBase.htm" tppabs="http://docs.amcharts.com/3/javascriptstockchart/AxisBase">AxisBase</a></li><li><a href="CategoryAxesSettings.htm" tppabs="http://docs.amcharts.com/3/javascriptstockchart/CategoryAxesSettings">CategoryAxesSettings</a></li><li><a href="CategoryAxis.htm" tppabs="http://docs.amcharts.com/3/javascriptstockchart/CategoryAxis">CategoryAxis</a></li><li><a href="ChartCursor.htm" tppabs="http://docs.amcharts.com/3/javascriptstockchart/ChartCursor">ChartCursor</a></li><li><a href="ChartCursorSettings.htm" tppabs="http://docs.amcharts.com/3/javascriptstockchart/ChartCursorSettings">ChartCursorSettings</a></li><li><a href="ChartScrollbar.htm" tppabs="http://docs.amcharts.com/3/javascriptstockchart/ChartScrollbar">ChartScrollbar</a></li><li><a href="ChartScrollbarSettings.htm" tppabs="http://docs.amcharts.com/3/javascriptstockchart/ChartScrollbarSettings">ChartScrollbarSettings</a></li><li><a href="DataSet.htm" tppabs="http://docs.amcharts.com/3/javascriptstockchart/DataSet">DataSet</a></li><li><a href="DataSetSelector.htm" tppabs="http://docs.amcharts.com/3/javascriptstockchart/DataSetSelector">DataSetSelector</a></li><li><a href="GaugeArrow.htm" tppabs="http://docs.amcharts.com/3/javascriptstockchart/GaugeArrow">GaugeArrow</a></li><li><a href="GaugeAxis.htm" tppabs="http://docs.amcharts.com/3/javascriptstockchart/GaugeAxis">GaugeAxis</a></li><li><a href="GaugeBand.htm" tppabs="http://docs.amcharts.com/3/javascriptstockchart/GaugeBand">GaugeBand</a></li><li><a href="GraphDataItem.htm" tppabs="http://docs.amcharts.com/3/javascriptstockchart/GraphDataItem">GraphDataItem</a></li><li><a href="Guide.htm" tppabs="http://docs.amcharts.com/3/javascriptstockchart/Guide">Guide</a></li><li><a href="Label.htm" tppabs="http://docs.amcharts.com/3/javascriptstockchart/Label">Label</a></li><li><a href="LegendSettings.htm" tppabs="http://docs.amcharts.com/3/javascriptstockchart/LegendSettings">LegendSettings</a></li><li><a href="PanelsSettings.htm" tppabs="http://docs.amcharts.com/3/javascriptstockchart/PanelsSettings">PanelsSettings</a></li><li><a href="PeriodSelector.htm" tppabs="http://docs.amcharts.com/3/javascriptstockchart/PeriodSelector">PeriodSelector</a></li><li><a href="SerialDataItem.htm" tppabs="http://docs.amcharts.com/3/javascriptstockchart/SerialDataItem">SerialDataItem</a></li><li><a href="Slice.htm" tppabs="http://docs.amcharts.com/3/javascriptstockchart/Slice">Slice</a></li><li><a href="StockEvent.htm" tppabs="http://docs.amcharts.com/3/javascriptstockchart/StockEvent">StockEvent</a></li><li><a href="StockEventsSettings.htm" tppabs="http://docs.amcharts.com/3/javascriptstockchart/StockEventsSettings">StockEventsSettings</a></li><li><a href="StockGraph.htm" tppabs="http://docs.amcharts.com/3/javascriptstockchart/StockGraph">StockGraph</a></li><li><a href="StockLegend.htm" tppabs="http://docs.amcharts.com/3/javascriptstockchart/StockLegend">StockLegend</a></li><li><a href="StockPanel.htm" tppabs="http://docs.amcharts.com/3/javascriptstockchart/StockPanel">StockPanel</a></li><li><a href="Title.htm" tppabs="http://docs.amcharts.com/3/javascriptstockchart/Title">Title</a></li><li><a href="TrendLine.htm" tppabs="http://docs.amcharts.com/3/javascriptstockchart/TrendLine">TrendLine</a></li><li><a href="ValueAxesSettings.htm" tppabs="http://docs.amcharts.com/3/javascriptstockchart/ValueAxesSettings">ValueAxesSettings</a></li><li><a href="ValueAxis.htm" tppabs="http://docs.amcharts.com/3/javascriptstockchart/ValueAxis">ValueAxis</a></li></ul>        
+        <div class="inside">
+                    
+          <p>Namespace of the framework which holds the general settings, gets automatically injected to document since the source has been included.<br />
+<h3 class=&quot;linkable&quot; id=&quot;example&quot;>Example</h3><pre>AmCharts.useUTC = true;
+AmCharts.processDelay = 100;</pre></p>
+          
+          <h3 class="linkable" id="properties">
+            Properties
+                      </h3>
+          
+          <div style="position: relative; overflow: hidden;">
+            <table class="table table-bordered property-list"><thead><tr><th>Property</th><th>Type</th><th>Default</th><th>Description</th></thead><tr><td class="linkable" id="baseHref">baseHref</td><td>Boolean</td><td>false</td><td>Set it to true if you have base href set for your page. This will fix rendering problems in Firefox caused by base href.</td></tr><tr><td class="linkable" id="dayNames">dayNames</td><td>Array[String]</td><td>['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday']</td><td>Array of day names, used when formatting dates (if categoryAxis.parseDates is set to true)</td></tr><tr><td class="linkable" id="monthNames">monthNames</td><td>Array[String]</td><td>['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December']</td><td>Array of month names, used when formatting dates (if categoryAxis.parseDates is set to true)</td></tr><tr><td class="linkable" id="processDelay">processDelay</td><td>Number</td><td>0</td><td>Delay in ms at which each chart on the page should be rendered. This is very handy if you have a lot of charts on the page and do not want to overload the device CPU. </td></tr><tr><td class="linkable" id="shortDayNames">shortDayNames</td><td>Array[String]</td><td>['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat']</td><td>Array of short versions of day names, used when formatting dates (if categoryAxis.parseDates is set to true)</td></tr><tr><td class="linkable" id="shortMonthNames">shortMonthNames</td><td>Array[String]</td><td>['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec']</td><td>Array of short versions of month names, used when formatting dates (if categoryAxis.parseDates is set to true)</td></tr><tr><td class="linkable" id="shortMonthNames">shortMonthNames</td><td>Array[String]</td><td>['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec']</td><td>Array of short versions of month names, used when formatting dates (if categoryAxis.parseDates is set to true)</td></tr><tr><td class="linkable" id="theme">theme</td><td>String</td><td></td><td>You can set theme for all the charts on your page by setting: <a href="AmChart.htm" tppabs="http://docs.amcharts.com/3/javascriptstockchart/AmChart">AmChart</a>s.theme = <a href="AmChart.htm" tppabs="http://docs.amcharts.com/3/javascriptstockchart/AmChart">AmChart</a>s.themes.light;  // or some other theme. If you are creating charts using JavaScript API, not JSON, then this is quite a comfortable way, as you won't need to pass theme to each object you create. Note, you should set theme before write method is called. There is no way to change theme of already created chart, you have to create chart's instance once more if you want to change theme.</td></tr><tr><td class="linkable" id="useUTC">useUTC</td><td>Boolean</td><td>false</td><td>Set it to true if you want UTC time to be used instead of local time.</td></tr></table>            
+            <h3 class="linkable" id="methods">
+              Methods
+                          </h3>
+            
+            <table class="table table-bordered method-list"><thead><tr><th>Name</th><th>Parameters</th><th>Returns</th><th>Description</th></thead><tr><td class="linkable" id="addInitHandler">addInitHandler(handler,  [types]) </td><td></td><td></td><td>  handler is a method which will be called before initializing the chart. types is array of strings, specifying which chart types should call this method. If you don't set any type, all the charts will call this method.  When handler method is called, chart instance is passed as an attribute.  You can use this feature to preprocess chart data or do some other things you need before initializing the chart.</td></tr><tr><td class="linkable" id="clear">clear()</td><td></td><td></td><td>Clears all the charts on page, removes listeners and intervals.</td></tr><tr><td class="linkable" id="formatDate">formatDate(date, format)</td><td></td><td></td><td>You can use this method to format date object into date string.</td></tr><tr><td class="linkable" id="formatNumber">formatNumber(number, formatter, zeroCount)</td><td></td><td></td><td>Returns string formatter with the provided settings. Formatter is an object with precision, decimalSeparator and thousandsSeparator defined, like: {precision: 2, decimalSeparator: '.', thousandsSeparator: ','}; If you don't need to adjust precision set it to -1. zeroCount defines how many zeros should be added after comma (useful when formatting currencies).</td></tr><tr><td class="linkable" id="makeChart">makeChart(divId, chartConfig, delay)</td><td></td><td></td><td>Creates chart. divId is id of a chart container, chartConfig is JSON object with chart properties defined and delay is time in ms, in which the chart should be rendered (renders instantly if not set).</td></tr><tr><td class="linkable" id="stringToDate">stringToDate(string, format)</td><td></td><td></td><td>You can use this method to convert date string to date object. Please note, that literal name codes such as MMM or MMMM are not supported.</td></tr></table>            
+            <h3 class="linkable" id="events">
+              Events
+                          </h3>
+            
+            <small>AmCharts class does not have any events.</small>          </div>
+          
+        </div>
+        
+        
+    </div> <!-- /container -->
+
+    <!-- Le javascript
+    ================================================== -->
+    <!-- Placed at the end of the document so the pages load faster -->
+    <script src="../lib/jquery-1.7.2.min.js" tppabs="http://docs.amcharts.com/3/lib/jquery-1.7.2.min.js"></script>
+    <script src="../lib/jquery.scrollTo-min.js" tppabs="http://docs.amcharts.com/3/lib/jquery.scrollTo-min.js"></script>
+    <script src="../lib/bootstrap/js/bootstrap-transition.js" tppabs="http://docs.amcharts.com/3/lib/bootstrap/js/bootstrap-transition.js"></script>
+    <script src="../lib/bootstrap/js/bootstrap-alert.js" tppabs="http://docs.amcharts.com/3/lib/bootstrap/js/bootstrap-alert.js"></script>
+    <script src="../lib/bootstrap/js/bootstrap-modal.js" tppabs="http://docs.amcharts.com/3/lib/bootstrap/js/bootstrap-modal.js"></script>
+    <script src="../lib/bootstrap/js/bootstrap-dropdown.js" tppabs="http://docs.amcharts.com/3/lib/bootstrap/js/bootstrap-dropdown.js"></script>
+    <script src="../lib/bootstrap/js/bootstrap-scrollspy.js" tppabs="http://docs.amcharts.com/3/lib/bootstrap/js/bootstrap-scrollspy.js"></script>
+    <script src="../lib/bootstrap/js/bootstrap-tab.js" tppabs="http://docs.amcharts.com/3/lib/bootstrap/js/bootstrap-tab.js"></script>
+    <script src="../lib/bootstrap/js/bootstrap-tooltip.js" tppabs="http://docs.amcharts.com/3/lib/bootstrap/js/bootstrap-tooltip.js"></script>
+    <script src="../lib/bootstrap/js/bootstrap-popover.js" tppabs="http://docs.amcharts.com/3/lib/bootstrap/js/bootstrap-popover.js"></script>
+    <script src="../lib/bootstrap/js/bootstrap-button.js" tppabs="http://docs.amcharts.com/3/lib/bootstrap/js/bootstrap-button.js"></script>
+    <script src="../lib/bootstrap/js/bootstrap-collapse.js" tppabs="http://docs.amcharts.com/3/lib/bootstrap/js/bootstrap-collapse.js"></script>
+    <script src="../lib/bootstrap/js/bootstrap-typeahead.js" tppabs="http://docs.amcharts.com/3/lib/bootstrap/js/bootstrap-typeahead.js"></script>
+    
+    <script src="../lib/common.js" tppabs="http://docs.amcharts.com/3/lib/common.js"></script><script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','../../../www.google-analytics.com/analytics.js'/*tpa=http://www.google-analytics.com/analytics.js*/,'ga');
+
+  ga('create', 'UA-22221037-3', 'http://docs.amcharts.com/3/javascriptstockchart/amcharts.com');
+  ga('send', 'pageview');
+
+</script>
+  </body>
+</html>
