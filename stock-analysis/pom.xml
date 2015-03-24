@@ -4,10 +4,10 @@
 	xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>com.st</groupId>
-	<artifactId>stock-analysis</artifactId>
+	<artifactId>st-analysis</artifactId>
 	<version>1.0.0</version>
 	<packaging>war</packaging>
-	<name>stock-analysis</name>
+	<name>st-analysis</name>
 
 	<properties>
 		<sourceEncoding>UTF-8</sourceEncoding>
@@ -20,7 +20,7 @@
 	</properties>
 
 	<build>
-		<finalName>stock-analysis</finalName>
+		<finalName>st-analysis</finalName>
 		<outputDirectory>src/main/webapp/WEB-INF/classes</outputDirectory>
 		<sourceDirectory>src/main/java</sourceDirectory>
 		<testSourceDirectory>src/test/java</testSourceDirectory>
