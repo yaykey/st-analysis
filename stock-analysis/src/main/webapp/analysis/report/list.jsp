@@ -20,9 +20,7 @@
 <body style="background-color: #FCFAF3">
 <form id="frm" action="${base }/analysis/list.feinno" method="POST">
 	<div id="search-bar">
-		
 		<table>
-			
 			<tr>
 				<td>时间</td>
 				<td><input type="button" id="prev-timeid" v="${prevtimeid }" value="<"></td>
@@ -30,8 +28,24 @@
 				<td><input type="button" id="next-timeid" v="${nexttimeid }" value=">"></td>
 				<td><input type="submit" value="GO"></td>
 			</tr>
+		</table>
+		<table>
 			<tr>
-				<td colspan="5">
+				
+				<td><input type="text" name="conditions.highper.begin" value=""></td>
+				<td></td>
+				<td>HIGHPER</td>
+				<td></td>
+				<td><input type="text" name="conditions.highper.end" value=""></td>
+				
+			</tr>
+			<tr>
+				<td><input type="submit" value="GO"></td>
+			</tr>
+		</table>
+		<table>
+			<tr>
+				<td>
 					<c:forEach items="${hiddens}" var="item">
 						<c:if test="${item.value != null && item.value == 1}">
 							<input type="button" onclick="unhiddenhandler('${item.key}');"
@@ -41,8 +55,6 @@
 				</td>
 			</tr>
 		</table>
-		
-		
 	</div>
 	<div id="list-main" class="list-main">
 		<table id="list-main-table" border="1" cellpadding="1" cellspacing="1">			

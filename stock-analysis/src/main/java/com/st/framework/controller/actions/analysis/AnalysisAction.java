@@ -1,17 +1,14 @@
 package com.st.framework.controller.actions.analysis;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
+import org.apache.log4j.Logger;
 
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
-import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.Set;
 
 import org.apache.struts2.convention.annotation.Action;
 import org.apache.struts2.convention.annotation.InterceptorRef;
@@ -20,10 +17,9 @@ import org.apache.struts2.convention.annotation.Result;
 import org.apache.struts2.convention.annotation.Results;
 import org.springframework.beans.factory.annotation.Autowired;
 
-import com.jcraft.jsch.Logger;
+
 import com.st.framework.business.impl.GStockDayManager;
 import com.st.framework.controller.actions.ConventionAction;
-import com.st.framework.controller.vo.AnalysisOrderBean;
 import com.st.framework.module.stock.example.GStockDayExample;
 
 @Namespace("/analysis")
@@ -36,7 +32,8 @@ public class AnalysisAction extends ConventionAction {
 	/**
 	 * Logger for this class
 	 */
-	private static final Log logger = LogFactory.getLog(AnalysisAction.class);
+	private static final Logger logger = Logger.getLogger(AnalysisAction.class);
+		
 
 	@Autowired
 	private GStockDayManager gStockDayManager;
@@ -68,6 +65,8 @@ public class AnalysisAction extends ConventionAction {
 	private Map<String, String> compares;
 
 	private Map<String, Integer> hiddens;
+	
+	private Map<String, Map<String, String>> conditions;
 
 	public static final DateFormat df = new SimpleDateFormat("yyyy-MM-dd");
 
@@ -76,6 +75,7 @@ public class AnalysisAction extends ConventionAction {
 		// timeid = "2015-03-18";
 
 		logger.info("compares=" + compares);
+		logger.info("conditions=" + conditions);
 
 		appendTimeId();
 
@@ -98,10 +98,17 @@ public class AnalysisAction extends ConventionAction {
 		this.getRequest().setAttribute("list",
 				gStockDayManager.selectListByExample(example, order));
 
+		if (logger.isDebugEnabled()) {
+			logger.debug("stlist() - end");
+		}
 		return "list";
 	}
 
 	private void appendTimeId() throws ParseException {
+		if (logger.isDebugEnabled()) {
+			logger.debug("appendTimeId() - start");
+		}
+
 		if (timeid == null) {
 			Calendar c = Calendar.getInstance();
 			c.add(Calendar.DAY_OF_MONTH, -2);
@@ -119,10 +126,17 @@ public class AnalysisAction extends ConventionAction {
 
 			this.nexttimeid = df.format(c.getTime());
 		}
+
+		if (logger.isDebugEnabled()) {
+			logger.debug("appendTimeId() - end");
+		}
 	}
 
 	@Action("selectlist")
 	public String selectList() throws ParseException {
+		if (logger.isDebugEnabled()) {
+			logger.debug("selectList() - start");
+		}
 
 		appendTimeId();
 
@@ -149,6 +163,9 @@ public class AnalysisAction extends ConventionAction {
 					gStockDayManager.selectListByExample(example, order));
 		}
 
+		if (logger.isDebugEnabled()) {
+			logger.debug("selectList() - end");
+		}
 		return "select-list";
 	}
 
@@ -221,5 +238,17 @@ public class AnalysisAction extends ConventionAction {
 	public void setHiddens(Map<String, Integer> hiddens) {
 		this.hiddens = hiddens;
 	}
+
+	public Map<String, Map<String, String>> getConditions() {
+		return conditions;
+	}
+
+	public void setConditions(Map<String, Map<String, String>> conditions) {
+		this.conditions = conditions;
+	}
+
+	
+
+	
 
 }
