@@ -3,6 +3,23 @@
 	version="2.5"
 	xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd">
 	<display-name>fdc report</display-name>
+	
+	<!-- <listener>
+         <listener-class>org.apache.logging.log4j.web.Log4jServletContextListener</listener-class>
+     </listener>
+     <filter>
+         <filter-name>log4jServletFilter</filter-name>
+         <filter-class>org.apache.logging.log4j.web.Log4jServletFilter</filter-class>
+     </filter>
+     <filter-mapping>
+         <filter-name>log4jServletFilter</filter-name>
+         <url-pattern>/*</url-pattern>
+         <dispatcher>REQUEST</dispatcher>
+         <dispatcher>FORWARD</dispatcher>
+         <dispatcher>INCLUDE</dispatcher>
+         <dispatcher>ERROR</dispatcher>
+     </filter-mapping> -->
+	
 	<context-param>
 		<param-name>contextClass</param-name>
 		<param-value>com.st.framework.utils.config.SpringXmlWebApplicationContext</param-value>
