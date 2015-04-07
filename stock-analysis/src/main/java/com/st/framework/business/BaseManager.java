@@ -111,12 +111,8 @@ public abstract class BaseManager<K, T, E extends BaseExample> {
 		}
 
 		try {
-
 			this.insert(record);
 		} catch (DuplicateKeyException ex) {
-
-			// logger.warn(ex);
-
 			this.updateByPrimaryKey(record);
 		}
 	}

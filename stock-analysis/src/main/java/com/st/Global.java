@@ -23,6 +23,10 @@ import java.util.Date;
 import java.util.Iterator;
 import java.util.Map;
 import java.util.Properties;
+import java.util.concurrent.ArrayBlockingQueue;
+import java.util.concurrent.BlockingQueue;
+import java.util.concurrent.ThreadPoolExecutor;
+import java.util.concurrent.TimeUnit;
 
 import org.apache.commons.beanutils.BeanUtilsBean;
 import org.apache.commons.beanutils.ConvertUtilsBean;
@@ -286,6 +290,17 @@ public class Global {
 		,{-1,0},{-1,-2},{-2,-3},{-3,-4},{-4,-5},{-5,-6},{-6,-7},{-7,-8},{-8,-9},{-9,}
 	};
 	
-	
+	public static ThreadPoolExecutor threadPoolExecutor;
+    public static BlockingQueue<Runnable> AnsyTaskQueue;
+
+    static {
+        AnsyTaskQueue = new ArrayBlockingQueue<Runnable>(5000);
+        // corePoolSize - 池中所保存的线程数，包括空闲线程。
+        // maximumPoolSize - 池中允许的最大线程数。
+        // keepAliveTime - 当线程数大于核心时，此为终止前多余的空闲线程等待新任务的最长时间。
+        // unit - keepAliveTime 参数的时间单位。
+        // workQueue - 执行前用于保持任务的队列。此队列仅保持由 execute 方法提交的 Runnable 任务。
+        threadPoolExecutor = new ThreadPoolExecutor(3, 50, 3L, TimeUnit.SECONDS, AnsyTaskQueue, new ThreadPoolExecutor.CallerRunsPolicy());
+    }
 	
 }

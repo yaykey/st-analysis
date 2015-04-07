@@ -15,6 +15,7 @@ import java.util.List;
 
 
 import com.mysql.jdbc.exceptions.jdbc4.MySQLSyntaxErrorException;
+import com.st.Global;
 import com.st.analysis.controller.vo.MMBean;
 import com.st.analysis.utils.stock.DetailUtils;
 import com.st.framework.business.impl.GDetailManager;
@@ -129,6 +130,8 @@ public class GDayDataUtil extends DetailUtils {
 	@SuppressWarnings("rawtypes")
 	public void appendTimeDate(String stockCode, String startDateId,
 			String endDateId) {
+		
+		
 		Date d1 = new Date(), d2 = null;
 		List dateIds = getDateIds(startDateId, endDateId);
 //		if (logger.isInfoEnabled()) {
@@ -138,7 +141,13 @@ public class GDayDataUtil extends DetailUtils {
 		Long selectMMTimeId = System.currentTimeMillis();
 		List<MMBean> list = null;
 		
-		list = gDetailManager.selectMMTimeId(stockCode, dateIds);
+//		dateIds.retainAll(gStockDayManager.selectMMValidTimeId(stockCode, startDateId, endDateId));
+		
+		try {
+			list = gDetailManager.selectMMBaseData(stockCode, dateIds);
+		} catch (Exception ex) {
+			logger.warn(ex.getMessage());
+		}
 		System.out.println("appendTimeDate->selectMMTimeId->" + (System.currentTimeMillis() - selectMMTimeId));
 		
 		if (list == null) {
@@ -179,7 +188,8 @@ public class GDayDataUtil extends DetailUtils {
 
 					if (tmpList != null && tmpList.size() > 0) {
 						try {
-							gStockDayManager.insert(tmpList.get(0));
+							//gStockDayManager.insert(tmpList.get(0));
+							gStockDayManager.insertOrUpdate(tmpList.get(0));
 						} catch (DuplicateKeyException e) {
 							logger.warn(
 									"appendTimeDate(String, String, String) - exception ignored",

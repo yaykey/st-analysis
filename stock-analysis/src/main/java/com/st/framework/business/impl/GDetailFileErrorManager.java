@@ -43,5 +43,7 @@ public class GDetailFileErrorManager extends
 			this.updateByPrimaryKey(gDetailFileError);
 		}
 	}
+	
+	
 
 }

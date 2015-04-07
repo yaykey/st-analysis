@@ -426,7 +426,7 @@
 		) mm on mm.DATE_ID=c.DATE_ID
 	</select>
 	
-	<select id="selectMMTimeId" resultMap="MMBean" parameterType="map">		
+	<select id="selectMMBaseData" resultMap="MMBean" parameterType="map">		
 		<foreach collection="dateIds" item="dateId"  separator="UNION ALL" >
 			(              
 			select CONCAT(substr(mx.DATE_ID,1,4),'-',substr(mx.DATE_ID,5,2),'-',substr(mx.DATE_ID,7,2)) as DATE_ID_STR, 

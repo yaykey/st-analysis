@@ -15,6 +15,7 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.apache.ibatis.session.SqlSession;
 
+import com.st.Global;
 import com.st.framework.business.impl.GDetailFileErrorManager;
 import com.st.framework.business.impl.GDetailManager;
 import com.st.framework.business.impl.fact.FactDownloadFileConfigManager;
@@ -42,7 +43,7 @@ public class DetailUtils extends BaseDBUtils {
 	protected static GDetailFileErrorManager gDetailFileErrorManager = (GDetailFileErrorManager) getHelper()
 	.getBean("gDetailFileErrorManager");
 
-	public static void DetailFile2DB(String stockCode, String stockType) {
+	public static void DetailFile2DB(final String stockCode, final String stockType) {
 		
 		// 路径
 		String filePath = LoadConfigUtils.getInstance().getDownloadFilePath();
@@ -54,7 +55,7 @@ public class DetailUtils extends BaseDBUtils {
 		}
 
 		// 成功ID
-		List<String> successTimeIds = factDownloadFileConfigManager
+		final List<String> successTimeIds = factDownloadFileConfigManager
 				.selectStSuccessTimeId(null, null, stockCode);
 
 		// if (successTimeIds.size() > 0) {
@@ -73,16 +74,38 @@ public class DetailUtils extends BaseDBUtils {
 			fs = fa[i];
 			if (f.isHidden() == false && !"CVS".equals(fs.getName())) {
 				if (fs.isDirectory()) {
-					d3 = new Date();
-					DetailDirectoryFile2DB(fs, successTimeIds);
-					d4 = new Date();
-					System.out.println(stockType + stockCode + "->" + fs.getName() + "[目录]->" + (d4.getTime()-d3.getTime()));
+					final File ffs = fs;
+//					final 
+					Global.threadPoolExecutor.execute(new Runnable() {						
+						@Override
+						public void run() {
+							Date d1 = new Date(), d2=null, d3,d4;
+							d3 = new Date();
+							DetailDirectoryFile2DB(ffs, successTimeIds);
+							d4 = new Date();
+							System.out.println(stockType + stockCode + "->" + ffs.getName() + "[目录]->" + (d4.getTime()-d3.getTime()));
+							
+							d3 = null; 
+							d4=null;							
+						}
+					});
+//					new Thread(){
+//						@Override
+//						public void run() {
+//							Date d1 = new Date(), d2=null, d3,d4;
+//							d3 = new Date();
+//							DetailDirectoryFile2DB(ffs, successTimeIds);
+//							d4 = new Date();
+//							System.out.println(stockType + stockCode + "->" + ffs.getName() + "[目录]->" + (d4.getTime()-d3.getTime()));
+//							
+//							d3 = null; 
+//							d4=null;
+////							fs = null;
+//						}						
+//					}.start();
 					
-					d3 = null; 
-					d4=null;
-					fs = null;
 
-					System.gc();
+//					System.gc();
 				} else {
 					System.out.println(fs.getName());
 				}
@@ -408,7 +431,8 @@ public class DetailUtils extends BaseDBUtils {
 //				newSqlBuffer.setLength(0);
 //				newSqlBuffer = null;
 				
-				gDetailManager.insertBatch(stockCode, data);
+//				gDetailManager.insertBatch(stockCode, data);
+				gDetailManager.insertBatchAsynchronous(stockCode, data);
 				data.clear();
 				data = null;
 				

@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DuplicateKeyException;
 import org.springframework.stereotype.Component;
 
+import com.st.Global;
 import com.st.analysis.controller.vo.MMBean;
 import com.st.framework.module.stock.GDetail;
 import com.st.framework.module.stock.GStockDay;
@@ -86,21 +87,37 @@ public class GDetailManager {
 	}
 
 	public void insertBatch(String stockCode, List<GDetail> list) {
-		// public void insertBatch ( final String stockCode, final List<GDetail>
-		// list) {
-		// Thread thread = new Thread () {
-		// @Override
-		// public void run() {
-		// GDetailMapper gDetailMapper =
-		// (GDetailMapper)ConfigUtil.getHelper().getBean("gDetailMapper");
-		// gDetailMapper.insertBatch(stockCode, list);
-		// }
-		// };
-		// thread.start();
-		this.gDetailMapper.insertBatch(stockCode, list);
+		
+		if (list != null && list.size() > 0) {
+			this.gDetailMapper.insertBatch(stockCode, list);
+		}
+		
+		list.clear();
 		list = null;
 
 		// System.gc();
+	}
+	
+	public void insertBatchAsynchronous(final String stockCode, final List<GDetail> list) {
+		
+		if (list != null && list.size() > 0) {
+			Global.threadPoolExecutor.execute(new Runnable() {				
+				@Override
+				public void run() {
+					if (Global._ctx == null) {
+						Global._ctx = ConfigUtil.getHelper();
+					}
+					
+					GDetailManager gDetailManager = (GDetailManager)Global._ctx.getBean("gDetailManager");
+										
+					gDetailManager.insertBatch(stockCode, list);
+				}
+			});
+			
+		}
+		if (list != null) {
+			list.clear();
+		}
 	}
 
 	// private static List<GDetail> batchList = null;
@@ -211,11 +228,13 @@ public class GDetailManager {
 	}
 	
 	@SuppressWarnings("rawtypes")
-	public List<MMBean> selectMMTimeId(String stockCode, List dateIds) {
-		return this.gDetailMapper.selectMMTimeId(stockCode, dateIds);
+	public List<MMBean> selectMMBaseData(String stockCode, List dateIds) {
+		return this.gDetailMapper.selectMMBaseData(stockCode, dateIds);
 	}
 
 	public List<GDetail> selectWareByExample(GDetailExample example) {	
 		return this.gDetailMapper.selectWareByExample(example);
 	}
+
+	
 }

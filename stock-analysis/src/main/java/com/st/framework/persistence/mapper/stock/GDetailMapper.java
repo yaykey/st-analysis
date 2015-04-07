@@ -37,7 +37,7 @@ public interface GDetailMapper {
 			@Param("startDateId") Integer startDateId,
 			@Param("endDateId") Integer endDateId);
 	
-	List<MMBean> selectMMTimeId(@Param("stockCode") String stockCode,
+	List<MMBean> selectMMBaseData(@Param("stockCode") String stockCode,
 			@Param("dateIds") List dateIds);
 
 	List<GDetail> selectWareByExample(GDetailExample example);
