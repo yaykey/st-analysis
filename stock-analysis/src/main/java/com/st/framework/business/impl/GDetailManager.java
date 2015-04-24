@@ -12,9 +12,12 @@ import org.springframework.stereotype.Component;
 
 import com.st.Global;
 import com.st.analysis.controller.vo.MMBean;
+import com.st.analysis.controller.vo.timerange.TimeRangeCountBeanRequest;
+import com.st.analysis.controller.vo.timerange.TimeRangeCountBeanResponse;
 import com.st.framework.module.stock.GDetail;
 import com.st.framework.module.stock.GStockDay;
 import com.st.framework.module.stock.example.GDetailExample;
+import com.st.framework.module.stock.example.GStockDayExample;
 import com.st.framework.persistence.mapper.stock.GDetailMapper;
 import com.st.framework.utils.ConfigUtil;
 

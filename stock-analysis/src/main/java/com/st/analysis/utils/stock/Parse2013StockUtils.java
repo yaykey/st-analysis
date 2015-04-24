@@ -25,7 +25,7 @@ import com.st.framework.module.stock.DDim;
 import com.st.framework.module.stock.DDimtype;
 import com.st.framework.module.stock.DStock;
 import com.st.framework.module.stock.PStockMapKey;
-import com.st.framework.utils.network.BaseDBUtils;
+import com.st.framework.utils.db.BaseDBUtils;
 
 public class Parse2013StockUtils extends BaseDBUtils {
 	/**

@@ -7,7 +7,7 @@ import org.apache.commons.logging.LogFactory;
 
 import com.st.framework.business.impl.factdate.FactDateAlmanacManager;
 import com.st.framework.business.impl.factdate.FactDateHolidayManager;
-import com.st.framework.utils.network.BaseDBUtils;
+import com.st.framework.utils.db.BaseDBUtils;
 
 import java.io.IOException;
 import java.io.InputStreamReader;

@@ -22,7 +22,7 @@ import com.st.framework.module.stock.GDetail;
 import com.st.framework.module.stock.example.FactDownloadFileConfigExample;
 import com.st.framework.module.stock.example.GDetailExample;
 import com.st.framework.utils.LoadConfigUtils;
-import com.st.framework.utils.network.BaseDBUtils;
+import com.st.framework.utils.db.BaseDBUtils;
 
 public class Detail2Utils extends BaseDBUtils {
 	/**

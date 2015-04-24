@@ -13,7 +13,7 @@ import java.util.List;
 import com.st.framework.business.impl.GDetailManager;
 import com.st.framework.business.impl.factdate.FactDateHolidayManager;
 import com.st.framework.module.stock.GStockDay;
-import com.st.framework.utils.network.BaseDBUtils;
+import com.st.framework.utils.db.BaseDBUtils;
 
 public class CheckFailUtils extends BaseDBUtils {
 	/**
@@ -117,10 +117,10 @@ public class CheckFailUtils extends BaseDBUtils {
 	}
 
 	public static void main(String[] args) {
-		// checkFail();
-		List list = getFailDateIdList("SZ300002", 20140101, 20141231);
-		if (logger.isInfoEnabled()) {
-			logger.info("main(String[]) - List list=" + list);
-		}
+//		 checkFail();
+		List list = getFailDateIdList("SZ300002", 20150123, 20150211);
+//		if (logger.isInfoEnabled()) {
+//			logger.info("main(String[]) - List list=" + list);
+//		}
 	}
 }

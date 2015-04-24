@@ -26,7 +26,7 @@ import com.st.framework.module.stock.GDetailFileError;
 import com.st.framework.module.stock.example.FactDownloadFileConfigExample;
 import com.st.framework.module.stock.example.GDetailExample;
 import com.st.framework.utils.LoadConfigUtils;
-import com.st.framework.utils.network.BaseDBUtils;
+import com.st.framework.utils.db.BaseDBUtils;
 
 public class DetailUtils extends BaseDBUtils {
 	/**
@@ -72,7 +72,7 @@ public class DetailUtils extends BaseDBUtils {
 		for (int i = 0; i < fa.length; i++) {
 			// for (int i = 0; i < 2; i++) {
 			fs = fa[i];
-			if (f.isHidden() == false && !"CVS".equals(fs.getName())) {
+			if (fs.isHidden() == false && !"CVS".equals(fs.getName())) {
 				if (fs.isDirectory()) {
 					final File ffs = fs;
 //					final 

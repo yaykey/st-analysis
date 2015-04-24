@@ -3,7 +3,7 @@ package com.st.analysis.utils.stock;
 import java.util.List;
 
 import com.st.framework.module.stock.DStock;
-import com.st.framework.utils.network.BaseDBUtils;
+import com.st.framework.utils.db.BaseDBUtils;
 
 public class FindYahooDataUtils extends BaseDBUtils {
 

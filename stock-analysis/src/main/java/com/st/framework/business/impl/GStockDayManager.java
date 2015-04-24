@@ -14,11 +14,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DuplicateKeyException;
 import org.springframework.stereotype.Component;
 
+import com.st.analysis.controller.vo.timerange.TimeRangeCountBeanRequest;
+import com.st.analysis.controller.vo.timerange.TimeRangeCountBeanResponse;
 import com.st.framework.business.BaseManager;
-import com.st.framework.controller.vo.AnalysisOrderBean;
 import com.st.framework.module.stock.GStockDay;
 import com.st.framework.module.stock.GStockDayKey;
-import com.st.framework.module.stock.example.GDetailExample;
 import com.st.framework.module.stock.example.GStockDayExample;
 import com.st.framework.persistence.mapper.BaseMapper;
 import com.st.framework.persistence.mapper.stock.GStockDayMapper;
@@ -537,4 +537,11 @@ public class GStockDayManager extends
 		}
 	}
 
+	
+	public List<TimeRangeCountBeanResponse> selectByTimeRange(String timeClause,
+			List<TimeRangeCountBeanRequest> list,
+			GStockDayExample example) {
+		return this.gStockDayMapper.selectByTimeRange(timeClause, list, example);
+	}
+	
 }

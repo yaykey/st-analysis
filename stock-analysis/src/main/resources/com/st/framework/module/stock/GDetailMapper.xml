@@ -436,12 +436,14 @@
 			from
 			(
 			select DATE_ID,TIME_ID,PRICE from G_DETAIL_${stockCode}
-			where DATE_ID in (#{dateId})
+			where DATE_ID in (#{dateId}) 
+			#and TIME_ID >= '09:30:00'
 			order by PRICE, TIME_ID
 			limit 1) mx
 			inner join
 			(select DATE_ID,TIME_ID,PRICE from G_DETAIL_${stockCode}
-			where DATE_ID in (#{dateId})
+			where DATE_ID in (#{dateId}) 
+			#and TIME_ID >= '09:30:00'
 			order by PRICE desc, TIME_ID
 			limit 1) mn
 			on mx.DATE_ID=mn.DATE_ID

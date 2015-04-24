@@ -19,6 +19,12 @@
     <result column="CLOSE_PER" property="closePer" jdbcType="DOUBLE" />
     <result column="OPEN_PER" property="openPer" jdbcType="DOUBLE" />
   </resultMap>
+  
+  <resultMap id="TimeRangeCountResultMap" type="com.st.analysis.controller.vo.timerange.TimeRangeCountBeanResponse">
+  	<result column="rangeName" property="rangeName" jdbcType="VARCHAR" />
+    <result column="rangeCount" property="rangeCount" jdbcType="VARCHAR" />
+  </resultMap>
+  
   <sql id="Example_Where_Clause" >
     <where >
       <foreach collection="oredCriteria" item="criteria" separator="or" >
@@ -416,5 +422,50 @@
 			STOCK = #{stock,jdbcType=INTEGER}
 		</if>		 
   </update>
+  
+  <select id="selectByTimeRange" resultMap="TimeRangeCountResultMap" parameterType="map">
+  	<!-- select 
+	elt(interval(time(high_time_id),time('09:25:00'), time('09:30:00'), time('09:35:00')), 
+	'a1', 'a2', 'a3') as yb_level, 
+	count(date) as cnt
+	from G_STOCK_DAY 
+	where high_time_id is not null
+	and (
+	high_per >=2 and high_per <3
+	)
+	and date >= '2014-06-00'
+	group by 
+	elt(interval(time(high_time_id),time('09:25:00'), time('09:30:00'), time('09:35:00')), 
+	'a1', 'a2', 'a3'); -->
+	select 
+	elt(
+		interval(time(#{timeClause}),
+		<foreach collection="timeRanges" item="listItem" separator="," >
+	      time(#{listItem.rangeTimeId})
+	    </foreach>
+	    ), 
+		<foreach collection="timeRanges" item="listItem" separator="," >
+	      #{listItem.rangeName}
+	    </foreach>
+	) as rangeName, 
+	count(date) as rangeCount
+	from G_STOCK_DAY 
+	
+	<if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+    
+	group by 
+	elt(
+		interval(time(#{timeClause}),
+		<foreach collection="timeRanges" item="listItem" separator="," >
+	      time(#{listItem.rangeTimeId})
+	    </foreach>
+	    ), 
+		<foreach collection="timeRanges" item="listItem" separator="," >
+	      #{listItem.rangeName}
+	    </foreach>
+	)
+  </select>
   
 </mapper>

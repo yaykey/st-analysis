@@ -1,7 +1,8 @@
 package com.st.analysis.utils.download.observer;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
+import org.apache.log4j.Logger;
+
+
 import org.apache.http.Header;
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpHeaders;
@@ -39,7 +40,8 @@ public class NioDownload {
 	/**
 	 * Logger for this class
 	 */
-	private static final Log logger = LogFactory.getLog(NioDownload.class);
+	private static final Logger logger = Logger.getLogger(NioDownload.class);
+	
 
 	protected String url, savePath; // 下载地址与保存路径
 
@@ -50,6 +52,16 @@ public class NioDownload {
 	protected String stockType;
 
 	protected Integer dateId;
+	
+	private int timeOutCount;
+
+	public int getTimeOutCount() {
+		return timeOutCount;
+	}
+
+	public void setTimeOutCount(int timeOutCount) {
+		this.timeOutCount = timeOutCount;
+	}
 
 	protected static GDetailSuspensionManager gDetailSuspensionManager = (GDetailSuspensionManager) ConfigUtil
 			.getHelper().getBean("gDetailSuspensionManager");
@@ -195,12 +207,18 @@ public class NioDownload {
 
 		} catch (ClientProtocolException e) {
 			logger.error("start() - exception ignored", e);
-
+		} catch (DataNotGeneratedException e) {
+			logger.warn("start() - exception ignored", e);
+		
+		} catch (SocketTimeoutException e) {
+			logger.warn("start() - exception ignored", e);
+			this.timeOutCount ++;
+			if (this.timeOutCount <= 3) {
+				this.start();
+			}			
 		} catch (IOException e) {
 			logger.error("start() - exception ignored", e);
-
-		} catch (DataNotGeneratedException e) {
-
+		
 		} finally {
 			if (response != null) {
 				try {
@@ -219,6 +237,7 @@ public class NioDownload {
 
 					randomAccessFile = null;
 				} catch (IOException e) {
+					logger.warn("start() - exception ignored", e);
 
 				}
 			}

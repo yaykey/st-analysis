@@ -33,7 +33,7 @@ import com.st.Global;
 import com.st.framework.module.stock.FactProxy;
 import com.st.framework.module.stock.example.FactProxyExample;
 import com.st.framework.utils.ConfigUtil;
-import com.st.framework.utils.network.BaseDBUtils;
+import com.st.framework.utils.db.BaseDBUtils;
 import com.st.framework.utils.network.TelnetUtil;
 import com.st.framework.utils.page.Page;
 
@@ -637,7 +637,7 @@ public class ProxyUtils extends BaseDBUtils {
 			for (FactProxy factProxy : list) {
 				try {
 					speed = testProxySpeed(factProxy.getProxyIp(), ""
-							+ factProxy.getProxyPort(), 500);
+							+ factProxy.getProxyPort(), 1000);
 
 					factProxy.setTestDate(new Date());
 					factProxy.setActive(true);
@@ -675,17 +675,28 @@ public class ProxyUtils extends BaseDBUtils {
 
 	public static void main(String[] args) throws ParseException {
 
-		//List<String> list = findProxyList("kr");
-		//if (logger.isInfoEnabled()) {
-		//	logger.info("main(String[]) - List<FactProxy> list=" + list);
-		//}
+//		String[] locs = {"", "cn","kr","us","in"};
+//		
+//		for (String loc : locs) {
+//			List<String> list = findProxyList(loc);
+//			if (logger.isInfoEnabled()) {
+//				logger.info("main(String[]) - List<FactProxy> list=" + list);
+//			}
+//		}
+		
+		
 		//findProxy2DB(500, "in");
 
-		 checkDBProxySpeed();
+//		 checkDBProxySpeed();
 
-		List<FactProxy> factProxylist = selectProxyTop5();
+//		List<FactProxy> factProxylist = selectProxyTop5();
+		List<FactProxy> factProxylist = selectProxyTopN(50);
 		if (logger.isInfoEnabled()) {
 			logger.info("factProxylist=" + factProxylist);
+		}
+		
+		for (FactProxy factProxy : factProxylist) {
+			System.out.println(factProxy.getLocal() + " " + factProxy.getProxyIp() + " " + factProxy.getProxyPort());
 		}
 
 		// destroyFactory();

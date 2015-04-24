@@ -24,7 +24,7 @@ import org.springframework.dao.DuplicateKeyException;
 import com.st.framework.module.stock.DStock;
 import com.st.framework.module.stock.PStockMapKey;
 import com.st.framework.module.stock.example.DStockExample;
-import com.st.framework.utils.network.BaseDBUtils;
+import com.st.framework.utils.db.BaseDBUtils;
 import com.st.framework.utils.page.Page;
 
 public class FindSinaInfoUtils extends BaseDBUtils {

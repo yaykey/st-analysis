@@ -124,7 +124,7 @@ public class CheckDetailUtils extends DetailUtils {
 //		appendStData("300014");
 //		ProxyUtils.setProxy("111.1.36.9", "80");
 		
-		for (int i=300001; i<=300406; i++) {
+		for (int i=300002; i<=300002; i++) {
 			appendStData("" + i, "sz");
 			DetailUtils.DetailFile2DB("" + i, "sz");
 //			try {

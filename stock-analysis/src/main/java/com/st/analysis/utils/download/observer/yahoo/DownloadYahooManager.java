@@ -24,7 +24,7 @@ import com.st.framework.module.stock.FactProxy;
 import com.st.framework.module.stock.GDetail;
 import com.st.framework.module.stock.GStockDay;
 import com.st.framework.utils.LoadConfigUtils;
-import com.st.framework.utils.network.BaseDBUtils;
+import com.st.framework.utils.db.BaseDBUtils;
 import com.st.framework.utils.page.Page;
 
 public class DownloadYahooManager extends BaseDBUtils {

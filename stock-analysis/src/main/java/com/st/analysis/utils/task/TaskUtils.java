@@ -18,7 +18,7 @@ import com.st.analysis.utils.stock.FindSinaInfoUtils;
 import com.st.analysis.utils.stock.FindStockUtils;
 import com.st.framework.business.impl.DStockManager;
 import com.st.framework.module.stock.FactProxy;
-import com.st.framework.utils.network.BaseDBUtils;
+import com.st.framework.utils.db.BaseDBUtils;
 
 public class TaskUtils extends BaseDBUtils {
 	/**
@@ -45,7 +45,7 @@ public class TaskUtils extends BaseDBUtils {
 
 		final DateFormat df = new SimpleDateFormat("yyyyMMdd");
 
-		String startDateId = "20150301";
+		String startDateId = "20150323";
 		String endDateId = df.format(new Date());
 		final GDayDataUtil u = new GDayDataUtil();
 
@@ -61,7 +61,7 @@ public class TaskUtils extends BaseDBUtils {
 
 		for (int i = 300001; i <= Integer.parseInt(maxStockCode); i++) {
 			// for (int i = 300117; i <= Integer.parseInt(maxStockCode); i++) {
-			// for (int i = 300001; i <= 300100; i++) {
+//			 for (int i = 300002; i <= 300002; i++) {
 			// for (int i = 300101; i <= 300200; i++) {
 			// for (int i = 300201; i <= 300250; i++) {
 			// for (int i = 300251; i <= 300300; i++) {
@@ -121,7 +121,7 @@ public class TaskUtils extends BaseDBUtils {
 				// } catch (ParseException e) {
 				// logger.warn("main(String[]) - exception ignored", e);
 
-				// Thread.sleep(1000);
+				 Thread.sleep(1000);
 			} catch (Exception e) {
 				logger.warn("main(String[]) - exception ignored", e);
 

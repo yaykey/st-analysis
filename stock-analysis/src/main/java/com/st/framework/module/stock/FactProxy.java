@@ -3,6 +3,7 @@ package com.st.framework.module.stock;
 import java.util.Date;
 
 import org.apache.commons.lang3.builder.ToStringBuilder;
+import org.apache.commons.lang3.builder.ToStringStyle;
 
 public class FactProxy extends FactProxyKey {
     private String local;
@@ -103,6 +104,6 @@ public class FactProxy extends FactProxyKey {
     }
     
     public String toString () {
-    	return ToStringBuilder.reflectionToString(this);
+		return ToStringBuilder.reflectionToString(this,ToStringStyle.SHORT_PREFIX_STYLE);
     }
 }

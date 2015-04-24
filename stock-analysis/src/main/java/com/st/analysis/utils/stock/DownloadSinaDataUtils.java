@@ -28,7 +28,7 @@ import com.st.framework.persistence.mapper.stock.FactDateHolidayListMapper;
 import com.st.framework.persistence.mapper.stock.FactLogDownloadMapper;
 import com.st.framework.utils.LoadConfigUtils;
 
-import com.st.framework.utils.network.BaseDBUtils;
+import com.st.framework.utils.db.BaseDBUtils;
 import com.st.framework.utils.page.Page;
 
 import java.text.DateFormat;
@@ -134,6 +134,8 @@ public class DownloadSinaDataUtils extends BaseDBUtils {
 	 * The df.
 	 */
 	private final DateFormat df = new SimpleDateFormat("yyyy-MM-dd");
+	
+	private final DateFormat dfs = new SimpleDateFormat("yyyyMMdd");
 
 	public DownloadSinaDataUtils() {
 
@@ -234,30 +236,32 @@ public class DownloadSinaDataUtils extends BaseDBUtils {
 			while (start.compareTo(end) <= 0) {
 				if (!daysOff.contains(start) && !suspensionDays.contains(start) && !successDays.contains(start) ) {
 
-					DownloadFileBean downloadFileBean = new DownloadFileBean();
-
-					downloadFileBean.setTimeId(start);
-					downloadFileBean.setStockCode(this.stockCode);
-
-					// savePath =
-					// LoadConfigUtils.getInstance().getDownloadFilePath() +
-					// "/" + this.stockCode + "/" + start.substring(0, 4);
-
-					savePath = "/" + this.stockCode + "/"
-							+ start.substring(0, 4);
-
-					downloadFileBean.setSavePath(savePath);
-
-					remoteFileUrl = remoteServiceUrl + "?date=" + start
-							+ "&symbol=" + this.stockCode;
-					// if (logger.isInfoEnabled()) {
-					logger.debug("getUrlList() - String remoteFileUrl="
-							+ remoteFileUrl);
-					// }
-
-					downloadFileBean.setRemoteFileUrl(remoteFileUrl);
-
-					urlList.add(downloadFileBean);
+//					DownloadFileBean downloadFileBean = new DownloadFileBean();
+//
+//					downloadFileBean.setTimeId(start);
+//					downloadFileBean.setStockCode(this.stockCode);
+//
+//					// savePath =
+//					// LoadConfigUtils.getInstance().getDownloadFilePath() +
+//					// "/" + this.stockCode + "/" + start.substring(0, 4);
+//
+//					savePath = "/" + this.stockCode + "/"
+//							+ start.substring(0, 4);
+//
+//					downloadFileBean.setSavePath(savePath);
+//
+//					remoteFileUrl = remoteServiceUrl + "?date=" + start
+//							+ "&symbol=" + this.stockCode;
+//					// if (logger.isInfoEnabled()) {
+//					logger.debug("getUrlList() - String remoteFileUrl="
+//							+ remoteFileUrl);
+//					// }
+//
+//					downloadFileBean.setRemoteFileUrl(remoteFileUrl);
+//
+//					urlList.add(downloadFileBean);
+					
+					urlList.add(createDownloadFile(start, this.stockCode));
 				}
 
 				cal.add(Calendar.DAY_OF_MONTH, 1);
@@ -270,6 +274,7 @@ public class DownloadSinaDataUtils extends BaseDBUtils {
 				
 				start = df.format(cal.getTime());
 			}
+			
 		}
 
 		if (this.stockList != null) {
@@ -288,32 +293,32 @@ public class DownloadSinaDataUtils extends BaseDBUtils {
 				while (start.compareTo(end) <= 0) {
 					if (!daysOff.contains(start)) {
 
-						DownloadFileBean downloadFileBean = new DownloadFileBean();
+//						DownloadFileBean downloadFileBean = new DownloadFileBean();
+//
+//						downloadFileBean.setTimeId(start);
+//						downloadFileBean.setStockCode(this.stockCode);
+//
+//						// savePath =
+//						// LoadConfigUtils.getInstance().getDownloadFilePath() +
+//						// "/" + this.stockCode + "/" + start.substring(0, 4);
+//
+//						savePath = "/" + stock.getStockTypeCode()
+//								+ stock.getStockCode() + "/"
+//								+ start.substring(0, 4);
+//
+//						downloadFileBean.setSavePath(savePath);
+//
+//						remoteFileUrl = remoteServiceUrl + "?date=" + start
+//								+ "&symbol=" + stock.getStockTypeCode()
+//								+ stock.getStockCode();
+//						// if (logger.isInfoEnabled()) {
+//						logger.debug("getUrlList() - String remoteFileUrl="
+//								+ remoteFileUrl);
+//						// }
+//
+//						downloadFileBean.setRemoteFileUrl(remoteFileUrl);
 
-						downloadFileBean.setTimeId(start);
-						downloadFileBean.setStockCode(this.stockCode);
-
-						// savePath =
-						// LoadConfigUtils.getInstance().getDownloadFilePath() +
-						// "/" + this.stockCode + "/" + start.substring(0, 4);
-
-						savePath = "/" + stock.getStockTypeCode()
-								+ stock.getStockCode() + "/"
-								+ start.substring(0, 4);
-
-						downloadFileBean.setSavePath(savePath);
-
-						remoteFileUrl = remoteServiceUrl + "?date=" + start
-								+ "&symbol=" + stock.getStockTypeCode()
-								+ stock.getStockCode();
-						// if (logger.isInfoEnabled()) {
-						logger.debug("getUrlList() - String remoteFileUrl="
-								+ remoteFileUrl);
-						// }
-
-						downloadFileBean.setRemoteFileUrl(remoteFileUrl);
-
-						urlList.add(downloadFileBean);
+						urlList.add(createDownloadFile(start, stock.getStockTypeCode() + stock.getStockCode()));
 					}
 
 					cal.add(Calendar.DAY_OF_MONTH, 1);
@@ -321,8 +326,57 @@ public class DownloadSinaDataUtils extends BaseDBUtils {
 				}
 			}
 		}
+		
+//		try {
+//			List<Integer> list = CheckFailUtils.getFailDateIdList(this.stockCode, 
+//					Integer.parseInt(dfs.format(df.parse("2015-01-23"))) , 
+//					Integer.parseInt(dfs.format(df.parse("2015-02-11"))));
+//			
+//			for (Integer timeId : list) {
+//				urlList.add(createDownloadFile("" + timeId, this.stockCode));
+//			}
+//			
+//			logger.info(list);
+//		} catch (NumberFormatException e) {
+//			// TODO Auto-generated catch block
+//			e.printStackTrace();
+//		} catch (ParseException e) {
+//			// TODO Auto-generated catch block
+//			e.printStackTrace();
+//		}
 
 		return urlList;
+	}
+	
+	public DownloadFileBean createDownloadFile(String start
+			//, DStock stock
+			,String stockCodeAndType
+			
+	) {
+		DownloadFileBean downloadFileBean = new DownloadFileBean();
+
+		downloadFileBean.setTimeId(start);
+		downloadFileBean.setStockCode(this.stockCode);
+
+		// savePath =
+		// LoadConfigUtils.getInstance().getDownloadFilePath() +
+		// "/" + this.stockCode + "/" + start.substring(0, 4);
+
+		String savePath = "/" + stockCodeAndType + "/"
+				+ start.substring(0, 4);
+
+		downloadFileBean.setSavePath(savePath);
+
+		String remoteFileUrl = remoteServiceUrl + "?date=" + start
+				+ "&symbol=" + stockCodeAndType;
+		// if (logger.isInfoEnabled()) {
+		logger.debug("getUrlList() - String remoteFileUrl="
+				+ remoteFileUrl);
+		// }
+
+		downloadFileBean.setRemoteFileUrl(remoteFileUrl);
+		
+		return downloadFileBean;
 	}
 
 	/**

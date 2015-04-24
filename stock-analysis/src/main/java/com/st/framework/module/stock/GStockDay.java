@@ -197,7 +197,7 @@ public class GStockDay extends GStockDayKey {
         return result;
     }
     
-    public String toString() {
-    	return ToStringBuilder.reflectionToString(this);
-	}
+    public String toString () {
+		return ToStringBuilder.reflectionToString(this,ToStringStyle.SHORT_PREFIX_STYLE);
+    }
 }
