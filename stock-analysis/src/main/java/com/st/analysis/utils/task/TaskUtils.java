@@ -45,7 +45,7 @@ public class TaskUtils extends BaseDBUtils {
 
 		final DateFormat df = new SimpleDateFormat("yyyyMMdd");
 
-		String startDateId = "20150323";
+		String startDateId = "20150101";
 		String endDateId = df.format(new Date());
 		final GDayDataUtil u = new GDayDataUtil();
 
@@ -57,9 +57,9 @@ public class TaskUtils extends BaseDBUtils {
 //				"" + factProxy.getProxyPort());
 		String maxStockCode = dStockManager.selectMaxStockCodeByCYB();
 
-		final String stockType = "sz";
+		final String stockType = "SZ";
 
-		for (int i = 300001; i <= Integer.parseInt(maxStockCode); i++) {
+//		for (int i = 300420; i <= Integer.parseInt(maxStockCode); i++) {
 			// for (int i = 300117; i <= Integer.parseInt(maxStockCode); i++) {
 //			 for (int i = 300002; i <= 300002; i++) {
 			// for (int i = 300101; i <= 300200; i++) {
@@ -68,7 +68,8 @@ public class TaskUtils extends BaseDBUtils {
 			// for (int i = 300301; i <= 300350; i++) {
 //			 for (int i = 300201; i <= Integer.parseInt(maxStockCode); i++) {
 			// for (int i = 300351; i <= 300400; i++) {
-
+		for (int i = 300426; i <= 300426; i++) {	
+			long d1 = System.currentTimeMillis();
 			try {
 				final int fi = i;
 				final String fstartDateId = startDateId;
@@ -77,18 +78,19 @@ public class TaskUtils extends BaseDBUtils {
 				CheckDetailUtils.appendStData("" + fi, stockType);
 				DetailUtils.DetailFile2DB("" + fi, stockType);
 				
-				u.appendTimeDate("SZ" + fi, fstartDateId, fendDateId);
-				try {
-					u.appendPerData(fi, df.parse(fstartDateId), df.parse(fendDateId));
-				} catch (ParseException e) {
-					e.printStackTrace();
-				}
+//				u.appendTimeDate(stockType + fi, fstartDateId, fendDateId);
+//				try {
+//					u.appendPerData(fi, df.parse(fstartDateId), df.parse(fendDateId));
+//				} catch (ParseException e) {
+//					e.printStackTrace();
+//				}
 
 				 Thread.sleep(1000);
 			} catch (Exception e) {
 				logger.warn("main(String[]) - exception ignored", e);
 
 			}
+			System.out.println(i + "\t->总耗时:" + (System.currentTimeMillis() - d1));
 		}
 
 //		try {

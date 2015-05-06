@@ -1,5 +1,7 @@
 package com.st.analysis.utils.stock;
 
+import org.apache.log4j.Logger;
+
 import java.io.IOException;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
@@ -17,6 +19,10 @@ import com.st.framework.utils.db.BaseDBUtils;
 import com.st.framework.utils.network.HttpStackManager;
 
 public class FindSohuDataUtils extends BaseDBUtils {
+	/**
+	 * Logger for this class
+	 */
+	private static final Logger logger = Logger.getLogger(FindSohuDataUtils.class);
 
 	// private static String SohuUrl =
 	// "http://q.stock.sohu.com/hisHq?stat=1&order=D&period=d&rt=jsonp&code=cn_300002&start=20141201&end=20150505";
@@ -77,6 +83,8 @@ public class FindSohuDataUtils extends BaseDBUtils {
 			return createData(stockCode, res.split(","));
 
 		} catch (Exception e) {
+			logger.error("findData()", e);
+
 			e.printStackTrace();
 		}
 
@@ -112,19 +120,20 @@ public class FindSohuDataUtils extends BaseDBUtils {
 			}
 
 		} catch (JsonParseException e) {
-			e.printStackTrace();
+			logger.warn(e.getMessage());
+			
 		} catch (JsonMappingException e) {
-			e.printStackTrace();
+			logger.warn(e.getMessage());
 		} catch (IOException e) {
-			e.printStackTrace();
+			logger.warn(e.getMessage());
 		}
 
 	}
 	
-	public static void checkFailData (Integer stockCode) {
+	public static void checkFailAllData (Integer stockCode) {
 		Calendar cal = Calendar.getInstance();
 		
-		Date begin = new Date("2014/01/01");		
+		Date begin = new Date("2015/01/01");		
 		Date end = new Date();
 		cal.setTime(begin);
 		String res = "";
@@ -140,8 +149,27 @@ public class FindSohuDataUtils extends BaseDBUtils {
 			begin = cal.getTime();
 			
 		}
+	}
+	
+	public static void appendData (Integer stockCode, Date begin, Date end) {
+		Calendar cal = Calendar.getInstance();
 		
-		
+//		Date begin = new Date("2014/01/01");		
+//		Date end = new Date();
+		cal.setTime(begin);
+		String res = "";
+		while (begin.compareTo(end) <= 0) {
+			cal.add(Calendar.DAY_OF_YEAR, 100);
+			res = findSohuDate(
+					stockCode,
+					Integer.parseInt(DF_SIMPLE.format(begin)),
+					Integer.parseInt(DF_SIMPLE.format(cal.getTime()))
+				);
+			parseData(stockCode, res);
+			
+			begin = cal.getTime();
+			
+		}
 	}
 
 	private static GStockDay createData(Integer stockCode, String [] data) {
@@ -169,6 +197,8 @@ public class FindSohuDataUtils extends BaseDBUtils {
 
 			stockDay.setTurnoverRate(Double.parseDouble(data[9]));
 		} catch (Exception ex) {
+			logger.error("createData()", ex);
+
 			return null;
 		}
 		return stockDay;
@@ -182,10 +212,16 @@ public class FindSohuDataUtils extends BaseDBUtils {
 		
 		
 		
-		checkFailData(300001);
+//		checkFailAllData(300001);
+//		
+//		for (int i=300003; i<300419; i++) {
+//			checkFailAllData(300001);
+//		}
 		
-		for (int i=300003; i<300419; i++) {
-			checkFailData(300001);
+//		checkFailAllData(300419);
+		String maxStockCode = dStockManager.selectMaxStockCodeByCYB();
+		for (int i=300420; i<=Integer.parseInt(maxStockCode); i++) {
+			checkFailAllData(i);
 		}
 	}
 }

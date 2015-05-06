@@ -544,7 +544,7 @@ public class GStockDayManager extends
 		return this.gStockDayMapper.selectByTimeRange(timeClause, list, example);
 	}
 	
-	List<String> selectValidDateByExample(GStockDayExample example) {
+	public List<String> selectValidDateByExample(GStockDayExample example) {
 		return this.gStockDayMapper.selectValidDateByExample(example);
 	}
 }

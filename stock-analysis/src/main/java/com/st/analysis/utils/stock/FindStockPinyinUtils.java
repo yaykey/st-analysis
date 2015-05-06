@@ -22,8 +22,8 @@ public class FindStockPinyinUtils extends BaseDBUtils {
 //		System.out.println(res);
 //		res = res.replaceFirst("^var suggestvalue=\"", "").replaceFirst("\";$", "");
 //		System.out.println(res);
-		
-		for (int i=300011; i<300419; i++) {
+		String maxStockCode = dStockManager.selectMaxStockCodeByCYB();
+		for (int i=300419; i<=Integer.parseInt(maxStockCode); i++) {
 			parseNameCode(findStockNameCode("" + i));
 		}
 		

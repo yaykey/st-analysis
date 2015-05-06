@@ -5,6 +5,8 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -43,6 +45,8 @@ public class DetailUtils extends BaseDBUtils {
 	protected static GDetailFileErrorManager gDetailFileErrorManager = (GDetailFileErrorManager) getHelper()
 	.getBean("gDetailFileErrorManager");
 
+	protected static DateFormat df_simple = new SimpleDateFormat("yyyyMMdd");
+	
 	public static void DetailFile2DB(final String stockCode, final String stockType) {
 		
 		// 路径
@@ -58,6 +62,7 @@ public class DetailUtils extends BaseDBUtils {
 //		final List<String> successTimeIds = factDownloadFileConfigManager
 //				.selectStSuccessTimeId(null, null, stockCode);
 		long dtimeid = System.currentTimeMillis();
+		gDetailManager.createGDetailTable(stockType + stockCode);
 		final List<String> successTimeIds = 
 				gDetailManager.selectDetailActiveDateId(stockType + stockCode, null, null);
 		System.out.println("successTimeIds耗时:" + (System.currentTimeMillis()-dtimeid));
