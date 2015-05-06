@@ -185,7 +185,7 @@ public class FindSohuDataUtils extends BaseDBUtils {
 		checkFailData(300001);
 		
 		for (int i=300003; i<300419; i++) {
-			checkFailData(i);
+			checkFailData(300001);
 		}
 	}
 }
