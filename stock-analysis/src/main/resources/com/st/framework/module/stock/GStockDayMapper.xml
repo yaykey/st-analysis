@@ -18,6 +18,8 @@
     <result column="LOW_PER" property="lowPer" jdbcType="DOUBLE" />
     <result column="CLOSE_PER" property="closePer" jdbcType="DOUBLE" />
     <result column="OPEN_PER" property="openPer" jdbcType="DOUBLE" />
+    <result column="TURN_VOLUME" property="turnVolume" jdbcType="DOUBLE" />
+    <result column="TURNOVER_RATE" property="turnoverRate" jdbcType="DOUBLE" />
     
     <collection property="MA5" fetchType="lazy" column="{stock=STOCK,date=DATE}" 
     	javaType="DOUBLE" select="selectMA5" />
@@ -106,7 +108,7 @@
   </sql>
   <sql id="Base_Column_List" >
     STOCK, DATE, OPEN, HIGH, LOW, CLOSE, VOLUME, ADJ_CLOSE, PRICE_CHANGES, HIGH_TIME_ID, 
-    LOW_TIME_ID, AMPLITUDE, HIGH_PER, LOW_PER, CLOSE_PER, OPEN_PER
+    LOW_TIME_ID, AMPLITUDE, HIGH_PER, LOW_PER, CLOSE_PER, OPEN_PER, TURN_VOLUME, TURNOVER_RATE
   </sql>
   <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.st.framework.module.stock.example.GStockDayExample" >
     select
@@ -148,14 +150,14 @@
       HIGH, LOW, CLOSE, VOLUME, 
       ADJ_CLOSE, PRICE_CHANGES, HIGH_TIME_ID, 
       LOW_TIME_ID, AMPLITUDE, HIGH_PER, 
-      LOW_PER, CLOSE_PER, OPEN_PER
-      )
+      LOW_PER, CLOSE_PER, OPEN_PER, 
+      TURN_VOLUME, TURNOVER_RATE)
     values (#{stock,jdbcType=INTEGER}, #{date,jdbcType=DATE}, #{open,jdbcType=DOUBLE}, 
       #{high,jdbcType=DOUBLE}, #{low,jdbcType=DOUBLE}, #{close,jdbcType=DOUBLE}, #{volume,jdbcType=INTEGER}, 
       #{adjClose,jdbcType=DOUBLE}, #{priceChanges,jdbcType=DOUBLE}, #{highTimeId,jdbcType=VARCHAR}, 
       #{lowTimeId,jdbcType=VARCHAR}, #{amplitude,jdbcType=DOUBLE}, #{highPer,jdbcType=DOUBLE}, 
-      #{lowPer,jdbcType=DOUBLE}, #{closePer,jdbcType=DOUBLE}, #{openPer,jdbcType=DOUBLE}
-      )
+      #{lowPer,jdbcType=DOUBLE}, #{closePer,jdbcType=DOUBLE}, #{openPer,jdbcType=DOUBLE}, 
+      #{turnVolume,jdbcType=DOUBLE}, #{turnoverRate,jdbcType=DOUBLE})
   </insert>
   <insert id="insertSelective" parameterType="com.st.framework.module.stock.GStockDay" >
     insert into G_STOCK_DAY
@@ -208,6 +210,12 @@
       <if test="openPer != null" >
         OPEN_PER,
       </if>
+      <if test="turnVolume != null" >
+        TURN_VOLUME,
+      </if>
+      <if test="turnoverRate != null" >
+        TURNOVER_RATE,
+      </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides="," >
       <if test="stock != null" >
@@ -257,6 +265,12 @@
       </if>
       <if test="openPer != null" >
         #{openPer,jdbcType=DOUBLE},
+      </if>
+      <if test="turnVolume != null" >
+        #{turnVolume,jdbcType=DOUBLE},
+      </if>
+      <if test="turnoverRate != null" >
+        #{turnoverRate,jdbcType=DOUBLE},
       </if>
     </trim>
   </insert>
@@ -317,6 +331,12 @@
       <if test="record.openPer != null" >
         OPEN_PER = #{record.openPer,jdbcType=DOUBLE},
       </if>
+      <if test="record.turnVolume != null" >
+        TURN_VOLUME = #{record.turnVolume,jdbcType=DOUBLE},
+      </if>
+      <if test="record.turnoverRate != null" >
+        TURNOVER_RATE = #{record.turnoverRate,jdbcType=DOUBLE},
+      </if>
     </set>
     <if test="_parameter != null" >
       <include refid="Update_By_Example_Where_Clause" />
@@ -339,7 +359,9 @@
       HIGH_PER = #{record.highPer,jdbcType=DOUBLE},
       LOW_PER = #{record.lowPer,jdbcType=DOUBLE},
       CLOSE_PER = #{record.closePer,jdbcType=DOUBLE},
-      OPEN_PER = #{record.openPer,jdbcType=DOUBLE}
+      OPEN_PER = #{record.openPer,jdbcType=DOUBLE},
+      TURN_VOLUME = #{record.turnVolume,jdbcType=DOUBLE},
+      TURNOVER_RATE = #{record.turnoverRate,jdbcType=DOUBLE}
     <if test="_parameter != null" >
       <include refid="Update_By_Example_Where_Clause" />
     </if>
@@ -389,6 +411,12 @@
       <if test="openPer != null" >
         OPEN_PER = #{openPer,jdbcType=DOUBLE},
       </if>
+      <if test="turnVolume != null" >
+        TURN_VOLUME = #{turnVolume,jdbcType=DOUBLE},
+      </if>
+      <if test="turnoverRate != null" >
+        TURNOVER_RATE = #{turnoverRate,jdbcType=DOUBLE},
+      </if>
     </set>
     where STOCK = #{stock,jdbcType=INTEGER}
       and DATE = #{date,jdbcType=DATE}
@@ -408,7 +436,9 @@
       HIGH_PER = #{highPer,jdbcType=DOUBLE},
       LOW_PER = #{lowPer,jdbcType=DOUBLE},
       CLOSE_PER = #{closePer,jdbcType=DOUBLE},
-      OPEN_PER = #{openPer,jdbcType=DOUBLE}
+      OPEN_PER = #{openPer,jdbcType=DOUBLE},
+      TURN_VOLUME = #{turnVolume,jdbcType=DOUBLE},
+      TURNOVER_RATE = #{turnoverRate,jdbcType=DOUBLE}
     where STOCK = #{stock,jdbcType=INTEGER}
       and DATE = #{date,jdbcType=DATE}
   </update>
@@ -427,10 +457,10 @@
   
   <insert id="insertBatch" parameterType="map" >
     insert ignore into G_STOCK_DAY
-	(STOCK,DATE,OPEN,HIGH,LOW,CLOSE,VOLUME,ADJ_CLOSE,PRICE_CHANGES,HIGH_TIME_ID,LOW_TIME_ID,AMPLITUDE,HIGH_PER,LOW_PER,CLOSE_PER,OPEN_PER)
+	(STOCK,DATE,OPEN,HIGH,LOW,CLOSE,VOLUME,ADJ_CLOSE,PRICE_CHANGES,HIGH_TIME_ID,LOW_TIME_ID,AMPLITUDE,HIGH_PER,LOW_PER,CLOSE_PER,OPEN_PER,TURN_VOLUME,TURNOVER_RATE)
 	values
 	<foreach collection="list" item="item" index="index" separator=",">
-		(#{item.stock},#{item.date},#{item.open},#{item.high},#{item.low},#{item.close},#{item.volume},#{item.adjClose},#{item.priceChanges},#{item.highTimeId},#{item.lowTimeId},#{item.amplitude},#{item.highPer},#{item.lowPer},#{item.closePer},#{item.openPer})
+		(#{item.stock},#{item.date},#{item.open},#{item.high},#{item.low},#{item.close},#{item.volume},#{item.adjClose},#{item.priceChanges},#{item.highTimeId},#{item.lowTimeId},#{item.amplitude},#{item.highPer},#{item.lowPer},#{item.closePer},#{item.openPer},#{item.turnVolume},#{item.turnoverRate})
 	</foreach>
   </insert>
   
@@ -616,5 +646,24 @@
 				order by DATE desc
 				limit 10
 		) ma
+  </select>
+  
+  <select id="selectValidDateByExample" resultType="java.lang.String" 
+  		parameterType="com.st.framework.module.stock.example.GStockDayExample" >
+    select
+	    <if test="distinct" >
+	      distinct
+	    </if>
+	    DATE
+	from G_STOCK_DAY
+	    <if test="_parameter != null" >
+	      <include refid="Example_Where_Clause" />
+	    </if>
+	    <if test="orderByClause != null" >
+	      order by ${orderByClause}
+	    </if>
+	    <if test="start != null and pageSize != null" >
+	      limit #{start}, #{pageSize}
+	    </if>
   </select>
 </mapper>

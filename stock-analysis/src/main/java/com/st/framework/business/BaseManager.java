@@ -119,7 +119,7 @@ public abstract class BaseManager<K, T, E extends BaseExample> {
 
 	public void insertOrUpdateSelective(T record) {
 		try {
-			this.insert(record);
+			this.insertSelective(record);
 		} catch (DuplicateKeyException ex) {
 			logger.warn(ex);
 			this.updateByPrimaryKeySelective(record);

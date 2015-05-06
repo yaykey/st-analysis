@@ -1,9 +1,12 @@
 package com.st.framework.utils.network;
 
 import org.apache.http.*;
+import org.apache.http.client.ClientProtocolException;
+import org.apache.http.client.HttpClient;
 import org.apache.http.client.HttpRequestRetryHandler;
 import org.apache.http.client.config.RequestConfig;
 import org.apache.http.client.methods.CloseableHttpResponse;
+import org.apache.http.client.methods.HttpGet;
 import org.apache.http.client.methods.HttpPost;
 import org.apache.http.client.methods.HttpUriRequest;
 import org.apache.http.client.protocol.HttpClientContext;
@@ -22,6 +25,7 @@ import org.apache.http.util.EntityUtils;
 import org.apache.log4j.Logger;
 
 import javax.net.ssl.SSLException;
+
 import java.io.*;
 import java.net.UnknownHostException;
 
@@ -146,25 +150,35 @@ public class HttpStackManager {
         return respstr;
     }
 
-//    public HttpPost buildPostForSSO(String destAdd, String reqArgs) {
-//        HttpPost httpPost = new HttpPost(destAdd);
-//        StringEntity entity = new StringEntity(reqArgs,
-//                ContentType.APPLICATION_JSON);
-//
-//        httpPost.setConfig(requestConfig);
-//        httpPost.setEntity(entity);
-//        return httpPost;
-//    }
-//
-//    public HttpPost buildPostForJwpat(String destAdd, String reqArgs) {
-//        HttpPost httpPost = new HttpPost(destAdd);
-//        StringEntity entity = new StringEntity(reqArgs,
-//                ContentType.APPLICATION_JSON);
-//        httpPost.setEntity(entity);
-//        httpPost.setHeader("Pragma", destAdd);
-//        httpPost.setHeader("from", "UIDCS@HEAIXIN");
-//        httpPost.addHeader("Expect", "100-continue");
-//        httpPost.setConfig(requestConfig);
-//        return httpPost;
-//    }
+    public static String findGetData(String url) {
+    	HttpClient httpClient = HttpStackManager.getInstance().getHttpclient();
+		
+		HttpGet httpGet = new HttpGet(url);
+		HttpResponse response=null;
+		HttpEntity entity = null;
+		try {
+			response = httpClient.execute(httpGet);
+			entity = response.getEntity();
+			
+			String res = EntityUtils.toString(entity, "utf-8");
+			
+			EntityUtils.consume(entity);
+			
+			return res;			
+		} catch (ClientProtocolException e) {
+			e.printStackTrace();
+		} catch (IOException e) {
+			e.printStackTrace();
+		} finally {
+			if (entity != null) {
+				try {
+					EntityUtils.consume(entity);
+				} catch (IOException e) {
+					e.printStackTrace();
+				}
+			}
+		}
+		
+		return null;
+    }
 }

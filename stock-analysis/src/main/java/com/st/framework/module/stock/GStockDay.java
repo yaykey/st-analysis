@@ -40,6 +40,10 @@ public class GStockDay extends GStockDayKey {
     
     private GStockDay nextDay;
 
+    private Double turnVolume;
+
+    private Double turnoverRate;
+
     private List<GStockDay> prev5Day;
     
     private List<GStockDay> next5Day;
@@ -166,6 +170,22 @@ public class GStockDay extends GStockDayKey {
         this.openPer = openPer;
     }
 
+    public Double getTurnVolume() {
+        return turnVolume;
+    }
+
+    public void setTurnVolume(Double turnVolume) {
+        this.turnVolume = turnVolume;
+    }
+
+    public Double getTurnoverRate() {
+        return turnoverRate;
+    }
+
+    public void setTurnoverRate(Double turnoverRate) {
+        this.turnoverRate = turnoverRate;
+    }
+
     @Override
     public boolean equals(Object that) {
         if (this == that) {
@@ -193,7 +213,9 @@ public class GStockDay extends GStockDayKey {
             && (this.getHighPer() == null ? other.getHighPer() == null : this.getHighPer().equals(other.getHighPer()))
             && (this.getLowPer() == null ? other.getLowPer() == null : this.getLowPer().equals(other.getLowPer()))
             && (this.getClosePer() == null ? other.getClosePer() == null : this.getClosePer().equals(other.getClosePer()))
-            && (this.getOpenPer() == null ? other.getOpenPer() == null : this.getOpenPer().equals(other.getOpenPer()));
+            && (this.getOpenPer() == null ? other.getOpenPer() == null : this.getOpenPer().equals(other.getOpenPer()))
+            && (this.getTurnVolume() == null ? other.getTurnVolume() == null : this.getTurnVolume().equals(other.getTurnVolume()))
+            && (this.getTurnoverRate() == null ? other.getTurnoverRate() == null : this.getTurnoverRate().equals(other.getTurnoverRate()));
     }
 
     @Override
@@ -216,6 +238,8 @@ public class GStockDay extends GStockDayKey {
         result = prime * result + ((getLowPer() == null) ? 0 : getLowPer().hashCode());
         result = prime * result + ((getClosePer() == null) ? 0 : getClosePer().hashCode());
         result = prime * result + ((getOpenPer() == null) ? 0 : getOpenPer().hashCode());
+        result = prime * result + ((getTurnVolume() == null) ? 0 : getTurnVolume().hashCode());
+        result = prime * result + ((getTurnoverRate() == null) ? 0 : getTurnoverRate().hashCode());
         return result;
     }
     

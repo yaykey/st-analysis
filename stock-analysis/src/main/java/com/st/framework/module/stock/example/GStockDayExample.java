@@ -1112,6 +1112,126 @@ public class GStockDayExample extends BaseExample {
             addCriterion("OPEN_PER not between", value1, value2, "openPer");
             return (Criteria) this;
         }
+
+        public Criteria andTurnVolumeIsNull() {
+            addCriterion("TURN_VOLUME is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andTurnVolumeIsNotNull() {
+            addCriterion("TURN_VOLUME is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andTurnVolumeEqualTo(Double value) {
+            addCriterion("TURN_VOLUME =", value, "turnVolume");
+            return (Criteria) this;
+        }
+
+        public Criteria andTurnVolumeNotEqualTo(Double value) {
+            addCriterion("TURN_VOLUME <>", value, "turnVolume");
+            return (Criteria) this;
+        }
+
+        public Criteria andTurnVolumeGreaterThan(Double value) {
+            addCriterion("TURN_VOLUME >", value, "turnVolume");
+            return (Criteria) this;
+        }
+
+        public Criteria andTurnVolumeGreaterThanOrEqualTo(Double value) {
+            addCriterion("TURN_VOLUME >=", value, "turnVolume");
+            return (Criteria) this;
+        }
+
+        public Criteria andTurnVolumeLessThan(Double value) {
+            addCriterion("TURN_VOLUME <", value, "turnVolume");
+            return (Criteria) this;
+        }
+
+        public Criteria andTurnVolumeLessThanOrEqualTo(Double value) {
+            addCriterion("TURN_VOLUME <=", value, "turnVolume");
+            return (Criteria) this;
+        }
+
+        public Criteria andTurnVolumeIn(List<Double> values) {
+            addCriterion("TURN_VOLUME in", values, "turnVolume");
+            return (Criteria) this;
+        }
+
+        public Criteria andTurnVolumeNotIn(List<Double> values) {
+            addCriterion("TURN_VOLUME not in", values, "turnVolume");
+            return (Criteria) this;
+        }
+
+        public Criteria andTurnVolumeBetween(Double value1, Double value2) {
+            addCriterion("TURN_VOLUME between", value1, value2, "turnVolume");
+            return (Criteria) this;
+        }
+
+        public Criteria andTurnVolumeNotBetween(Double value1, Double value2) {
+            addCriterion("TURN_VOLUME not between", value1, value2, "turnVolume");
+            return (Criteria) this;
+        }
+
+        public Criteria andTurnoverRateIsNull() {
+            addCriterion("TURNOVER_RATE is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andTurnoverRateIsNotNull() {
+            addCriterion("TURNOVER_RATE is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andTurnoverRateEqualTo(Double value) {
+            addCriterion("TURNOVER_RATE =", value, "turnoverRate");
+            return (Criteria) this;
+        }
+
+        public Criteria andTurnoverRateNotEqualTo(Double value) {
+            addCriterion("TURNOVER_RATE <>", value, "turnoverRate");
+            return (Criteria) this;
+        }
+
+        public Criteria andTurnoverRateGreaterThan(Double value) {
+            addCriterion("TURNOVER_RATE >", value, "turnoverRate");
+            return (Criteria) this;
+        }
+
+        public Criteria andTurnoverRateGreaterThanOrEqualTo(Double value) {
+            addCriterion("TURNOVER_RATE >=", value, "turnoverRate");
+            return (Criteria) this;
+        }
+
+        public Criteria andTurnoverRateLessThan(Double value) {
+            addCriterion("TURNOVER_RATE <", value, "turnoverRate");
+            return (Criteria) this;
+        }
+
+        public Criteria andTurnoverRateLessThanOrEqualTo(Double value) {
+            addCriterion("TURNOVER_RATE <=", value, "turnoverRate");
+            return (Criteria) this;
+        }
+
+        public Criteria andTurnoverRateIn(List<Double> values) {
+            addCriterion("TURNOVER_RATE in", values, "turnoverRate");
+            return (Criteria) this;
+        }
+
+        public Criteria andTurnoverRateNotIn(List<Double> values) {
+            addCriterion("TURNOVER_RATE not in", values, "turnoverRate");
+            return (Criteria) this;
+        }
+
+        public Criteria andTurnoverRateBetween(Double value1, Double value2) {
+            addCriterion("TURNOVER_RATE between", value1, value2, "turnoverRate");
+            return (Criteria) this;
+        }
+
+        public Criteria andTurnoverRateNotBetween(Double value1, Double value2) {
+            addCriterion("TURNOVER_RATE not between", value1, value2, "turnoverRate");
+            return (Criteria) this;
+        }
     }
 
     public static class Criteria extends GeneratedCriteria {
