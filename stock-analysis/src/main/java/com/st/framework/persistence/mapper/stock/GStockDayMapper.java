@@ -20,4 +20,6 @@ public interface GStockDayMapper extends BaseMapper<GStockDayKey, GStockDay, GSt
     		@Param("timeClause") String timeClause,
     		@Param("timeRanges") List<TimeRangeCountBeanRequest> list,
     		@Param("example") GStockDayExample example);
+    
+    List<String> selectValidDateByExample(GStockDayExample example);
 }

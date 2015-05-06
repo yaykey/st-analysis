@@ -617,4 +617,23 @@
 				limit 10
 		) ma
   </select>
+  
+  <select id="selectValidDateByExample" resultType="java.lang.String" 
+  		parameterType="com.st.framework.module.stock.example.GStockDayExample" >
+    select
+	    <if test="distinct" >
+	      distinct
+	    </if>
+	    DATE
+	from G_STOCK_DAY
+	    <if test="_parameter != null" >
+	      <include refid="Example_Where_Clause" />
+	    </if>
+	    <if test="orderByClause != null" >
+	      order by ${orderByClause}
+	    </if>
+	    <if test="start != null and pageSize != null" >
+	      limit #{start}, #{pageSize}
+	    </if>
+  </select>
 </mapper>
