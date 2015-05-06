@@ -158,7 +158,7 @@ public class BaiduDateUtils extends BaseDBUtils {
 	 */
 	public static void main(String[] args) {
 
-		findBaiduDate2DB("2016-1", "2016-12");
+		findBaiduDate2DB("2015-1", "2015-12");
 
 		//destroyFactory();
 	}

@@ -51,10 +51,6 @@ import com.st.framework.utils.LoadConfigUtils;
 /**
  * 系统的全局变量.
  *
- * @author <a href="mailto:xiaozhi19820323@hotmail.com">xiaozhi</a>
- * @version $Revision: 1.1 $
- * @Date 下午12:00:10
- * @since 2011-4-18
  */
 public class Global {
 	
@@ -275,6 +271,8 @@ public class Global {
 	}
 
 	public static final DateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+	
+	public static final DateFormat DF_DAY = new SimpleDateFormat("yyyy-MM-dd");
 	
 	
 	/**

@@ -1,6 +1,7 @@
 package com.st.framework.module.stock;
 
 import org.apache.commons.lang3.builder.ToStringBuilder;
+import org.apache.commons.lang3.builder.ToStringStyle;
 
 import com.st.framework.module.PersistentObject;
 
@@ -119,10 +120,7 @@ public class GDetail extends PersistentObject {
         result = prime * result + ((getPriceChanges() == null) ? 0 : getPriceChanges().hashCode());
         return result;
     }
-    
-    public String toString () {
-    	return ToStringBuilder.reflectionToString(this);
-    }
+   
 
 	public String getWaveType() {
 		return waveType;
@@ -132,5 +130,13 @@ public class GDetail extends PersistentObject {
 		this.waveType = waveType;
 	}
 
+	public String toString () {
+		ToStringBuilder toStringBuilder = new ToStringBuilder(this, ToStringStyle.SHORT_PREFIX_STYLE);
+//		toStringBuilder.appendAsObjectToString(this.timeId);
+//		toStringBuilder.appendAsObjectToString(this.getPrice());
+		toStringBuilder.append("timeId", this.timeId);
+		toStringBuilder.append("price", this.price);
 		
+		return toStringBuilder.toString();
+	}
 }

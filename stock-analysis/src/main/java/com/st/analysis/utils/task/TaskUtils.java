@@ -50,11 +50,11 @@ public class TaskUtils extends BaseDBUtils {
 		final GDayDataUtil u = new GDayDataUtil();
 
 		// ProxyUtils.checkDBProxySpeed();
-		List<FactProxy> proxyList = ProxyUtils.selectProxyTop5();
-		// ProxyUtils.setRandomProxy();
-		FactProxy factProxy = proxyList.get(0);
-		ProxyUtils.setProxy(factProxy.getProxyIp(),
-				"" + factProxy.getProxyPort());
+//		List<FactProxy> proxyList = ProxyUtils.selectProxyTop5();
+//		// ProxyUtils.setRandomProxy();
+//		FactProxy factProxy = proxyList.get(0);
+//		ProxyUtils.setProxy(factProxy.getProxyIp(),
+//				"" + factProxy.getProxyPort());
 		String maxStockCode = dStockManager.selectMaxStockCodeByCYB();
 
 		final String stockType = "sz";
@@ -66,60 +66,23 @@ public class TaskUtils extends BaseDBUtils {
 			// for (int i = 300201; i <= 300250; i++) {
 			// for (int i = 300251; i <= 300300; i++) {
 			// for (int i = 300301; i <= 300350; i++) {
-			// for (int i = 300201; i <= Integer.parseInt(maxStockCode); i++) {
+//			 for (int i = 300201; i <= Integer.parseInt(maxStockCode); i++) {
 			// for (int i = 300351; i <= 300400; i++) {
 
 			try {
 				final int fi = i;
 				final String fstartDateId = startDateId;
 				final String fendDateId = endDateId;
-				
-//				Global.threadPoolExecutor.execute(new Runnable() {					
-//					@Override
-//					public void run() {
-						
-						CheckDetailUtils.appendStData("" + fi, stockType);
-						DetailUtils.DetailFile2DB("" + fi, stockType);
-						
-						u.appendTimeDate("SZ" + fi, fstartDateId, fendDateId);
-						try {
-							u.appendPerData(fi, df.parse(fstartDateId), df.parse(fendDateId));
-						} catch (ParseException e) {
-							e.printStackTrace();
-						}
-						
-//					}
-//				});
 					
-//					
-//				CheckDetailUtils.appendStData("" + i, stockType);
-//				DetailUtils.DetailFile2DB("" + i, stockType);
-//				final int fi = i;
-//				final String fstartDateId = startDateId;
-//				final String fendDateId = endDateId;
-////				Global.threadPoolExecutor.execute(new Runnable() {					
-////					@Override
-////					public void run() {
-//						u.appendTimeDate("SZ" + fi, fstartDateId, fendDateId);						
-////					}
-////				});
-//								
-////				u.appendTimeDate("SZ" + i, startDateId, endDateId);
-////				Global.threadPoolExecutor.execute(new Runnable() {					
-////					@Override
-////					public void run() {
-////						try {
-//							u.appendPerData(fi, df.parse(fstartDateId), df.parse(fendDateId));
-////						} catch (ParseException e) {
-////							e.printStackTrace();
-////						}
-////					}
-////				});
+				CheckDetailUtils.appendStData("" + fi, stockType);
+				DetailUtils.DetailFile2DB("" + fi, stockType);
 				
-				// System.out.println("Global.threadPoolExecutor.getActiveCount()="
-				// + Global.threadPoolExecutor.getActiveCount());
-				// } catch (ParseException e) {
-				// logger.warn("main(String[]) - exception ignored", e);
+				u.appendTimeDate("SZ" + fi, fstartDateId, fendDateId);
+				try {
+					u.appendPerData(fi, df.parse(fstartDateId), df.parse(fendDateId));
+				} catch (ParseException e) {
+					e.printStackTrace();
+				}
 
 				 Thread.sleep(1000);
 			} catch (Exception e) {
@@ -128,12 +91,12 @@ public class TaskUtils extends BaseDBUtils {
 			}
 		}
 
-		try {
-			Thread.sleep(5000);
-			Global.threadPoolExecutor.shutdown();
-		} catch (InterruptedException e) {
-			e.printStackTrace();
-		}
+//		try {
+//			Thread.sleep(5000);
+//			Global.threadPoolExecutor.shutdown();
+//		} catch (InterruptedException e) {
+//			e.printStackTrace();
+//		}
 	}
 
 }

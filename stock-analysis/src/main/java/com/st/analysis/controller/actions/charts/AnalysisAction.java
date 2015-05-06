@@ -1,4 +1,4 @@
-package com.st.framework.controller.actions.analysis;
+package com.st.analysis.controller.actions.charts;
 
 import org.apache.log4j.Logger;
 

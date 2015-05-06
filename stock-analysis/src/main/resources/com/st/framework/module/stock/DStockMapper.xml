@@ -5,6 +5,8 @@
     <id column="STOCK_CODE" property="stockCode" jdbcType="VARCHAR" />
     <result column="STOCK_TYPE_CODE" property="stockTypeCode" jdbcType="VARCHAR" />
     <result column="STOCK_NAME" property="stockName" jdbcType="VARCHAR" />
+    <result column="PINYIN_CODE" property="pinyinCode" jdbcType="VARCHAR" />
+    <result column="NAME_CODE" property="nameCode" jdbcType="VARCHAR" />
     <result column="COMPANY_NAME" property="companyName" jdbcType="VARCHAR" />
     <result column="COMPANY_EN_NAME" property="companyEnName" jdbcType="VARCHAR" />
     <result column="ISSUE_PRICE" property="issuePrice" jdbcType="DOUBLE" />
@@ -86,11 +88,11 @@
     </where>
   </sql>
   <sql id="Base_Column_List" >
-    STOCK_CODE, STOCK_TYPE_CODE, STOCK_NAME, COMPANY_NAME, COMPANY_EN_NAME, ISSUE_PRICE, 
-    FIRST_DAY_OPENING_PRICE, FIRST_DAY_CLOSING_PRICE, REGISTERED_ADDRESSES, OFFICE_ADDRESS, 
-    LISTING_DATE, MARKET_CAPITALIZATION, CIRCULATED_STOCK_VALUE, TOTAL_CAPITAL, CURR_CAPITAL, 
-    LISTED_MARKET, LEAD_UNDERWRITER, ESTABLISH_DATE, REGISTERED_CAPITAL, ORGANIZATION, 
-    INTRODUCTION, SCOPE, STOCK_STATE, UPD_DATE
+    STOCK_CODE, STOCK_TYPE_CODE, STOCK_NAME, PINYIN_CODE, NAME_CODE, COMPANY_NAME, COMPANY_EN_NAME, 
+    ISSUE_PRICE, FIRST_DAY_OPENING_PRICE, FIRST_DAY_CLOSING_PRICE, REGISTERED_ADDRESSES, 
+    OFFICE_ADDRESS, LISTING_DATE, MARKET_CAPITALIZATION, CIRCULATED_STOCK_VALUE, TOTAL_CAPITAL, 
+    CURR_CAPITAL, LISTED_MARKET, LEAD_UNDERWRITER, ESTABLISH_DATE, REGISTERED_CAPITAL, 
+    ORGANIZATION, INTRODUCTION, SCOPE, STOCK_STATE, UPD_DATE
   </sql>
   <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.st.framework.module.stock.example.DStockExample" >
     select
@@ -127,23 +129,25 @@
   </delete>
   <insert id="insert" parameterType="com.st.framework.module.stock.DStock" >
     insert into D_STOCK (STOCK_CODE, STOCK_TYPE_CODE, STOCK_NAME, 
-      COMPANY_NAME, COMPANY_EN_NAME, ISSUE_PRICE, 
-      FIRST_DAY_OPENING_PRICE, FIRST_DAY_CLOSING_PRICE, 
-      REGISTERED_ADDRESSES, OFFICE_ADDRESS, LISTING_DATE, 
-      MARKET_CAPITALIZATION, CIRCULATED_STOCK_VALUE, 
-      TOTAL_CAPITAL, CURR_CAPITAL, LISTED_MARKET, 
-      LEAD_UNDERWRITER, ESTABLISH_DATE, REGISTERED_CAPITAL, 
-      ORGANIZATION, INTRODUCTION, SCOPE, 
-      STOCK_STATE, UPD_DATE)
+      PINYIN_CODE, NAME_CODE, COMPANY_NAME, 
+      COMPANY_EN_NAME, ISSUE_PRICE, FIRST_DAY_OPENING_PRICE, 
+      FIRST_DAY_CLOSING_PRICE, REGISTERED_ADDRESSES, 
+      OFFICE_ADDRESS, LISTING_DATE, MARKET_CAPITALIZATION, 
+      CIRCULATED_STOCK_VALUE, TOTAL_CAPITAL, CURR_CAPITAL, 
+      LISTED_MARKET, LEAD_UNDERWRITER, ESTABLISH_DATE, 
+      REGISTERED_CAPITAL, ORGANIZATION, INTRODUCTION, 
+      SCOPE, STOCK_STATE, UPD_DATE
+      )
     values (#{stockCode,jdbcType=VARCHAR}, #{stockTypeCode,jdbcType=VARCHAR}, #{stockName,jdbcType=VARCHAR}, 
-      #{companyName,jdbcType=VARCHAR}, #{companyEnName,jdbcType=VARCHAR}, #{issuePrice,jdbcType=DOUBLE}, 
-      #{firstDayOpeningPrice,jdbcType=DOUBLE}, #{firstDayClosingPrice,jdbcType=DOUBLE}, 
-      #{registeredAddresses,jdbcType=VARCHAR}, #{officeAddress,jdbcType=VARCHAR}, #{listingDate,jdbcType=DATE}, 
-      #{marketCapitalization,jdbcType=DOUBLE}, #{circulatedStockValue,jdbcType=DOUBLE}, 
-      #{totalCapital,jdbcType=DOUBLE}, #{currCapital,jdbcType=DOUBLE}, #{listedMarket,jdbcType=VARCHAR}, 
-      #{leadUnderwriter,jdbcType=VARCHAR}, #{establishDate,jdbcType=DATE}, #{registeredCapital,jdbcType=INTEGER}, 
-      #{organization,jdbcType=VARCHAR}, #{introduction,jdbcType=VARCHAR}, #{scope,jdbcType=VARCHAR}, 
-      #{stockState,jdbcType=TINYINT}, #{updDate,jdbcType=TIMESTAMP})
+      #{pinyinCode,jdbcType=VARCHAR}, #{nameCode,jdbcType=VARCHAR}, #{companyName,jdbcType=VARCHAR}, 
+      #{companyEnName,jdbcType=VARCHAR}, #{issuePrice,jdbcType=DOUBLE}, #{firstDayOpeningPrice,jdbcType=DOUBLE}, 
+      #{firstDayClosingPrice,jdbcType=DOUBLE}, #{registeredAddresses,jdbcType=VARCHAR}, 
+      #{officeAddress,jdbcType=VARCHAR}, #{listingDate,jdbcType=DATE}, #{marketCapitalization,jdbcType=DOUBLE}, 
+      #{circulatedStockValue,jdbcType=DOUBLE}, #{totalCapital,jdbcType=DOUBLE}, #{currCapital,jdbcType=DOUBLE}, 
+      #{listedMarket,jdbcType=VARCHAR}, #{leadUnderwriter,jdbcType=VARCHAR}, #{establishDate,jdbcType=DATE}, 
+      #{registeredCapital,jdbcType=INTEGER}, #{organization,jdbcType=VARCHAR}, #{introduction,jdbcType=VARCHAR}, 
+      #{scope,jdbcType=VARCHAR}, #{stockState,jdbcType=TINYINT}, #{updDate,jdbcType=TIMESTAMP}
+      )
   </insert>
   <insert id="insertSelective" parameterType="com.st.framework.module.stock.DStock" >
     insert into D_STOCK
@@ -156,6 +160,12 @@
       </if>
       <if test="stockName != null" >
         STOCK_NAME,
+      </if>
+      <if test="pinyinCode != null" >
+        PINYIN_CODE,
+      </if>
+      <if test="nameCode != null" >
+        NAME_CODE,
       </if>
       <if test="companyName != null" >
         COMPANY_NAME,
@@ -230,6 +240,12 @@
       </if>
       <if test="stockName != null" >
         #{stockName,jdbcType=VARCHAR},
+      </if>
+      <if test="pinyinCode != null" >
+        #{pinyinCode,jdbcType=VARCHAR},
+      </if>
+      <if test="nameCode != null" >
+        #{nameCode,jdbcType=VARCHAR},
       </if>
       <if test="companyName != null" >
         #{companyName,jdbcType=VARCHAR},
@@ -314,6 +330,12 @@
       <if test="record.stockName != null" >
         STOCK_NAME = #{record.stockName,jdbcType=VARCHAR},
       </if>
+      <if test="record.pinyinCode != null" >
+        PINYIN_CODE = #{record.pinyinCode,jdbcType=VARCHAR},
+      </if>
+      <if test="record.nameCode != null" >
+        NAME_CODE = #{record.nameCode,jdbcType=VARCHAR},
+      </if>
       <if test="record.companyName != null" >
         COMPANY_NAME = #{record.companyName,jdbcType=VARCHAR},
       </if>
@@ -387,6 +409,8 @@
     set STOCK_CODE = #{record.stockCode,jdbcType=VARCHAR},
       STOCK_TYPE_CODE = #{record.stockTypeCode,jdbcType=VARCHAR},
       STOCK_NAME = #{record.stockName,jdbcType=VARCHAR},
+      PINYIN_CODE = #{record.pinyinCode,jdbcType=VARCHAR},
+      NAME_CODE = #{record.nameCode,jdbcType=VARCHAR},
       COMPANY_NAME = #{record.companyName,jdbcType=VARCHAR},
       COMPANY_EN_NAME = #{record.companyEnName,jdbcType=VARCHAR},
       ISSUE_PRICE = #{record.issuePrice,jdbcType=DOUBLE},
@@ -420,6 +444,12 @@
       </if>
       <if test="stockName != null" >
         STOCK_NAME = #{stockName,jdbcType=VARCHAR},
+      </if>
+      <if test="pinyinCode != null" >
+        PINYIN_CODE = #{pinyinCode,jdbcType=VARCHAR},
+      </if>
+      <if test="nameCode != null" >
+        NAME_CODE = #{nameCode,jdbcType=VARCHAR},
       </if>
       <if test="companyName != null" >
         COMPANY_NAME = #{companyName,jdbcType=VARCHAR},
@@ -491,6 +521,8 @@
     update D_STOCK
     set STOCK_TYPE_CODE = #{stockTypeCode,jdbcType=VARCHAR},
       STOCK_NAME = #{stockName,jdbcType=VARCHAR},
+      PINYIN_CODE = #{pinyinCode,jdbcType=VARCHAR},
+      NAME_CODE = #{nameCode,jdbcType=VARCHAR},
       COMPANY_NAME = #{companyName,jdbcType=VARCHAR},
       COMPANY_EN_NAME = #{companyEnName,jdbcType=VARCHAR},
       ISSUE_PRICE = #{issuePrice,jdbcType=DOUBLE},
@@ -516,10 +548,10 @@
   </update>
   <insert id="insertBatch" parameterType="map" >
     insert into D_STOCK
-	(STOCK_CODE,STOCK_TYPE_CODE,STOCK_NAME,COMPANY_NAME,COMPANY_EN_NAME,ISSUE_PRICE,FIRST_DAY_OPENING_PRICE,FIRST_DAY_CLOSING_PRICE,REGISTERED_ADDRESSES,OFFICE_ADDRESS,LISTING_DATE,MARKET_CAPITALIZATION,CIRCULATED_STOCK_VALUE,TOTAL_CAPITAL,CURR_CAPITAL,LISTED_MARKET,LEAD_UNDERWRITER,ESTABLISH_DATE,REGISTERED_CAPITAL,ORGANIZATION,INTRODUCTION,SCOPE,STOCK_STATE,UPD_DATE)
+	(STOCK_CODE,STOCK_TYPE_CODE,STOCK_NAME,PINYIN_CODE,NAME_CODE,COMPANY_NAME,COMPANY_EN_NAME,ISSUE_PRICE,FIRST_DAY_OPENING_PRICE,FIRST_DAY_CLOSING_PRICE,REGISTERED_ADDRESSES,OFFICE_ADDRESS,LISTING_DATE,MARKET_CAPITALIZATION,CIRCULATED_STOCK_VALUE,TOTAL_CAPITAL,CURR_CAPITAL,LISTED_MARKET,LEAD_UNDERWRITER,ESTABLISH_DATE,REGISTERED_CAPITAL,ORGANIZATION,INTRODUCTION,SCOPE,STOCK_STATE,UPD_DATE)
 	values
 	<foreach collection="list" item="item" index="index" separator=",">
-		(#{item.stockCode},#{item.stockTypeCode},#{item.stockName},#{item.companyName},#{item.companyEnName},#{item.issuePrice},#{item.firstDayOpeningPrice},#{item.firstDayClosingPrice},#{item.registeredAddresses},#{item.officeAddress},#{item.listingDate},#{item.marketCapitalization},#{item.circulatedStockValue},#{item.totalCapital},#{item.currCapital},#{item.listedMarket},#{item.leadUnderwriter},#{item.establishDate},#{item.registeredCapital},#{item.organization},#{item.introduction},#{item.scope},#{item.stockState},#{item.updDate})
+		(#{item.stockCode},#{item.stockTypeCode},#{item.stockName},#{item.pinyinCode},#{item.nameCode},#{item.companyName},#{item.companyEnName},#{item.issuePrice},#{item.firstDayOpeningPrice},#{item.firstDayClosingPrice},#{item.registeredAddresses},#{item.officeAddress},#{item.listingDate},#{item.marketCapitalization},#{item.circulatedStockValue},#{item.totalCapital},#{item.currCapital},#{item.listedMarket},#{item.leadUnderwriter},#{item.establishDate},#{item.registeredCapital},#{item.organization},#{item.introduction},#{item.scope},#{item.stockState},#{item.updDate})
 	</foreach>
   </insert>
 </mapper>

@@ -343,6 +343,146 @@ public class DStockExample extends BaseExample {
             return (Criteria) this;
         }
 
+        public Criteria andPinyinCodeIsNull() {
+            addCriterion("PINYIN_CODE is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andPinyinCodeIsNotNull() {
+            addCriterion("PINYIN_CODE is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andPinyinCodeEqualTo(String value) {
+            addCriterion("PINYIN_CODE =", value, "pinyinCode");
+            return (Criteria) this;
+        }
+
+        public Criteria andPinyinCodeNotEqualTo(String value) {
+            addCriterion("PINYIN_CODE <>", value, "pinyinCode");
+            return (Criteria) this;
+        }
+
+        public Criteria andPinyinCodeGreaterThan(String value) {
+            addCriterion("PINYIN_CODE >", value, "pinyinCode");
+            return (Criteria) this;
+        }
+
+        public Criteria andPinyinCodeGreaterThanOrEqualTo(String value) {
+            addCriterion("PINYIN_CODE >=", value, "pinyinCode");
+            return (Criteria) this;
+        }
+
+        public Criteria andPinyinCodeLessThan(String value) {
+            addCriterion("PINYIN_CODE <", value, "pinyinCode");
+            return (Criteria) this;
+        }
+
+        public Criteria andPinyinCodeLessThanOrEqualTo(String value) {
+            addCriterion("PINYIN_CODE <=", value, "pinyinCode");
+            return (Criteria) this;
+        }
+
+        public Criteria andPinyinCodeLike(String value) {
+            addCriterion("PINYIN_CODE like", value, "pinyinCode");
+            return (Criteria) this;
+        }
+
+        public Criteria andPinyinCodeNotLike(String value) {
+            addCriterion("PINYIN_CODE not like", value, "pinyinCode");
+            return (Criteria) this;
+        }
+
+        public Criteria andPinyinCodeIn(List<String> values) {
+            addCriterion("PINYIN_CODE in", values, "pinyinCode");
+            return (Criteria) this;
+        }
+
+        public Criteria andPinyinCodeNotIn(List<String> values) {
+            addCriterion("PINYIN_CODE not in", values, "pinyinCode");
+            return (Criteria) this;
+        }
+
+        public Criteria andPinyinCodeBetween(String value1, String value2) {
+            addCriterion("PINYIN_CODE between", value1, value2, "pinyinCode");
+            return (Criteria) this;
+        }
+
+        public Criteria andPinyinCodeNotBetween(String value1, String value2) {
+            addCriterion("PINYIN_CODE not between", value1, value2, "pinyinCode");
+            return (Criteria) this;
+        }
+
+        public Criteria andNameCodeIsNull() {
+            addCriterion("NAME_CODE is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andNameCodeIsNotNull() {
+            addCriterion("NAME_CODE is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andNameCodeEqualTo(String value) {
+            addCriterion("NAME_CODE =", value, "nameCode");
+            return (Criteria) this;
+        }
+
+        public Criteria andNameCodeNotEqualTo(String value) {
+            addCriterion("NAME_CODE <>", value, "nameCode");
+            return (Criteria) this;
+        }
+
+        public Criteria andNameCodeGreaterThan(String value) {
+            addCriterion("NAME_CODE >", value, "nameCode");
+            return (Criteria) this;
+        }
+
+        public Criteria andNameCodeGreaterThanOrEqualTo(String value) {
+            addCriterion("NAME_CODE >=", value, "nameCode");
+            return (Criteria) this;
+        }
+
+        public Criteria andNameCodeLessThan(String value) {
+            addCriterion("NAME_CODE <", value, "nameCode");
+            return (Criteria) this;
+        }
+
+        public Criteria andNameCodeLessThanOrEqualTo(String value) {
+            addCriterion("NAME_CODE <=", value, "nameCode");
+            return (Criteria) this;
+        }
+
+        public Criteria andNameCodeLike(String value) {
+            addCriterion("NAME_CODE like", value, "nameCode");
+            return (Criteria) this;
+        }
+
+        public Criteria andNameCodeNotLike(String value) {
+            addCriterion("NAME_CODE not like", value, "nameCode");
+            return (Criteria) this;
+        }
+
+        public Criteria andNameCodeIn(List<String> values) {
+            addCriterion("NAME_CODE in", values, "nameCode");
+            return (Criteria) this;
+        }
+
+        public Criteria andNameCodeNotIn(List<String> values) {
+            addCriterion("NAME_CODE not in", values, "nameCode");
+            return (Criteria) this;
+        }
+
+        public Criteria andNameCodeBetween(String value1, String value2) {
+            addCriterion("NAME_CODE between", value1, value2, "nameCode");
+            return (Criteria) this;
+        }
+
+        public Criteria andNameCodeNotBetween(String value1, String value2) {
+            addCriterion("NAME_CODE not between", value1, value2, "nameCode");
+            return (Criteria) this;
+        }
+
         public Criteria andCompanyNameIsNull() {
             addCriterion("COMPANY_NAME is null");
             return (Criteria) this;

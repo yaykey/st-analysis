@@ -12,6 +12,7 @@ import com.st.framework.business.impl.PStockMapManager;
 import com.st.framework.business.impl.dim.DDimManager;
 import com.st.framework.business.impl.dim.DDimtypeManager;
 import com.st.framework.business.impl.fact.FactProxyManager;
+import com.st.framework.business.impl.factdate.FactDateHolidayListManager;
 import com.st.framework.business.impl.factdate.FactDateHolidayManager;
 import com.st.framework.utils.ConfigUtil;
 
@@ -52,7 +53,8 @@ public class BaseDBUtils {
 	protected static FactDateHolidayManager factDateHolidayManager = (FactDateHolidayManager) getHelper()
 	.getBean("factDateHolidayManager");
 	
-	
+	protected static FactDateHolidayListManager factDateHolidayListManager = (FactDateHolidayListManager) getHelper()
+			.getBean("factDateHolidayListManager");
 	
 	protected final static DateFormat df = new SimpleDateFormat("yyyy-MM-dd");
 

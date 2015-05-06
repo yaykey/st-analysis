@@ -3,6 +3,8 @@ package com.st.analysis.utils.wave;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
+import java.math.BigDecimal;
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -142,6 +144,142 @@ public class WaveUtils extends BaseDBUtils {
 		return getWaveOptimize(wave, 0.001);
 	}
 
+	public static List<GDetail> filterWave(
+			Integer dateId, Integer stockCode, String stockType,
+			double dec,
+			String timeIdStart, String timeIdEnd
+	) {
+//		String stockCode = "300002";
+
+		List<GDetail> resultlist = null;
+		
+		{//AM
+			GDetailExample example = new GDetailExample();
+			example.setDistinct(true);
+	//		example.setStockCode("sz" + stockCode);
+			example.setStockCode("sz" + stockCode);
+			example.setOrderByClause("TIME_ID");
+	
+	//		example.setStart(0);
+	//		example.setPageSize(100);
+	
+			GDetailExample.Criteria c = example.createCriteria();
+			c.andDateIdEqualTo(dateId);
+			c.andTimeIdGreaterThanOrEqualTo("09:30:00");
+			c.andTimeIdLessThanOrEqualTo("11:31:00");
+	
+			resultlist = gDetailManager.selectByExample(example);
+	
+			filterMiniWave(resultlist, 0, dec);
+		}
+		
+		{//PM
+			GDetailExample example = new GDetailExample();
+			example.setDistinct(true);
+	//		example.setStockCode("sz" + stockCode);
+			example.setStockCode(stockType + stockCode);
+			example.setOrderByClause("TIME_ID");
+		
+			GDetailExample.Criteria c = example.createCriteria();
+			c.andDateIdEqualTo(dateId);
+			c.andTimeIdGreaterThanOrEqualTo("13:00:00");
+			c.andTimeIdLessThanOrEqualTo("15:00:15");
+	
+			List<GDetail> resultlistpm = gDetailManager.selectByExample(example);
+	
+			filterMiniWave(resultlistpm, 0, dec);
+			
+			resultlist.addAll(resultlistpm);
+		}
+		
+		
+		for (int i=0; i<resultlist.size(); i++) {
+			GDetail g = resultlist.get(i);
+			System.out.println(i + "\t" + g);
+		}
+		
+		System.out.println(resultlist.size());
+		
+
+		return resultlist;
+	}
+
+	public static void filterMiniWave(List<GDetail> list, int startIndex,
+			double dec) {
+		int len = list.size();
+		if (startIndex >= len) {
+			return;
+		}
+		
+		// int p = startIndex;
+		for (int i = startIndex+1; i < len; i++) {
+			
+			double f1 = new BigDecimal(Math.abs(list.get(i).getPrice()
+					- list.get(startIndex).getPrice()))
+					.setScale(2, BigDecimal.ROUND_HALF_UP)
+					.doubleValue();
+
+			if (f1 > dec) {
+				System.out.print(list.get(i).getTimeId() + " "
+						+ list.get(i).getPrice());
+				System.out.print("\t" + f1 + "\t");
+				System.out.println("\t idx=" + startIndex + "-" + i);
+				filterMiniWave(list, i, dec);
+				list.removeAll(list.subList(startIndex+1, i));
+				break;
+			}
+			
+			if (i == (len-1)) {
+				System.out.println("\t idx=" + startIndex + "-" + i);
+				list.removeAll(list.subList(startIndex, i-1));
+			}
+		}
+		
+		
+	}
+
+//	public static int findHIndex(int startIndex, List<GDetail> list) {
+//		int len = list.size();
+//
+//		for (int i = startIndex; i < len - 1; i++) {
+//			if ((list.get(i + 1).getPrice() - list.get(i).getPrice()) > 0) {
+//
+//			} else {
+//				return i;
+//			}
+//		}
+//
+//		return startIndex;
+//	}
+//
+//	public static int findLIndex(int startIndex, List<GDetail> list) {
+//		int len = list.size();
+//
+//		for (int i = startIndex; i < len - 1; i++) {
+//			if ((list.get(i + 1).getPrice() - list.get(i).getPrice()) < 0) {
+//
+//			} else {
+//				return i;
+//			}
+//		}
+//
+//		return startIndex;
+//	}
+//
+//	public static int findEIndex(int startIndex, List<GDetail> list) {
+//		int len = list.size();
+//
+//		for (int i = startIndex; i < len - 1; i++) {
+//			if ((list.get(i + 1).getPrice() - list.get(i).getPrice()) == 0) {
+//
+//			} else {
+//				return i;
+//			}
+//		}
+//
+//		return startIndex;
+//	}
+
 	public static void checkwave(int start, int pageSize) {
 		String stockCode = "300002";
 
@@ -157,7 +295,7 @@ public class WaveUtils extends BaseDBUtils {
 		GDetailExample.Criteria c = example.createCriteria();
 		c.andDateIdEqualTo(20141224);
 		c.andTimeIdGreaterThanOrEqualTo("09:30:00");
-		c.andTimeIdLessThanOrEqualTo("10:30:00");
+		c.andTimeIdLessThanOrEqualTo("11:30:00");
 
 		List<GDetail> stlist = gDetailManager.selectByExample(example);
 
@@ -411,20 +549,20 @@ public class WaveUtils extends BaseDBUtils {
 				List<Integer> mms = new ArrayList<Integer>();
 
 				if ("H".equalsIgnoreCase(wave.get(tempArr[0]).getWaveType())) {
-//					mm = getMaxWave(wave, tempArr[0], tempArr[1]);					
-//					wave.get(mm).setWaveType("H");
-					
-					mm = getMinWave(wave, tempArr[0], tempArr[1]);					
+					// mm = getMaxWave(wave, tempArr[0], tempArr[1]);
+					// wave.get(mm).setWaveType("H");
+
+					mm = getMinWave(wave, tempArr[0], tempArr[1]);
 					wave.get(mm).setWaveType("L");
-					
+
 					mms.add(mm);
 
 				} else {
-//					mm = getMinWave(wave, tempArr[0], tempArr[1]);
-//					wave.get(mm).setWaveType("L");
+					// mm = getMinWave(wave, tempArr[0], tempArr[1]);
+					// wave.get(mm).setWaveType("L");
 					mm = getMinWave(wave, tempArr[0], tempArr[1]);
 					wave.get(mm).setWaveType("H");
-					
+
 					mms.add(mm);
 				}
 
@@ -812,8 +950,11 @@ public class WaveUtils extends BaseDBUtils {
 		// checkwave(160, 200);
 		// checkwave(170, 200);
 		// checkwave(180, 200);
-		checkwave(190, 20);
-
+		// checkwave(190, 20);
+//		Integer dateId, Integer stockCode, String stockType,
+//		double dec,
+//		String timeIdStart, String timeIdEnd
+		filterWave(20150323, 300002, "sz", 0.05d, null, null);
 	}
 
 }

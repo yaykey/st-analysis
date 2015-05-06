@@ -18,6 +18,27 @@
     <result column="LOW_PER" property="lowPer" jdbcType="DOUBLE" />
     <result column="CLOSE_PER" property="closePer" jdbcType="DOUBLE" />
     <result column="OPEN_PER" property="openPer" jdbcType="DOUBLE" />
+    
+    <collection property="MA5" fetchType="lazy" column="{stock=STOCK,date=DATE}" 
+    	javaType="DOUBLE" select="selectMA5" />
+    <collection property="MA10" fetchType="lazy" column="{stock=STOCK,date=DATE}" 
+    	javaType="DOUBLE" select="selectMA10" />
+    
+    <collection property="prevDay" fetchType="lazy" column="{stock=STOCK,date=DATE}" 
+    	ofType="GStockDay" select="selectPrevDay" />
+    <collection property="nextDay" fetchType="lazy" column="{stock=STOCK,date=DATE}" 
+    	ofType="GStockDay" select="selectNextDay" />
+    	
+    <collection property="prev5Day" fetchType="lazy" column="{stock=STOCK,date=DATE}" 
+    	ofType="GStockDay" javaType="ArrayList" select="selectPrev5Day" />
+    <collection property="next5Day" fetchType="lazy" column="{stock=STOCK,date=DATE}" 
+    	ofType="GStockDay" javaType="ArrayList" select="selectNext5Day" />
+    	
+    <collection property="prev30Day" fetchType="lazy" column="{stock=STOCK,date=DATE}" 
+    	ofType="GStockDay" javaType="ArrayList" select="selectPrev30Day" />
+    <collection property="next30Day" fetchType="lazy" column="{stock=STOCK,date=DATE}" 
+    	ofType="GStockDay" javaType="ArrayList" select="selectNext30Day" />
+    	
   </resultMap>
   
   <resultMap id="TimeRangeCountResultMap" type="com.st.analysis.controller.vo.timerange.TimeRangeCountBeanResponse">
@@ -468,4 +489,132 @@
 	)
   </select>
   
+  <select id="selectNextDay" resultMap="BaseResultMap" parameterType="map">
+  	select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+	    from G_STOCK_DAY
+	    where
+			STOCK = #{stock,jdbcType=INTEGER} 
+			<![CDATA[
+				and DATE > #{date,jdbcType=DATE}
+			]]>
+			order by DATE asc
+			limit 1			
+  </select>
+  <select id="selectPrevDay" resultMap="BaseResultMap" parameterType="map">
+  	select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+	    from G_STOCK_DAY
+	    where
+			STOCK = #{stock,jdbcType=INTEGER} 
+			<![CDATA[
+				and DATE < #{date,jdbcType=DATE}
+			]]>
+			order by DATE desc
+			limit 1
+  </select>
+  
+  <select id="selectNext5Day" resultMap="BaseResultMap" parameterType="map">
+  	select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+	    from G_STOCK_DAY
+	    where
+			STOCK = #{stock,jdbcType=INTEGER} 
+			<![CDATA[
+				and DATE > #{date,jdbcType=DATE}
+			]]>
+			order by DATE asc
+			limit 5
+  </select>
+  
+  <select id="selectPrev5Day" resultMap="BaseResultMap" parameterType="map">
+  	select d.* from (
+	  	select
+	    <if test="distinct" >
+	      distinct
+	    </if>
+	    <include refid="Base_Column_List" />
+		    from G_STOCK_DAY
+		    where
+				STOCK = #{stock,jdbcType=INTEGER} 
+				<![CDATA[
+					and DATE < #{date,jdbcType=DATE}
+				]]>
+				order by DATE desc
+				limit 5
+	) d
+	order by d.DATE asc
+  </select>
+  
+  <select id="selectNext30Day" resultMap="BaseResultMap" parameterType="map">
+  	select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+	    from G_STOCK_DAY
+	    where
+			STOCK = #{stock,jdbcType=INTEGER} 
+			<![CDATA[
+				and DATE > #{date,jdbcType=DATE}
+			]]>
+			order by DATE asc
+			limit 30
+  </select>
+  
+  <select id="selectPrev30Day" resultMap="BaseResultMap" parameterType="map">
+  	select d.* from (
+	  	select
+	    <if test="distinct" >
+	      distinct
+	    </if>
+	    <include refid="Base_Column_List" />
+		    from G_STOCK_DAY
+		    where
+				STOCK = #{stock,jdbcType=INTEGER} 
+				<![CDATA[
+					and DATE < #{date,jdbcType=DATE}
+				]]>
+				order by DATE desc
+				limit 30
+	) d
+	order by d.DATE asc
+  </select>
+  
+  <select id="selectMA5" resultType="DOUBLE" parameterType="map">  	
+	select avg(ma.CLOSE) as MA5 from (
+	    select CLOSE
+		    from G_STOCK_DAY
+		    where
+				STOCK = #{stock,jdbcType=INTEGER} 
+				<![CDATA[
+					and DATE < #{date,jdbcType=DATE}
+				]]>
+				order by DATE desc
+				limit 5
+		) ma
+  </select>
+  
+  <select id="selectMA10" resultType="DOUBLE" parameterType="map">
+  	select avg(ma.CLOSE) as MA10 from (
+	    select CLOSE
+		    from G_STOCK_DAY
+		    where
+				STOCK = #{stock,jdbcType=INTEGER} 
+				<![CDATA[
+					and DATE < #{date,jdbcType=DATE}
+				]]>
+				order by DATE desc
+				limit 10
+		) ma
+  </select>
 </mapper>

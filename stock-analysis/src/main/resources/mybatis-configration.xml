@@ -18,6 +18,8 @@
 		<!-- 缓存 -->
 		<setting name="cacheEnabled" value="false"/>
 		
+		<setting name="lazyLoadTriggerMethods" value="equals,clone,hashCode,toString"/>
+		
 		<setting name="logImpl" value="LOG4J" />
 	</settings>
 	

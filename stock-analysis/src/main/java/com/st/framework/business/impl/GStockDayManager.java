@@ -544,4 +544,5 @@ public class GStockDayManager extends
 		return this.gStockDayMapper.selectByTimeRange(timeClause, list, example);
 	}
 	
+	
 }

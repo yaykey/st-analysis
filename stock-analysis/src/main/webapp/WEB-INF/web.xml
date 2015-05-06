@@ -4,7 +4,7 @@
 	xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd">
 	<display-name>fdc report</display-name>
 	
-	<!-- <listener>
+	<listener>
          <listener-class>org.apache.logging.log4j.web.Log4jServletContextListener</listener-class>
      </listener>
      <filter>
@@ -18,7 +18,7 @@
          <dispatcher>FORWARD</dispatcher>
          <dispatcher>INCLUDE</dispatcher>
          <dispatcher>ERROR</dispatcher>
-     </filter-mapping> -->
+     </filter-mapping>
 	
 	<context-param>
 		<param-name>contextClass</param-name>

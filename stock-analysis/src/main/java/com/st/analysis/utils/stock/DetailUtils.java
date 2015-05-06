@@ -55,8 +55,12 @@ public class DetailUtils extends BaseDBUtils {
 		}
 
 		// 成功ID
-		final List<String> successTimeIds = factDownloadFileConfigManager
-				.selectStSuccessTimeId(null, null, stockCode);
+//		final List<String> successTimeIds = factDownloadFileConfigManager
+//				.selectStSuccessTimeId(null, null, stockCode);
+		long dtimeid = System.currentTimeMillis();
+		final List<String> successTimeIds = 
+				gDetailManager.selectDetailActiveDateId(stockType + stockCode, null, null);
+		System.out.println("successTimeIds耗时:" + (System.currentTimeMillis()-dtimeid));
 
 		// if (successTimeIds.size() > 0) {
 		// successTimeIds.remove(successTimeIds.size() - 1);
@@ -76,10 +80,10 @@ public class DetailUtils extends BaseDBUtils {
 				if (fs.isDirectory()) {
 					final File ffs = fs;
 //					final 
-					Global.threadPoolExecutor.execute(new Runnable() {						
-						@Override
-						public void run() {
-							Date d1 = new Date(), d2=null, d3,d4;
+//					Global.threadPoolExecutor.execute(new Runnable() {						
+//						@Override
+//						public void run() {
+//							Date d1 = new Date(), d2=null, d3,d4;
 							d3 = new Date();
 							DetailDirectoryFile2DB(ffs, successTimeIds);
 							d4 = new Date();
@@ -87,22 +91,8 @@ public class DetailUtils extends BaseDBUtils {
 							
 							d3 = null; 
 							d4=null;							
-						}
-					});
-//					new Thread(){
-//						@Override
-//						public void run() {
-//							Date d1 = new Date(), d2=null, d3,d4;
-//							d3 = new Date();
-//							DetailDirectoryFile2DB(ffs, successTimeIds);
-//							d4 = new Date();
-//							System.out.println(stockType + stockCode + "->" + ffs.getName() + "[目录]->" + (d4.getTime()-d3.getTime()));
-//							
-//							d3 = null; 
-//							d4=null;
-////							fs = null;
-//						}						
-//					}.start();
+//						}
+//					});
 					
 
 //					System.gc();
@@ -118,7 +108,7 @@ public class DetailUtils extends BaseDBUtils {
 		d2 = new Date();
 		System.out.println("stockCode["+stockType + stockCode+"]->\t" + (d2.getTime()-d1.getTime()));
 		d2 = null;
-		System.gc();
+//		System.gc();
 //		try {
 //			Thread.sleep(1000);
 //		} catch (InterruptedException e) {
@@ -138,23 +128,23 @@ public class DetailUtils extends BaseDBUtils {
 		//StringBuffer sqlBuffer = new StringBuffer();
 		//StringBuilder sqlBuffer = new StringBuilder();
 		
-		int fileNum = 0;
+//		int fileNum = 0;
 
 		File fa[] = directoryFile.listFiles();
-		String stockCode = "";
+//		String stockCode = "";
 		File fs = null;
-		for (int i = 0; i < fa.length; i++) {
-			fs = fa[i];
-			if (directoryFile.isHidden() == false
-					&& !"CVS".equals(fs.getName())) {
-				if (fs.isDirectory()) {
-					System.out.println(fs.getName() + " [目录]");
-				} else {
-					stockCode = fs.getName().substring(0, 8).toUpperCase();
-					break;
-				}
-			}
-		}
+//		for (int i = 0; i < fa.length; i++) {
+//			fs = fa[i];
+//			if (directoryFile.isHidden() == false
+//					&& !"CVS".equals(fs.getName())) {
+//				if (fs.isDirectory()) {
+//					System.out.println(fs.getName() + " [目录]");
+//				} else {
+//					stockCode = fs.getName().substring(0, 8).toUpperCase();
+//					break;
+//				}
+//			}
+//		}
 
 //		sqlBuffer.append("insert ignore into G_DETAIL_" + stockCode);
 //		sqlBuffer
@@ -185,58 +175,58 @@ public class DetailUtils extends BaseDBUtils {
 							//}
 //							logger.error("fileNum=" + fileNum);
 //							logger.error(sqlBuffer.toString());
-							fileNum++;
+//							fileNum++;
 						}
 
 						fs = null;
 
-						if (fileNum >= maxFileNum) {
-							
-							// if (sqlBuffer.length() > 0) {
-							//d1 = new Date();
-//							sqlString = sqlBuffer.toString().replaceAll("[,]{2,}", ",").replaceFirst("values ,\\(", "values \\(").replaceAll(",$", "");
-//							gDetailManager.insertStringBatch(sqlString);
+//						if (fileNum >= maxFileNum) {
 //							
-//							sqlString = null;
-//							sqlBuffer.setLength(0);
-							
-							//d2 = new Date();
-
-//							System.out.println(stockCode + "->[" + fileNum + "]->"
-//									+ (d2.getTime() - d1.getTime()));
-							fileNum = 0;
-							//sqlBuffer = null;
-							//System.gc();
-							//sqlBuffer = new StringBuilder();
-//							sqlBuffer.append("insert ignore into G_DETAIL_"
-//									+ stockCode);
-//							sqlBuffer
-//									.append(" (DATE_ID, TIME_ID, PRICE, PRICE_CHANGES, VOL, AMO, NATURE) values ");
-
-							// }
-						}
+//							// if (sqlBuffer.length() > 0) {
+//							//d1 = new Date();
+////							sqlString = sqlBuffer.toString().replaceAll("[,]{2,}", ",").replaceFirst("values ,\\(", "values \\(").replaceAll(",$", "");
+////							gDetailManager.insertStringBatch(sqlString);
+////							
+////							sqlString = null;
+////							sqlBuffer.setLength(0);
+//							
+//							//d2 = new Date();
+//
+////							System.out.println(stockCode + "->[" + fileNum + "]->"
+////									+ (d2.getTime() - d1.getTime()));
+//							fileNum = 0;
+//							//sqlBuffer = null;
+//							//System.gc();
+//							//sqlBuffer = new StringBuilder();
+////							sqlBuffer.append("insert ignore into G_DETAIL_"
+////									+ stockCode);
+////							sqlBuffer
+////									.append(" (DATE_ID, TIME_ID, PRICE, PRICE_CHANGES, VOL, AMO, NATURE) values ");
+//
+//							// }
+//						}
 					}
 				}
 			}
 		}
-
-		if (fileNum > 0) {
-			//d1 = new Date();
-//			sqlString = sqlBuffer.toString().replaceAll("[,]{2,}", ",").replaceFirst("values ,\\(", "values \\(").replaceAll(",$", "");
-//			gDetailManager.insertStringBatch(sqlString);
-//			sqlString = null;
-//			//d2 = new Date();
-////			System.out.println(stockCode + "->结束->[" + fileNum + "]->"
-////					+ (d2.getTime() - d1.getTime()));
-
-//			sqlBuffer.setLength(0);
-			
-			
-		}
+//
+//		if (fileNum > 0) {
+//			//d1 = new Date();
+////			sqlString = sqlBuffer.toString().replaceAll("[,]{2,}", ",").replaceFirst("values ,\\(", "values \\(").replaceAll(",$", "");
+////			gDetailManager.insertStringBatch(sqlString);
+////			sqlString = null;
+////			//d2 = new Date();
+//////			System.out.println(stockCode + "->结束->[" + fileNum + "]->"
+//////					+ (d2.getTime() - d1.getTime()));
+//
+////			sqlBuffer.setLength(0);
+//			
+//			
+//		}
 		
 //		sqlBuffer = null;
-		stockCode = null;
-		System.gc();
+//		stockCode = null;
+//		System.gc();
 
 		// factDownloadFileConfigManager.flushInsertBatch();
 	}
@@ -264,8 +254,8 @@ public class DetailUtils extends BaseDBUtils {
 				.replaceAll("-", ""));
 
 		if (successTimeIds != null
-				&& successTimeIds.contains(fileName.substring(14, 24))) {
-			//System.out.println(fileName + "已存在");
+				&& successTimeIds.contains(dateId)) {
+//			System.out.println(fileName + "已存在");
 
 //			if (logger.isDebugEnabled()) {
 //				logger.debug("DetailXLX2DB(File, List<String>, StringBuffer) - end");
@@ -431,10 +421,10 @@ public class DetailUtils extends BaseDBUtils {
 //				newSqlBuffer.setLength(0);
 //				newSqlBuffer = null;
 				
-//				gDetailManager.insertBatch(stockCode, data);
-				gDetailManager.insertBatchAsynchronous(stockCode, data);
-				data.clear();
-				data = null;
+				gDetailManager.insertBatch(stockCode, data);
+//				gDetailManager.insertBatchAsynchronous(stockCode, data);
+//				data.clear();
+//				data = null;
 				
 				factDownloadFileConfig.setFail(false);
 				factDownloadFileConfigManager

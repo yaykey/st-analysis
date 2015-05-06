@@ -1,7 +1,11 @@
 package com.st.framework.module.stock;
 
+import java.util.List;
+
 import org.apache.commons.lang.builder.ToStringBuilder;
 import org.apache.commons.lang.builder.ToStringStyle;
+
+import com.st.Global;
 
 public class GStockDay extends GStockDayKey {
     private Double open;
@@ -31,7 +35,25 @@ public class GStockDay extends GStockDayKey {
     private Double closePer;
 
     private Double openPer;
+    
+    private GStockDay prevDay;
+    
+    private GStockDay nextDay;
 
+    private List<GStockDay> prev5Day;
+    
+    private List<GStockDay> next5Day;
+    
+    private List<GStockDay> prev30Day;
+    
+    private List<GStockDay> next30Day;
+    
+    private Double MA5;
+    
+    private Double MA10;
+    
+    private int dateDec;
+    
     public Double getOpen() {
         return open;
     }
@@ -198,6 +220,117 @@ public class GStockDay extends GStockDayKey {
     }
     
     public String toString () {
-		return ToStringBuilder.reflectionToString(this,ToStringStyle.SHORT_PREFIX_STYLE);
+//    	ToStringBuilder builder = new ToStringBuilder(this, ToStringStyle.SHORT_PREFIX_STYLE);
+//    	
+//    	builder.append("stock", this.getStock());
+//    	builder.append("date", this.getDate());
+//    	
+//    	builder.append("high", this.getHigh());
+//    	builder.append("low", this.getLow());
+//    	
+//    	builder.append("highper", this.getHighPer());
+//    	builder.append("lowper", this.getLowPer());
+    	
+    	StringBuilder builder = new StringBuilder();
+    	
+    	builder.append("GStockDay");
+    	builder.append("[");
+    	
+    	builder.append("stock=" + this.getStock());
+    	
+    	builder.append(",date=");
+    	if (this.getDate() != null) {
+    		builder.append(Global.DF_DAY.format(this.getDate()));
+    	}
+    	
+    	builder.append(",high=" + this.getHigh());
+    	builder.append(",low=" + this.getLow());
+    	
+    	builder.append(",highper=" + this.getHighPer());
+    	builder.append(",lowper=" + this.getLowPer());
+    	
+    	builder.append("]");
+    	
+		return builder.toString();
     }
+
+//    public String toString() {		
+//		return ToStringBuilder.reflectionToString(this, ToStringStyle.SIMPLE_STYLE);
+//	}
+    
+	public GStockDay getPrevDay() {
+		return prevDay;
+	}
+
+	public void setPrevDay(GStockDay prevDay) {
+		this.prevDay = prevDay;
+	}
+
+	public GStockDay getNextDay() {
+		return nextDay;
+	}
+
+	public void setNextDay(GStockDay nextDay) {
+		this.nextDay = nextDay;
+	}
+
+	public List<GStockDay> getPrev5Day() {
+		return prev5Day;
+	}
+
+	public void setPrev5Day(List<GStockDay> prev5Day) {
+		this.prev5Day = prev5Day;
+	}
+
+	public List<GStockDay> getNext5Day() {
+		return next5Day;
+	}
+
+	public void setNext5Day(List<GStockDay> next5Day) {
+		this.next5Day = next5Day;
+	}
+
+	public List<GStockDay> getPrev30Day() {
+		return prev30Day;
+	}
+
+	public void setPrev30Day(List<GStockDay> prev30Day) {
+		this.prev30Day = prev30Day;
+	}
+
+	public List<GStockDay> getNext30Day() {
+		return next30Day;
+	}
+
+	public void setNext30Day(List<GStockDay> next30Day) {
+		this.next30Day = next30Day;
+	}
+
+	public Double getMA5() {
+		return MA5;
+	}
+
+	public void setMA5(Double mA5) {
+		MA5 = mA5;
+	}
+
+	public Double getMA10() {
+		return MA10;
+	}
+
+	public void setMA10(Double mA10) {
+		MA10 = mA10;
+	}
+
+	public int getDateDec() {
+		return dateDec;
+	}
+
+	public void setDateDec(int dateDec) {
+		this.dateDec = dateDec;
+	}
+
+	
+
+	
 }

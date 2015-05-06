@@ -2,14 +2,16 @@ package com.st.framework.module.stock;
 
 import java.util.Date;
 
-import org.apache.commons.lang3.builder.ToStringBuilder;
-
 public class DStock {
     private String stockCode;
 
     private String stockTypeCode;
 
     private String stockName;
+
+    private String pinyinCode;
+
+    private String nameCode;
 
     private String companyName;
 
@@ -75,6 +77,22 @@ public class DStock {
 
     public void setStockName(String stockName) {
         this.stockName = stockName == null ? null : stockName.trim();
+    }
+
+    public String getPinyinCode() {
+        return pinyinCode;
+    }
+
+    public void setPinyinCode(String pinyinCode) {
+        this.pinyinCode = pinyinCode == null ? null : pinyinCode.trim();
+    }
+
+    public String getNameCode() {
+        return nameCode;
+    }
+
+    public void setNameCode(String nameCode) {
+        this.nameCode = nameCode == null ? null : nameCode.trim();
     }
 
     public String getCompanyName() {
@@ -260,6 +278,8 @@ public class DStock {
         return (this.getStockCode() == null ? other.getStockCode() == null : this.getStockCode().equals(other.getStockCode()))
             && (this.getStockTypeCode() == null ? other.getStockTypeCode() == null : this.getStockTypeCode().equals(other.getStockTypeCode()))
             && (this.getStockName() == null ? other.getStockName() == null : this.getStockName().equals(other.getStockName()))
+            && (this.getPinyinCode() == null ? other.getPinyinCode() == null : this.getPinyinCode().equals(other.getPinyinCode()))
+            && (this.getNameCode() == null ? other.getNameCode() == null : this.getNameCode().equals(other.getNameCode()))
             && (this.getCompanyName() == null ? other.getCompanyName() == null : this.getCompanyName().equals(other.getCompanyName()))
             && (this.getCompanyEnName() == null ? other.getCompanyEnName() == null : this.getCompanyEnName().equals(other.getCompanyEnName()))
             && (this.getIssuePrice() == null ? other.getIssuePrice() == null : this.getIssuePrice().equals(other.getIssuePrice()))
@@ -290,6 +310,8 @@ public class DStock {
         result = prime * result + ((getStockCode() == null) ? 0 : getStockCode().hashCode());
         result = prime * result + ((getStockTypeCode() == null) ? 0 : getStockTypeCode().hashCode());
         result = prime * result + ((getStockName() == null) ? 0 : getStockName().hashCode());
+        result = prime * result + ((getPinyinCode() == null) ? 0 : getPinyinCode().hashCode());
+        result = prime * result + ((getNameCode() == null) ? 0 : getNameCode().hashCode());
         result = prime * result + ((getCompanyName() == null) ? 0 : getCompanyName().hashCode());
         result = prime * result + ((getCompanyEnName() == null) ? 0 : getCompanyEnName().hashCode());
         result = prime * result + ((getIssuePrice() == null) ? 0 : getIssuePrice().hashCode());
@@ -312,9 +334,5 @@ public class DStock {
         result = prime * result + ((getStockState() == null) ? 0 : getStockState().hashCode());
         result = prime * result + ((getUpdDate() == null) ? 0 : getUpdDate().hashCode());
         return result;
-    }
-    
-    public String toString () {
-    	return ToStringBuilder.reflectionToString(this);
     }
 }

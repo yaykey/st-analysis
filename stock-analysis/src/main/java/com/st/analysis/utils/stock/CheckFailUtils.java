@@ -31,7 +31,7 @@ public class CheckFailUtils extends BaseDBUtils {
 	public static List<Integer> getFailDateIdList(String stockCode,
 			Integer startDateId, Integer endDateId) {
 
-		List<Integer> dateDateId = gDetailManager.selectDetailActiveDateId(
+		List<Integer> dateDateId = (List<Integer>)gDetailManager.selectDetailActiveDateId(
 				stockCode, startDateId, endDateId);
 		if (logger.isInfoEnabled()) {
 			logger.info("getFailDateIdList(String, Integer, Integer) - List<Integer> dateDateId="

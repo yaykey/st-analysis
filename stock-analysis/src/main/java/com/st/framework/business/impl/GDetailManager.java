@@ -104,7 +104,7 @@ public class GDetailManager {
 	public void insertBatchAsynchronous(final String stockCode, final List<GDetail> list) {
 		
 		if (list != null && list.size() > 0) {
-			Global.threadPoolExecutor.execute(new Runnable() {				
+			Global.threadPoolExecutor.execute(new Runnable() {
 				@Override
 				public void run() {
 					if (Global._ctx == null) {
@@ -224,7 +224,7 @@ public class GDetailManager {
 				endDateId);
 	}
 	
-	public List<Integer> selectDetailActiveDateId (String stockCode,Integer startDateId,
+	public List selectDetailActiveDateId (String stockCode,Integer startDateId,
 			Integer endDateId) {
 		return this.gDetailMapper.selectDetailActiveDateId(stockCode, startDateId,
 				endDateId);
@@ -238,6 +238,8 @@ public class GDetailManager {
 	public List<GDetail> selectWareByExample(GDetailExample example) {	
 		return this.gDetailMapper.selectWareByExample(example);
 	}
+	
+	
 
 	
 }

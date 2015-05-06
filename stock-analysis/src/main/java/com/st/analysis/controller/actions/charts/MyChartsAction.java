@@ -30,13 +30,7 @@ public class MyChartsAction extends BaseAnalysisAction{
 	 */
 	private static final long serialVersionUID = -681408160915941677L;
 
-	private Integer dateId;
 	
-	private String stockCode;
-	
-	private String startTime;
-	
-	private String endTime;
 	
 	@Action("charts")
 	public String charts () throws ParseException {
@@ -183,42 +177,5 @@ public class MyChartsAction extends BaseAnalysisAction{
 
 
 
-	public Integer getDateId() {
-		return dateId;
-	}
-
-
-
-	public void setDateId(Integer dateId) {
-		this.dateId = dateId;
-	}
-
-
-
-	public String getStockCode() {
-		return stockCode;
-	}
-
-
-
-	public void setStockCode(String stockCode) {
-		this.stockCode = stockCode;
-	}
-
-	public String getStartTime() {
-		return startTime;
-	}
-
-	public void setStartTime(String startTime) {
-		this.startTime = startTime;
-	}
-
-	public String getEndTime() {
-		return endTime;
-	}
-
-	public void setEndTime(String endTime) {
-		this.endTime = endTime;
-	}
 	
 }

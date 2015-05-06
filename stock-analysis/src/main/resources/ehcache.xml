@@ -5,9 +5,16 @@
 	
 	<diskStore path="java.io.tmpdir"/>
 
-	<defaultCache maxElementsInMemory="0" eternal="false"
-		overflowToDisk="true" timeToIdleSeconds="1200" timeToLiveSeconds="1200">
-	</defaultCache>
+	<defaultCache
+        eternal="false"
+        overflowToDisk="false"
+        statistics="false"
+        timeToIdleSeconds="600"
+        timeToLiveSeconds="900"
+        maxElementsInMemory="10000000"
+        maxElementsOnDisk="0"
+        diskPersistent="false"
+        memoryStoreEvictionPolicy="LRU"/>
 
 
 	<cache name="wroCache" maxElementsInMemory="1000"
