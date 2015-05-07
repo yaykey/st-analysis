@@ -44,9 +44,9 @@ public class BaseAnalysisAction extends BaseAction{
 	
 	protected String endDate;
 	
-	protected Double highPer = 5d;
+	protected Double highPer;
 	
-	protected Double lowPer = -5d;
+	protected Double lowPer;
 
 	public Integer getDateId() {
 		return dateId;

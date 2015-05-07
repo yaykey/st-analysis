@@ -12,3 +12,5 @@
 <th>LOWTIMEID</th>
 <th>HIGHPER</th>
 <th>LOWPER</th>
+<th>OPENPER</th>
+<th>CLOSEPER</th>

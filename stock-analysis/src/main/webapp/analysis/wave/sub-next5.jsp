@@ -11,6 +11,8 @@
 			<th>LOWTIMEID</th>
 			<th>HIGHPER</th>
 			<th>LOWPER</th>
+			<th>OPENPER</th>
+			<th>CLOSEPER</th>
 		</tr>
 	</thead>
 	<tbody>
@@ -27,8 +29,10 @@
 				<td>${subst.low}</td>
 				<td>${subst.highTimeId}</td>
 				<td>${subst.lowTimeId}</td>
-				<td>${subst.highPer}</td>
-				<td>${subst.lowPer}</td>
+				<td class="sub-high-per">${subst.highPer}</td>
+				<td class="sub-low-per">${subst.lowPer}</td>
+				<td>${subst.openPer}</td>
+				<td>${subst.closePer}</td>
 			</tr>
 		</c:forEach>
 	</tbody>
