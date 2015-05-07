@@ -547,4 +547,23 @@ public class GStockDayManager extends
 	public List<String> selectValidDateByExample(GStockDayExample example) {
 		return this.gStockDayMapper.selectValidDateByExample(example);
 	}
+	
+	public Date findMaxDateByCode (Integer stockCode) {
+		GStockDayExample example = new GStockDayExample();
+
+		example.setOrderByClause("DATE desc");
+		example.setStart(0);
+		example.setPageSize(1);
+		
+		GStockDayExample.Criteria c = example.createCriteria();
+		c.andStockGreaterThanOrEqualTo(stockCode);
+		
+		List<GStockDay> list = this.gStockDayMapper.selectByExample(example);
+		
+		if (list == null || list.size() == 0) {
+			return null;
+		} else {
+			return list.get(0).getDate();
+		}
+	}
 }

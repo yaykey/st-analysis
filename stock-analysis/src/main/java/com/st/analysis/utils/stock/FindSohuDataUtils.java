@@ -64,6 +64,7 @@ public class FindSohuDataUtils extends BaseDBUtils {
 		// }
 	}
 
+	
 	public static GStockDay findData(Integer stockCode, Integer dateId) {
 
 		String res = findSohuDate(stockCode, dateId, dateId);
@@ -121,7 +122,6 @@ public class FindSohuDataUtils extends BaseDBUtils {
 
 		} catch (JsonParseException e) {
 			logger.warn(e.getMessage());
-			
 		} catch (JsonMappingException e) {
 			logger.warn(e.getMessage());
 		} catch (IOException e) {
@@ -150,6 +150,8 @@ public class FindSohuDataUtils extends BaseDBUtils {
 			
 		}
 	}
+	
+	
 	
 	public static void appendData (Integer stockCode, Date begin, Date end) {
 		Calendar cal = Calendar.getInstance();
@@ -203,6 +205,27 @@ public class FindSohuDataUtils extends BaseDBUtils {
 		}
 		return stockDay;
 	}
+	
+	public static void appendTaskData (Integer stockCode) {
+		Date maxDate = gStockDayManager.findMaxDateByCode(stockCode);
+		Date begin = null;
+		if (maxDate == null) {
+			begin = new Date("2015/01/01");
+		} else {
+			Calendar cal = Calendar.getInstance();
+			cal.setTime(maxDate);
+			cal.add(Calendar.DAY_OF_MONTH, 1);
+			
+			begin = cal.getTime();
+		}
+				
+//		Calendar cal = Calendar.getInstance();
+//		cal.add(Calendar.DAY_OF_MONTH, -1);
+		
+		if (begin.compareTo(new Date()) <= 0) {
+			appendData (stockCode, begin, new Date());
+		}
+	}
 
 	public static void main(String[] args) {
 		// findSohuDate(300002, 20150501, 20150505);
@@ -220,7 +243,7 @@ public class FindSohuDataUtils extends BaseDBUtils {
 		
 //		checkFailAllData(300419);
 		String maxStockCode = dStockManager.selectMaxStockCodeByCYB();
-		for (int i=300420; i<=Integer.parseInt(maxStockCode); i++) {
+		for (int i=300001; i<=Integer.parseInt(maxStockCode); i++) {
 			checkFailAllData(i);
 		}
 	}

@@ -16,7 +16,9 @@ import com.st.framework.module.stock.example.GStockDayExample;
 import com.st.framework.utils.DateUtil;
 
 @Namespace("/analysis")
-@Results({ @Result(name = "aw", location = "/analysis/wave/aw.jsp") })
+@Results({ 
+	@Result(name = "aw", location = "/analysis/wave/aw.jsp")
+})
 public class MyAnalysisAction extends BaseAnalysisAction {
 
 	/**
@@ -28,86 +30,101 @@ public class MyAnalysisAction extends BaseAnalysisAction {
 	public String analysisWave() {
 
 		this.stockCode = "300002";
-		
+
 		this.startDate = "2014-10-01";
-//		this.endDate = "2015-04-30";
-		
+		// this.endDate = "2015-04-30";
+
 		DStock dStock = dStockManager.selectByPrimaryKey(this.stockCode);
 		this.getRequest().setAttribute("stock", dStock);
-		
+		this.lowPer = -8d;
+		this.highPer = null;
+
 		{
 			GStockDayExample gStockDayExample = new GStockDayExample();
 			gStockDayExample.setOrderByClause("DATE DESC");
-//			GStockDayExample.Criteria c = gStockDayExample.createCriteria();
-			
-			GStockDayExample.Criteria orc1 = gStockDayExample.or();
-			GStockDayExample.Criteria orc2 = gStockDayExample.or();
-			
-			if (this.stockCode != null) {
-				orc1.andStockEqualTo(Integer.parseInt(this.stockCode));
-				orc2.andStockEqualTo(Integer.parseInt(this.stockCode));
-			}
 
-			if (this.startDate != null) {
-				try {
-					orc1.andDateGreaterThanOrEqualTo(DF_DATE_ID
-							.parse(this.startDate));
-					orc2.andDateGreaterThanOrEqualTo(DF_DATE_ID
-							.parse(this.startDate));
-				} catch (ParseException e) {
-					e.printStackTrace();
-				}
-			}
+			GStockDayExample.Criteria orhighc = null;
+			GStockDayExample.Criteria orlowc = null;
 
-			if (this.endDate != null) {
-				try {
-					orc1.andDateLessThanOrEqualTo(DF_DATE_ID.parse(this.endDate));
-					orc2.andDateLessThanOrEqualTo(DF_DATE_ID.parse(this.endDate));
-				} catch (ParseException e) {
-					e.printStackTrace();
-				}
-			}
-			
 			if (this.highPer != null) {
-				orc1.andHighPerGreaterThanOrEqualTo(this.highPer);
+				orhighc = gStockDayExample.or();
+
+				if (this.stockCode != null) {
+					orhighc.andStockEqualTo(Integer.parseInt(this.stockCode));
+				}
+
+				if (this.startDate != null) {
+					try {
+						orhighc.andDateGreaterThanOrEqualTo(DF_DATE_ID
+								.parse(this.startDate));
+					} catch (ParseException e) {
+						e.printStackTrace();
+					}
+				}
+
+				if (this.endDate != null) {
+					try {
+						orhighc.andDateLessThanOrEqualTo(DF_DATE_ID
+								.parse(this.endDate));
+					} catch (ParseException e) {
+						e.printStackTrace();
+					}
+				}
+
+				orhighc.andHighPerGreaterThanOrEqualTo(this.highPer);
 			}
-			
+
 			if (this.lowPer != null) {
-				orc2.andLowPerLessThanOrEqualTo(this.lowPer);
-				
+				orlowc = gStockDayExample.or();
+
+				if (this.stockCode != null) {
+					orlowc.andStockEqualTo(Integer.parseInt(this.stockCode));
+				}
+
+				if (this.startDate != null) {
+					try {
+						orlowc.andDateGreaterThanOrEqualTo(DF_DATE_ID
+								.parse(this.startDate));
+					} catch (ParseException e) {
+						e.printStackTrace();
+					}
+				}
+
+				if (this.endDate != null) {
+					try {
+						orlowc.andDateLessThanOrEqualTo(DF_DATE_ID
+								.parse(this.endDate));
+					} catch (ParseException e) {
+						e.printStackTrace();
+					}
+				}
+
+				orlowc.andLowPerLessThanOrEqualTo(this.lowPer);
 			}
 
 			List<GStockDay> dataList = this.gStockDayManager
 					.selectByExample(gStockDayExample);
-			
-//			for (GStockDay gStockDay : dataList) {
-//				System.out.println(gStockDay);
-//				System.out.println(gStockDay.getPrevDay());
-//				System.out.println(gStockDay.getNextDay());
-//			}
-			
-			
+
 			if (dataList != null && dataList.size() > 0) {
 				AsBean asBean = new AsBean(dataList);
 				this.getRequest().setAttribute("infobean", asBean);
-				
+
 				int ln = dataList.size();
-				for (int i=0; i<ln; i++) {
-					
-					if (i < ln-1) {
-						dataList.get(i).setDateDec(DateUtil.getDaysDec(
-								dataList.get(i).getDate(), 
-								dataList.get(i+1).getDate()));
+				for (int i = 0; i < ln; i++) {
+
+					if (i < ln - 1) {
+						dataList.get(i).setDateDec(
+								DateUtil.getDaysDec(dataList.get(i).getDate(),
+										dataList.get(i + 1).getDate()));
 					}
 				}
 			}
-			
-			
-			
+
 			this.getRequest().setAttribute("list", dataList);
 		}
 
 		return "aw";
 	}
+	
 
 }

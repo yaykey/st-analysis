@@ -66,72 +66,15 @@
 		</table>
 	</div>
 	<div id="list-main" class="list-main">
-		<table id="list-main-table" border="1" cellpadding="1" cellspacing="1">			
+		<table id="list-main-table" border="1" cellpadding="1" cellspacing="1">
 			<thead>
 				<tr>
-					<!-- <th>STOCK</th> -->
-					<th>DATE</th>
-					<th>DateDec</th>
-					<th>SUMDATE</th>
-					<th>open</th>
-					<th>close</th>
-					<th>high</th>
-					<th>low</th>
-					<th>HIGHTIMEID</th>
-					<th>LOWTIMEID</th>
-					<th>HIGHPER</th>
-					<th>LOWPER</th>
+					<%@ include file="/analysis/wave/thead.jsp"%>
 					<th>MA5</th>
 					<th>MA10</th>
 				</tr>
 			</thead>
-			<tbody>
-				<c:forEach items="${requestScope.list}" var="st">
-					<tr class="${(st.highPer>5)?('high'):('')} ${(st.lowPer<-5)?('low'):('')}">
-						<%-- <td>
-							${st.stock}
-						</td> --%>
-						<td>
-							<div><fmt:formatDate value="${st.date}" pattern="yyyy-MM-dd" /></div>
-						</td>
-						<td class="diff">
-							${st.dateDec}
-						</td>
-						<td class="SUM-DATE">
-						</td>
-						<td>
-							${st.open}
-						</td>
-						<td>
-							${st.close}
-						</td>
-						<td>
-							${st.high}
-						</td>
-						<td>
-							${st.low}
-						</td>
-						<td>
-							${st.highTimeId}
-						</td>
-						<td>
-							${st.lowTimeId}
-						</td>
-						<td>
-							${st.highPer}
-						</td>
-						<td>
-							${st.lowPer}
-						</td>
-						<td>
-							<fmt:formatNumber value="${st.MA5}" pattern="#.#####"/>
-						</td>
-						<td>
-							<fmt:formatNumber value="${st.MA10}" pattern="#.#####"/>
-						</td>						
-					</tr>
-				</c:forEach>
-			</tbody>
+			<%@ include file="/analysis/wave/tbody.jsp"%>
 		</table>
 	</div>
 </form>

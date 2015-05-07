@@ -15,6 +15,7 @@ import com.st.analysis.utils.network.ProxyUtils;
 import com.st.analysis.utils.stock.CheckDetailUtils;
 import com.st.analysis.utils.stock.DetailUtils;
 import com.st.analysis.utils.stock.FindSinaInfoUtils;
+import com.st.analysis.utils.stock.FindSohuDataUtils;
 import com.st.analysis.utils.stock.FindStockUtils;
 import com.st.framework.business.impl.DStockManager;
 import com.st.framework.module.stock.FactProxy;
@@ -59,7 +60,11 @@ public class TaskUtils extends BaseDBUtils {
 
 		final String stockType = "SZ";
 
-//		for (int i = 300420; i <= Integer.parseInt(maxStockCode); i++) {
+		for (int i = 300001; i <= Integer.parseInt(maxStockCode); i++) {
+			FindSohuDataUtils.appendTaskData(i);
+		}
+		
+		for (int i = 300001; i <= Integer.parseInt(maxStockCode); i++) {
 			// for (int i = 300117; i <= Integer.parseInt(maxStockCode); i++) {
 //			 for (int i = 300002; i <= 300002; i++) {
 			// for (int i = 300101; i <= 300200; i++) {
@@ -68,7 +73,7 @@ public class TaskUtils extends BaseDBUtils {
 			// for (int i = 300301; i <= 300350; i++) {
 //			 for (int i = 300201; i <= Integer.parseInt(maxStockCode); i++) {
 			// for (int i = 300351; i <= 300400; i++) {
-		for (int i = 300426; i <= 300426; i++) {	
+//		for (int i = 300426; i <= 300426; i++) {	
 			long d1 = System.currentTimeMillis();
 			try {
 				final int fi = i;
@@ -78,12 +83,12 @@ public class TaskUtils extends BaseDBUtils {
 				CheckDetailUtils.appendStData("" + fi, stockType);
 				DetailUtils.DetailFile2DB("" + fi, stockType);
 				
-//				u.appendTimeDate(stockType + fi, fstartDateId, fendDateId);
-//				try {
-//					u.appendPerData(fi, df.parse(fstartDateId), df.parse(fendDateId));
-//				} catch (ParseException e) {
-//					e.printStackTrace();
-//				}
+				u.appendTimeDate(stockType + fi, fstartDateId, fendDateId);
+				try {
+					u.appendPerData(fi, df.parse(fstartDateId), df.parse(fendDateId));
+				} catch (ParseException e) {
+					e.printStackTrace();
+				}
 
 				 Thread.sleep(1000);
 			} catch (Exception e) {
