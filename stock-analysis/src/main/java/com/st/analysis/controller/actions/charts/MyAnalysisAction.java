@@ -36,6 +36,7 @@ public class MyAnalysisAction extends BaseAnalysisAction {
 		DStock dStock = dStockManager.selectByPrimaryKey(this.stockCode);
 		this.getRequest().setAttribute("stock", dStock);
 		List<GStockDay> dataList = null;
+		AsBean asBean = null;
 		{
 			GStockDayExample gStockDayExample = new GStockDayExample();
 			gStockDayExample.setOrderByClause("DATE desc");
@@ -52,10 +53,11 @@ public class MyAnalysisAction extends BaseAnalysisAction {
 			dataList = this.gStockDayManager.selectByExample(gStockDayExample);
 
 			if (dataList != null && dataList.size() > 0) {
-				AsBean asBean = new AsBean(dataList);
-				this.getRequest().setAttribute("infobean", asBean);
+				asBean = new AsBean(dataList);
+				
 
 				int ln = dataList.size();
+				asBean.setSize(ln);
 				for (int i = 0; i < ln; i++) {
 
 					if (i < ln - 1) {
@@ -77,7 +79,12 @@ public class MyAnalysisAction extends BaseAnalysisAction {
 			for (GStockDayExample.Criteria c : list) {
 				if (this.stockCode != null) {
 					c.andStockNotEqualTo(Integer.parseInt(this.stockCode));
-					c.andClosePerGreaterThanOrEqualTo(9.0);
+					c.andOpenPerGreaterThanOrEqualTo(-11.0);
+					c.andClosePerLessThanOrEqualTo(-9.5);
+					
+					c.andOpenPerLessThan(-1.0);
+					
+					//c.andHighPerGreaterThanOrEqualTo(0.0);
 				}
 			}
 
@@ -87,12 +94,31 @@ public class MyAnalysisAction extends BaseAnalysisAction {
 			
 			List<GStockDay> ortherList = this.gStockDayManager.selectByExample(gStockDayExample);
 			
-//			System.out.println(ortherList.size());
+			if (ortherList != null && ortherList.size() > 0) {
+				asBean.setOtherSize(ortherList.size());
+//				System.out.println(ortherList.size());
+				List<GStockDay> removeList = new ArrayList<GStockDay>();
+				
+				for (GStockDay std : ortherList) {
+										
+					if (std.getNextDay() != null && std.getNextDay().getOpenPer() != null) {
+						if (std.getNextDay().getOpenPer() < 0) {
+							asBean.getNextCountInfo().countInfo(std.getNextDay());
+							
+						} else {
+							removeList.add(std);
+						}
+					}
+				}
+				ortherList.removeAll(removeList);
+				
+				dataList.addAll(ortherList);
+			}
 			
-			dataList.addAll(ortherList);
 			
 		}
-
+		
+		this.getRequest().setAttribute("infobean", asBean);
 		this.getRequest().setAttribute("list", dataList);
 
 		return "aw";

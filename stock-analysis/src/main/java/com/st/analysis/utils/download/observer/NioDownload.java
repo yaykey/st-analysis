@@ -2,7 +2,15 @@ package com.st.analysis.utils.download.observer;
 
 import org.apache.log4j.Logger;
 
-
+import org.apache.poi.hssf.usermodel.HSSFCell;
+import org.apache.poi.hssf.usermodel.HSSFRow;
+import org.apache.poi.hssf.usermodel.HSSFSheet;
+import org.apache.poi.hssf.usermodel.HSSFWorkbook;
+import org.apache.poi.poifs.filesystem.POIFSFileSystem;
+import org.apache.poi.ss.usermodel.Cell;
+import org.apache.poi.ss.usermodel.Row;
+import org.apache.commons.lang3.builder.ToStringBuilder;
+import org.apache.commons.lang3.builder.ToStringStyle;
 import org.apache.http.Header;
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpHeaders;
@@ -26,8 +34,10 @@ import com.st.framework.module.stock.GDetailSuspensionKey;
 import com.st.framework.utils.ConfigUtil;
 
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.io.InputStream;
 import java.io.RandomAccessFile;
 import java.io.UnsupportedEncodingException;
 import java.net.HttpURLConnection;
@@ -35,24 +45,26 @@ import java.net.SocketTimeoutException;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.nio.charset.Charset;
+import java.util.Iterator;
 
 public class NioDownload {
 	/**
 	 * Logger for this class
 	 */
 	private static final Logger logger = Logger.getLogger(NioDownload.class);
-	
 
 	protected String url, savePath; // 下载地址与保存路径
 
 	protected String filename;
 
 	protected String stockCode;
-	
+
 	protected String stockType;
 
 	protected Integer dateId;
-	
+
+	protected boolean translateFlag = false;
+
 	private int timeOutCount;
 
 	public int getTimeOutCount() {
@@ -149,7 +161,6 @@ public class NioDownload {
 				}
 
 				if (filename == null) {
-					
 
 					if (this.stockCode != null && this.dateId != null) {
 						GDetailSuspensionKey gDetailSuspensionKey = new GDetailSuspensionKey();
@@ -193,14 +204,107 @@ public class NioDownload {
 
 				// randomAccessFile.write(EntityUtils.toString(entity,
 				// "GBK").getBytes("gbk"));
-
+				
 				randomAccessFile.write(EntityUtils.toByteArray(entity));
+				
+				
+				
+				if (response != null) {
+					try {
+						// 会自动释放连接
+						EntityUtils.consume(response.getEntity());
+					} catch (IOException e) {
+						logger.error("start()", e);
 
-				// randomAccessFile.writeChars(EntityUtils.toString(entity,
-				// "GBK"));
+						e.printStackTrace();
+					}
+				}
+				
+				if (randomAccessFile.length() < 150) {
+					if (response != null) {
+						try {
+							// 会自动释放连接
+							EntityUtils.consume(response.getEntity());
+						} catch (IOException e) {
+							logger.error("start()", e);
+
+							e.printStackTrace();
+						}
+					}
+
+					if (randomAccessFile != null) {
+						try {
+							randomAccessFile.close();
+
+							randomAccessFile = null;
+						} catch (IOException e) {
+							logger.warn("start() - exception ignored", e);
+
+						}
+					}
+					newFile.delete();
+					logger.warn("数据不存在" + this.url);
+					throw new DataNotGeneratedException("数据未生成->" + this.url);
+				}
+				
+////				InputStream input = new FileInputStream("D:\\接口.xls");
+//				
+//				InputStream input = new FileInputStream(newFile);
+//								
+//				POIFSFileSystem fs = new POIFSFileSystem(input);
+//				HSSFWorkbook wb = new HSSFWorkbook(fs);
+//				HSSFSheet sheet = wb.getSheetAt(0);
+//				// Iterate over each row in the sheet
+//				Iterator<Row> rows = sheet.rowIterator();
+//
+//				StringBuffer buffer = new StringBuffer();
+//				
+//				while (rows.hasNext()) {
+//					HSSFRow row = (HSSFRow) rows.next();
+////					System.out.println("Row #" + row.getRowNum());
+//					// Iterate over each cell in the row and print out the
+//					// cell"s
+//					// content
+//					Iterator<Cell> cells = row.cellIterator();
+//					
+//					while (cells.hasNext()) {
+//						HSSFCell cell = (HSSFCell) cells.next();
+////						System.out.println("Cell #" + cell.getCellNum());
+////						System.out.println("Cell #" + cell.getCellNum());
+//						
+////						System.out.print(cell.getStringCellValue());
+//						
+//						switch (cell.getCellType()) {
+//						case HSSFCell.CELL_TYPE_NUMERIC:
+////							System.out.print(cell.getNumericCellValue());
+////							System.out.print(cell.getStringCellValue());
+//							System.out.print(cell.getCellFormula());
+//							buffer.append(cell.getCellFormula());
+//							break;
+//						case HSSFCell.CELL_TYPE_STRING:
+//							System.out.print(cell.getStringCellValue());
+//							buffer.append(cell.getCellFormula());
+//							break;
+//						case HSSFCell.CELL_TYPE_BOOLEAN:
+//							System.out.print(cell.getBooleanCellValue());
+//							buffer.append(cell.getCellFormula());
+//							break;
+//						case HSSFCell.CELL_TYPE_FORMULA:
+//							System.out.print(cell.getCellFormula());
+//							buffer.append(cell.getCellFormula());
+//							break;
+//						default:
+//							System.out.print("unsuported sell type");
+//							break;
+//						}
+//						System.out.print(" ");
+//						buffer.append(" ");
+//					}
+//					
+//					System.out.println();
+//				}
 
 			}
-
 			// 处理响应, 处理异常
 		} catch (URISyntaxException e) {
 			logger.error("start() - exception ignored", e);
@@ -209,16 +313,16 @@ public class NioDownload {
 			logger.error("start() - exception ignored", e);
 		} catch (DataNotGeneratedException e) {
 			logger.warn("start() - exception ignored", e);
-		
+
 		} catch (SocketTimeoutException e) {
 			logger.warn("start() - exception ignored", e);
-			this.timeOutCount ++;
+			this.timeOutCount++;
 			if (this.timeOutCount <= 3) {
 				this.start();
-			}			
+			}
 		} catch (IOException e) {
 			logger.error("start() - exception ignored", e);
-		
+
 		} finally {
 			if (response != null) {
 				try {
@@ -242,8 +346,6 @@ public class NioDownload {
 				}
 			}
 		}
-
-		
 
 		if (logger.isDebugEnabled()) {
 			logger.debug("start() - end");
@@ -302,4 +404,16 @@ public class NioDownload {
 		this.stockType = stockType;
 	}
 
+	public String toString() {
+		return ToStringBuilder.reflectionToString(this,
+				ToStringStyle.SHORT_PREFIX_STYLE);
+	}
+
+	public boolean isTranslateFlag() {
+		return translateFlag;
+	}
+
+	public void setTranslateFlag(boolean translateFlag) {
+		this.translateFlag = translateFlag;
+	}
 }

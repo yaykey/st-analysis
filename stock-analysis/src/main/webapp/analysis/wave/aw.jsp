@@ -12,7 +12,7 @@
 }
 
 .list-main {
-	
+	min-width: 950px;
 }
 
 table#list-main-table {
@@ -141,6 +141,19 @@ thead.float-thead tr {
 	width: 60px;
 }
 
+.list-main .thead-amplitude,
+.list-main .tbody-amplitude {
+	width: 82px;
+}
+
+.list-main #list-main-table th,
+.list-main #list-main-table td,
+.list-main .sub-table th,
+.list-main .sub-table td {
+	border : 1px solid #aaaaaa;
+}
+
+
 </style>
 
 <body style="background-color: #FCFAF3">
@@ -164,50 +177,18 @@ thead.float-thead tr {
 			</tr>
 		</table>
 	</div>
-	<div class="info">
-		<table border="1" cellpadding="1" cellspacing="1">
-			<tr>
-				<td>highPerAvg</td>				
-				<td>
-				<fmt:formatNumber value="${infobean.highPerAvg }" pattern="#.###"/>
-				</td>
-			</tr>
-			<tr>
-				<td>lowPerAvg</td>				
-				<td>
-					<fmt:formatNumber value="${infobean.lowPerAvg }" pattern="#.###"/>
-				</td>
-			</tr>
-			<tr>
-				<td>openAvg</td>				
-				<td>
-				<fmt:formatNumber value="${infobean.openAvg }" pattern="#.###"/>
-				</td>
-			</tr>
-			<tr>
-				<td>closeAvg</td>				
-				<td>
-				<fmt:formatNumber value="${infobean.closeAvg }" pattern="#.###"/>
-				</td>
-			</tr>
-			<tr>
-				<td>dateAvg</td>				
-				<td>
-				<fmt:formatNumber value="${infobean.dateAvg }" pattern="#.###"/>
-				</td>
-			</tr>
-			
-		</table>
-	</div>
+	
+	<%@ include file="/analysis/wave/info.jsp"%>
+	
 	<div id="list-main" class="list-main">
-		<table id="list-main-table" border="1"
+		<table id="list-main-table" border="0"
 				cellpadding="0" cellspacing="0" width__="100%">
 			<thead class="list-thead">
 				<tr>
 					<th class="thead-stock">STOCK</th>
 					<th class="thead-date">DATE</th>
-					<th class="thead-datedec">datedec</th>
-					<th class="thead-sumdate">sumdate</th>
+					<!-- <th class="thead-datedec">datedec</th>
+					<th class="thead-sumdate">sumdate</th> -->
 					<th class="thead-open">open</th>
 					<th class="thead-close">close</th>
 					<th class="thead-high">high</th>
@@ -218,8 +199,10 @@ thead.float-thead tr {
 					<th class="thead-lowper">lowper</th>
 					<th class="thead-openper">openper</th>
 					<th class="thead-closeper">closeper</th>
-					<th class="thead-ma5">MA5</th>
-					<th class="thead-ma10">MA10</th>
+					<!-- <th class="thead-ma5">MA5</th>
+					<th class="thead-ma10">MA10</th> -->
+					<th class="thead-amplitude">amplitude</th>
+					
 				</tr>
 			</thead>
 			<%@ include file="/analysis/wave/tbody.jsp"%>

@@ -324,6 +324,38 @@ public class DetailUtils extends BaseDBUtils {
 			// 因为不知道有几行数据，所以先存入list集合中
 			line = bw.readLine();
 
+			if ("".equals(line) || "暂无数据".equals(line)) {
+				try {
+					if (bw != null) {
+						bw.close();
+					}
+				} catch (IOException e) {
+					logger.error("DetailXLX2DB(File, List<String>, StringBuffer) - exception ignored", e);
+
+					//e.printStackTrace();
+				}
+				try {
+					if (isr != null) {
+						isr.close();
+					}
+				} catch (IOException e) {
+					logger.error("DetailXLX2DB(File, List<String>, StringBuffer) - exception ignored", e);
+
+					//e.printStackTrace();
+				}
+
+				try {
+					if (fis != null) {
+						fis.close();
+					}
+				} catch (IOException e) {
+					logger.error("DetailXLX2DB(File, List<String>, StringBuffer) - exception ignored", e);
+
+					//e.printStackTrace();
+				}
+				xlsFile.delete();
+			}
+			
 			try {
 				int i = 0;
 				while ((line = bw.readLine()) != null) {
@@ -334,7 +366,7 @@ public class DetailUtils extends BaseDBUtils {
 						continue;
 					}
 					
-					if (line.length() > 40) {//一行数据长度,判读是否存在异常数据;
+					if (line.length() > 50) {//一行数据长度,判读是否存在异常数据;
 //						newSqlBuffer.setLength(0);
 //						newSqlBuffer = null;
 						temp = null;

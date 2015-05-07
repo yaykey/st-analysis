@@ -14,6 +14,7 @@ import com.st.analysis.utils.analysis.GDayDataUtil;
 import com.st.analysis.utils.network.ProxyUtils;
 import com.st.analysis.utils.stock.CheckDetailUtils;
 import com.st.analysis.utils.stock.DetailUtils;
+import com.st.analysis.utils.stock.DownloadQQDataUtils;
 import com.st.analysis.utils.stock.FindSinaInfoUtils;
 import com.st.analysis.utils.stock.FindSohuDataUtils;
 import com.st.analysis.utils.stock.FindStockUtils;
@@ -60,11 +61,13 @@ public class TaskUtils extends BaseDBUtils {
 
 		final String stockType = "SZ";
 
-		for (int i = 300001; i <= Integer.parseInt(maxStockCode); i++) {
-			FindSohuDataUtils.appendTaskData(i);
-		}
+//		for (int i = 300001; i <= Integer.parseInt(maxStockCode); i++) {
+//			System.out.println(i);
+//			FindSohuDataUtils.appendTaskData(i);
+//		}
 		
-		for (int i = 300001; i <= Integer.parseInt(maxStockCode); i++) {
+//		for (int i = 300425; i <= Integer.parseInt(maxStockCode); i++) {
+		for (int i = 300001; i <= 300449; i++) {
 			// for (int i = 300117; i <= Integer.parseInt(maxStockCode); i++) {
 //			 for (int i = 300002; i <= 300002; i++) {
 			// for (int i = 300101; i <= 300200; i++) {
@@ -80,7 +83,8 @@ public class TaskUtils extends BaseDBUtils {
 				final String fstartDateId = startDateId;
 				final String fendDateId = endDateId;
 					
-				CheckDetailUtils.appendStData("" + fi, stockType);
+//				CheckDetailUtils.appendStData("" + fi, stockType);
+				new DownloadQQDataUtils().download(i, stockType);
 				DetailUtils.DetailFile2DB("" + fi, stockType);
 				
 				u.appendTimeDate(stockType + fi, fstartDateId, fendDateId);
@@ -89,8 +93,8 @@ public class TaskUtils extends BaseDBUtils {
 				} catch (ParseException e) {
 					e.printStackTrace();
 				}
-
-				 Thread.sleep(1000);
+//
+//				 Thread.sleep(1000);
 			} catch (Exception e) {
 				logger.warn("main(String[]) - exception ignored", e);
 

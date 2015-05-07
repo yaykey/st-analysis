@@ -224,7 +224,7 @@ public class FindSinaInfoUtils extends BaseDBUtils {
 		DStockExample.Criteria c = example.createCriteria();
 		//c.andTotalCapitalIsNull();
 
-		c.andStockCodeLessThan("900000");
+		c.andStockCodeLessThan("990000");
 		//c.andStockNameNotLike("%B");
 		Page pageInfo = dStockManager.selectPageByExample(example, 100);
 

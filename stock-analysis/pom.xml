@@ -969,18 +969,18 @@
 		<dependency>
 			<groupId>org.apache.poi</groupId>
 			<artifactId>poi</artifactId>
-			<version>3.9</version>
+			<version>3.11</version>
 		</dependency>
 
 		<dependency>
 			<groupId>org.apache.poi</groupId>
 			<artifactId>poi-ooxml</artifactId>
-			<version>3.9</version>
+			<version>3.11</version>
 		</dependency>
 		<dependency>
 			<groupId>org.apache.poi</groupId>
 			<artifactId>poi-ooxml-schemas</artifactId>
-			<version>3.9</version>
+			<version>3.11</version>
 			<exclusions>
 				<exclusion>
 					<groupId>javax.xml.stream</groupId>
@@ -992,19 +992,19 @@
 		<dependency>
 			<groupId>org.apache.poi</groupId>
 			<artifactId>poi-scratchpad</artifactId>
-			<version>3.9</version>
+			<version>3.11</version>
 		</dependency>
 
 		<dependency>
 			<groupId>org.apache.poi</groupId>
 			<artifactId>poi-excelant</artifactId>
-			<version>3.9</version>
+			<version>3.11</version>
 		</dependency>
 
 		<dependency>
 			<groupId>org.apache.poi</groupId>
 			<artifactId>poi-examples</artifactId>
-			<version>3.9</version>
+			<version>3.11</version>
 		</dependency>
 		<!-- POI End -->
 

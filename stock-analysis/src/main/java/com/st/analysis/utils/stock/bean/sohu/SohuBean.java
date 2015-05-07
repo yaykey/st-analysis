@@ -1,4 +1,4 @@
-package com.st.analysis.utils.stock.bean;
+package com.st.analysis.utils.stock.bean.sohu;
 
 import org.apache.commons.lang3.builder.ToStringBuilder;
 import org.apache.commons.lang3.builder.ToStringStyle;

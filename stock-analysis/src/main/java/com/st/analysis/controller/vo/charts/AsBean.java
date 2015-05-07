@@ -1,7 +1,9 @@
 package com.st.analysis.controller.vo.charts;
 
 import java.util.Calendar;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.apache.commons.lang.builder.ToStringBuilder;
 import org.apache.commons.lang.builder.ToStringStyle;
@@ -24,7 +26,13 @@ public class AsBean {
 	private float dateHighAvg;
 	
 	private float dateLowAvg;
-
+	
+	private int size;
+	
+	private int otherSize;
+	
+	private CountBean nextCountInfo = new CountBean();
+	
 	public AsBean() {
 	}
 
@@ -134,5 +142,28 @@ public class AsBean {
 		this.dateLowAvg = dateLowAvg;
 	}
 
+	public int getSize() {
+		return size;
+	}
+
+	public void setSize(int size) {
+		this.size = size;
+	}
+
+	public int getOtherSize() {
+		return otherSize;
+	}
+
+	public void setOtherSize(int otherSize) {
+		this.otherSize = otherSize;
+	}
+
+	public CountBean getNextCountInfo() {
+		return nextCountInfo;
+	}
+
+	public void setNextCountInfo(CountBean nextCountInfo) {
+		this.nextCountInfo = nextCountInfo;
+	}
 	
 }

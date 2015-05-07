@@ -88,7 +88,7 @@ $(function () {
 <script src="${base }/js/Highcharts-4.0.3/js/highcharts.src.js"></script>
 <script src="${base }/js/Highcharts-4.0.3/js/modules/exporting.js"></script>
 
-<div id="container" style="min-width: 1000px; height: 500px; margin: 0 auto"></div>
+<div id="container" style="min-width: 600px; height: 400px; margin: 0 auto"></div>
 
 <script type="text/javascript">
 $(function () {

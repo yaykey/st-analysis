@@ -566,4 +566,12 @@ public class GStockDayManager extends
 			return list.get(0).getDate();
 		}
 	}
+	
+	public List<GStockDay> selectMA5(Integer stockCode, Integer dateId) {
+		return this.gStockDayMapper.selectMA5(stockCode, dateId);
+	}
+    
+	public List<GStockDay> selectMA10(Integer stockCode, Integer dateId) {
+		return this.gStockDayMapper.selectMA10(stockCode, dateId);
+	}
 }

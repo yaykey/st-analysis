@@ -1,4 +1,4 @@
-package com.st.analysis.utils.stock.bean;
+package com.st.analysis.utils.stock.bean.sohu;
 
 import java.util.List;
 

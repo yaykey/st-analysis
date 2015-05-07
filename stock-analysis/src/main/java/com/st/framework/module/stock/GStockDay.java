@@ -48,9 +48,9 @@ public class GStockDay extends GStockDayKey {
     
     private List<GStockDay> next5Day;
     
-    private List<GStockDay> prev30Day;
+    private List<GStockDay> prev10Day;
     
-    private List<GStockDay> next30Day;
+    private List<GStockDay> next10Day;
     
     private Double MA5;
     
@@ -314,20 +314,20 @@ public class GStockDay extends GStockDayKey {
 		this.next5Day = next5Day;
 	}
 
-	public List<GStockDay> getPrev30Day() {
-		return prev30Day;
+	public List<GStockDay> getPrev10Day() {
+		return prev10Day;
 	}
 
-	public void setPrev30Day(List<GStockDay> prev30Day) {
-		this.prev30Day = prev30Day;
+	public void setPrev10Day(List<GStockDay> prev10Day) {
+		this.prev10Day = prev10Day;
 	}
 
-	public List<GStockDay> getNext30Day() {
-		return next30Day;
+	public List<GStockDay> getNext10Day() {
+		return next10Day;
 	}
 
-	public void setNext30Day(List<GStockDay> next30Day) {
-		this.next30Day = next30Day;
+	public void setNext10Day(List<GStockDay> next10Day) {
+		this.next10Day = next10Day;
 	}
 
 	public Double getMA5() {

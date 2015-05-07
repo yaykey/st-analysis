@@ -12,8 +12,8 @@ import org.codehaus.jackson.map.JsonMappingException;
 import org.codehaus.jackson.map.ObjectMapper;
 
 import com.fasterxml.jackson.core.JsonParseException;
-import com.st.analysis.utils.stock.bean.SohuBean;
-import com.st.analysis.utils.stock.bean.SohuHqBean;
+import com.st.analysis.utils.stock.bean.sohu.SohuBean;
+import com.st.analysis.utils.stock.bean.sohu.SohuHqBean;
 import com.st.framework.module.stock.GStockDay;
 import com.st.framework.utils.db.BaseDBUtils;
 import com.st.framework.utils.network.HttpStackManager;
@@ -237,14 +237,14 @@ public class FindSohuDataUtils extends BaseDBUtils {
 		
 //		checkFailAllData(300001);
 //		
-//		for (int i=300003; i<300419; i++) {
-//			checkFailAllData(300001);
-//		}
+		for (int i=300003; i<300419; i++) {
+			checkFailAllData(300001);
+		}
 		
 //		checkFailAllData(300419);
-		String maxStockCode = dStockManager.selectMaxStockCodeByCYB();
-		for (int i=300001; i<=Integer.parseInt(maxStockCode); i++) {
-			checkFailAllData(i);
-		}
+//		String maxStockCode = dStockManager.selectMaxStockCodeByCYB();
+//		for (int i=300001; i<=Integer.parseInt(maxStockCode); i++) {
+//			checkFailAllData(i);
+//		}
 	}
 }

@@ -392,7 +392,7 @@ public class FindStockUtils extends BaseDBUtils {
 			logger.debug("main(String[]) - start");
 		}
 
-		//findSinaSTType2DB();
+//		findSinaSTType2DB();
 		findSinaNewStock2DB();
 		//validityData();
 

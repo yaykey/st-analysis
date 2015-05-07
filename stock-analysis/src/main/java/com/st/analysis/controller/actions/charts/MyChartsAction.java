@@ -36,9 +36,13 @@ public class MyChartsAction extends BaseAnalysisAction{
 	public String charts () throws ParseException {
 		
 		
+		if (this.stockCode == null) {
+			this.stockCode = "sz300002";
+		}
 		
-		this.stockCode = "sz300002";
-		this.dateId = 20141224;
+		if (this.dateId == null) {
+			this.dateId = 20141224;
+		}
 		
 		List<GDetail> list = getWaveList ();
 		
@@ -62,8 +66,9 @@ public class MyChartsAction extends BaseAnalysisAction{
 	@Action("charts2")
 	public String charts2 () throws ParseException {
 		
-		this.stockCode = "sz300002";
-		
+		if (this.stockCode == null) {
+			this.stockCode = "sz300002";
+		}
 		
 		if (this.dateId == null) {
 			this.dateId = 20141225;

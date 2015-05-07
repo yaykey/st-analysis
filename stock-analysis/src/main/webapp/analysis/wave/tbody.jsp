@@ -8,8 +8,8 @@
 					<fmt:formatDate value="${st.date}" pattern="yyyy-MM-dd" />
 				</div>
 			</td>
-			<td class="tbody-datedec diff">${st.dateDec}</td>
-			<td class="tbody-sumdate SUM-DATE">&nbsp;</td>
+			<%-- <td class="tbody-datedec diff">${st.dateDec}</td>
+			<td class="tbody-sumdate SUM-DATE">&nbsp;</td> --%>
 			<td class="tbody-open">${st.open}</td>
 			<td class="tbody-close">${st.close}</td>
 			
@@ -55,12 +55,13 @@
 	</c:otherwise>
 </c:choose>
 			
-			<td class="tbody-ma5"><fmt:formatNumber value="${st.MA5}" pattern="#.#####" /></td>
-			<td class="tbody-ma10"><fmt:formatNumber value="${st.MA10}" pattern="#.#####" /></td>
+			<%-- <td class="tbody-ma5"><fmt:formatNumber value="${st.MA5}" pattern="#.#####" /></td>
+			<td class="tbody-ma10"><fmt:formatNumber value="${st.MA10}" pattern="#.#####" /></td> --%>
+			<td class="tbody-amplitude">${st.amplitude}</td>
 		</tr>
 		<tr>
 			<td></td>
-			<td colspan="15">
+			<td colspan="12">
 				<%@ include file="/analysis/wave/sub-next5.jsp"%>
 			</td>
 		</tr>

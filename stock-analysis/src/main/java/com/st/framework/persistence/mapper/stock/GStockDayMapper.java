@@ -22,4 +22,8 @@ public interface GStockDayMapper extends BaseMapper<GStockDayKey, GStockDay, GSt
     		@Param("example") GStockDayExample example);
     
     List<String> selectValidDateByExample(GStockDayExample example);
+    
+    List<GStockDay> selectMA5(Integer stockCode, Integer dateId);
+    
+    List<GStockDay> selectMA10(Integer stockCode, Integer dateId);
 }
