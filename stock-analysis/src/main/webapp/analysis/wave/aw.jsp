@@ -25,6 +25,14 @@
 		background-color: lightskyblue;
 	}
 	
+	.list-main td.sub-high{
+		color: darksalmon;
+	}
+	
+	.list-main td.sub-low{
+		color: lightskyblue;
+	}
+	
 </style>
 
 <body style="background-color: #FCFAF3">

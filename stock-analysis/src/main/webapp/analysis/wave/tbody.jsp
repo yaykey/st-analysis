@@ -23,7 +23,7 @@
 		<tr>
 			<td></td>
 			<td colspan="12">
-				<%@ include file="/analysis/wave/next5.jsp"%>
+				<%@ include file="/analysis/wave/sub-next5.jsp"%>
 			</td>
 		</tr>
 	</c:forEach>

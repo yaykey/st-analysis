@@ -27,8 +27,8 @@
 				<td>${subst.low}</td>
 				<td>${subst.highTimeId}</td>
 				<td>${subst.lowTimeId}</td>
-				<td>${subst.highPer}</td>
-				<td>${subst.lowPer}</td>
+				<td class="sub-high">${subst.highPer}</td>
+				<td class="sub-low">${subst.lowPer}</td>
 			</tr>
 		</c:forEach>
 	</tbody>
