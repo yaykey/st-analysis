@@ -63,7 +63,7 @@ public class NioDownload {
 
 	protected Integer dateId;
 
-	protected boolean translateFlag = false;
+	protected boolean translateXlsFlag = false;
 
 	private int timeOutCount;
 
@@ -247,6 +247,70 @@ public class NioDownload {
 					throw new DataNotGeneratedException("数据未生成->" + this.url);
 				}
 				
+				if (this.translateXlsFlag == true) {
+					InputStream input = new FileInputStream(newFile);
+									
+					POIFSFileSystem fs = new POIFSFileSystem(input);
+					HSSFWorkbook wb = new HSSFWorkbook(fs);
+					HSSFSheet sheet = wb.getSheetAt(0);
+					// Iterate over each row in the sheet
+					Iterator<Row> rows = sheet.rowIterator();
+				
+					StringBuffer buffer = new StringBuffer();
+					
+					while (rows.hasNext()) {
+						HSSFRow row = (HSSFRow) rows.next();
+				//		System.out.println("Row #" + row.getRowNum());
+						// Iterate over each cell in the row and print out the
+						// cell"s
+						// content
+						Iterator<Cell> cells = row.cellIterator();
+						
+						while (cells.hasNext()) {
+							HSSFCell cell = (HSSFCell) cells.next();
+				//			System.out.println("Cell #" + cell.getCellNum());
+				//			System.out.println("Cell #" + cell.getCellNum());
+							
+				//			System.out.print(cell.getStringCellValue());
+							
+							switch (cell.getCellType()) {
+							case HSSFCell.CELL_TYPE_NUMERIC:
+				//				System.out.print(cell.getNumericCellValue());
+				//				System.out.print(cell.getStringCellValue());
+								System.out.print(cell.getCellFormula());
+								buffer.append(cell.getCellFormula());
+								break;
+							case HSSFCell.CELL_TYPE_STRING:
+								System.out.print(cell.getStringCellValue());
+								buffer.append(cell.getCellFormula());
+								break;
+							case HSSFCell.CELL_TYPE_BOOLEAN:
+								System.out.print(cell.getBooleanCellValue());
+								buffer.append(cell.getCellFormula());
+								break;
+							case HSSFCell.CELL_TYPE_FORMULA:
+								System.out.print(cell.getCellFormula());
+								buffer.append(cell.getCellFormula());
+								break;
+							default:
+								System.out.print("unsuported sell type");
+								break;
+							}
+							System.out.print((char) 9);
+							buffer.append((char) 9);
+						}
+						buffer.append("\r\n");
+						
+					}
+					
+					randomAccessFile.seek(0);
+
+					// randomAccessFile.write(EntityUtils.toString(entity,
+					// "GBK").getBytes("gbk"));
+					
+					randomAccessFile.writeBytes(buffer.toString());
+				}
+				
 ////				InputStream input = new FileInputStream("D:\\接口.xls");
 //				
 //				InputStream input = new FileInputStream(newFile);
@@ -409,11 +473,13 @@ public class NioDownload {
 				ToStringStyle.SHORT_PREFIX_STYLE);
 	}
 
-	public boolean isTranslateFlag() {
-		return translateFlag;
+	public boolean isTranslateXlsFlag() {
+		return translateXlsFlag;
 	}
 
-	public void setTranslateFlag(boolean translateFlag) {
-		this.translateFlag = translateFlag;
+	public void setTranslateXlsFlag(boolean translateXlsFlag) {
+		this.translateXlsFlag = translateXlsFlag;
 	}
+
+	
 }

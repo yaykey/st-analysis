@@ -22,8 +22,9 @@ public class FindStockPinyinUtils extends BaseDBUtils {
 //		System.out.println(res);
 //		res = res.replaceFirst("^var suggestvalue=\"", "").replaceFirst("\";$", "");
 //		System.out.println(res);
-		String maxStockCode = dStockManager.selectMaxStockCodeByCYB();
-		for (int i=300419; i<=Integer.parseInt(maxStockCode); i++) {
+//		String maxStockCode = dStockManager.selectMaxStockCodeByCYB();
+		for (int i=300001; i<=300499; i++) {
+//		for (int i=300001; i<=Integer.parseInt(maxStockCode); i++) {
 			parseNameCode(findStockNameCode("" + i));
 		}
 		
@@ -43,10 +44,14 @@ public class FindStockPinyinUtils extends BaseDBUtils {
 				
 				try {
 					DStock dStock =dStockManager.selectByPrimaryKey(stCode);
-//					dStock.setNameCode(nameCode);
-					dStock.setPinyinCode(pinyinCode);
-					
-					dStockManager.updateByPrimaryKeySelective(dStock);
+					if (dStock != null) {
+						dStock.setNameCode(nameCode);
+						dStock.setPinyinCode(pinyinCode);
+						
+						dStockManager.updateByPrimaryKeySelective(dStock);
+					} else {
+						
+					}
 				} catch (Exception ex) {
 					System.out.println(stRes);
 					

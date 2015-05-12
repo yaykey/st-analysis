@@ -67,6 +67,7 @@ public class TaskUtils extends BaseDBUtils {
 //		}
 		
 //		for (int i = 300425; i <= Integer.parseInt(maxStockCode); i++) {
+//		for (int i = 300001; i <= 300449; i++) {
 		for (int i = 300001; i <= 300449; i++) {
 			// for (int i = 300117; i <= Integer.parseInt(maxStockCode); i++) {
 //			 for (int i = 300002; i <= 300002; i++) {
@@ -84,15 +85,16 @@ public class TaskUtils extends BaseDBUtils {
 				final String fendDateId = endDateId;
 					
 //				CheckDetailUtils.appendStData("" + fi, stockType);
-				new DownloadQQDataUtils().download(i, stockType);
+//				new DownloadQQDataUtils().download(i, stockType);
+//				new DownloadQQDataUtils().download(i, stockType, new Date("2014/08/19"), null);
 				DetailUtils.DetailFile2DB("" + fi, stockType);
 				
-				u.appendTimeDate(stockType + fi, fstartDateId, fendDateId);
-				try {
-					u.appendPerData(fi, df.parse(fstartDateId), df.parse(fendDateId));
-				} catch (ParseException e) {
-					e.printStackTrace();
-				}
+//				u.appendTimeDate(stockType + fi, fstartDateId, fendDateId);
+//				try {
+//					u.appendPerData(fi, df.parse(fstartDateId), df.parse(fendDateId));
+//				} catch (ParseException e) {
+//					e.printStackTrace();
+//				}
 //
 //				 Thread.sleep(1000);
 			} catch (Exception e) {

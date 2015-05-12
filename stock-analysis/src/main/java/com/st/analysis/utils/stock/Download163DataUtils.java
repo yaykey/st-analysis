@@ -184,8 +184,10 @@ public class Download163DataUtils extends BaseDBUtils {
 				// "http://quotes.money.163.com/cjmx/";
 				url = baseUrl + "" + year + "/" + DF_SIMPLE.format(curDate)
 						+ "/1" + stockCode + ".xls";
-
-				dataList.add(new NioDownload(url, savePath, filename));
+				NioDownload nioDownload = new NioDownload(url, savePath, filename);
+				nioDownload.setTranslateXlsFlag(true);
+				
+				dataList.add(nioDownload);
 			}
 
 			cal.add(Calendar.DAY_OF_MONTH, 1);
@@ -218,7 +220,8 @@ public class Download163DataUtils extends BaseDBUtils {
 		this.successDays = successDays;
 	}
 	
+	@SuppressWarnings("deprecation")
 	public static void main (String [] args) {
-		new Download163DataUtils().download(300002, "sz", new Date("2015/05/04"), new Date("2015/05/04"));
+		new Download163DataUtils().download(300001, "sz", new Date("2014/01/01"), new Date("2014/01/31"));
 	}
 }

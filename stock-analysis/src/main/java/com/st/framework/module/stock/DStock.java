@@ -2,8 +2,15 @@ package com.st.framework.module.stock;
 
 import java.util.Date;
 
-public class DStock {
-    private String stockCode;
+import com.st.framework.module.PersistentObject;
+
+public class DStock extends PersistentObject {
+    /**
+	 * 
+	 */
+	private static final long serialVersionUID = 2685179732243364260L;
+
+	private String stockCode;
 
     private String stockTypeCode;
 

@@ -59,7 +59,7 @@ public class CheckDetailUtils extends DetailUtils {
 			}
 		}
 		
-		//startTime = "2014-12-02";
+		startTime = "2009-10-30";
 //		logger.info("appendStData(String) - String startTime=" + startTime);
 		
 		if (startTime == null) {

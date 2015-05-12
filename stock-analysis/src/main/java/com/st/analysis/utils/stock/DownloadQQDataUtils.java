@@ -117,9 +117,20 @@ public class DownloadQQDataUtils extends BaseDBUtils {
 				.selectLastSuccessTimeId("" + stockCode);
 
 		if (startTime == null) {
-			startTime = "2015-02-17";
+			if (stockCode >= 3000419) {
+				startTime = "2015-02-17";
+			} else {
+				DStock dstock = dStockManager.selectByPrimaryKey("" + stockCode);
+				
+				startTime = DF_DAY.format(dstock.getListingDate());
+			}
 		}
+		
+//		DStock dstock = dStockManager.selectByPrimaryKey("" + stockCode);		
+//		startTime = DF_DAY.format(dstock.getListingDate());
 
+		startTime = "2009-10-30";
+		
 		Date begin = null;
 
 		try {
