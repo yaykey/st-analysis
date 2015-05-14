@@ -89,12 +89,12 @@ public class TaskUtils extends BaseDBUtils {
 //				new DownloadQQDataUtils().download(i, stockType, new Date("2014/08/19"), null);
 				DetailUtils.DetailFile2DB("" + fi, stockType);
 				
-//				u.appendTimeDate(stockType + fi, fstartDateId, fendDateId);
-//				try {
-//					u.appendPerData(fi, df.parse(fstartDateId), df.parse(fendDateId));
-//				} catch (ParseException e) {
-//					e.printStackTrace();
-//				}
+				u.appendTimeDate(stockType + fi, fstartDateId, fendDateId);
+				try {
+					u.appendPerData(fi, df.parse(fstartDateId), df.parse(fendDateId));
+				} catch (ParseException e) {
+					e.printStackTrace();
+				}
 //
 //				 Thread.sleep(1000);
 			} catch (Exception e) {

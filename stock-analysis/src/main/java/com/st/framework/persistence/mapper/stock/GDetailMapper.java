@@ -43,5 +43,7 @@ public interface GDetailMapper {
 	List<GDetail> selectWareByExample(GDetailExample example);
 
 	List selectDetailActiveDateId(@Param("stockCode") String stockCode,
-			@Param("startDateId") Integer startDateId,@Param("endDateId") Integer endDateId);
+			@Param("startDateId") Integer startDateId,
+			@Param("endDateId") Integer endDateId, 
+			@Param("dateIds") List<Integer> dateIds);
 }

@@ -82,6 +82,11 @@
 		<property name="sqlSessionFactory" ref="sqlSessionFactory" />
 	</bean>
 	
+	<bean id="factActiveDateIdIndexMapper" class="org.mybatis.spring.mapper.MapperFactoryBean">
+		<property name="mapperInterface" value="com.st.framework.persistence.mapper.stock.FactActiveDateIdIndexMapper" />
+		<property name="sqlSessionFactory" ref="sqlSessionFactory" />
+	</bean>
+	
 	<bean id="gDetailMapper" class="org.mybatis.spring.mapper.MapperFactoryBean">
 		<property name="mapperInterface" value="com.st.framework.persistence.mapper.stock.GDetailMapper" />
 		<property name="sqlSessionFactory" ref="sqlSessionFactory" />

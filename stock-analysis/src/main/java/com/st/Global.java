@@ -274,6 +274,8 @@ public class Global {
 	
 	public static final DateFormat DF_DAY = new SimpleDateFormat("yyyy-MM-dd");
 	
+	public static final DateFormat DF_SIMPLE = new SimpleDateFormat("yyyyMMdd");
+	
 	
 	/**
 	 * JS,CSS等静态资源自动版本号,保证系统更新是,用户浏览器自动更新.

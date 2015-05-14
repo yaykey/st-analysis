@@ -14,6 +14,7 @@ import com.st.Global;
 import com.st.analysis.controller.vo.MMBean;
 import com.st.analysis.controller.vo.timerange.TimeRangeCountBeanRequest;
 import com.st.analysis.controller.vo.timerange.TimeRangeCountBeanResponse;
+import com.st.analysis.utils.DateUtils;
 import com.st.framework.module.stock.GDetail;
 import com.st.framework.module.stock.GStockDay;
 import com.st.framework.module.stock.example.GDetailExample;
@@ -226,8 +227,11 @@ public class GDetailManager {
 	
 	public List selectDetailActiveDateId (String stockCode,Integer startDateId,
 			Integer endDateId) {
+		
+		List<Integer> dateIds = DateUtils.getTimeIds(startDateId, endDateId);
+		
 		return this.gDetailMapper.selectDetailActiveDateId(stockCode, startDateId,
-				endDateId);
+				endDateId, dateIds);
 	}
 	
 	@SuppressWarnings("rawtypes")

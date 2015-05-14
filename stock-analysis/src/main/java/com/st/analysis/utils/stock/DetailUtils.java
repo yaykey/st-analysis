@@ -20,6 +20,7 @@ import org.apache.ibatis.session.SqlSession;
 import com.st.Global;
 import com.st.framework.business.impl.GDetailFileErrorManager;
 import com.st.framework.business.impl.GDetailManager;
+import com.st.framework.business.impl.fact.FactActiveDateIdIndexManager;
 import com.st.framework.business.impl.fact.FactDownloadFileConfigManager;
 import com.st.framework.exceptions.FileParseErrorException;
 import com.st.framework.module.stock.FactDownloadFileConfig;
@@ -44,6 +45,9 @@ public class DetailUtils extends BaseDBUtils {
 	
 	protected static GDetailFileErrorManager gDetailFileErrorManager = (GDetailFileErrorManager) getHelper()
 	.getBean("gDetailFileErrorManager");
+	
+	protected static FactActiveDateIdIndexManager factActiveDateIdIndexManager = (FactActiveDateIdIndexManager) getHelper()
+			.getBean("FactActiveDateIdIndexManager");
 
 	protected static DateFormat df_simple = new SimpleDateFormat("yyyyMMdd");
 	
@@ -61,11 +65,7 @@ public class DetailUtils extends BaseDBUtils {
 		// 成功ID
 //		final List<String> successTimeIds = factDownloadFileConfigManager
 //				.selectStSuccessTimeId(null, null, stockCode);
-		long dtimeid = System.currentTimeMillis();
-		gDetailManager.createGDetailTable(stockType + stockCode);
-		final List<String> successTimeIds = 
-				gDetailManager.selectDetailActiveDateId(stockType + stockCode, null, null);
-		System.out.println("successTimeIds耗时:" + (System.currentTimeMillis()-dtimeid));
+		
 
 		// if (successTimeIds.size() > 0) {
 		// successTimeIds.remove(successTimeIds.size() - 1);
@@ -75,6 +75,16 @@ public class DetailUtils extends BaseDBUtils {
 //			logger.info("DetailFile2DB(String) - List<String> successTimeIds="
 //					+ successTimeIds);
 //		}
+		
+		long dtimeid = System.currentTimeMillis();
+		
+		final List<String> successTimeIds = 
+				gDetailManager.selectDetailActiveDateId(
+						stockType + stockCode, Integer.parseInt("20100102"), null);
+		System.out.println("successTimeIds耗时:" + (System.currentTimeMillis()-dtimeid));
+		
+		gDetailManager.createGDetailTable(stockType + stockCode);
+		
 		File fs = null;
 		File fa[] = f.listFiles();
 		Date d1 = new Date(), d2=null, d3,d4;
@@ -84,6 +94,10 @@ public class DetailUtils extends BaseDBUtils {
 			if (fs.isHidden() == false && !"CVS".equals(fs.getName())) {
 				if (fs.isDirectory()) {
 					final File ffs = fs;
+					String fsname = fs.getName();
+					String year = fsname.substring(fsname.length()-4);
+					
+					
 //					final 
 //					Global.threadPoolExecutor.execute(new Runnable() {						
 //						@Override
@@ -258,7 +272,7 @@ public class DetailUtils extends BaseDBUtils {
 		Integer dateId = Integer.parseInt(fileName.substring(14, 24)
 				.replaceAll("-", ""));
 
-		if (successTimeIds != null
+		if (successTimeIds != null && successTimeIds.size() > 0
 				&& successTimeIds.contains(dateId)) {
 //			System.out.println(fileName + "已存在");
 
@@ -278,7 +292,7 @@ public class DetailUtils extends BaseDBUtils {
 		filePath = filePath.substring(filePath.length() - 43,
 				filePath.length() - 29);
 
-		gDetailManager.createGDetailTable(stockCode);
+//		gDetailManager.createGDetailTable(stockCode);
 
 		// gDetailManager.insertFlushBatch(stockCode);
 
@@ -600,9 +614,7 @@ public class DetailUtils extends BaseDBUtils {
 
 	}
 
-	public static void testSession() {
-
-	}
+	
 
 	public static void main(String[] args) {
 

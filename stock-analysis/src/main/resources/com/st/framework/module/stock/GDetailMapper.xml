@@ -466,17 +466,27 @@
 	
 	<select id="selectDetailActiveDateId" resultType="java.lang.Integer" parameterType="map">
 		select distinct DATE_ID from G_DETAIL_${stockCode}
-		<if test="startDateId != null or endDateId != null">
-			where 1=1
-			<if test="startDateId != null">
-				<![CDATA[
-				and DATE_ID >= #{startDateId}
-				]]>
-			</if>
-			<if test="endDateId != null">
-				<![CDATA[
-				and DATE_ID <= #{endDateId}
-				]]>
+		<if test="dateIds != null">
+			where 
+				DATE_ID in (
+					<foreach collection="dateIds" item="dateId" separator="," >
+						#{dateId}
+					</foreach>
+				)
+		</if>
+		<if test="dateIds == null">
+			<if test="startDateId != null or endDateId != null">
+				where 1=1
+				<if test="startDateId != null">
+					<![CDATA[
+					and DATE_ID >= #{startDateId}
+					]]>
+				</if>
+				<if test="endDateId != null">
+					<![CDATA[
+					and DATE_ID <= #{endDateId}
+					]]>
+				</if>
 			</if>
 		</if>
 	</select>

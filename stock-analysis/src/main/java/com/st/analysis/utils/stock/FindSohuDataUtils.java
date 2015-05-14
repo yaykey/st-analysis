@@ -261,7 +261,7 @@ public class FindSohuDataUtils extends BaseDBUtils {
 
 		// checkFailAllData(300001);
 		//
-		for (int i = 300045; i <= 300050; i++) {
+		for (int i = 300001; i <= 300449; i++) {
 
 			checkAllData(i);
 
@@ -281,12 +281,12 @@ public class FindSohuDataUtils extends BaseDBUtils {
 //
 //			System.out.println(i);
 //		}
-		for (int i = 300165; i <= 300200; i++) {
-
-			checkAllData(i);
-
-			System.out.println(i);
-		}
+//		for (int i = 300165; i <= 300200; i++) {
+//
+//			checkAllData(i);
+//
+//			System.out.println(i);
+//		}
 //
 //		for (int i = 300214; i <= 300250; i++) {
 //
