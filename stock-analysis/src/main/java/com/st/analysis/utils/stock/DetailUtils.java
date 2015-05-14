@@ -6,6 +6,7 @@ import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.text.DateFormat;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -19,6 +20,7 @@ import org.apache.commons.logging.LogFactory;
 import org.apache.ibatis.session.SqlSession;
 
 import com.st.Global;
+import com.st.analysis.utils.download.observer.NioDownload;
 import com.st.framework.business.impl.GDetailFileErrorManager;
 import com.st.framework.business.impl.GDetailManager;
 import com.st.framework.business.impl.fact.FactActiveDateIdIndexManager;
@@ -94,6 +96,19 @@ public class DetailUtils extends BaseDBUtils {
 									Integer.parseInt(year));
 					// System.out.println("successTimeIds耗时:" +
 					// (System.currentTimeMillis()-dtimeid));
+					
+					List<String> parseFileErrorDateIds = gDetailFileErrorManager.selectErrorDateIds(stockCode, Integer.parseInt(year));
+					
+					if (successTimeIds != null) {
+						if (parseFileErrorDateIds != null) {
+							successTimeIds.addAll(parseFileErrorDateIds);
+						}
+					} else {
+						if (parseFileErrorDateIds != null) {
+							successTimeIds = parseFileErrorDateIds;
+						}
+					}
+					
 					DetailDirectoryFile2DB(ffs, successTimeIds);
 					d4 = new Date();
 					System.out.println(stockType + stockCode + "->"
@@ -134,7 +149,13 @@ public class DetailUtils extends BaseDBUtils {
 			return;
 		}
 
-		File fa[] = directoryFile.listFiles();
+		File [] fa = directoryFile.listFiles();
+		
+		if (fa == null || fa.length == 0) {
+			directoryFile.delete();
+			return;
+		}
+		
 		File fs = null;
 
 		for (int i = 0; i < fa.length; i++) {
@@ -228,9 +249,10 @@ public class DetailUtils extends BaseDBUtils {
 			bw = new BufferedReader(isr);
 
 			// 因为不知道有几行数据，所以先存入list集合中
-			line = bw.readLine();
+			line = bw.readLine().trim();
 
-			if ("".equals(line) || "暂无数据".equals(line)) {
+			if ("".equals(line) || "暂无数据".equals(line) 
+					|| line.indexOf("session quota") > 0) {
 				try {
 					if (bw != null) {
 						bw.close();
@@ -253,7 +275,7 @@ public class DetailUtils extends BaseDBUtils {
 
 					// e.printStackTrace();
 				}
-
+				
 				try {
 					if (fis != null) {
 						fis.close();
@@ -265,7 +287,25 @@ public class DetailUtils extends BaseDBUtils {
 
 					// e.printStackTrace();
 				}
+				
 				xlsFile.delete();
+				
+				if (line.indexOf("session quota") > 0) {
+					//new DownloadQQDataUtils().download(Integer.parseInt(stockCode.substring(2)), stockCode.substring(0, 2));
+					try {
+						NioDownload nioDownload = new DownloadQQDataUtils().createNioDownload(
+								stockCode.substring(2), 
+								stockCode.substring(0, 2), 
+								Global.DF_SIMPLE.parse("" + dateId));
+						System.out.println(nioDownload);
+						nioDownload.start();
+						
+						return false;
+					} catch (ParseException e) {
+						e.printStackTrace();						
+					}
+				}
+				
 			}
 
 			try {
@@ -380,6 +420,8 @@ public class DetailUtils extends BaseDBUtils {
 				res = true;
 
 			} catch (FileParseErrorException e) {
+				
+				
 
 				GDetailFileError gDetailFileError = new GDetailFileError();
 
@@ -544,6 +586,19 @@ public class DetailUtils extends BaseDBUtils {
 		// }
 
 		// DetailFile2DB("sz300001");
+		for (int i=300002; i<=300447; i++) {
+			
+			try {
+				DetailUtils.DetailFile2DB("" + i, "SZ");
+				System.gc();
+				Thread.sleep(1000);
+			} catch (InterruptedException e) {
+				e.printStackTrace();
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		}
+//		DetailUtils.DetailFile2DB("300448", "SZ");
 	}
 
 	public static int maxFileNum = 200;

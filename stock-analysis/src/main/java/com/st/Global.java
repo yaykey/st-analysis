@@ -274,6 +274,8 @@ public class Global {
 	
 	public static final DateFormat DF_DAY = new SimpleDateFormat("yyyy-MM-dd");
 	
+	public static final DateFormat DF_YEAR = new SimpleDateFormat("yyyy");
+	
 	public static final DateFormat DF_SIMPLE = new SimpleDateFormat("yyyyMMdd");
 	
 	

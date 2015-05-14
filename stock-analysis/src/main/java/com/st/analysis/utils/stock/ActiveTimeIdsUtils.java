@@ -31,8 +31,8 @@ public class ActiveTimeIdsUtils extends DetailUtils {
 			// (FactActiveDateIdIndexManager)getHelper().getBean("factActiveDateIdIndexManager");
 
 			
-			list = (List<Integer>) gDetailManager.selectDetailActiveDateId(type
-					+ fi, 20100101, null);
+			list = (List<Integer>) gDetailManager.selectDetailActiveDateId(
+					"" + fi, type, 20100101, null);
 			
 
 			if (list != null && list.size() > 0) {

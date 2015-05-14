@@ -4,6 +4,7 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.springframework.dao.DuplicateKeyException;
 
+import com.st.Global;
 import com.st.analysis.utils.download.DownloadFileBean;
 import com.st.analysis.utils.download.ReturnBean;
 import com.st.analysis.utils.download.observer.NioDownload;
@@ -12,6 +13,7 @@ import com.st.analysis.utils.download.thread.Consume;
 import com.st.analysis.utils.download.thread.Producer;
 import com.st.analysis.utils.download.thread.SyncStack;
 import com.st.analysis.utils.network.ProxyUtils;
+import com.st.framework.business.impl.GDetailManager;
 import com.st.framework.business.impl.GDetailSuspensionManager;
 import com.st.framework.business.impl.fact.FactDownloadFileConfigManager;
 import com.st.framework.business.impl.fact.FactLogTaskManager;
@@ -27,7 +29,6 @@ import com.st.framework.module.stock.example.PStockMapExample;
 import com.st.framework.persistence.mapper.stock.FactDateHolidayListMapper;
 import com.st.framework.persistence.mapper.stock.FactLogDownloadMapper;
 import com.st.framework.utils.LoadConfigUtils;
-
 import com.st.framework.utils.db.BaseDBUtils;
 import com.st.framework.utils.page.Page;
 
@@ -128,8 +129,8 @@ public class DownloadSinaDataUtils extends BaseDBUtils {
 	/**
 	 * 新浪数据
 	 */
-	private String remoteServiceUrl = "http://market.finance.sina.com.cn/downxls.php";
-
+	public static String remoteServiceUrl = "http://market.finance.sina.com.cn/downxls.php";
+	//http://market.finance.sina.com.cn/downxls.php?date=2010-05-13&symbol=sz300002
 	/**
 	 * The df.
 	 */
@@ -338,10 +339,10 @@ public class DownloadSinaDataUtils extends BaseDBUtils {
 //			
 //			logger.info(list);
 //		} catch (NumberFormatException e) {
-//			// TODO Auto-generated catch block
+//			// 
 //			e.printStackTrace();
 //		} catch (ParseException e) {
-//			// TODO Auto-generated catch block
+//			// 
 //			e.printStackTrace();
 //		}
 
@@ -368,7 +369,7 @@ public class DownloadSinaDataUtils extends BaseDBUtils {
 		downloadFileBean.setSavePath(savePath);
 
 		String remoteFileUrl = remoteServiceUrl + "?date=" + start
-				+ "&symbol=" + stockCodeAndType;
+				+ "&symbol=" + stockCodeAndType.toLowerCase();
 		// if (logger.isInfoEnabled()) {
 		logger.debug("getUrlList() - String remoteFileUrl="
 				+ remoteFileUrl);
@@ -377,6 +378,39 @@ public class DownloadSinaDataUtils extends BaseDBUtils {
 		downloadFileBean.setRemoteFileUrl(remoteFileUrl);
 		
 		return downloadFileBean;
+	}
+	
+	public static NioDownload createNioDownload(String stockCode, String stockType, Date date
+			
+	) {
+		
+		String curdate = Global.DF_DAY.format(date);
+		String year = Global.DF_YEAR.format(date);
+		String curdateSimple = Global.DF_SIMPLE.format(date);
+
+		String filename = stockType.toLowerCase() + stockCode + "_成交明细_"
+				+ curdate + ".xls";
+		
+		String savePath = baseSavePath + "/" + stockType.toLowerCase()
+				+ stockCode + "/" + year + "/";
+
+		// http://quotes.money.163.com/cjmx/2015/20150504/1300002.xls
+		// private static String baseUrl =
+		// "http://quotes.money.163.com/cjmx/";
+		// http://stock.gtimg.cn/data/index.php?appn=detail&action=download&c=sz300002&d=20150508
+//		String url = baseUrl + "" + stockType.toLowerCase() + stockCode
+//				+ "&d=" + curdateSimple;
+		
+		String remoteFileUrl = remoteServiceUrl + "?date=" + curdate
+				+ "&symbol=" + stockType.toLowerCase() + stockCode;
+		
+		NioDownload nioDownload = new NioDownload(remoteFileUrl, savePath,
+				filename);
+		nioDownload.setDateId(Integer.parseInt(curdateSimple));
+		nioDownload.setStockCode("" + stockCode);
+		nioDownload.setStockType(stockType);
+		
+		return nioDownload;
 	}
 
 	/**
@@ -770,7 +804,7 @@ public class DownloadSinaDataUtils extends BaseDBUtils {
 		downNioSTFile(list);
 	}
 
-	private String baseSavePath = LoadConfigUtils.getInstance()
+	public static String baseSavePath = LoadConfigUtils.getInstance()
 			.getDownloadFilePath();
 
 	public void downNioSTFile(List<DownloadFileBean> list) {
@@ -865,322 +899,84 @@ public class DownloadSinaDataUtils extends BaseDBUtils {
 	public void setListingDate(String listingDate) {
 		this.listingDate = listingDate;
 	}
+	
+	@SuppressWarnings("deprecation")
+	public static void nioDownload (String stockCode, String stockType, Date begin, Date end) {
+		
+		if (begin == null) {
+			//begin = new Date("2010/01/02");
+			DStock dstock = dStockManager.selectByPrimaryKey(stockCode);
+			if (dstock != null) {
+				begin = dstock.getListingDate();
+			}
+		}
+		
+		if (begin == null) {
+			return;
+		}
+		
+		if (end == null) {
+			end = new Date();
+		}
+		
+		
+		daysOff = factDateHolidayListMapper
+				.selectDaysOff(Global.DF_DAY.format(begin), Global.DF_DAY.format(end));
+		if (logger.isInfoEnabled()) {
+			logger.info("getUrlList() - List<String> daysOff=" + daysOff);
+		}
+		
+		
+		List<Integer> successDays = gDetailManager
+				.selectDetailActiveDateId(stockCode, stockType,
+						Integer.parseInt(Global.DF_SIMPLE.format(begin)), 
+						Integer.parseInt(Global.DF_SIMPLE.format(end)));
+		
+		if (logger.isInfoEnabled()) {
+			logger.info("getUrlList() - List<String> successDays=" + successDays);
+		}
+		
+		
+		Calendar cal = Calendar.getInstance();
+		cal.setTime(begin);
+		
+		if (cal.get(Calendar.DAY_OF_WEEK) == 7) {
+			cal.add(Calendar.DAY_OF_MONTH, 2);
+		} else if (cal.get(Calendar.DAY_OF_WEEK) == 1) {
+			cal.add(Calendar.DAY_OF_MONTH, 1);
+		}
+		
+		begin = cal.getTime();
+		
+		while (begin.compareTo(end) <= 0) {
+			
+			if (daysOff.contains(Global.DF_DAY.format(begin)) == false) {
+				if ((successDays == null || successDays.size() == 0) || 
+						(successDays != null 
+						&& successDays.contains(Integer.parseInt(Global.DF_SIMPLE.format(begin))) == false)) {
+					createNioDownload(stockCode, stockType, begin).start();
+				}
+			}
+			
+			cal.add(Calendar.DAY_OF_MONTH, 1);
+			
+			if (cal.get(Calendar.DAY_OF_WEEK) == 7) {
+				cal.add(Calendar.DAY_OF_MONTH, 2);
+			} else if (cal.get(Calendar.DAY_OF_WEEK) == 1) {
+				cal.add(Calendar.DAY_OF_MONTH, 1);
+			}
+			
+			begin = cal.getTime();
+			cal.setTime(begin);
+		}
+		
+//		NioDownload nioDownload = DownloadSinaDataUtils.createNioDownload(stockCode, stockType, date);
+	}
 
 	public static void main(String[] args) {
-		// ProxyUtils.checkDBProxySpeed();
-
-		// DownloadSinaDataUtils tb = new DownloadSinaDataUtils();
-		//
-		// tb.downFailSTFile();
-
-		// CheckFailData ();
-
-		// String startTime = "2010-01-01";
-		// String endTime = "2010-12-31";
-		//
-		// List<String> values = new ArrayList<String>();
-		// values.add("300001");
-		// values.add("300002");
-		// muDownloadData(startTime, endTime, 1004005, values, 100, true);
-
-		// ProxyUtils.findProxy2DB();
-		//
-		// ProxyUtils.checkDBProxySpeed();
-		//
-		// Date d1 = new Date();
-		// String startTime = "2010-01-01";
-		// String endTime = "2010-05-31";
-		// String stCode = "sz300003";
-		//
-		// DownloadSinaDataUtils tb = new DownloadSinaDataUtils(startTime,
-		// endTime, stCode);
-		//
-		// tb.downSTFile(true);
-		// Date d2 = new Date();
-
-		// String startTime = "2010-01-01";
-		// String endTime = "2010-12-31";
-		// String stCode = "sz300003";
-		//
-		// DownloadSinaDataUtils tb = new DownloadSinaDataUtils(startTime,
-		// endTime, stCode);
-		//
-		// tb.downSTFile(true);
-		// Date d2 = new Date();
-
-		// System.out.println(d2.getTime()-d1.getTime());
-		// List<String> values = new ArrayList<String>();
-		//
-		// for (int i = 300001; i < 300307; i++) {
-		// values.add("" + i);
-		// }
-		//
-		// List<DStock> list = dStockManager.selectByDimAndNotIn(1004005,
-		// values);
-		//
-		// for (DStock dstock : list) {
-		// logger.info(dstock);
-		//
-		// {
-		// String startTime = "2010-01-01";
-		// String endTime = "2010-05-31";
-		// // String stCode = "sz300003";
-		//
-		// DownloadSinaDataUtils tb = new DownloadSinaDataUtils(startTime,
-		// endTime, dstock);
-		//
-		// tb.downSTFile(true);
-		// logger.info(startTime + "~" + endTime);
-		//
-		// try {
-		// System.out.println("sleep10000");
-		// Thread.sleep(10000);
-		// tb = null;
-		//
-		// } catch (InterruptedException e) {
-		// }
-		// }
-		//
-		// {
-		// String startTime = "2010-06-01";
-		// String endTime = "2010-12-31";
-		// // String stCode = "sz300003";
-		//
-		// DownloadSinaDataUtils tb = new DownloadSinaDataUtils(startTime,
-		// endTime, dstock);
-		//
-		// tb.downSTFile(true);
-		// logger.info(startTime + "~" + endTime);
-		//
-		// try {
-		// System.out.println("sleep10000");
-		// Thread.sleep(10000);
-		// tb = null;
-		//
-		// } catch (InterruptedException e) {
-		// }
-		// }
-		//
-		// // ------------------------------//
-		// {
-		// String startTime = "2011-01-01";
-		// String endTime = "2011-05-31";
-		// // String stCode = "sz300003";
-		//
-		// DownloadSinaDataUtils tb = new DownloadSinaDataUtils(startTime,
-		// endTime, dstock);
-		//
-		// tb.downSTFile(true);
-		// logger.info(startTime + "~" + endTime);
-		//
-		// try {
-		// System.out.println("sleep10000");
-		// Thread.sleep(10000);
-		// tb = null;
-		//
-		// } catch (InterruptedException e) {
-		// }
-		// }
-		// {
-		// String startTime = "2011-06-01";
-		// String endTime = "2011-12-31";
-		// // String stCode = "sz300003";
-		//
-		// DownloadSinaDataUtils tb = new DownloadSinaDataUtils(startTime,
-		// endTime, dstock);
-		//
-		// tb.downSTFile(true);
-		// logger.info(startTime + "~" + endTime);
-		//
-		// try {
-		// System.out.println("sleep10000");
-		// Thread.sleep(10000);
-		// tb = null;
-		//
-		// } catch (InterruptedException e) {
-		// }
-		// }
-		// // ------------------------------//
-		// {
-		// String startTime = "2012-01-01";
-		// String endTime = "2012-05-31";
-		// // String stCode = "sz300003";
-		//
-		// DownloadSinaDataUtils tb = new DownloadSinaDataUtils(startTime,
-		// endTime, dstock);
-		//
-		// tb.downSTFile(true);
-		// logger.info(startTime + "~" + endTime);
-		//
-		// try {
-		// System.out.println("sleep10000");
-		// Thread.sleep(10000);
-		// tb = null;
-		//
-		// } catch (InterruptedException e) {
-		// }
-		// }
-		// {
-		// String startTime = "2012-06-01";
-		// String endTime = "2012-12-31";
-		// // String stCode = "sz300003";
-		//
-		// DownloadSinaDataUtils tb = new DownloadSinaDataUtils(startTime,
-		// endTime, dstock);
-		//
-		// tb.downSTFile(true);
-		// logger.info(startTime + "~" + endTime);
-		//
-		// try {
-		// System.out.println("sleep10000");
-		// Thread.sleep(10000);
-		// tb = null;
-		//
-		// } catch (InterruptedException e) {
-		// }
-		// }
-		//
-		// // ------------------------------//
-		// {
-		// String startTime = "2013-01-01";
-		// String endTime = "2013-05-31";
-		// // String stCode = "sz300003";
-		//
-		// DownloadSinaDataUtils tb = new DownloadSinaDataUtils(startTime,
-		// endTime, dstock);
-		//
-		// tb.downSTFile(true);
-		// logger.info(startTime + "~" + endTime);
-		//
-		// try {
-		// System.out.println("sleep10000");
-		// Thread.sleep(10000);
-		// tb = null;
-		//
-		// } catch (InterruptedException e) {
-		// }
-		// }
-		// {
-		// String startTime = "2013-06-01";
-		// String endTime = "2013-12-31";
-		// // String stCode = "sz300003";
-		//
-		// DownloadSinaDataUtils tb = new DownloadSinaDataUtils(startTime,
-		// endTime, dstock);
-		//
-		// tb.downSTFile(true);
-		// logger.info(startTime + "~" + endTime);
-		//
-		// try {
-		// System.out.println("sleep10000");
-		// Thread.sleep(10000);
-		// tb = null;
-		//
-		// } catch (InterruptedException e) {
-		// }
-		// }
-		//
-		// // ------------------------------//
-		// {
-		// String startTime = "2014-01-01";
-		// String endTime = "2014-05-31";
-		// // String stCode = "sz300003";
-		//
-		// DownloadSinaDataUtils tb = new DownloadSinaDataUtils(startTime,
-		// endTime, dstock);
-		//
-		// tb.downSTFile(true);
-		// logger.info(startTime + "~" + endTime);
-		//
-		// try {
-		// System.out.println("sleep10000");
-		// Thread.sleep(10000);
-		// tb = null;
-		//
-		// } catch (InterruptedException e) {
-		// }
-		// }
-		// {
-		// String startTime = "2014-06-01";
-		// String endTime = "2014-11-21";
-		// // String stCode = "sz300003";
-		//
-		// DownloadSinaDataUtils tb = new DownloadSinaDataUtils(startTime,
-		// endTime, dstock);
-		//
-		// tb.downSTFile(true);
-		// logger.info(startTime + "~" + endTime);
-		//
-		// try {
-		// System.out.println("sleep10000");
-		// Thread.sleep(10000);
-		// tb = null;
-		//
-		// } catch (InterruptedException e) {
-		// }
-		// }
-		// }
-
-		// String startTime = "2010-01-01";
-		// String endTime = "2010-12-31";
-		//
-		// List<String> values = new ArrayList<String>();
-		// values.add("300001");
-		// values.add("300002");
-		//
-		// DownloadData(startTime, endTime, 1004005, values);
-		//
-		// String startTime = "2011-01-01";
-		// String endTime = "2011-12-31";
-		//
-		// List<String> values = new ArrayList<String>();
-		// values.add("300001");
-		// values.add("300002");
-		//
-		// DownloadData(startTime, endTime, 1004005, values);
-
-		// String startTime = "2012-01-01";
-		// String endTime = "2012-12-31";
-		//
-		// List<String> values = new ArrayList<String>();
-		// values.add("300001");
-		// values.add("300002");
-		//
-		// DownloadData(startTime, endTime, 1004005, values);
-
-		// String startTime = "2013-01-01";
-		// String endTime = "2013-12-31";
-		//
-		// List<String> values = new ArrayList<String>();
-		// values.add("300001");
-		// values.add("300002");
-		//
-		// DownloadData(startTime, endTime, 1004005, values);
-
-		// String startTime = "2014-01-01";
-		// String endTime = "2014-11-21";
-		//
-		// List<String> values = new ArrayList<String>();
-		// values.add("300001");
-		// values.add("300002");
-		//
-		// DownloadData(startTime, endTime, 1004005, values);
-		// {
-		// Thread thread = new Thread() {
-		// public void run() {
-		// String startTime = "2011-01-01";
-		// String endTime = "2011-12-31";
-		//
-		// List<String> values = new ArrayList<String>();
-		// values.add("300001");
-		// values.add("300002");
-		//
-		// DownloadData(startTime, endTime, 1004005, values);
-		// }
-		// };
-		// thread.start();
-		// }
-		// destroyFactory();
+		
+		nioDownload("300419", "sz", null, null);
+	
 	}
 
 	public List<String> getStockCodes() {

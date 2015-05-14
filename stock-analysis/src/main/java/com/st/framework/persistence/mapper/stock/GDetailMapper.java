@@ -4,7 +4,9 @@ import com.st.analysis.controller.vo.MMBean;
 import com.st.framework.module.stock.GDetail;
 import com.st.framework.module.stock.GStockDay;
 import com.st.framework.module.stock.example.GDetailExample;
+
 import java.util.List;
+
 import org.apache.ibatis.annotations.Param;
 
 public interface GDetailMapper {
@@ -42,7 +44,7 @@ public interface GDetailMapper {
 
 	List<GDetail> selectWareByExample(GDetailExample example);
 
-	List selectDetailActiveDateId(@Param("stockCode") String stockCode,
+	List<Integer> selectDetailActiveDateId(@Param("stockCode") String stockCode,
 			@Param("startDateId") Integer startDateId,
 			@Param("endDateId") Integer endDateId, 
 			@Param("dateIds") List<Integer> dateIds);

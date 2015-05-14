@@ -107,9 +107,9 @@ public class DownloadQQDataUtils extends BaseDBUtils {
 	// sz300002_成交明细_2015-01-05.xls
 	// http://quotes.money.163.com/cjmx/2015/20150504/1300002.xls
 	// http://stock.gtimg.cn/data/index.php?appn=detail&action=download&c=sz300002&d=20150508
-	private static String baseUrl = "http://stock.gtimg.cn/data/index.php?appn=detail&action=download&c=";
+	public static String baseUrl = "http://stock.gtimg.cn/data/index.php?appn=detail&action=download&c=";
 
-	private static String baseSavePath = LoadConfigUtils.getInstance()
+	public static String baseSavePath = LoadConfigUtils.getInstance()
 			.getDownloadFilePath();
 
 	public void download(Integer stockCode, String stockType) {
@@ -129,7 +129,7 @@ public class DownloadQQDataUtils extends BaseDBUtils {
 //		DStock dstock = dStockManager.selectByPrimaryKey("" + stockCode);		
 //		startTime = DF_DAY.format(dstock.getListingDate());
 
-		startTime = "2009-10-30";
+//		startTime = "2009-10-30";
 		
 		Date begin = null;
 
@@ -207,11 +207,11 @@ public class DownloadQQDataUtils extends BaseDBUtils {
 		if (list != null && list.size() > 0) {
 			for (final NioDownload nioDownload : list) {
 				// System.out.println(nioDownload);
-				Global.threadPoolExecutor.execute(new Thread() {
-					public void run() {
+//				Global.threadPoolExecutor.execute(new Thread() {
+//					public void run() {
 						nioDownload.start();
-					}
-				});
+//					}
+//				});
 
 			}
 		}
@@ -269,27 +269,27 @@ public class DownloadQQDataUtils extends BaseDBUtils {
 
 			if (!daysOff.contains(curdate) && !suspensionDays.contains(curdate)
 					&& !successDays.contains(curdate)) {
-				year = DF_YEAR.format(curDate);
-
-				filename = stockType.toLowerCase() + stockCode + "_成交明细_"
-						+ curdate + ".xls";
-
-				savePath = baseSavePath + "/" + stockType.toLowerCase()
-						+ stockCode + "/" + year + "/";
-
-				// http://quotes.money.163.com/cjmx/2015/20150504/1300002.xls
-				// private static String baseUrl =
-				// "http://quotes.money.163.com/cjmx/";
-				// http://stock.gtimg.cn/data/index.php?appn=detail&action=download&c=sz300002&d=20150508
-				url = baseUrl + "" + stockType.toLowerCase() + stockCode
-						+ "&d=" + DF_SIMPLE.format(curDate);
-				NioDownload nioDownload = new NioDownload(url, savePath,
-						filename);
-				nioDownload.setDateId(Integer.parseInt(curdateSimple));
-				nioDownload.setStockCode("" + stockCode);
-				nioDownload.setStockType(stockType);
-
-				dataList.add(nioDownload);
+//				year = DF_YEAR.format(curDate);
+//
+//				filename = stockType.toLowerCase() + stockCode + "_成交明细_"
+//						+ curdate + ".xls";
+//
+//				savePath = baseSavePath + "/" + stockType.toLowerCase()
+//						+ stockCode + "/" + year + "/";
+//
+//				// http://quotes.money.163.com/cjmx/2015/20150504/1300002.xls
+//				// private static String baseUrl =
+//				// "http://quotes.money.163.com/cjmx/";
+//				// http://stock.gtimg.cn/data/index.php?appn=detail&action=download&c=sz300002&d=20150508
+//				url = baseUrl + "" + stockType.toLowerCase() + stockCode
+//						+ "&d=" + DF_SIMPLE.format(curDate);
+//				NioDownload nioDownload = new NioDownload(url, savePath,
+//						filename);
+//				nioDownload.setDateId(Integer.parseInt(curdateSimple));
+//				nioDownload.setStockCode("" + stockCode);
+//				nioDownload.setStockType(stockType);
+				
+				dataList.add(createNioDownload("" + stockCode, stockType.toLowerCase(), curDate));
 			}
 
 			cal.add(Calendar.DAY_OF_MONTH, 1);
@@ -304,6 +304,33 @@ public class DownloadQQDataUtils extends BaseDBUtils {
 		}
 
 		return dataList;
+	}
+	
+	public NioDownload createNioDownload (String stockCode, String stockType, Date date) {
+		
+		String curdate = DF_DAY.format(date);
+		String year = DF_YEAR.format(date);
+		String curdateSimple = DF_SIMPLE.format(date);
+
+		String filename = stockType.toLowerCase() + stockCode + "_成交明细_"
+				+ curdate + ".xls";
+
+		String savePath = baseSavePath + "/" + stockType.toLowerCase()
+				+ stockCode + "/" + year + "/";
+
+		// http://quotes.money.163.com/cjmx/2015/20150504/1300002.xls
+		// private static String baseUrl =
+		// "http://quotes.money.163.com/cjmx/";
+		// http://stock.gtimg.cn/data/index.php?appn=detail&action=download&c=sz300002&d=20150508
+		String url = baseUrl + "" + stockType.toLowerCase() + stockCode
+				+ "&d=" + curdateSimple;
+		NioDownload nioDownload = new NioDownload(url, savePath,
+				filename);
+		nioDownload.setDateId(Integer.parseInt(curdateSimple));
+		nioDownload.setStockCode("" + stockCode);
+		nioDownload.setStockType(stockType);
+		
+		return nioDownload;
 	}
 
 	public List<String> getSuspensionDays() {

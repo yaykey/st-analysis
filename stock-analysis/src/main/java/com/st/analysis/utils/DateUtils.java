@@ -39,14 +39,17 @@ public class DateUtils extends BaseDBUtils {
 		cal.setTime(begin);
 		
 		while (begin.compareTo(end) <= 0) {
+			int week = cal.get(Calendar.DAY_OF_WEEK);
+			//System.out.println(week);
+			if (week == 7) {
+				cal.add(Calendar.DAY_OF_MONTH, 2);
+				begin = cal.getTime();
+			} else if (week == 1) {
+				cal.add(Calendar.DAY_OF_MONTH, 1);
+				begin = cal.getTime();
+			}
 			
 			result.add(Integer.parseInt(Global.DF_SIMPLE.format(begin.getTime())));
-			
-			if (cal.get(Calendar.DAY_OF_WEEK) == 7) {
-				cal.add(Calendar.DAY_OF_MONTH, 2);
-			} else if (cal.get(Calendar.DAY_OF_WEEK) == 1) {
-				cal.add(Calendar.DAY_OF_MONTH, 1);
-			}
 			
 			cal.add(Calendar.DAY_OF_MONTH, 1);
 			
@@ -60,7 +63,7 @@ public class DateUtils extends BaseDBUtils {
 	}
 	
 	public static void main (String [] args) {
-		List<Integer> list = getTimeIds(20150501, 20150510);
+		List<Integer> list = getTimeIds(20091030, 20091130);
 		
 		for (Integer timeid : list) {
 			System.out.print(timeid + ",");

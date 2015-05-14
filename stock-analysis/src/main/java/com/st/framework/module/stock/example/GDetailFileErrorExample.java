@@ -1,6 +1,7 @@
 package com.st.framework.module.stock.example;
 
 import com.st.framework.module.example.BaseExample;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -234,6 +235,12 @@ public class GDetailFileErrorExample extends BaseExample {
             addCriterion("DATE_ID not between", value1, value2, "dateId");
             return (Criteria) this;
         }
+        
+        public Criteria andDateIdLike(String value) {
+        	 //addCriterion("STOCK_CODE like", value, "stockCode");
+        	addCriterion("DATE_ID like", value, "dateId");
+        	return (Criteria) this;
+		}
 
         public Criteria andBalanceIsNull() {
             addCriterion("BALANCE is null");
@@ -361,6 +368,8 @@ public class GDetailFileErrorExample extends BaseExample {
         protected Criteria() {
             super();
         }
+
+		
     }
 
     public static class Criterion {

@@ -103,7 +103,7 @@ public class GDetailManager {
 			for (GDetail detail : list) {
 				FactActiveDateIdIndex idx = new FactActiveDateIdIndex();
 				idx.setStockCode(Integer.parseInt(stockCode.replace("SZ", "")));
-				idx.setDateYearId(detail.getDateId());
+				idx.setDateId(detail.getDateId());
 				activeIdxs.add(idx);
 			}
 			
@@ -244,13 +244,13 @@ public class GDetailManager {
 				endDateId);
 	}
 
-	public List selectDetailActiveDateId(String stockCode, Integer startDateId,
+	public List<Integer> selectDetailActiveDateId(String stockCode, String stockType, Integer startDateId,
 			Integer endDateId) {
 		try {
 			List<Integer> dateIds = DateUtils
 					.getTimeIds(startDateId, endDateId);
 
-			return this.gDetailMapper.selectDetailActiveDateId(stockCode,
+			return this.gDetailMapper.selectDetailActiveDateId(stockType.toUpperCase() + stockCode,
 					startDateId, endDateId, dateIds);
 		} catch (Exception ex) {
 
