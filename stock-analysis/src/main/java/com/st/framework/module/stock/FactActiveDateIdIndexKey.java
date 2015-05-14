@@ -1,6 +1,8 @@
 package com.st.framework.module.stock;
 
-public class FactActiveDateIdIndexKey {
+import com.st.framework.module.PersistentObject;
+
+public class FactActiveDateIdIndexKey extends PersistentObject {
     private Integer stockCode;
 
     private Integer dateId;

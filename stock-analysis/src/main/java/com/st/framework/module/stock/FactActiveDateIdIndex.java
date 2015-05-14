@@ -1,7 +1,11 @@
 package com.st.framework.module.stock;
 
 public class FactActiveDateIdIndex extends FactActiveDateIdIndexKey {
-    private Integer dateYearId;
+    /**
+	 * 
+	 */
+	private static final long serialVersionUID = -9098326446124582777L;
+	private Integer dateYearId;
 
     public Integer getDateYearId() {
         return dateYearId;

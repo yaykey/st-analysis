@@ -15,6 +15,8 @@ import com.st.analysis.controller.vo.MMBean;
 import com.st.analysis.controller.vo.timerange.TimeRangeCountBeanRequest;
 import com.st.analysis.controller.vo.timerange.TimeRangeCountBeanResponse;
 import com.st.analysis.utils.DateUtils;
+import com.st.framework.business.impl.fact.FactActiveDateIdIndexManager;
+import com.st.framework.module.stock.FactActiveDateIdIndex;
 import com.st.framework.module.stock.GDetail;
 import com.st.framework.module.stock.GStockDay;
 import com.st.framework.module.stock.example.GDetailExample;
@@ -31,9 +33,10 @@ public class GDetailManager {
 
 	@Autowired
 	private GDetailMapper gDetailMapper;
+	
+	@Autowired
+	private FactActiveDateIdIndexManager factActiveDateIdIndexManager;
 
-	// @Autowired
-	// public SqlSessionFactory sqlSessionFactory;
 
 	public int countByExample(GDetailExample example) {
 
@@ -91,19 +94,34 @@ public class GDetailManager {
 	}
 
 	public void insertBatch(String stockCode, List<GDetail> list) {
-		
+
 		if (list != null && list.size() > 0) {
 			this.gDetailMapper.insertBatch(stockCode, list);
+			
+			List<FactActiveDateIdIndex> activeIdxs = new ArrayList<FactActiveDateIdIndex>();
+			
+			for (GDetail detail : list) {
+				FactActiveDateIdIndex idx = new FactActiveDateIdIndex();
+				idx.setStockCode(Integer.parseInt(stockCode.replace("SZ", "")));
+				idx.setDateYearId(detail.getDateId());
+				activeIdxs.add(idx);
+			}
+			
+			factActiveDateIdIndexManager.insertBatch(activeIdxs);
+			
 		}
 		
+		
+
 		list.clear();
 		list = null;
 
 		// System.gc();
 	}
-	
-	public void insertBatchAsynchronous(final String stockCode, final List<GDetail> list) {
-		
+
+	public void insertBatchAsynchronous(final String stockCode,
+			final List<GDetail> list) {
+
 		if (list != null && list.size() > 0) {
 			Global.threadPoolExecutor.execute(new Runnable() {
 				@Override
@@ -111,13 +129,14 @@ public class GDetailManager {
 					if (Global._ctx == null) {
 						Global._ctx = ConfigUtil.getHelper();
 					}
-					
-					GDetailManager gDetailManager = (GDetailManager)Global._ctx.getBean("gDetailManager");
-										
+
+					GDetailManager gDetailManager = (GDetailManager) Global._ctx
+							.getBean("gDetailManager");
+
 					gDetailManager.insertBatch(stockCode, list);
 				}
 			});
-			
+
 		}
 		if (list != null) {
 			list.clear();
@@ -224,26 +243,28 @@ public class GDetailManager {
 		return this.gDetailMapper.selectStockDay(stockCode, startDateId,
 				endDateId);
 	}
-	
-	public List selectDetailActiveDateId (String stockCode,Integer startDateId,
+
+	public List selectDetailActiveDateId(String stockCode, Integer startDateId,
 			Integer endDateId) {
-		
-		List<Integer> dateIds = DateUtils.getTimeIds(startDateId, endDateId);
-		
-		return this.gDetailMapper.selectDetailActiveDateId(stockCode, startDateId,
-				endDateId, dateIds);
+		try {
+			List<Integer> dateIds = DateUtils
+					.getTimeIds(startDateId, endDateId);
+
+			return this.gDetailMapper.selectDetailActiveDateId(stockCode,
+					startDateId, endDateId, dateIds);
+		} catch (Exception ex) {
+
+		}
+		return null;
 	}
-	
+
 	@SuppressWarnings("rawtypes")
 	public List<MMBean> selectMMBaseData(String stockCode, List dateIds) {
 		return this.gDetailMapper.selectMMBaseData(stockCode, dateIds);
 	}
 
-	public List<GDetail> selectWareByExample(GDetailExample example) {	
+	public List<GDetail> selectWareByExample(GDetailExample example) {
 		return this.gDetailMapper.selectWareByExample(example);
 	}
-	
-	
 
-	
 }

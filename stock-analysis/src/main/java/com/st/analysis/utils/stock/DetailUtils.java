@@ -13,6 +13,7 @@ import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import org.apache.commons.collections.FastArrayList;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.apache.ibatis.session.SqlSession;
@@ -37,22 +38,10 @@ public class DetailUtils extends BaseDBUtils {
 	 */
 	private static final Log logger = LogFactory.getLog(DetailUtils.class);
 
-	protected static GDetailManager gDetailManager = (GDetailManager) getHelper()
-			.getBean("gDetailManager");
+	@SuppressWarnings("unchecked")
+	public static void DetailFile2DB(final String stockCode,
+			final String stockType) {
 
-	protected static FactDownloadFileConfigManager factDownloadFileConfigManager = (FactDownloadFileConfigManager) getHelper()
-			.getBean("factDownloadFileConfigManager");
-	
-	protected static GDetailFileErrorManager gDetailFileErrorManager = (GDetailFileErrorManager) getHelper()
-	.getBean("gDetailFileErrorManager");
-	
-	protected static FactActiveDateIdIndexManager factActiveDateIdIndexManager = (FactActiveDateIdIndexManager) getHelper()
-			.getBean("FactActiveDateIdIndexManager");
-
-	protected static DateFormat df_simple = new SimpleDateFormat("yyyyMMdd");
-	
-	public static void DetailFile2DB(final String stockCode, final String stockType) {
-		
 		// 路径
 		String filePath = LoadConfigUtils.getInstance().getDownloadFilePath();
 
@@ -63,31 +52,25 @@ public class DetailUtils extends BaseDBUtils {
 		}
 
 		// 成功ID
-//		final List<String> successTimeIds = factDownloadFileConfigManager
-//				.selectStSuccessTimeId(null, null, stockCode);
-		
+		// final List<String> successTimeIds = factDownloadFileConfigManager
+		// .selectStSuccessTimeId(null, null, stockCode);
 
 		// if (successTimeIds.size() > 0) {
 		// successTimeIds.remove(successTimeIds.size() - 1);
 		// }
 
-//		if (logger.isInfoEnabled()) {
-//			logger.info("DetailFile2DB(String) - List<String> successTimeIds="
-//					+ successTimeIds);
-//		}
-		
-		long dtimeid = System.currentTimeMillis();
-		
-		final List<String> successTimeIds = 
-				gDetailManager.selectDetailActiveDateId(
-						stockType + stockCode, Integer.parseInt("20100102"), null);
-		System.out.println("successTimeIds耗时:" + (System.currentTimeMillis()-dtimeid));
-		
+		// if (logger.isInfoEnabled()) {
+		// logger.info("DetailFile2DB(String) - List<String> successTimeIds="
+		// + successTimeIds);
+		// }
+
+		List<String> successTimeIds = null;
+
 		gDetailManager.createGDetailTable(stockType + stockCode);
-		
+
 		File fs = null;
 		File fa[] = f.listFiles();
-		Date d1 = new Date(), d2=null, d3,d4;
+		Date d1 = new Date(), d2 = null, d3, d4;
 		for (int i = 0; i < fa.length; i++) {
 			// for (int i = 0; i < 2; i++) {
 			fs = fa[i];
@@ -95,26 +78,34 @@ public class DetailUtils extends BaseDBUtils {
 				if (fs.isDirectory()) {
 					final File ffs = fs;
 					String fsname = fs.getName();
-					String year = fsname.substring(fsname.length()-4);
-					
-					
-//					final 
-//					Global.threadPoolExecutor.execute(new Runnable() {						
-//						@Override
-//						public void run() {
-//							Date d1 = new Date(), d2=null, d3,d4;
-							d3 = new Date();
-							DetailDirectoryFile2DB(ffs, successTimeIds);
-							d4 = new Date();
-							System.out.println(stockType + stockCode + "->" + ffs.getName() + "[目录]->" + (d4.getTime()-d3.getTime()));
-							
-							d3 = null; 
-							d4=null;							
-//						}
-//					});
-					
+					String year = fsname.substring(fsname.length() - 4);
 
-//					System.gc();
+					d3 = new Date();
+					// long dtimeid = System.currentTimeMillis();
+
+					// final List<String> successTimeIds =
+					// gDetailManager.selectDetailActiveDateId(
+					// stockType + stockCode, Integer.parseInt("20100102"),
+					// null);
+					// System.out.println("successTimeIds耗时:" +
+					// (System.currentTimeMillis()-dtimeid));
+					successTimeIds = (List<String>) factActiveDateIdIndexManager
+							.selectActiveDateId(Integer.parseInt(stockCode),
+									Integer.parseInt(year));
+					// System.out.println("successTimeIds耗时:" +
+					// (System.currentTimeMillis()-dtimeid));
+					DetailDirectoryFile2DB(ffs, successTimeIds);
+					d4 = new Date();
+					System.out.println(stockType + stockCode + "->"
+							+ ffs.getName() + "[目录]->"
+							+ (d4.getTime() - d3.getTime()));
+
+					d3 = null;
+					d4 = null;
+					// }
+					// });
+
+					// System.gc();
 				} else {
 					System.out.println(fs.getName());
 				}
@@ -125,17 +116,16 @@ public class DetailUtils extends BaseDBUtils {
 		fa = null;
 		fs = null;
 		d2 = new Date();
-		System.out.println("stockCode["+stockType + stockCode+"]->\t" + (d2.getTime()-d1.getTime()));
+		System.out.println("stockCode[" + stockType + stockCode + "]->\t"
+				+ (d2.getTime() - d1.getTime()));
 		d2 = null;
-//		System.gc();
-//		try {
-//			Thread.sleep(1000);
-//		} catch (InterruptedException e) {
-//			e.printStackTrace();
-//		}
+		// System.gc();
+		// try {
+		// Thread.sleep(1000);
+		// } catch (InterruptedException e) {
+		// e.printStackTrace();
+		// }
 	}
-	
-	
 
 	public static void DetailDirectoryFile2DB(File directoryFile,
 			List<String> successTimeIds) {
@@ -144,33 +134,9 @@ public class DetailUtils extends BaseDBUtils {
 			return;
 		}
 
-		//StringBuffer sqlBuffer = new StringBuffer();
-		//StringBuilder sqlBuffer = new StringBuilder();
-		
-//		int fileNum = 0;
-
 		File fa[] = directoryFile.listFiles();
-//		String stockCode = "";
 		File fs = null;
-//		for (int i = 0; i < fa.length; i++) {
-//			fs = fa[i];
-//			if (directoryFile.isHidden() == false
-//					&& !"CVS".equals(fs.getName())) {
-//				if (fs.isDirectory()) {
-//					System.out.println(fs.getName() + " [目录]");
-//				} else {
-//					stockCode = fs.getName().substring(0, 8).toUpperCase();
-//					break;
-//				}
-//			}
-//		}
 
-//		sqlBuffer.append("insert ignore into G_DETAIL_" + stockCode);
-//		sqlBuffer
-//				.append(" (DATE_ID, TIME_ID, PRICE, PRICE_CHANGES, VOL, AMO, NATURE) values ");
-		
-//		Date d1 = null, d2 = null;
-//		String sqlString = null;
 		for (int i = 0; i < fa.length; i++) {
 			// for (int i = 0; i < 2; i++) {
 
@@ -184,70 +150,15 @@ public class DetailUtils extends BaseDBUtils {
 
 					if (isDetailXLXFile(fs.getName())) {
 
-//						if (DetailXLX2DB(fs, successTimeIds, sqlBuffer) == true) {
-						if (DetailXLX2DB(fs, successTimeIds, null) == true) {
-							
-							
-							
-							//if (fileNum != 0) {
-//								sqlBuffer.append(",");								
-							//}
-//							logger.error("fileNum=" + fileNum);
-//							logger.error(sqlBuffer.toString());
-//							fileNum++;
-						}
+						DetailXLX2DB(fs, successTimeIds, null);
 
 						fs = null;
 
-//						if (fileNum >= maxFileNum) {
-//							
-//							// if (sqlBuffer.length() > 0) {
-//							//d1 = new Date();
-////							sqlString = sqlBuffer.toString().replaceAll("[,]{2,}", ",").replaceFirst("values ,\\(", "values \\(").replaceAll(",$", "");
-////							gDetailManager.insertStringBatch(sqlString);
-////							
-////							sqlString = null;
-////							sqlBuffer.setLength(0);
-//							
-//							//d2 = new Date();
-//
-////							System.out.println(stockCode + "->[" + fileNum + "]->"
-////									+ (d2.getTime() - d1.getTime()));
-//							fileNum = 0;
-//							//sqlBuffer = null;
-//							//System.gc();
-//							//sqlBuffer = new StringBuilder();
-////							sqlBuffer.append("insert ignore into G_DETAIL_"
-////									+ stockCode);
-////							sqlBuffer
-////									.append(" (DATE_ID, TIME_ID, PRICE, PRICE_CHANGES, VOL, AMO, NATURE) values ");
-//
-//							// }
-//						}
 					}
 				}
 			}
 		}
-//
-//		if (fileNum > 0) {
-//			//d1 = new Date();
-////			sqlString = sqlBuffer.toString().replaceAll("[,]{2,}", ",").replaceFirst("values ,\\(", "values \\(").replaceAll(",$", "");
-////			gDetailManager.insertStringBatch(sqlString);
-////			sqlString = null;
-////			//d2 = new Date();
-//////			System.out.println(stockCode + "->结束->[" + fileNum + "]->"
-//////					+ (d2.getTime() - d1.getTime()));
-//
-////			sqlBuffer.setLength(0);
-//			
-//			
-//		}
-		
-//		sqlBuffer = null;
-//		stockCode = null;
-//		System.gc();
 
-		// factDownloadFileConfigManager.flushInsertBatch();
 	}
 
 	public static boolean isDetailXLXFile(String fileName) {
@@ -261,24 +172,24 @@ public class DetailUtils extends BaseDBUtils {
 
 	public static boolean DetailXLX2DB(File xlsFile,
 			List<String> successTimeIds, StringBuilder sqlBufferbak) {
-//		if (logger.isDebugEnabled()) {
-//			logger.debug("DetailXLX2DB(File, List<String>, StringBuffer) - start");
-//		}
+		// if (logger.isDebugEnabled()) {
+		// logger.debug("DetailXLX2DB(File, List<String>, StringBuffer) - start");
+		// }
 
-//		Date d1 = new Date();
+		// Date d1 = new Date();
 		// /sz300001_成交明细_2010-01-07.xls
-		//new StringBuilder();
+		// new StringBuilder();
 		String fileName = xlsFile.getName();
 		Integer dateId = Integer.parseInt(fileName.substring(14, 24)
 				.replaceAll("-", ""));
 
 		if (successTimeIds != null && successTimeIds.size() > 0
 				&& successTimeIds.contains(dateId)) {
-//			System.out.println(fileName + "已存在");
+			// System.out.println(fileName + "已存在");
 
-//			if (logger.isDebugEnabled()) {
-//				logger.debug("DetailXLX2DB(File, List<String>, StringBuffer) - end");
-//			}
+			// if (logger.isDebugEnabled()) {
+			// logger.debug("DetailXLX2DB(File, List<String>, StringBuffer) - end");
+			// }
 			return false;
 		}
 
@@ -292,26 +203,9 @@ public class DetailUtils extends BaseDBUtils {
 		filePath = filePath.substring(filePath.length() - 43,
 				filePath.length() - 29);
 
-//		gDetailManager.createGDetailTable(stockCode);
-
-		// gDetailManager.insertFlushBatch(stockCode);
-
-		// GDetailExample example = new GDetailExample();
-		// example.setStockCode(stockCode);
-		// GDetailExample.Criteria c = example.createCriteria();
-		// c.andDateIdEqualTo(dateId);
-		//
-		// gDetailManager.deleteByExample(example);
-
-		// gDetailManager.deleteErrorData(stockCode, dateId);
-
-		// System.out.println(":" + stockCode + ":" + dateId);
-
 		FactDownloadFileConfig factDownloadFileConfig = new FactDownloadFileConfig();
 		factDownloadFileConfig.setStCode(stockCode.substring(2));
 
-		// factDownloadFileConfig.setFileName(new String(fileName.getBytes(),
-		// "GBK"));
 		factDownloadFileConfig.setFileName(fileName);
 
 		factDownloadFileConfig.setFilePath(filePath.replace('\\', '/'));
@@ -326,9 +220,7 @@ public class DetailUtils extends BaseDBUtils {
 		String line = null;
 		String[] temp = null;
 		List<GDetail> data = new ArrayList<GDetail>();
-//		StringBuilder newSqlBuffer = new StringBuilder();
-		// newSqlBuffer.append("insert ignore into G_DETAIL_" + stockCode);
-		// newSqlBuffer.append(" (DATE_ID, TIME_ID, PRICE, PRICE_CHANGES, VOL, AMO, NATURE) values ");
+
 		try {
 			fis = new FileInputStream(xlsFile);
 			isr = new InputStreamReader(fis, "GBK");
@@ -344,18 +236,22 @@ public class DetailUtils extends BaseDBUtils {
 						bw.close();
 					}
 				} catch (IOException e) {
-					logger.error("DetailXLX2DB(File, List<String>, StringBuffer) - exception ignored", e);
+					logger.error(
+							"DetailXLX2DB(File, List<String>, StringBuffer) - exception ignored",
+							e);
 
-					//e.printStackTrace();
+					// e.printStackTrace();
 				}
 				try {
 					if (isr != null) {
 						isr.close();
 					}
 				} catch (IOException e) {
-					logger.error("DetailXLX2DB(File, List<String>, StringBuffer) - exception ignored", e);
+					logger.error(
+							"DetailXLX2DB(File, List<String>, StringBuffer) - exception ignored",
+							e);
 
-					//e.printStackTrace();
+					// e.printStackTrace();
 				}
 
 				try {
@@ -363,33 +259,35 @@ public class DetailUtils extends BaseDBUtils {
 						fis.close();
 					}
 				} catch (IOException e) {
-					logger.error("DetailXLX2DB(File, List<String>, StringBuffer) - exception ignored", e);
+					logger.error(
+							"DetailXLX2DB(File, List<String>, StringBuffer) - exception ignored",
+							e);
 
-					//e.printStackTrace();
+					// e.printStackTrace();
 				}
 				xlsFile.delete();
 			}
-			
+
 			try {
 				int i = 0;
 				while ((line = bw.readLine()) != null) {
 
 					line = line.trim();
-										
+
 					if ("".equals(line)) {
 						continue;
 					}
-					
-					if (line.length() > 50) {//一行数据长度,判读是否存在异常数据;
-//						newSqlBuffer.setLength(0);
-//						newSqlBuffer = null;
+
+					if (line.length() > 50) {// 一行数据长度,判读是否存在异常数据;
+					// newSqlBuffer.setLength(0);
+					// newSqlBuffer = null;
 						temp = null;
-						throw new FileParseErrorException("文件格式错误->" + fileName + "->"
-								+ line);
+						throw new FileParseErrorException("文件格式错误->" + fileName
+								+ "->" + line);
 					}
-//					if (i != 0) {
-//						newSqlBuffer.append(",");
-//					}
+					// if (i != 0) {
+					// newSqlBuffer.append(",");
+					// }
 					i++;
 
 					// line = line.replaceAll("[\\t]*", " ");
@@ -397,47 +295,46 @@ public class DetailUtils extends BaseDBUtils {
 
 					if (temp == null || temp.length != 6
 							|| "".equals(temp[1].trim())
-							|| "".equals(temp[2].trim())
-						) {
-//						newSqlBuffer.setLength(0);
-//						newSqlBuffer = null;
+							|| "".equals(temp[2].trim())) {
+						// newSqlBuffer.setLength(0);
+						// newSqlBuffer = null;
 						temp = null;
-						throw new FileParseErrorException("文件格式错误->" + fileName + "->"
-								+ line);
+						throw new FileParseErrorException("文件格式错误->" + fileName
+								+ "->" + line);
 					}
 					gDetail = new GDetail();
-//					newSqlBuffer.append("(");
-//					newSqlBuffer.append(dateId);
-//					newSqlBuffer.append(",'" + temp[0] + "'");					
-//					newSqlBuffer.append("," + temp[1]);
+					// newSqlBuffer.append("(");
+					// newSqlBuffer.append(dateId);
+					// newSqlBuffer.append(",'" + temp[0] + "'");
+					// newSqlBuffer.append("," + temp[1]);
 					gDetail.setDateId(dateId);
 					gDetail.setTimeId(temp[0]);
 					gDetail.setPrice(Double.valueOf(temp[1]));
-					
+
 					if ("--".equals(temp[2])) {
-//						newSqlBuffer.append("," + 0);
+						// newSqlBuffer.append("," + 0);
 						gDetail.setPriceChanges(0d);
 					} else {
 						gDetail.setPriceChanges(Double.parseDouble(temp[2]));
-//						newSqlBuffer.append("," + temp[2]);
+						// newSqlBuffer.append("," + temp[2]);
 					}
 
-//					newSqlBuffer.append("," + temp[3]);
-//					newSqlBuffer.append("," + temp[4]);
-					
+					// newSqlBuffer.append("," + temp[3]);
+					// newSqlBuffer.append("," + temp[4]);
+
 					gDetail.setVol(Integer.parseInt(temp[3]));
 					gDetail.setAmo(Integer.parseInt(temp[4]));
 
 					temp[5] = temp[5].trim();
 					if ("买盘".equals(temp[5])) {
-						 gDetail.setNature("b");
-//						newSqlBuffer.append(",'b'");
+						gDetail.setNature("b");
+						// newSqlBuffer.append(",'b'");
 					} else if ("卖盘".equals(temp[5])) {
-						 gDetail.setNature("s");
-//						newSqlBuffer.append(",'s'");
+						gDetail.setNature("s");
+						// newSqlBuffer.append(",'s'");
 					} else if ("中性盘".equals(temp[5])) {
-						 gDetail.setNature("-");
-//						newSqlBuffer.append(",'-'");
+						gDetail.setNature("-");
+						// newSqlBuffer.append(",'-'");
 					} else {// 乱码纠错
 
 						// if (temp[0]!=null && temp[0].indexOf("09:25:") > -1)
@@ -453,14 +350,14 @@ public class DetailUtils extends BaseDBUtils {
 						// }
 						// } else {
 						res = false;
-						throw new FileParseErrorException("文件错误->" + fileName + "->"
-								+ line);
+						throw new FileParseErrorException("文件错误->" + fileName
+								+ "->" + line);
 						// }
 
 					}
-//					newSqlBuffer.append(")");
+					// newSqlBuffer.append(")");
 
-					//gDetailManager.insertBatch(stockCode, gDetail);
+					// gDetailManager.insertBatch(stockCode, gDetail);
 					data.add(gDetail);
 				}
 				// newSqlBuffer.append(";\r\n");
@@ -468,30 +365,29 @@ public class DetailUtils extends BaseDBUtils {
 
 				// gDetailManager.insertStringBatch(sqlBuffer.toString());
 				// sqlBuffer = null;
-//				sqlBuffer.append(newSqlBuffer);
-//				newSqlBuffer.setLength(0);
-//				newSqlBuffer = null;
-				
+				// sqlBuffer.append(newSqlBuffer);
+				// newSqlBuffer.setLength(0);
+				// newSqlBuffer = null;
+
 				gDetailManager.insertBatch(stockCode, data);
-//				gDetailManager.insertBatchAsynchronous(stockCode, data);
-//				data.clear();
-//				data = null;
-				
+				// gDetailManager.insertBatchAsynchronous(stockCode, data);
+				// data.clear();
+				// data = null;
+
 				factDownloadFileConfig.setFail(false);
 				factDownloadFileConfigManager
 						.insertOrUpdate(factDownloadFileConfig);
 				res = true;
-				
+
 			} catch (FileParseErrorException e) {
-				
-				GDetailFileError  gDetailFileError = new GDetailFileError();
-				
+
+				GDetailFileError gDetailFileError = new GDetailFileError();
+
 				gDetailFileError.setDateId(dateId);
 				gDetailFileError.setStockCode(stockCode);
-				
+
 				gDetailFileErrorManager.increaseBalance(gDetailFileError);
-				
-				
+
 				res = false;
 				logger.error(fileName + "->文件错误", e);
 
@@ -502,7 +398,7 @@ public class DetailUtils extends BaseDBUtils {
 				factDownloadFileConfigManager
 						.insertOrUpdate(factDownloadFileConfig);
 			} catch (Exception e) {
-				
+
 				// System.out.println(line);
 				res = false;
 				logger.error(fileName + "->文件错误", e);
@@ -529,18 +425,22 @@ public class DetailUtils extends BaseDBUtils {
 					bw.close();
 				}
 			} catch (IOException ex) {
-				logger.error("DetailXLX2DB(File, List<String>, StringBuffer) - exception ignored", ex);
+				logger.error(
+						"DetailXLX2DB(File, List<String>, StringBuffer) - exception ignored",
+						ex);
 
-				//e.printStackTrace();
+				// e.printStackTrace();
 			}
 			try {
 				if (isr != null) {
 					isr.close();
 				}
 			} catch (IOException ex) {
-				logger.error("DetailXLX2DB(File, List<String>, StringBuffer) - exception ignored", ex);
+				logger.error(
+						"DetailXLX2DB(File, List<String>, StringBuffer) - exception ignored",
+						ex);
 
-				//e.printStackTrace();
+				// e.printStackTrace();
 			}
 
 			try {
@@ -548,9 +448,11 @@ public class DetailUtils extends BaseDBUtils {
 					fis.close();
 				}
 			} catch (IOException ex) {
-				logger.error("DetailXLX2DB(File, List<String>, StringBuffer) - exception ignored", ex);
+				logger.error(
+						"DetailXLX2DB(File, List<String>, StringBuffer) - exception ignored",
+						ex);
 
-				//e.printStackTrace();
+				// e.printStackTrace();
 			}
 			// e.printStackTrace();
 			throw new RuntimeException(e);
@@ -560,18 +462,22 @@ public class DetailUtils extends BaseDBUtils {
 					bw.close();
 				}
 			} catch (IOException e) {
-				logger.error("DetailXLX2DB(File, List<String>, StringBuffer) - exception ignored", e);
+				logger.error(
+						"DetailXLX2DB(File, List<String>, StringBuffer) - exception ignored",
+						e);
 
-				//e.printStackTrace();
+				// e.printStackTrace();
 			}
 			try {
 				if (isr != null) {
 					isr.close();
 				}
 			} catch (IOException e) {
-				logger.error("DetailXLX2DB(File, List<String>, StringBuffer) - exception ignored", e);
+				logger.error(
+						"DetailXLX2DB(File, List<String>, StringBuffer) - exception ignored",
+						e);
 
-				//e.printStackTrace();
+				// e.printStackTrace();
 			}
 
 			try {
@@ -579,19 +485,21 @@ public class DetailUtils extends BaseDBUtils {
 					fis.close();
 				}
 			} catch (IOException e) {
-				logger.error("DetailXLX2DB(File, List<String>, StringBuffer) - exception ignored", e);
+				logger.error(
+						"DetailXLX2DB(File, List<String>, StringBuffer) - exception ignored",
+						e);
 
-				//e.printStackTrace();
+				// e.printStackTrace();
 			}
 
 		}
 
-//		Date d2 = new Date();
-//		System.out.println(fileName + "\t" + (d2.getTime() - d1.getTime()));
+		// Date d2 = new Date();
+		// System.out.println(fileName + "\t" + (d2.getTime() - d1.getTime()));
 
-//		if (logger.isDebugEnabled()) {
-//			logger.debug("DetailXLX2DB(File, List<String>, StringBuffer) - end");
-//		}
+		// if (logger.isDebugEnabled()) {
+		// logger.debug("DetailXLX2DB(File, List<String>, StringBuffer) - end");
+		// }
 		return res;
 	}
 
@@ -605,7 +513,7 @@ public class DetailUtils extends BaseDBUtils {
 		FactDownloadFileConfigExample.Criteria c = example.createCriteria();
 		c.andFailEqualTo(true);
 
-		//c.andStCodeLessThan("sz3000010");
+		// c.andStCodeLessThan("sz3000010");
 
 		List<FactDownloadFileConfig> list = factDownloadFileConfigManager
 				.selectByExample(example);
@@ -613,8 +521,6 @@ public class DetailUtils extends BaseDBUtils {
 		logger.info(list.size());
 
 	}
-
-	
 
 	public static void main(String[] args) {
 
@@ -629,16 +535,16 @@ public class DetailUtils extends BaseDBUtils {
 		// DetailFile2DB("sz300004");
 		// DetailFile2DB("sz300005");
 
-//		for (int i = 300291; i <= 300295; i++) {
-//			DetailFile2DB("sz" + i);
-//		}
-//		System.gc();
-//		for (int i = 300001; i <= 300406; i++) {
-//			DetailFile2DB("sz" + i);
-//		}
+		// for (int i = 300291; i <= 300295; i++) {
+		// DetailFile2DB("sz" + i);
+		// }
+		// System.gc();
+		// for (int i = 300001; i <= 300406; i++) {
+		// DetailFile2DB("sz" + i);
+		// }
 
-//		DetailFile2DB("sz300001");
+		// DetailFile2DB("sz300001");
 	}
-	
+
 	public static int maxFileNum = 200;
 }

@@ -6,11 +6,14 @@ import java.text.SimpleDateFormat;
 import org.springframework.context.ApplicationContext;
 
 import com.st.framework.business.impl.DStockManager;
+import com.st.framework.business.impl.GDetailFileErrorManager;
 import com.st.framework.business.impl.GDetailManager;
 import com.st.framework.business.impl.GStockDayManager;
 import com.st.framework.business.impl.PStockMapManager;
 import com.st.framework.business.impl.dim.DDimManager;
 import com.st.framework.business.impl.dim.DDimtypeManager;
+import com.st.framework.business.impl.fact.FactActiveDateIdIndexManager;
+import com.st.framework.business.impl.fact.FactDownloadFileConfigManager;
 import com.st.framework.business.impl.fact.FactProxyManager;
 import com.st.framework.business.impl.factdate.FactDateHolidayListManager;
 import com.st.framework.business.impl.factdate.FactDateHolidayManager;
@@ -43,10 +46,7 @@ public class BaseDBUtils {
 
 	protected static PStockMapManager pStockMapManager = (PStockMapManager) getHelper()
 			.getBean("pStockMapManager");
-	
-	protected static GDetailManager gDetailManager = (GDetailManager) getHelper()
-	.getBean("gDetailManager");
-	
+		
 	protected static GStockDayManager gStockDayManager = (GStockDayManager) getHelper()
 	.getBean("gStockDayManager");
 	
@@ -55,6 +55,20 @@ public class BaseDBUtils {
 	
 	protected static FactDateHolidayListManager factDateHolidayListManager = (FactDateHolidayListManager) getHelper()
 			.getBean("factDateHolidayListManager");
+	
+	protected static GDetailManager gDetailManager = (GDetailManager) getHelper()
+			.getBean("gDetailManager");
+
+	protected static FactDownloadFileConfigManager factDownloadFileConfigManager = (FactDownloadFileConfigManager) getHelper()
+			.getBean("factDownloadFileConfigManager");
+	
+	protected static GDetailFileErrorManager gDetailFileErrorManager = (GDetailFileErrorManager) getHelper()
+	.getBean("gDetailFileErrorManager");
+	
+	protected static FactActiveDateIdIndexManager factActiveDateIdIndexManager = (FactActiveDateIdIndexManager) getHelper()
+			.getBean("factActiveDateIdIndexManager");
+
+	protected static DateFormat df_simple = new SimpleDateFormat("yyyyMMdd");
 	
 	protected final static DateFormat df = new SimpleDateFormat("yyyy-MM-dd");
 

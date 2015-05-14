@@ -184,7 +184,23 @@
 	(<include refid="Base_Column_List" />)
 	values
 	<foreach collection="list" item="item" index="index" separator=",">
-		(#{item.stockCode},#{item.dateId},#{item.dateYearId})
+		(
+		#{item.stockCode},#{item.dateId}
+		<if test="item.dateYearId == null" >
+	        ,left(#{item.dateId}, 4)
+	    </if>
+	    <if test="item.dateYearId != null" >
+	    	,#{item.dateYearId}
+	    </if>
+		)
 	</foreach>
   </insert>
+  
+  <select id="selectActiveDateId" resultType="java.lang.Integer" parameterType="map">
+  	select DATE_ID from FACT_ACTIVE_DATE_ID_INDEX
+    where STOCK_CODE = #{stockCode,jdbcType=INTEGER}
+      <if test="dateYearId != null">
+      	and DATE_YEAR_ID = #{dateYearId,jdbcType=INTEGER}
+      </if>
+  </select>
 </mapper>

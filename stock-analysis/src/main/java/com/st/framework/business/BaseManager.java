@@ -127,7 +127,9 @@ public abstract class BaseManager<K, T, E extends BaseExample> {
 	}
 
 	public void insertBatch(List<T> batchList) {
-		this.getMapper().insertBatch(batchList);
+		if (batchList != null && batchList.size() > 0) {
+			this.getMapper().insertBatch(batchList);
+		}
 	}
 
 	private List<T> batchBufferList = null;
