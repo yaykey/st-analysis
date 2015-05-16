@@ -17,10 +17,10 @@ import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 import org.springframework.dao.DuplicateKeyException;
 
-import com.st.framework.business.impl.DStockManager;
 import com.st.framework.business.impl.PStockMapManager;
 import com.st.framework.business.impl.dim.DDimManager;
 import com.st.framework.business.impl.dim.DDimtypeManager;
+import com.st.framework.business.impl.dim.DStockManager;
 import com.st.framework.module.stock.DDim;
 import com.st.framework.module.stock.DDimtype;
 import com.st.framework.module.stock.DStock;

@@ -249,7 +249,14 @@ public class DetailUtils extends BaseDBUtils {
 			bw = new BufferedReader(isr);
 
 			// 因为不知道有几行数据，所以先存入list集合中
-			line = bw.readLine().trim();
+			
+			line = bw.readLine();
+			
+			if (line == null) {
+				line = "";
+			} else {
+				line = line.trim();
+			}
 
 			if ("".equals(line) || "暂无数据".equals(line) 
 					|| line.indexOf("session quota") > 0) {

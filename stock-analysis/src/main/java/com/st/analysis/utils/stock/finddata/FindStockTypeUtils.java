@@ -1,4 +1,4 @@
-package com.st.analysis.utils.stock;
+package com.st.analysis.utils.stock.finddata;
 
 import net.sf.json.JSONArray;
 import net.sf.json.JSONObject;

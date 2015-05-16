@@ -1,0 +1,254 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.st.framework.persistence.mapper.stock.GLHBReportMapper" >
+  <resultMap id="BaseResultMap" type="com.st.framework.module.stock.GLHBReport" >
+    <id column="STOCK_CODE" property="stockCode" jdbcType="VARCHAR" />
+    <id column="DATE_ID" property="dateId" jdbcType="DATE" />
+    <result column="REASONS" property="reasons" jdbcType="VARCHAR" />
+    <result column="TOTAL_AMOUNT" property="totalAmount" jdbcType="DOUBLE" />
+    <result column="TOTAL_VOLUME" property="totalVolume" jdbcType="DOUBLE" />
+    <result column="TOTAL_CAPITAL_PER" property="totalCapitalPer" jdbcType="DOUBLE" />
+    <result column="A_SHARE_PER" property="aSharePer" jdbcType="DOUBLE" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    STOCK_CODE, DATE_ID, REASONS, TOTAL_AMOUNT, TOTAL_VOLUME, TOTAL_CAPITAL_PER, A_SHARE_PER
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.st.framework.module.stock.example.GLHBReportExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from G_LHB_REPORT
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="com.st.framework.module.stock.GLHBReportKey" >
+    select 
+    <include refid="Base_Column_List" />
+    from G_LHB_REPORT
+    where STOCK_CODE = #{stockCode,jdbcType=VARCHAR}
+      and DATE_ID = #{dateId,jdbcType=DATE}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="com.st.framework.module.stock.GLHBReportKey" >
+    delete from G_LHB_REPORT
+    where STOCK_CODE = #{stockCode,jdbcType=VARCHAR}
+      and DATE_ID = #{dateId,jdbcType=DATE}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.st.framework.module.stock.example.GLHBReportExample" >
+    delete from G_LHB_REPORT
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.st.framework.module.stock.GLHBReport" >
+    insert into G_LHB_REPORT (STOCK_CODE, DATE_ID, REASONS, 
+      TOTAL_AMOUNT, TOTAL_VOLUME, TOTAL_CAPITAL_PER, 
+      A_SHARE_PER)
+    values (#{stockCode,jdbcType=VARCHAR}, #{dateId,jdbcType=DATE}, #{reasons,jdbcType=VARCHAR}, 
+      #{totalAmount,jdbcType=DOUBLE}, #{totalVolume,jdbcType=DOUBLE}, #{totalCapitalPer,jdbcType=DOUBLE}, 
+      #{aSharePer,jdbcType=DOUBLE})
+  </insert>
+  <insert id="insertSelective" parameterType="com.st.framework.module.stock.GLHBReport" >
+    insert into G_LHB_REPORT
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="stockCode != null" >
+        STOCK_CODE,
+      </if>
+      <if test="dateId != null" >
+        DATE_ID,
+      </if>
+      <if test="reasons != null" >
+        REASONS,
+      </if>
+      <if test="totalAmount != null" >
+        TOTAL_AMOUNT,
+      </if>
+      <if test="totalVolume != null" >
+        TOTAL_VOLUME,
+      </if>
+      <if test="totalCapitalPer != null" >
+        TOTAL_CAPITAL_PER,
+      </if>
+      <if test="aSharePer != null" >
+        A_SHARE_PER,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="stockCode != null" >
+        #{stockCode,jdbcType=VARCHAR},
+      </if>
+      <if test="dateId != null" >
+        #{dateId,jdbcType=DATE},
+      </if>
+      <if test="reasons != null" >
+        #{reasons,jdbcType=VARCHAR},
+      </if>
+      <if test="totalAmount != null" >
+        #{totalAmount,jdbcType=DOUBLE},
+      </if>
+      <if test="totalVolume != null" >
+        #{totalVolume,jdbcType=DOUBLE},
+      </if>
+      <if test="totalCapitalPer != null" >
+        #{totalCapitalPer,jdbcType=DOUBLE},
+      </if>
+      <if test="aSharePer != null" >
+        #{aSharePer,jdbcType=DOUBLE},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.st.framework.module.stock.example.GLHBReportExample" resultType="java.lang.Integer" >
+    select count(*) from G_LHB_REPORT
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update G_LHB_REPORT
+    <set >
+      <if test="record.stockCode != null" >
+        STOCK_CODE = #{record.stockCode,jdbcType=VARCHAR},
+      </if>
+      <if test="record.dateId != null" >
+        DATE_ID = #{record.dateId,jdbcType=DATE},
+      </if>
+      <if test="record.reasons != null" >
+        REASONS = #{record.reasons,jdbcType=VARCHAR},
+      </if>
+      <if test="record.totalAmount != null" >
+        TOTAL_AMOUNT = #{record.totalAmount,jdbcType=DOUBLE},
+      </if>
+      <if test="record.totalVolume != null" >
+        TOTAL_VOLUME = #{record.totalVolume,jdbcType=DOUBLE},
+      </if>
+      <if test="record.totalCapitalPer != null" >
+        TOTAL_CAPITAL_PER = #{record.totalCapitalPer,jdbcType=DOUBLE},
+      </if>
+      <if test="record.aSharePer != null" >
+        A_SHARE_PER = #{record.aSharePer,jdbcType=DOUBLE},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update G_LHB_REPORT
+    set STOCK_CODE = #{record.stockCode,jdbcType=VARCHAR},
+      DATE_ID = #{record.dateId,jdbcType=DATE},
+      REASONS = #{record.reasons,jdbcType=VARCHAR},
+      TOTAL_AMOUNT = #{record.totalAmount,jdbcType=DOUBLE},
+      TOTAL_VOLUME = #{record.totalVolume,jdbcType=DOUBLE},
+      TOTAL_CAPITAL_PER = #{record.totalCapitalPer,jdbcType=DOUBLE},
+      A_SHARE_PER = #{record.aSharePer,jdbcType=DOUBLE}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.st.framework.module.stock.GLHBReport" >
+    update G_LHB_REPORT
+    <set >
+      <if test="reasons != null" >
+        REASONS = #{reasons,jdbcType=VARCHAR},
+      </if>
+      <if test="totalAmount != null" >
+        TOTAL_AMOUNT = #{totalAmount,jdbcType=DOUBLE},
+      </if>
+      <if test="totalVolume != null" >
+        TOTAL_VOLUME = #{totalVolume,jdbcType=DOUBLE},
+      </if>
+      <if test="totalCapitalPer != null" >
+        TOTAL_CAPITAL_PER = #{totalCapitalPer,jdbcType=DOUBLE},
+      </if>
+      <if test="aSharePer != null" >
+        A_SHARE_PER = #{aSharePer,jdbcType=DOUBLE},
+      </if>
+    </set>
+    where STOCK_CODE = #{stockCode,jdbcType=VARCHAR}
+      and DATE_ID = #{dateId,jdbcType=DATE}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.st.framework.module.stock.GLHBReport" >
+    update G_LHB_REPORT
+    set REASONS = #{reasons,jdbcType=VARCHAR},
+      TOTAL_AMOUNT = #{totalAmount,jdbcType=DOUBLE},
+      TOTAL_VOLUME = #{totalVolume,jdbcType=DOUBLE},
+      TOTAL_CAPITAL_PER = #{totalCapitalPer,jdbcType=DOUBLE},
+      A_SHARE_PER = #{aSharePer,jdbcType=DOUBLE}
+    where STOCK_CODE = #{stockCode,jdbcType=VARCHAR}
+      and DATE_ID = #{dateId,jdbcType=DATE}
+  </update>
+  
+  <insert id="insertBatch" parameterType="map" >
+    insert ignore into G_LHB_REPORT
+	(<include refid="Base_Column_List" />)
+	values
+	<foreach collection="list" item="item" index="index" separator=",">
+		(
+		#{item.stockCode},#{item.dateId},#{item.reasons},#{item.totalAmount},#{item.totalVolume},#{item.totalCapitalPer},#{item.aSharePer}
+		)
+	</foreach>
+  </insert>
+</mapper>

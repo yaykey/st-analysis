@@ -302,7 +302,7 @@ public class Global {
         // keepAliveTime - 当线程数大于核心时，此为终止前多余的空闲线程等待新任务的最长时间。
         // unit - keepAliveTime 参数的时间单位。
         // workQueue - 执行前用于保持任务的队列。此队列仅保持由 execute 方法提交的 Runnable 任务。
-        threadPoolExecutor = new ThreadPoolExecutor(3, 50, 3L, TimeUnit.SECONDS, AnsyTaskQueue, new ThreadPoolExecutor.CallerRunsPolicy());
+        threadPoolExecutor = new ThreadPoolExecutor(3, 25, 3L, TimeUnit.SECONDS, AnsyTaskQueue, new ThreadPoolExecutor.CallerRunsPolicy());
     }
 	
 }

@@ -12,6 +12,7 @@ import java.util.Date;
 import org.apache.tools.zip.ZipEntry;
 import org.apache.tools.zip.ZipOutputStream;
 
+import com.st.analysis.utils.DateUtils;
 import com.st.framework.utils.LoadConfigUtils;
 
 public class CompressUtil {
@@ -20,6 +21,10 @@ public class CompressUtil {
 	 */
 	private static final Log logger = LogFactory.getLog(CompressUtil.class);
 
+	public static String downloadFilePath = LoadConfigUtils.getInstance().getDownloadFilePath();
+	
+	public static String zipFilePath = downloadFilePath + "/zip";
+	
 	/**
 	 * 
 	 * 
@@ -34,11 +39,11 @@ public class CompressUtil {
 		}
 
 		// 路径
-		String filePath = LoadConfigUtils.getInstance().getDownloadFilePath();
+//		String filePath = LoadConfigUtils.getInstance().getDownloadFilePath();
 
-		File f = new File(filePath + "/" + stockType + stockCode + "/" + year);
+		File f = new File(downloadFilePath + "/" + stockType + stockCode + "/" + year);
 		if (!f.exists()) {
-			System.out.println(filePath + " not exists");
+			System.out.println(downloadFilePath + "/" + stockType + stockCode + "/" + year + " not exists");
 
 			if (logger.isDebugEnabled()) {
 				logger.debug("Compress(String, String, Integer) - end");
@@ -49,47 +54,62 @@ public class CompressUtil {
 		File fs = null;
 		File fa[] = f.listFiles();
 
-		for (int i = 0; i < fa.length; i++) {
-			fs = fa[i];
-			if (f.isHidden() == false && !"CVS".equals(fs.getName())) {
-				if (fs.isDirectory()) {
-
-					System.out.println(stockType + stockCode + "->"
-							+ fs.getName() + "[目录]->");
-
-					fs = null;
-
-				} else {
-					System.out.println(fs.getName());
-				}
-			}
-		}
+//		for (int i = 0; i < fa.length; i++) {
+//			fs = fa[i];
+//			if (f.isHidden() == false && !"CVS".equals(fs.getName())) {
+//				if (fs.isDirectory()) {
+//
+////					System.out.println(stockType + stockCode + "->"
+////							+ fs.getName() + "[目录]->");
+//
+//					fs = null;
+//
+//				} else {
+////					System.out.println(fs.getName());
+//				}
+//			}
+//		}
 
 		if (logger.isDebugEnabled()) {
 			logger.debug("Compress(String, String, Integer) - end");
 		}
 		
-		zip(f, stockCode + ".zip");
+		zipData(f, stockType, stockCode,"" + year);
 	}
 
-	public static void zip(File inputFile, String zipFileName) {
+	public static void zipData(File inputFile, String stockType, String stockCode, String year) {
 		if (logger.isDebugEnabled()) {
 			logger.debug("zip(File, String) - start");
 		}
-
+		
 		long timeId = System.currentTimeMillis();
+		
+		String zipFileName = stockType + stockCode + "-" + year +".zip";
+		String outFileDirectory = zipFilePath + "/" + stockType + stockCode;
+		
+		File zipFile = new File(outFileDirectory + "/"+ zipFileName);
+		if (zipFile.exists() == true) {
+			return;
+		}
+		
+		File fileDirectory = new File(outFileDirectory);
+		if (fileDirectory.exists() == false) {
+			fileDirectory.mkdirs();
+		}
 		
 		try {
 			// 创建文件输出对象out,提示:注意中文支持
-			FileOutputStream out = new FileOutputStream(new String(
+			FileOutputStream out = new FileOutputStream(
+					outFileDirectory + "/" + 
+					new String(
 					zipFileName.getBytes("UTF-8")));
 			// 將文件輸出ZIP输出流接起来
 			ZipOutputStream zOut = new ZipOutputStream(out);
-			logger.info("压缩-->开始");
+//			logger.info(stockCode + "压缩-->开始");
 
-			zip(zOut, inputFile, "");
+			zip(zOut, inputFile, year);
 
-			logger.info("压缩-->结束" + (System.currentTimeMillis()-timeId));
+			logger.info(stockCode + "压缩-->结束:" + (System.currentTimeMillis()-timeId));
 			zOut.close();
 
 		} catch (Exception e) {
@@ -174,8 +194,21 @@ public class CompressUtil {
 		if (logger.isDebugEnabled()) {
 			logger.debug("main(String[]) - start");
 		}
+		
+		for (int i=600; i<=650; i++) {
+//		for (int i=300001; i<=300449; i++) {
+			for (int y=2009; y<=2014; y++) {
+				Compress(DateUtils.frontCompWithZore(i, 6), "sz", y);
+			}
+		}
+		
+//		try {
+//			Runtime.getRuntime().exec("cmd /c Shutdown -t 10");
+//		} catch (IOException e) {
+//			e.printStackTrace();
+//		}
 
-		Compress("300002", "sz", 2010);
+		//Compress("300002", "sz", 2009);
 
 		if (logger.isDebugEnabled()) {
 			logger.debug("main(String[]) - end");

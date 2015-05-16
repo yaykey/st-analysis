@@ -1,7 +1,6 @@
 package com.st.analysis.utils.download.observer;
 
 import org.apache.log4j.Logger;
-
 import org.apache.poi.hssf.usermodel.HSSFCell;
 import org.apache.poi.hssf.usermodel.HSSFRow;
 import org.apache.poi.hssf.usermodel.HSSFSheet;
@@ -27,11 +26,16 @@ import org.apache.http.impl.client.HttpClientBuilder;
 import org.apache.http.protocol.HTTP;
 import org.apache.http.util.EntityUtils;
 
+import com.st.Global;
+import com.st.framework.business.impl.GDetailNoDataManager;
 import com.st.framework.business.impl.GDetailSuspensionManager;
 import com.st.framework.exceptions.DataNotGeneratedException;
+import com.st.framework.module.stock.GDetailNoData;
+import com.st.framework.module.stock.GDetailNoDataKey;
 import com.st.framework.module.stock.GDetailSuspension;
 import com.st.framework.module.stock.GDetailSuspensionKey;
 import com.st.framework.utils.ConfigUtil;
+import com.st.framework.utils.network.HttpStackManager;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -77,6 +81,8 @@ public class NioDownload {
 
 	protected static GDetailSuspensionManager gDetailSuspensionManager = (GDetailSuspensionManager) ConfigUtil
 			.getHelper().getBean("gDetailSuspensionManager");
+	
+	
 
 	public NioDownload(String url, String savePath, String filename) {
 		this.url = url;
@@ -93,8 +99,10 @@ public class NioDownload {
 		// Integer CONNECTION_TIMEOUT = 2 * 1000; // 设置请求超时2秒钟 根据业务调整
 		// Integer SO_TIMEOUT = 2 * 1000; // 设置等待数据超时时间2秒钟 根据业务调整
 
-		CloseableHttpClient client = HttpClientBuilder.create().build();
+//		CloseableHttpClient client = HttpClientBuilder.create().build();
 
+		CloseableHttpClient client = HttpStackManager.getInstance().getHttpclient();
+		
 		CloseableHttpResponse response = null;
 		HttpEntity entity = null;
 		RandomAccessFile randomAccessFile = null;
@@ -105,8 +113,8 @@ public class NioDownload {
 			// 配置请求的超时设置
 
 			RequestConfig requestConfig = RequestConfig.custom()
-					.setConnectionRequestTimeout(5000).setConnectTimeout(5000)
-					.setSocketTimeout(5000).build();
+					.setConnectionRequestTimeout(10000).setConnectTimeout(10000)
+					.setSocketTimeout(10000).build();
 
 			HttpGet request;
 			// try {
@@ -220,7 +228,7 @@ public class NioDownload {
 					}
 				}
 				
-				if (randomAccessFile.length() < 150) {
+				if (randomAccessFile.length() < 300) {
 					if (response != null) {
 						try {
 							// 会自动释放连接
@@ -311,62 +319,6 @@ public class NioDownload {
 					randomAccessFile.writeBytes(buffer.toString());
 				}
 				
-////				InputStream input = new FileInputStream("D:\\接口.xls");
-//				
-//				InputStream input = new FileInputStream(newFile);
-//								
-//				POIFSFileSystem fs = new POIFSFileSystem(input);
-//				HSSFWorkbook wb = new HSSFWorkbook(fs);
-//				HSSFSheet sheet = wb.getSheetAt(0);
-//				// Iterate over each row in the sheet
-//				Iterator<Row> rows = sheet.rowIterator();
-//
-//				StringBuffer buffer = new StringBuffer();
-//				
-//				while (rows.hasNext()) {
-//					HSSFRow row = (HSSFRow) rows.next();
-////					System.out.println("Row #" + row.getRowNum());
-//					// Iterate over each cell in the row and print out the
-//					// cell"s
-//					// content
-//					Iterator<Cell> cells = row.cellIterator();
-//					
-//					while (cells.hasNext()) {
-//						HSSFCell cell = (HSSFCell) cells.next();
-////						System.out.println("Cell #" + cell.getCellNum());
-////						System.out.println("Cell #" + cell.getCellNum());
-//						
-////						System.out.print(cell.getStringCellValue());
-//						
-//						switch (cell.getCellType()) {
-//						case HSSFCell.CELL_TYPE_NUMERIC:
-////							System.out.print(cell.getNumericCellValue());
-////							System.out.print(cell.getStringCellValue());
-//							System.out.print(cell.getCellFormula());
-//							buffer.append(cell.getCellFormula());
-//							break;
-//						case HSSFCell.CELL_TYPE_STRING:
-//							System.out.print(cell.getStringCellValue());
-//							buffer.append(cell.getCellFormula());
-//							break;
-//						case HSSFCell.CELL_TYPE_BOOLEAN:
-//							System.out.print(cell.getBooleanCellValue());
-//							buffer.append(cell.getCellFormula());
-//							break;
-//						case HSSFCell.CELL_TYPE_FORMULA:
-//							System.out.print(cell.getCellFormula());
-//							buffer.append(cell.getCellFormula());
-//							break;
-//						default:
-//							System.out.print("unsuported sell type");
-//							break;
-//						}
-//						System.out.print(" ");
-//						buffer.append(" ");
-//					}
-//					
-//					System.out.println();
-//				}
 
 			}
 			// 处理响应, 处理异常
@@ -377,12 +329,52 @@ public class NioDownload {
 			logger.error("start() - exception ignored", e);
 		} catch (DataNotGeneratedException e) {
 			logger.warn("start() - exception ignored", e);
-
+			
+			Global.threadPoolExecutor.execute(new Thread() {
+				public void run () {
+					GDetailNoData nodata = new GDetailNoData();
+					nodata.setStockCode(stockCode);
+					nodata.setDateId(getDateId());
+					
+					GDetailNoDataManager gDetailNoDataManager = (GDetailNoDataManager) ConfigUtil
+							.getHelper().getBean("gDetailNoDataManager");
+					gDetailNoDataManager.increaseBalance(nodata);
+				}
+			});
+			
+			
 		} catch (SocketTimeoutException e) {
-			logger.warn("start() - exception ignored", e);
+			logger.warn("start() - exception ignored" + e.getMessage());
 			this.timeOutCount++;
-			if (this.timeOutCount <= 3) {
+			
+			logger.warn("超时[" + this.timeOutCount + "]次->url=" + this.url);
+			
+			if (response != null) {
+				try {
+					// 会自动释放连接
+					EntityUtils.consume(response.getEntity());
+				} catch (IOException e2) {
+					logger.error("start()", e2);
+
+					e.printStackTrace();
+				}
+			}
+
+			if (randomAccessFile != null) {
+				try {
+					randomAccessFile.close();
+
+					randomAccessFile = null;
+				} catch (IOException e2) {
+					logger.warn("start() - exception ignored", e2);
+
+				}
+			}
+			
+			if (this.timeOutCount <= 5) {
 				this.start();
+			} else {
+				logger.error("超时[" + this.timeOutCount + "]次-下载失败->url=" + this.url);
 			}
 		} catch (IOException e) {
 			logger.error("start() - exception ignored", e);

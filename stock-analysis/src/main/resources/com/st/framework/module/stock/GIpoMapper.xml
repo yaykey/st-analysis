@@ -1,0 +1,437 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.st.framework.persistence.mapper.stock.GIpoMapper" >
+  <resultMap id="BaseResultMap" type="com.st.framework.module.stock.GIpo" >
+    <id column="STOCK_CODE" property="stockCode" jdbcType="VARCHAR" />
+    <result column="PURCHASE_CODE" property="purchaseCode" jdbcType="VARCHAR" />
+    <result column="STOCK_NAME" property="stockName" jdbcType="VARCHAR" />
+    <result column="YEAR_ID" property="yearId" jdbcType="INTEGER" />
+    <result column="ONLINE_ISSUE_DATE" property="onlineIssueDate" jdbcType="DATE" />
+    <result column="LISTING_DATE" property="listingDate" jdbcType="DATE" />
+    <result column="CIRCULATION" property="circulation" jdbcType="INTEGER" />
+    <result column="ONLINE_CIRCULATION" property="onlineCirculation" jdbcType="INTEGER" />
+    <result column="PURCHASE_LIMIT" property="purchaseLimit" jdbcType="DOUBLE" />
+    <result column="ISSUE_PRICE" property="issuePrice" jdbcType="DOUBLE" />
+    <result column="PE_RATIO" property="peRatio" jdbcType="DOUBLE" />
+    <result column="FREEZE_FUNDS" property="freezeFunds" jdbcType="DOUBLE" />
+    <result column="SUCCESS_RATE" property="successRate" jdbcType="DOUBLE" />
+  </resultMap>
+  <resultMap id="ResultMapWithBLOBs" type="com.st.framework.module.stock.GIpo" extends="BaseResultMap" >
+    <result column="SUCCESS_NUMBER" property="successNumber" jdbcType="LONGVARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    STOCK_CODE, PURCHASE_CODE, STOCK_NAME, YEAR_ID, ONLINE_ISSUE_DATE, LISTING_DATE, 
+    CIRCULATION, ONLINE_CIRCULATION, PURCHASE_LIMIT, ISSUE_PRICE, PE_RATIO, FREEZE_FUNDS, 
+    SUCCESS_RATE
+  </sql>
+  <sql id="Blob_Column_List" >
+    SUCCESS_NUMBER
+  </sql>
+  <select id="selectByExampleWithBLOBs" resultMap="ResultMapWithBLOBs" parameterType="com.st.framework.module.stock.example.GIpoExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from G_IPO
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+    <if test="start != null and pageSize != null" >
+      limit #{start}, #{pageSize}
+    </if>
+  </select>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.st.framework.module.stock.example.GIpoExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from G_IPO
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+    <if test="start != null and pageSize != null" >
+      limit #{start}, #{pageSize}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="ResultMapWithBLOBs" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from G_IPO
+    where STOCK_CODE = #{stockCode,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from G_IPO
+    where STOCK_CODE = #{stockCode,jdbcType=VARCHAR}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.st.framework.module.stock.example.GIpoExample" >
+    delete from G_IPO
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.st.framework.module.stock.GIpo" >
+    insert into G_IPO (STOCK_CODE, PURCHASE_CODE, STOCK_NAME, 
+      YEAR_ID, ONLINE_ISSUE_DATE, LISTING_DATE, 
+      CIRCULATION, ONLINE_CIRCULATION, PURCHASE_LIMIT, 
+      ISSUE_PRICE, PE_RATIO, FREEZE_FUNDS, 
+      SUCCESS_RATE, SUCCESS_NUMBER)
+    values (#{stockCode,jdbcType=VARCHAR}, #{purchaseCode,jdbcType=VARCHAR}, #{stockName,jdbcType=VARCHAR}, 
+      #{yearId,jdbcType=INTEGER}, #{onlineIssueDate,jdbcType=DATE}, #{listingDate,jdbcType=DATE}, 
+      #{circulation,jdbcType=INTEGER}, #{onlineCirculation,jdbcType=INTEGER}, #{purchaseLimit,jdbcType=DOUBLE}, 
+      #{issuePrice,jdbcType=DOUBLE}, #{peRatio,jdbcType=DOUBLE}, #{freezeFunds,jdbcType=DOUBLE}, 
+      #{successRate,jdbcType=DOUBLE}, #{successNumber,jdbcType=LONGVARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.st.framework.module.stock.GIpo" >
+    insert into G_IPO
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="stockCode != null" >
+        STOCK_CODE,
+      </if>
+      <if test="purchaseCode != null" >
+        PURCHASE_CODE,
+      </if>
+      <if test="stockName != null" >
+        STOCK_NAME,
+      </if>
+      <if test="yearId != null" >
+        YEAR_ID,
+      </if>
+      <if test="onlineIssueDate != null" >
+        ONLINE_ISSUE_DATE,
+      </if>
+      <if test="listingDate != null" >
+        LISTING_DATE,
+      </if>
+      <if test="circulation != null" >
+        CIRCULATION,
+      </if>
+      <if test="onlineCirculation != null" >
+        ONLINE_CIRCULATION,
+      </if>
+      <if test="purchaseLimit != null" >
+        PURCHASE_LIMIT,
+      </if>
+      <if test="issuePrice != null" >
+        ISSUE_PRICE,
+      </if>
+      <if test="peRatio != null" >
+        PE_RATIO,
+      </if>
+      <if test="freezeFunds != null" >
+        FREEZE_FUNDS,
+      </if>
+      <if test="successRate != null" >
+        SUCCESS_RATE,
+      </if>
+      <if test="successNumber != null" >
+        SUCCESS_NUMBER,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="stockCode != null" >
+        #{stockCode,jdbcType=VARCHAR},
+      </if>
+      <if test="purchaseCode != null" >
+        #{purchaseCode,jdbcType=VARCHAR},
+      </if>
+      <if test="stockName != null" >
+        #{stockName,jdbcType=VARCHAR},
+      </if>
+      <if test="yearId != null" >
+        #{yearId,jdbcType=INTEGER},
+      </if>
+      <if test="onlineIssueDate != null" >
+        #{onlineIssueDate,jdbcType=DATE},
+      </if>
+      <if test="listingDate != null" >
+        #{listingDate,jdbcType=DATE},
+      </if>
+      <if test="circulation != null" >
+        #{circulation,jdbcType=INTEGER},
+      </if>
+      <if test="onlineCirculation != null" >
+        #{onlineCirculation,jdbcType=INTEGER},
+      </if>
+      <if test="purchaseLimit != null" >
+        #{purchaseLimit,jdbcType=DOUBLE},
+      </if>
+      <if test="issuePrice != null" >
+        #{issuePrice,jdbcType=DOUBLE},
+      </if>
+      <if test="peRatio != null" >
+        #{peRatio,jdbcType=DOUBLE},
+      </if>
+      <if test="freezeFunds != null" >
+        #{freezeFunds,jdbcType=DOUBLE},
+      </if>
+      <if test="successRate != null" >
+        #{successRate,jdbcType=DOUBLE},
+      </if>
+      <if test="successNumber != null" >
+        #{successNumber,jdbcType=LONGVARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.st.framework.module.stock.example.GIpoExample" resultType="java.lang.Integer" >
+    select count(*) from G_IPO
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update G_IPO
+    <set >
+      <if test="record.stockCode != null" >
+        STOCK_CODE = #{record.stockCode,jdbcType=VARCHAR},
+      </if>
+      <if test="record.purchaseCode != null" >
+        PURCHASE_CODE = #{record.purchaseCode,jdbcType=VARCHAR},
+      </if>
+      <if test="record.stockName != null" >
+        STOCK_NAME = #{record.stockName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.yearId != null" >
+        YEAR_ID = #{record.yearId,jdbcType=INTEGER},
+      </if>
+      <if test="record.onlineIssueDate != null" >
+        ONLINE_ISSUE_DATE = #{record.onlineIssueDate,jdbcType=DATE},
+      </if>
+      <if test="record.listingDate != null" >
+        LISTING_DATE = #{record.listingDate,jdbcType=DATE},
+      </if>
+      <if test="record.circulation != null" >
+        CIRCULATION = #{record.circulation,jdbcType=INTEGER},
+      </if>
+      <if test="record.onlineCirculation != null" >
+        ONLINE_CIRCULATION = #{record.onlineCirculation,jdbcType=INTEGER},
+      </if>
+      <if test="record.purchaseLimit != null" >
+        PURCHASE_LIMIT = #{record.purchaseLimit,jdbcType=DOUBLE},
+      </if>
+      <if test="record.issuePrice != null" >
+        ISSUE_PRICE = #{record.issuePrice,jdbcType=DOUBLE},
+      </if>
+      <if test="record.peRatio != null" >
+        PE_RATIO = #{record.peRatio,jdbcType=DOUBLE},
+      </if>
+      <if test="record.freezeFunds != null" >
+        FREEZE_FUNDS = #{record.freezeFunds,jdbcType=DOUBLE},
+      </if>
+      <if test="record.successRate != null" >
+        SUCCESS_RATE = #{record.successRate,jdbcType=DOUBLE},
+      </if>
+      <if test="record.successNumber != null" >
+        SUCCESS_NUMBER = #{record.successNumber,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExampleWithBLOBs" parameterType="map" >
+    update G_IPO
+    set STOCK_CODE = #{record.stockCode,jdbcType=VARCHAR},
+      PURCHASE_CODE = #{record.purchaseCode,jdbcType=VARCHAR},
+      STOCK_NAME = #{record.stockName,jdbcType=VARCHAR},
+      YEAR_ID = #{record.yearId,jdbcType=INTEGER},
+      ONLINE_ISSUE_DATE = #{record.onlineIssueDate,jdbcType=DATE},
+      LISTING_DATE = #{record.listingDate,jdbcType=DATE},
+      CIRCULATION = #{record.circulation,jdbcType=INTEGER},
+      ONLINE_CIRCULATION = #{record.onlineCirculation,jdbcType=INTEGER},
+      PURCHASE_LIMIT = #{record.purchaseLimit,jdbcType=DOUBLE},
+      ISSUE_PRICE = #{record.issuePrice,jdbcType=DOUBLE},
+      PE_RATIO = #{record.peRatio,jdbcType=DOUBLE},
+      FREEZE_FUNDS = #{record.freezeFunds,jdbcType=DOUBLE},
+      SUCCESS_RATE = #{record.successRate,jdbcType=DOUBLE},
+      SUCCESS_NUMBER = #{record.successNumber,jdbcType=LONGVARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update G_IPO
+    set STOCK_CODE = #{record.stockCode,jdbcType=VARCHAR},
+      PURCHASE_CODE = #{record.purchaseCode,jdbcType=VARCHAR},
+      STOCK_NAME = #{record.stockName,jdbcType=VARCHAR},
+      YEAR_ID = #{record.yearId,jdbcType=INTEGER},
+      ONLINE_ISSUE_DATE = #{record.onlineIssueDate,jdbcType=DATE},
+      LISTING_DATE = #{record.listingDate,jdbcType=DATE},
+      CIRCULATION = #{record.circulation,jdbcType=INTEGER},
+      ONLINE_CIRCULATION = #{record.onlineCirculation,jdbcType=INTEGER},
+      PURCHASE_LIMIT = #{record.purchaseLimit,jdbcType=DOUBLE},
+      ISSUE_PRICE = #{record.issuePrice,jdbcType=DOUBLE},
+      PE_RATIO = #{record.peRatio,jdbcType=DOUBLE},
+      FREEZE_FUNDS = #{record.freezeFunds,jdbcType=DOUBLE},
+      SUCCESS_RATE = #{record.successRate,jdbcType=DOUBLE}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.st.framework.module.stock.GIpo" >
+    update G_IPO
+    <set >
+      <if test="purchaseCode != null" >
+        PURCHASE_CODE = #{purchaseCode,jdbcType=VARCHAR},
+      </if>
+      <if test="stockName != null" >
+        STOCK_NAME = #{stockName,jdbcType=VARCHAR},
+      </if>
+      <if test="yearId != null" >
+        YEAR_ID = #{yearId,jdbcType=INTEGER},
+      </if>
+      <if test="onlineIssueDate != null" >
+        ONLINE_ISSUE_DATE = #{onlineIssueDate,jdbcType=DATE},
+      </if>
+      <if test="listingDate != null" >
+        LISTING_DATE = #{listingDate,jdbcType=DATE},
+      </if>
+      <if test="circulation != null" >
+        CIRCULATION = #{circulation,jdbcType=INTEGER},
+      </if>
+      <if test="onlineCirculation != null" >
+        ONLINE_CIRCULATION = #{onlineCirculation,jdbcType=INTEGER},
+      </if>
+      <if test="purchaseLimit != null" >
+        PURCHASE_LIMIT = #{purchaseLimit,jdbcType=DOUBLE},
+      </if>
+      <if test="issuePrice != null" >
+        ISSUE_PRICE = #{issuePrice,jdbcType=DOUBLE},
+      </if>
+      <if test="peRatio != null" >
+        PE_RATIO = #{peRatio,jdbcType=DOUBLE},
+      </if>
+      <if test="freezeFunds != null" >
+        FREEZE_FUNDS = #{freezeFunds,jdbcType=DOUBLE},
+      </if>
+      <if test="successRate != null" >
+        SUCCESS_RATE = #{successRate,jdbcType=DOUBLE},
+      </if>
+      <if test="successNumber != null" >
+        SUCCESS_NUMBER = #{successNumber,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    where STOCK_CODE = #{stockCode,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.st.framework.module.stock.GIpo" >
+    update G_IPO
+    set PURCHASE_CODE = #{purchaseCode,jdbcType=VARCHAR},
+      STOCK_NAME = #{stockName,jdbcType=VARCHAR},
+      YEAR_ID = #{yearId,jdbcType=INTEGER},
+      ONLINE_ISSUE_DATE = #{onlineIssueDate,jdbcType=DATE},
+      LISTING_DATE = #{listingDate,jdbcType=DATE},
+      CIRCULATION = #{circulation,jdbcType=INTEGER},
+      ONLINE_CIRCULATION = #{onlineCirculation,jdbcType=INTEGER},
+      PURCHASE_LIMIT = #{purchaseLimit,jdbcType=DOUBLE},
+      ISSUE_PRICE = #{issuePrice,jdbcType=DOUBLE},
+      PE_RATIO = #{peRatio,jdbcType=DOUBLE},
+      FREEZE_FUNDS = #{freezeFunds,jdbcType=DOUBLE},
+      SUCCESS_RATE = #{successRate,jdbcType=DOUBLE},
+      SUCCESS_NUMBER = #{successNumber,jdbcType=LONGVARCHAR}
+    where STOCK_CODE = #{stockCode,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.st.framework.module.stock.GIpo" >
+    update G_IPO
+    set PURCHASE_CODE = #{purchaseCode,jdbcType=VARCHAR},
+      STOCK_NAME = #{stockName,jdbcType=VARCHAR},
+      YEAR_ID = #{yearId,jdbcType=INTEGER},
+      ONLINE_ISSUE_DATE = #{onlineIssueDate,jdbcType=DATE},
+      LISTING_DATE = #{listingDate,jdbcType=DATE},
+      CIRCULATION = #{circulation,jdbcType=INTEGER},
+      ONLINE_CIRCULATION = #{onlineCirculation,jdbcType=INTEGER},
+      PURCHASE_LIMIT = #{purchaseLimit,jdbcType=DOUBLE},
+      ISSUE_PRICE = #{issuePrice,jdbcType=DOUBLE},
+      PE_RATIO = #{peRatio,jdbcType=DOUBLE},
+      FREEZE_FUNDS = #{freezeFunds,jdbcType=DOUBLE},
+      SUCCESS_RATE = #{successRate,jdbcType=DOUBLE}
+    where STOCK_CODE = #{stockCode,jdbcType=VARCHAR}
+  </update>
+ 
+  <insert id="insertBatch" parameterType="map" >
+    insert ignore into G_IPO
+	(
+	<include refid="Base_Column_List" />,
+    <include refid="Blob_Column_List" />
+    )
+	values
+	<foreach collection="list" item="item" index="index" separator=",">
+		(
+		#{item.stockCode}
+		,#{item.purchaseCode},#{item.stockName},#{item.yearId}
+		,#{item.onlineIssueDate},#{item.listingDate},#{item.circulation}
+		,#{item.onlineCirculation},#{item.purchaseLimit},#{item.issuePrice}
+		,#{item.peRatio},#{item.freezeFunds},#{item.successRate}
+		,#{item.successNumber,jdbcType=LONGVARCHAR}
+		)
+	</foreach>
+  </insert>
+</mapper>

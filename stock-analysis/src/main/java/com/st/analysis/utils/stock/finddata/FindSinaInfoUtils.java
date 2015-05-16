@@ -1,4 +1,4 @@
-package com.st.analysis.utils.stock;
+package com.st.analysis.utils.stock.finddata;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;

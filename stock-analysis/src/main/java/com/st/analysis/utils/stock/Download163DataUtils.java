@@ -4,6 +4,7 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.springframework.dao.DuplicateKeyException;
 
+import com.st.analysis.utils.DateUtils;
 import com.st.analysis.utils.download.DownloadFileBean;
 import com.st.analysis.utils.download.ReturnBean;
 import com.st.analysis.utils.download.observer.NioDownload;
@@ -98,7 +99,16 @@ public class Download163DataUtils extends BaseDBUtils {
 	// sz300002_成交明细_2015-01-05.xls
 	// http://quotes.money.163.com/cjmx/2015/20150504/1300002.xls
 	private static String baseUrl = "http://quotes.money.163.com/cjmx/";
-
+	
+	//http://quotes.money.163.com/service/chddata.html?code=0000001&start=19901219&end=20150518&fields=TCLOSE;HIGH;LOW;TOPEN;LCLOSE;CHG;PCHG;VOTURNOVER;VATURNOVER
+	
+	
+	//http://quotes.money.163.com/service/chddata.html?
+	//code=0000001&start=19901219&end=20150518&
+	//fields=
+	//DATEID;ICODE,INAME;TCLOSE;HIGH;LOW;TOPEN;LCLOSE;CHG;PCHG;VOTURNOVER;VATURNOVER
+	//日期,股票代码,名称,收盘价,最高价,最低价,开盘价,前收盘,涨跌额,涨跌幅,成交量,成交金额
+	//日期 	开盘价 	最高价 	最低价 	收盘价 	涨跌额 	涨跌幅(%) 	成交量(股) 	成交金额(元)
 	private static String baseSavePath = LoadConfigUtils.getInstance()
 			.getDownloadFilePath();
 
@@ -177,7 +187,7 @@ public class Download163DataUtils extends BaseDBUtils {
 						+ curdate + ".xls";
 				
 				savePath = baseSavePath + "/" + stockType.toLowerCase()
-						+ stockCode + "/" + year + "/";
+						+ DateUtils.frontCompWithZore(stockCode, 6) + "/" + year + "/";
 
 				// http://quotes.money.163.com/cjmx/2015/20150504/1300002.xls
 				// private static String baseUrl =
@@ -222,6 +232,7 @@ public class Download163DataUtils extends BaseDBUtils {
 	
 	@SuppressWarnings("deprecation")
 	public static void main (String [] args) {
-		new Download163DataUtils().download(300001, "sz", new Date("2014/01/01"), new Date("2014/01/31"));
+//		new Download163DataUtils().download(300001, "sz", new Date("2014/01/01"), new Date("2014/01/31"));
+		new Download163DataUtils().download(000001, "sz", new Date("2014/01/01"), new Date("2014/01/31"));
 	}
 }

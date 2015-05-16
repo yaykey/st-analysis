@@ -1,5 +1,6 @@
 package com.st.framework.business.impl.factdate;
 
+import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -85,6 +86,31 @@ public class FactDateHolidayListManager {
 	public List<String> selectDaysOff(Date startDate, Date endDate) {
 		return this.factDateHolidayListMapper.selectDaysOff(Global.DF_DAY.format(startDate), 
 				Global.DF_DAY.format(endDate));
+	}
+	
+	public List<Date> selectDaysOffDateIds(Date startDate, Date endDate) {
+		List<Date> result = null;
+		
+		List<String> list = this.selectDaysOff(startDate, endDate);
+		
+		if (list == null || list.size() == 0) {
+			return null;
+		} else {
+			result = new ArrayList<Date>();
+			
+			for (String timeId : list) {
+				try {
+					result.add(Global.DF_DAY.parse(timeId));
+				} catch (ParseException e) {
+					
+					e.printStackTrace();
+					
+					return null;
+				}
+			}
+			
+			return result;
+		}
 	}
 	
 	public List<Integer> selectDaysOffTimeIds(Date startDate, Date endDate) {

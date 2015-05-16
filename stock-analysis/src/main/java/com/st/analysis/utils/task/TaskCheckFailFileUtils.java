@@ -7,7 +7,7 @@ import java.io.IOException;
 import java.util.Date;
 
 import com.st.Global;
-import com.st.framework.business.impl.DStockManager;
+import com.st.framework.business.impl.dim.DStockManager;
 import com.st.framework.utils.LoadConfigUtils;
 import com.st.framework.utils.db.BaseDBUtils;
 

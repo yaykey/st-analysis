@@ -1,4 +1,4 @@
-package com.st.analysis.utils.stock;
+package com.st.analysis.utils.stock.finddata;
 
 import java.io.IOException;
 import java.io.InputStream;

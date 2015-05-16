@@ -1,4 +1,4 @@
-package com.st.framework.business.impl;
+package com.st.framework.business.impl.dim;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import com.st.framework.business.BaseManager;
+import com.st.framework.business.impl.PStockMapManager;
 import com.st.framework.module.stock.DStock;
 import com.st.framework.module.stock.PStockMapKey;
 import com.st.framework.module.stock.example.DStockExample;

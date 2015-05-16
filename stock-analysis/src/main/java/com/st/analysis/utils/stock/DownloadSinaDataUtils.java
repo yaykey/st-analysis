@@ -5,6 +5,7 @@ import org.apache.commons.logging.LogFactory;
 import org.springframework.dao.DuplicateKeyException;
 
 import com.st.Global;
+import com.st.analysis.utils.DateUtils;
 import com.st.analysis.utils.download.DownloadFileBean;
 import com.st.analysis.utils.download.ReturnBean;
 import com.st.analysis.utils.download.observer.NioDownload;
@@ -32,6 +33,7 @@ import com.st.framework.utils.LoadConfigUtils;
 import com.st.framework.utils.db.BaseDBUtils;
 import com.st.framework.utils.page.Page;
 
+import java.io.IOException;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -75,9 +77,9 @@ public class DownloadSinaDataUtils extends BaseDBUtils {
 
 	private static FactDownloadFileConfigManager factDownloadFileConfigManager = (FactDownloadFileConfigManager) getHelper()
 			.getBean("factDownloadFileConfigManager");
-	
+
 	private static GDetailSuspensionManager gDetailSuspensionManager = (GDetailSuspensionManager) getHelper()
-	.getBean("gDetailSuspensionManager");
+			.getBean("gDetailSuspensionManager");
 
 	/**
 	 * 数据开始时间:天
@@ -93,7 +95,7 @@ public class DownloadSinaDataUtils extends BaseDBUtils {
 	 * 股票代码
 	 */
 	private String stockCode;
-	
+
 	private String stockType;
 
 	/**
@@ -115,12 +117,12 @@ public class DownloadSinaDataUtils extends BaseDBUtils {
 	 * 休息日
 	 */
 	private static List<String> daysOff = new ArrayList<String>();
-	
+
 	/**
 	 * 无数据停盘日
 	 */
 	private List<String> suspensionDays = new ArrayList<String>();
-	
+
 	/**
 	 * 成功下载
 	 */
@@ -130,14 +132,16 @@ public class DownloadSinaDataUtils extends BaseDBUtils {
 	 * 新浪数据
 	 */
 	public static String remoteServiceUrl = "http://market.finance.sina.com.cn/downxls.php";
-	//http://market.finance.sina.com.cn/downxls.php?date=2010-05-13&symbol=sz300002
+	// http://market.finance.sina.com.cn/downxls.php?date=2010-05-13&symbol=sz300002
 	/**
 	 * The df.
 	 */
 	private final DateFormat df = new SimpleDateFormat("yyyy-MM-dd");
-	
+
 	private final DateFormat dfs = new SimpleDateFormat("yyyyMMdd");
 
+	private final static Date defBeginDate = new Date("2010/01/01");
+	
 	public DownloadSinaDataUtils() {
 
 	}
@@ -211,71 +215,78 @@ public class DownloadSinaDataUtils extends BaseDBUtils {
 			e.printStackTrace();
 		}
 		if (this.daysOff == null || this.daysOff.isEmpty()) {
-			this.daysOff = this.factDateHolidayListMapper.selectDaysOff(start, end);
+			this.daysOff = this.factDateHolidayListMapper.selectDaysOff(start,
+					end);
 			if (logger.isInfoEnabled()) {
 				logger.info("getUrlList() - List<String> daysOff=" + daysOff);
 			}
 		}
-		
+
 		if (this.suspensionDays == null || this.suspensionDays.isEmpty()) {
-			this.suspensionDays = this.gDetailSuspensionManager.selectSuspensionDays(start, end, this.stockCode);
+			this.suspensionDays = this.gDetailSuspensionManager
+					.selectSuspensionDays(start, end, this.stockCode);
 			if (logger.isInfoEnabled()) {
-				logger.info("getUrlList() - List<String> suspensionDays=" + suspensionDays);
+				logger.info("getUrlList() - List<String> suspensionDays="
+						+ suspensionDays);
 			}
 		}
-		
+
 		if (this.successDays == null || this.successDays.isEmpty()) {
-			this.successDays = this.factDownloadFileConfigManager.selectStSuccessTimeId(start, end, this.stockCode);
+			this.successDays = this.factDownloadFileConfigManager
+					.selectStSuccessTimeId(start, end, this.stockCode);
 			if (logger.isInfoEnabled()) {
-				logger.info("getUrlList() - List<String> successDays=" + successDays);
+				logger.info("getUrlList() - List<String> successDays="
+						+ successDays);
 			}
 		}
-		
+
 		String remoteFileUrl = "";
 		String savePath = "";
 		if (this.stockCode != null) {
 			while (start.compareTo(end) <= 0) {
-				if (!daysOff.contains(start) && !suspensionDays.contains(start) && !successDays.contains(start) ) {
+				if (!daysOff.contains(start) && !suspensionDays.contains(start)
+						&& !successDays.contains(start)) {
 
-//					DownloadFileBean downloadFileBean = new DownloadFileBean();
-//
-//					downloadFileBean.setTimeId(start);
-//					downloadFileBean.setStockCode(this.stockCode);
-//
-//					// savePath =
-//					// LoadConfigUtils.getInstance().getDownloadFilePath() +
-//					// "/" + this.stockCode + "/" + start.substring(0, 4);
-//
-//					savePath = "/" + this.stockCode + "/"
-//							+ start.substring(0, 4);
-//
-//					downloadFileBean.setSavePath(savePath);
-//
-//					remoteFileUrl = remoteServiceUrl + "?date=" + start
-//							+ "&symbol=" + this.stockCode;
-//					// if (logger.isInfoEnabled()) {
-//					logger.debug("getUrlList() - String remoteFileUrl="
-//							+ remoteFileUrl);
-//					// }
-//
-//					downloadFileBean.setRemoteFileUrl(remoteFileUrl);
-//
-//					urlList.add(downloadFileBean);
-					
+					// DownloadFileBean downloadFileBean = new
+					// DownloadFileBean();
+					//
+					// downloadFileBean.setTimeId(start);
+					// downloadFileBean.setStockCode(this.stockCode);
+					//
+					// // savePath =
+					// // LoadConfigUtils.getInstance().getDownloadFilePath() +
+					// // "/" + this.stockCode + "/" + start.substring(0, 4);
+					//
+					// savePath = "/" + this.stockCode + "/"
+					// + start.substring(0, 4);
+					//
+					// downloadFileBean.setSavePath(savePath);
+					//
+					// remoteFileUrl = remoteServiceUrl + "?date=" + start
+					// + "&symbol=" + this.stockCode;
+					// // if (logger.isInfoEnabled()) {
+					// logger.debug("getUrlList() - String remoteFileUrl="
+					// + remoteFileUrl);
+					// // }
+					//
+					// downloadFileBean.setRemoteFileUrl(remoteFileUrl);
+					//
+					// urlList.add(downloadFileBean);
+
 					urlList.add(createDownloadFile(start, this.stockCode));
 				}
 
 				cal.add(Calendar.DAY_OF_MONTH, 1);
-				
+
 				if (cal.get(Calendar.DAY_OF_WEEK) == 7) {
 					cal.add(Calendar.DAY_OF_MONTH, 2);
 				} else if (cal.get(Calendar.DAY_OF_WEEK) == 1) {
 					cal.add(Calendar.DAY_OF_MONTH, 1);
 				}
-				
+
 				start = df.format(cal.getTime());
 			}
-			
+
 		}
 
 		if (this.stockList != null) {
@@ -294,32 +305,36 @@ public class DownloadSinaDataUtils extends BaseDBUtils {
 				while (start.compareTo(end) <= 0) {
 					if (!daysOff.contains(start)) {
 
-//						DownloadFileBean downloadFileBean = new DownloadFileBean();
-//
-//						downloadFileBean.setTimeId(start);
-//						downloadFileBean.setStockCode(this.stockCode);
-//
-//						// savePath =
-//						// LoadConfigUtils.getInstance().getDownloadFilePath() +
-//						// "/" + this.stockCode + "/" + start.substring(0, 4);
-//
-//						savePath = "/" + stock.getStockTypeCode()
-//								+ stock.getStockCode() + "/"
-//								+ start.substring(0, 4);
-//
-//						downloadFileBean.setSavePath(savePath);
-//
-//						remoteFileUrl = remoteServiceUrl + "?date=" + start
-//								+ "&symbol=" + stock.getStockTypeCode()
-//								+ stock.getStockCode();
-//						// if (logger.isInfoEnabled()) {
-//						logger.debug("getUrlList() - String remoteFileUrl="
-//								+ remoteFileUrl);
-//						// }
-//
-//						downloadFileBean.setRemoteFileUrl(remoteFileUrl);
+						// DownloadFileBean downloadFileBean = new
+						// DownloadFileBean();
+						//
+						// downloadFileBean.setTimeId(start);
+						// downloadFileBean.setStockCode(this.stockCode);
+						//
+						// // savePath =
+						// //
+						// LoadConfigUtils.getInstance().getDownloadFilePath() +
+						// // "/" + this.stockCode + "/" + start.substring(0,
+						// 4);
+						//
+						// savePath = "/" + stock.getStockTypeCode()
+						// + stock.getStockCode() + "/"
+						// + start.substring(0, 4);
+						//
+						// downloadFileBean.setSavePath(savePath);
+						//
+						// remoteFileUrl = remoteServiceUrl + "?date=" + start
+						// + "&symbol=" + stock.getStockTypeCode()
+						// + stock.getStockCode();
+						// // if (logger.isInfoEnabled()) {
+						// logger.debug("getUrlList() - String remoteFileUrl="
+						// + remoteFileUrl);
+						// // }
+						//
+						// downloadFileBean.setRemoteFileUrl(remoteFileUrl);
 
-						urlList.add(createDownloadFile(start, stock.getStockTypeCode() + stock.getStockCode()));
+						urlList.add(createDownloadFile(start,
+								stock.getStockTypeCode() + stock.getStockCode()));
 					}
 
 					cal.add(Calendar.DAY_OF_MONTH, 1);
@@ -327,32 +342,32 @@ public class DownloadSinaDataUtils extends BaseDBUtils {
 				}
 			}
 		}
-		
-//		try {
-//			List<Integer> list = CheckFailUtils.getFailDateIdList(this.stockCode, 
-//					Integer.parseInt(dfs.format(df.parse("2015-01-23"))) , 
-//					Integer.parseInt(dfs.format(df.parse("2015-02-11"))));
-//			
-//			for (Integer timeId : list) {
-//				urlList.add(createDownloadFile("" + timeId, this.stockCode));
-//			}
-//			
-//			logger.info(list);
-//		} catch (NumberFormatException e) {
-//			// 
-//			e.printStackTrace();
-//		} catch (ParseException e) {
-//			// 
-//			e.printStackTrace();
-//		}
+
+		// try {
+		// List<Integer> list = CheckFailUtils.getFailDateIdList(this.stockCode,
+		// Integer.parseInt(dfs.format(df.parse("2015-01-23"))) ,
+		// Integer.parseInt(dfs.format(df.parse("2015-02-11"))));
+		//
+		// for (Integer timeId : list) {
+		// urlList.add(createDownloadFile("" + timeId, this.stockCode));
+		// }
+		//
+		// logger.info(list);
+		// } catch (NumberFormatException e) {
+		// //
+		// e.printStackTrace();
+		// } catch (ParseException e) {
+		// //
+		// e.printStackTrace();
+		// }
 
 		return urlList;
 	}
-	
+
 	public DownloadFileBean createDownloadFile(String start
-			//, DStock stock
-			,String stockCodeAndType
-			
+	// , DStock stock
+			, String stockCodeAndType
+
 	) {
 		DownloadFileBean downloadFileBean = new DownloadFileBean();
 
@@ -363,34 +378,33 @@ public class DownloadSinaDataUtils extends BaseDBUtils {
 		// LoadConfigUtils.getInstance().getDownloadFilePath() +
 		// "/" + this.stockCode + "/" + start.substring(0, 4);
 
-		String savePath = "/" + stockCodeAndType + "/"
-				+ start.substring(0, 4);
+		String savePath = "/" + stockCodeAndType + "/" + start.substring(0, 4);
 
 		downloadFileBean.setSavePath(savePath);
 
-		String remoteFileUrl = remoteServiceUrl + "?date=" + start
-				+ "&symbol=" + stockCodeAndType.toLowerCase();
+		String remoteFileUrl = remoteServiceUrl + "?date=" + start + "&symbol="
+				+ stockCodeAndType.toLowerCase();
 		// if (logger.isInfoEnabled()) {
-		logger.debug("getUrlList() - String remoteFileUrl="
-				+ remoteFileUrl);
+		logger.debug("getUrlList() - String remoteFileUrl=" + remoteFileUrl);
 		// }
 
 		downloadFileBean.setRemoteFileUrl(remoteFileUrl);
-		
+
 		return downloadFileBean;
 	}
-	
-	public static NioDownload createNioDownload(String stockCode, String stockType, Date date
-			
+
+	public static NioDownload createNioDownload(String stockCode,
+			String stockType, Date date
+
 	) {
-		
+
 		String curdate = Global.DF_DAY.format(date);
 		String year = Global.DF_YEAR.format(date);
 		String curdateSimple = Global.DF_SIMPLE.format(date);
 
 		String filename = stockType.toLowerCase() + stockCode + "_成交明细_"
 				+ curdate + ".xls";
-		
+
 		String savePath = baseSavePath + "/" + stockType.toLowerCase()
 				+ stockCode + "/" + year + "/";
 
@@ -398,18 +412,18 @@ public class DownloadSinaDataUtils extends BaseDBUtils {
 		// private static String baseUrl =
 		// "http://quotes.money.163.com/cjmx/";
 		// http://stock.gtimg.cn/data/index.php?appn=detail&action=download&c=sz300002&d=20150508
-//		String url = baseUrl + "" + stockType.toLowerCase() + stockCode
-//				+ "&d=" + curdateSimple;
-		
+		// String url = baseUrl + "" + stockType.toLowerCase() + stockCode
+		// + "&d=" + curdateSimple;
+
 		String remoteFileUrl = remoteServiceUrl + "?date=" + curdate
 				+ "&symbol=" + stockType.toLowerCase() + stockCode;
-		
+
 		NioDownload nioDownload = new NioDownload(remoteFileUrl, savePath,
 				filename);
 		nioDownload.setDateId(Integer.parseInt(curdateSimple));
 		nioDownload.setStockCode("" + stockCode);
 		nioDownload.setStockType(stockType);
-		
+
 		return nioDownload;
 	}
 
@@ -760,7 +774,7 @@ public class DownloadSinaDataUtils extends BaseDBUtils {
 
 			downloadFileBean.setTimeId(downloadFile.getTimeId());
 			downloadFileBean.setStockCode(downloadFile.getStCode());
-			
+
 			// savePath =
 			// LoadConfigUtils.getInstance().getDownloadFilePath() +
 			// "/" + this.stockCode + "/" + start.substring(0, 4);
@@ -812,25 +826,23 @@ public class DownloadSinaDataUtils extends BaseDBUtils {
 		// String baseSavePath = LoadConfigUtils.getInstance()
 		// .getDownloadFilePath();
 
-		 
-		
 		NioDownload nioDownload = null;
 
 		for (DownloadFileBean dfBean : list) {
 			try {
-//				nioDownload = new NioDownload(dfBean.getRemoteFileUrl(),
-//						baseSavePath + dfBean.getSavePath(),
-//						dfBean.getStockCode() + "_" + dfBean.getTimeId()
-//								+ ".xls");
+				// nioDownload = new NioDownload(dfBean.getRemoteFileUrl(),
+				// baseSavePath + dfBean.getSavePath(),
+				// dfBean.getStockCode() + "_" + dfBean.getTimeId()
+				// + ".xls");
 				nioDownload = new NioDownload(dfBean.getRemoteFileUrl(),
-						baseSavePath + dfBean.getSavePath(),null);
-				
+						baseSavePath + dfBean.getSavePath(), null);
+
 				nioDownload.setStockCode(dfBean.getStockCode());
-				
-				nioDownload.setDateId(
-						Integer.parseInt(dfBean.getTimeId().replaceAll("-", "")));
+
+				nioDownload.setDateId(Integer.parseInt(dfBean.getTimeId()
+						.replaceAll("-", "")));
 				nioDownload.setStockType(dfBean.getStockType());
-				
+
 				nioDownload.start();
 			} catch (Exception ex) {
 				logger.warn(dfBean.getStockCode() + "->" + ex);
@@ -900,84 +912,128 @@ public class DownloadSinaDataUtils extends BaseDBUtils {
 		this.listingDate = listingDate;
 	}
 	
-	@SuppressWarnings("deprecation")
-	public static void nioDownload (String stockCode, String stockType, Date begin, Date end) {
-		
+//	public static void nioDownloadAsynchronous(final String stockCode,
+//			final String stockType, final Date begin, final Date end) {
+//		Global.threadPoolExecutor.execute(new Thread() {
+//			public void run() {
+//				nioDownload(stockCode, stockType, begin, end);
+//			}
+//		});
+//	}
+
+	
+	
+	@SuppressWarnings({"unchecked" })
+	public static void nioDownload(final String stockCode,
+			final String stockType, Date begin, Date end, boolean asyFlag) {
+
 		if (begin == null) {
-			//begin = new Date("2010/01/02");
+			// begin = new Date("2010/01/02");
 			DStock dstock = dStockManager.selectByPrimaryKey(stockCode);
 			if (dstock != null) {
-				begin = dstock.getListingDate();
+				if (dstock.getListingDate() != null) {
+					begin = dstock.getListingDate();
+					
+					if (begin.compareTo(defBeginDate) < 0) {
+						begin = defBeginDate;
+					}
+				} else {
+					begin = defBeginDate;
+				}
 			}
 		}
-		
+
 		if (begin == null) {
 			return;
 		}
-		
+
 		if (end == null) {
 			end = new Date();
 		}
-		
-		
-		daysOff = factDateHolidayListMapper
-				.selectDaysOff(Global.DF_DAY.format(begin), Global.DF_DAY.format(end));
-		if (logger.isInfoEnabled()) {
-			logger.info("getUrlList() - List<String> daysOff=" + daysOff);
-		}
-		
-		
-		List<Integer> successDays = gDetailManager
-				.selectDetailActiveDateId(stockCode, stockType,
-						Integer.parseInt(Global.DF_SIMPLE.format(begin)), 
-						Integer.parseInt(Global.DF_SIMPLE.format(end)));
-		
-		if (logger.isInfoEnabled()) {
-			logger.info("getUrlList() - List<String> successDays=" + successDays);
-		}
-		
-		
+
 		Calendar cal = Calendar.getInstance();
 		cal.setTime(begin);
-		
+
 		if (cal.get(Calendar.DAY_OF_WEEK) == 7) {
 			cal.add(Calendar.DAY_OF_MONTH, 2);
 		} else if (cal.get(Calendar.DAY_OF_WEEK) == 1) {
 			cal.add(Calendar.DAY_OF_MONTH, 1);
 		}
-		
+
 		begin = cal.getTime();
+
+		daysOff = factDateHolidayListMapper.selectDaysOff(
+				Global.DF_DAY.format(begin), Global.DF_DAY.format(end));
+		if (logger.isInfoEnabled()) {
+			logger.info("getUrlList() - List<String> daysOff=" + daysOff);
+		}
+
+		List<Integer> successDays = gDetailManager.selectDetailActiveDateId(
+				stockCode, stockType,
+				Integer.parseInt(Global.DF_SIMPLE.format(begin)),
+				Integer.parseInt(Global.DF_SIMPLE.format(end)));
+
 		
+
+		List<Integer> yearDateIds = DateUtils.getYearDateIds(begin, end);
+
+		List<Integer> nodataIds = gDetailNoDataManager.selectErrorDateIdsUnion(
+				stockCode, yearDateIds);
+
+		if (nodataIds != null) {
+			if (successDays == null) {
+				successDays = nodataIds;
+			} else {
+				successDays.addAll(nodataIds);
+			}
+		}
+		
+		if (logger.isInfoEnabled()) {
+			logger.info("getUrlList() - List<String> successDays="
+					+ successDays);
+		}
+
 		while (begin.compareTo(end) <= 0) {
-			
+
 			if (daysOff.contains(Global.DF_DAY.format(begin)) == false) {
-				if ((successDays == null || successDays.size() == 0) || 
-						(successDays != null 
-						&& successDays.contains(Integer.parseInt(Global.DF_SIMPLE.format(begin))) == false)) {
-					createNioDownload(stockCode, stockType, begin).start();
+				if ((successDays == null || successDays.size() == 0)
+						|| (successDays != null && successDays.contains(Integer
+								.parseInt(Global.DF_SIMPLE.format(begin))) == false)) {
+					final Date fbegin = begin;
+					if (asyFlag == true) {
+						Global.threadPoolExecutor.execute(new Thread() {
+							public void run() {
+								try {
+									createNioDownload(stockCode, stockType, fbegin)
+										.start();
+								} catch (Exception ex) {
+									logger.error(stockCode + "" + Global.DF_DAY.format(fbegin) + "异常", ex);
+								}
+							}
+						});
+
+					} else {
+						createNioDownload(stockCode, stockType, fbegin)
+						.start();
+					}
 				}
 			}
-			
+
 			cal.add(Calendar.DAY_OF_MONTH, 1);
-			
+
 			if (cal.get(Calendar.DAY_OF_WEEK) == 7) {
 				cal.add(Calendar.DAY_OF_MONTH, 2);
 			} else if (cal.get(Calendar.DAY_OF_WEEK) == 1) {
 				cal.add(Calendar.DAY_OF_MONTH, 1);
 			}
-			
+
 			begin = cal.getTime();
 			cal.setTime(begin);
 		}
-		
-//		NioDownload nioDownload = DownloadSinaDataUtils.createNioDownload(stockCode, stockType, date);
+
 	}
 
-	public static void main(String[] args) {
-		
-		nioDownload("300419", "sz", null, null);
 	
-	}
 
 	public List<String> getStockCodes() {
 		return stockCodes;
@@ -1001,6 +1057,34 @@ public class DownloadSinaDataUtils extends BaseDBUtils {
 
 	public void setSuspensionDays(List<String> suspensionDays) {
 		this.suspensionDays = suspensionDays;
+	}
+	
+	public static void  downloadAllStockData () {
+		
+//		List<DStock> stocks = dStockManager.selectByExample(example);
+	}
+	
+	public static void main(String[] args) {
+
+		//System.out.println(DateUtils.frontCompWithZore(103, 6));
+		
+		for (int i = 704; i<=710; i++) {
+//		for (int i = 39; i<=39; i++) {
+			nioDownload(DateUtils.frontCompWithZore(i, 6), "sz", null, null, false);
+			try {
+				Thread.sleep(1000);
+			} catch (InterruptedException e) {
+				e.printStackTrace();
+			}
+		}
+		
+//		try {
+//			Runtime.getRuntime().exec("cmd /c Shutdown -t 10");
+//		} catch (IOException e) {
+//			e.printStackTrace();
+//		} 
+		
+
 	}
 
 }

@@ -13,10 +13,10 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
-
 import com.mysql.jdbc.exceptions.jdbc4.MySQLSyntaxErrorException;
 import com.st.Global;
 import com.st.analysis.controller.vo.MMBean;
+import com.st.analysis.utils.DateUtils;
 import com.st.analysis.utils.stock.DetailUtils;
 import com.st.framework.business.impl.GDetailManager;
 //import com.st.framework.business.impl.rpt.RptTrendManager;
@@ -45,7 +45,7 @@ public class GDayDataUtil extends DetailUtils {
 	public void appendPerData(Integer stock, Date startDate, Date endDate) {
 
 		Long timeBegainId = System.currentTimeMillis();
-		
+
 		GStockDayExample example = new GStockDayExample();
 		example.setOrderByClause("STOCK, DATE");
 
@@ -53,7 +53,7 @@ public class GDayDataUtil extends DetailUtils {
 		c.andStockEqualTo(stock);
 
 		c.andHighPerIsNull();
-		
+
 		if (startDate != null) {
 			c.andDateGreaterThanOrEqualTo(startDate);
 		}
@@ -70,10 +70,11 @@ public class GDayDataUtil extends DetailUtils {
 
 		Long updatePriceChangesTimeId = System.currentTimeMillis();
 		gStockDayManager.updatePriceChanges(stock);
-		System.out.println("appendPerData->updatePriceChanges->" + (System.currentTimeMillis()-updatePriceChangesTimeId));
+		System.out.println("appendPerData->updatePriceChanges->"
+				+ (System.currentTimeMillis() - updatePriceChangesTimeId));
 
 		GStockDay st = null;
-//		GStockDay pst = list.get(0);
+		// GStockDay pst = list.get(0);
 		GStockDay pst = null;
 
 		for (int i = 0; i < list.size(); i++) {
@@ -96,26 +97,26 @@ public class GDayDataUtil extends DetailUtils {
 				continue;
 			}
 
-			if (st.getOpenPer() == null || st.getClosePer() == null 
+			if (st.getOpenPer() == null || st.getClosePer() == null
 					|| st.getHighPer() == null || st.getLowPer() == null
 					|| st.getAmplitude() == null) {
 				try {
 					pst = st.getPrevDay();
 					if (pst != null) {
-						st.setOpenPer((st.getOpen() - pst.getClose()) / pst.getClose()
-								* 100);
+						st.setOpenPer((st.getOpen() - pst.getClose())
+								/ pst.getClose() * 100);
 						st.setClosePer((st.getClose() - pst.getClose())
 								/ pst.getClose() * 100);
-						st.setHighPer((st.getHigh() - pst.getClose()) / pst.getClose()
-								* 100);
-						st.setLowPer((st.getLow() - pst.getClose()) / pst.getClose()
-								* 100);
-						st.setAmplitude((st.getHigh() - st.getLow()) / pst.getClose()
-								* 100);
+						st.setHighPer((st.getHigh() - pst.getClose())
+								/ pst.getClose() * 100);
+						st.setLowPer((st.getLow() - pst.getClose())
+								/ pst.getClose() * 100);
+						st.setAmplitude((st.getHigh() - st.getLow())
+								/ pst.getClose() * 100);
 
 						gStockDayManager.updateByPrimaryKeySelective(st);
 					}
-					
+
 				} catch (Exception ex) {
 
 					logger.warn(st);
@@ -123,82 +124,94 @@ public class GDayDataUtil extends DetailUtils {
 					throw new RuntimeException(ex);
 				}
 			}
-			
+
 		}
-		
+
 		Long timeEndId = System.currentTimeMillis();
-		
-		System.out.println("appendPerData->" + (timeEndId-timeBegainId));
+
+		System.out.println("appendPerData->" + (timeEndId - timeBegainId));
 	}
 
 	@SuppressWarnings({ "rawtypes", "unchecked" })
 	public void appendTimeDate(String stockCode, String startDateId,
 			String endDateId) {
-		
-		
+
 		Date d1 = new Date(), d2 = null;
-		List<String> dateIds = (List<String>)getDateIds(startDateId, endDateId);
-//		if (logger.isInfoEnabled()) {
-//			logger.info("appendTimeDate - list=" + dateIds);
-//		}
+		List<String> dateIds = (List<String>) getDateIds(startDateId, endDateId);
+		// if (logger.isInfoEnabled()) {
+		// logger.info("appendTimeDate - list=" + dateIds);
+		// }
 		{
 			GStockDayExample example = new GStockDayExample();
 			example.setDistinct(true);
-			
+
 			GStockDayExample.Criteria c = example.createCriteria();
-			
-			if (startDateId != null) {
-				try {
-					c.andDateGreaterThanOrEqualTo(df_simple.parse(startDateId));
-				} catch (ParseException e) {
-					e.printStackTrace();
-				}
+
+			// if (startDateId != null) {
+			// try {
+			// c.andDateGreaterThanOrEqualTo(df_simple.parse(startDateId));
+			// } catch (ParseException e) {
+			// e.printStackTrace();
+			// }
+			// }
+			//
+			// if (endDateId != null) {
+			// try {
+			// c.andDateLessThanOrEqualTo(df_simple.parse(endDateId));
+			// } catch (ParseException e) {
+			// e.printStackTrace();
+			// }
+			// }
+
+			try {
+				List<Date> dateIdsVdt = DateUtils.getTimeIds(
+						Global.DF_SIMPLE.parse(startDateId),
+						Global.DF_SIMPLE.parse(endDateId));
+				c.andDateIn(dateIdsVdt);
+			} catch (ParseException e) {
+				e.printStackTrace();
 			}
-			
-			if (endDateId != null) {
-				try {
-					c.andDateLessThanOrEqualTo(df_simple.parse(endDateId));
-				} catch (ParseException e) {
-					e.printStackTrace();
-				}
-			}
-			
-			List<String> vaildDateIds = gStockDayManager.selectValidDateByExample(example);
-			
+
+			c.andHighTimeIdIsNotNull();
+
+			List<String> vaildDateIds = gStockDayManager
+					.selectValidDateByExample(example);
+
 			List<String> vaildDateIdsSimple = new ArrayList<String>();
-			
+
 			if (vaildDateIds != null) {
 				for (String tmp : vaildDateIds) {
 					vaildDateIdsSimple.add(tmp.replaceAll("-", ""));
 				}
 			}
-			
+
 			dateIds.removeAll(vaildDateIdsSimple);
 		}
 		Long selectMMTimeId = System.currentTimeMillis();
 		List<MMBean> list = null;
-		
-//		dateIds.retainAll(gStockDayManager.selectMMValidTimeId(stockCode, startDateId, endDateId));
-		
+
+		// dateIds.retainAll(gStockDayManager.selectMMValidTimeId(stockCode,
+		// startDateId, endDateId));
+
 		try {
 			list = gDetailManager.selectMMBaseData(stockCode, dateIds);
 		} catch (Exception ex) {
 			logger.warn(ex.getMessage());
 		}
-		System.out.println("appendTimeDate->selectMMTimeId->" + (System.currentTimeMillis() - selectMMTimeId));
-		
+		System.out.println("appendTimeDate->selectMMTimeId->"
+				+ (System.currentTimeMillis() - selectMMTimeId));
+
 		if (list == null) {
 			return;
 		}
-		
-		
-//		if (logger.isInfoEnabled()) {
-//			logger.info("appendTimeDate list=" + list);
-//		}
+
+		// if (logger.isInfoEnabled()) {
+		// logger.info("appendTimeDate list=" + list);
+		// }
 		GStockDay gd = null;
 		GStockDayKey key = null;
-		//@SuppressWarnings("unused")
-//		List<GStockDay> gdList = new ArrayList<GStockDay>();
+		// @SuppressWarnings("unused")
+		// List<GStockDay> gdList = new ArrayList<GStockDay>();
 		for (MMBean mm : list) {
 			try {
 				key = new GStockDayKey();
@@ -215,17 +228,17 @@ public class GDayDataUtil extends DetailUtils {
 				gd = gStockDayManager.selectByPrimaryKey(key);
 
 				if (gd == null) {
-					//logger.info("key=" + key);
+					// logger.info("key=" + key);
 					List<GStockDay> tmpList = gDetailManager.selectStockDay(
 							stockCode, mm.getDateId(), mm.getDateId());
-//					if (logger.isInfoEnabled()) {
-//						logger.info("appendTimeDate(String, String, String) - List<GStockDay> tmpList="
-//								+ tmpList);
-//					}
+					// if (logger.isInfoEnabled()) {
+					// logger.info("appendTimeDate(String, String, String) - List<GStockDay> tmpList="
+					// + tmpList);
+					// }
 
 					if (tmpList != null && tmpList.size() > 0) {
 						try {
-							//gStockDayManager.insert(tmpList.get(0));
+							// gStockDayManager.insert(tmpList.get(0));
 							gStockDayManager.insertOrUpdate(tmpList.get(0));
 						} catch (DuplicateKeyException e) {
 							logger.warn(
@@ -265,7 +278,181 @@ public class GDayDataUtil extends DetailUtils {
 
 	}
 
-	
+	public void appendTimeDatePage(final String stockCode, Date begin, Date end) {
+		Calendar cal = Calendar.getInstance();
+		cal.setTime(begin);
+
+		while (begin.compareTo(end) <= 0) {
+
+			cal.add(Calendar.DAY_OF_MONTH, 150);
+			if (cal.getTime().compareTo(end) <= 0) {
+				final Date fbegin = begin;
+				final Date fend = cal.getTime();
+//				Global.threadPoolExecutor.execute(new Thread() {
+//					public void run() {
+						appendTimeDate(stockCode, fbegin, fend);
+//					}
+//				});
+
+			} else {
+				final Date fbegin = begin;
+				final Date fend = end;
+//				Global.threadPoolExecutor.execute(new Thread() {
+//					public void run() {
+						appendTimeDate(stockCode, fbegin, fend);
+//					}
+//				});
+				break;
+			}
+
+			cal.add(Calendar.DAY_OF_MONTH, -10);
+
+			begin = cal.getTime();
+		}
+	}
+
+	public void appendTimeDate(String stockCode, Date startDateId,
+			Date endDateId) {
+
+		if (stockCode == null || startDateId == null || endDateId == null) {
+			return;
+		}
+
+		Date d1 = new Date(), d2 = null;
+		// List<String> dateIds = (List<String>) getDateIds(startDateId,
+		// endDateId);
+
+		List<String> dateIds = DateUtils.getStringSimpleTimeIds(startDateId,
+				endDateId);
+
+		// if (logger.isInfoEnabled()) {
+		// logger.info("appendTimeDate - list=" + dateIds);
+		// }
+		{
+			GStockDayExample example = new GStockDayExample();
+			example.setDistinct(true);
+
+			GStockDayExample.Criteria c = example.createCriteria();
+
+//			List<Date> dateIdsVdt = DateUtils.getTimeIds((startDateId),
+//					(endDateId));
+//			if (dateIdsVdt != null && dateIdsVdt.size() > 0) {
+//				c.andDateIn(dateIdsVdt);
+//			}
+			
+			if (startDateId != null) {
+				c.andDateGreaterThanOrEqualTo(startDateId);
+			}
+			
+			if (endDateId != null) {
+				c.andDateLessThanOrEqualTo(endDateId);
+			}
+
+			// c.andHighTimeIdIsNotNull();
+
+			// List<String> vaildDateIds = gStockDayManager
+			// .selectValidDateByExample(example);
+			//
+			// List<String> vaildDateIdsSimple = new ArrayList<String>();
+			//
+			// if (vaildDateIds != null) {
+			// for (String tmp : vaildDateIds) {
+			// vaildDateIdsSimple.add(tmp.replaceAll("-", ""));
+			// }
+			// }
+
+			// dateIds.removeAll(vaildDateIdsSimple);
+		}
+		Long selectMMTimeId = System.currentTimeMillis();
+		List<MMBean> list = null;
+
+		// dateIds.retainAll(gStockDayManager.selectMMValidTimeId(stockCode,
+		// startDateId, endDateId));
+
+		try {
+			list = gDetailManager.selectMMBaseData(stockCode, dateIds);
+		} catch (Exception ex) {
+			logger.warn(ex.getMessage());
+		}
+		System.out.println("appendTimeDate->selectMMTimeId->"
+				+ (System.currentTimeMillis() - selectMMTimeId));
+
+		if (list == null) {
+			return;
+		}
+
+		// if (logger.isInfoEnabled()) {
+		// logger.info("appendTimeDate list=" + list);
+		// }
+		GStockDay gd = null;
+		GStockDayKey key = null;
+		// @SuppressWarnings("unused")
+		// List<GStockDay> gdList = new ArrayList<GStockDay>();
+		for (MMBean mm : list) {
+			try {
+				key = new GStockDayKey();
+				key.setStock(Integer.parseInt(stockCode.substring(2)));
+
+				try {
+					key.setDate(df_simple.parse("" + mm.getDateId()));
+				} catch (ParseException e) {
+					logger.error("appendTimeDate(String, String, String)", e);
+
+					e.printStackTrace();
+				}
+
+				gd = gStockDayManager.selectByPrimaryKey(key);
+
+				if (gd == null) {
+					// logger.info("key=" + key);
+					List<GStockDay> tmpList = gDetailManager.selectStockDay(
+							stockCode, mm.getDateId(), mm.getDateId());
+					// if (logger.isInfoEnabled()) {
+					// logger.info("appendTimeDate(String, String, String) - List<GStockDay> tmpList="
+					// + tmpList);
+					// }
+
+					if (tmpList != null && tmpList.size() > 0) {
+						try {
+							// gStockDayManager.insert(tmpList.get(0));
+							gStockDayManager.insertOrUpdate(tmpList.get(0));
+						} catch (DuplicateKeyException e) {
+							logger.warn(
+									"appendTimeDate(String, String, String) - exception ignored",
+									e);
+
+						}
+					}
+				} else {
+					if (gd.getHighTimeId() == null || gd.getLowTimeId() == null) {
+						gd.setHighTimeId(mm.getMaxTimeId());
+						gd.setLowTimeId(mm.getMinTimeId());
+
+						gStockDayManager.updateByPrimaryKeySelective(gd);
+					}
+					// gdList.add(gd);
+				}
+
+				mm = null;
+			} catch (Exception ex) {
+				logger.error("appendTimeDate(String, String, String)", ex);
+
+				throw new RuntimeException(ex);
+			}
+		}
+
+		d2 = new Date();
+
+		// if (logger.isInfoEnabled()) {
+		// logger.info("appendTimeDate(String, String, String) - List<GStockDay> gdList="
+		// + gdList);
+		// }
+
+		// gStockDayManager.batchUpdateMMByPrimaryKey(gdList);
+
+		System.out.println("appendTimeDate->" + (d2.getTime() - d1.getTime()));
+
+	}
 
 	@SuppressWarnings({ "unchecked", "rawtypes" })
 	private List getDateIds(String startDateId, String endDateId) {

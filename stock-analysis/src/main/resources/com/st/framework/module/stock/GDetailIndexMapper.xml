@@ -1,0 +1,339 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.st.framework.persistence.mapper.stock.GDetailIndexMapper" >
+  <resultMap id="BaseResultMap" type="com.st.framework.module.stock.GDetailIndex" >
+    <id column="ICODE" property="icode" jdbcType="VARCHAR" />
+    <id column="DATEID" property="dateid" jdbcType="DATE" />
+    <result column="INAME" property="iname" jdbcType="VARCHAR" />
+    <result column="TCLOSE" property="tclose" jdbcType="DOUBLE" />
+    <result column="HIGH" property="high" jdbcType="DOUBLE" />
+    <result column="LOW" property="low" jdbcType="DOUBLE" />
+    <result column="TOPEN" property="topen" jdbcType="DOUBLE" />
+    <result column="LCLOSE" property="lclose" jdbcType="DOUBLE" />
+    <result column="CHG" property="chg" jdbcType="DOUBLE" />
+    <result column="PCHG" property="pchg" jdbcType="DOUBLE" />
+    <result column="VOTURNOVER" property="voturnover" jdbcType="INTEGER" />
+    <result column="VATURNOVER" property="vaturnover" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    ICODE, DATEID, INAME, TCLOSE, HIGH, LOW, TOPEN, LCLOSE, CHG, PCHG, VOTURNOVER, VATURNOVER
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.st.framework.module.stock.example.GDetailIndexExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from G_DETAIL_INDEX
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="com.st.framework.module.stock.GDetailIndexKey" >
+    select 
+    <include refid="Base_Column_List" />
+    from G_DETAIL_INDEX
+    where ICODE = #{icode,jdbcType=VARCHAR}
+      and DATEID = #{dateid,jdbcType=DATE}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="com.st.framework.module.stock.GDetailIndexKey" >
+    delete from G_DETAIL_INDEX
+    where ICODE = #{icode,jdbcType=VARCHAR}
+      and DATEID = #{dateid,jdbcType=DATE}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.st.framework.module.stock.example.GDetailIndexExample" >
+    delete from G_DETAIL_INDEX
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.st.framework.module.stock.GDetailIndex" >
+    insert into G_DETAIL_INDEX (ICODE, DATEID, INAME, 
+      TCLOSE, HIGH, LOW, TOPEN, 
+      LCLOSE, CHG, PCHG, VOTURNOVER, 
+      VATURNOVER)
+    values (#{icode,jdbcType=VARCHAR}, #{dateid,jdbcType=DATE}, #{iname,jdbcType=VARCHAR}, 
+      #{tclose,jdbcType=DOUBLE}, #{high,jdbcType=DOUBLE}, #{low,jdbcType=DOUBLE}, #{topen,jdbcType=DOUBLE}, 
+      #{lclose,jdbcType=DOUBLE}, #{chg,jdbcType=DOUBLE}, #{pchg,jdbcType=DOUBLE}, #{voturnover,jdbcType=INTEGER}, 
+      #{vaturnover,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.st.framework.module.stock.GDetailIndex" >
+    insert into G_DETAIL_INDEX
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="icode != null" >
+        ICODE,
+      </if>
+      <if test="dateid != null" >
+        DATEID,
+      </if>
+      <if test="iname != null" >
+        INAME,
+      </if>
+      <if test="tclose != null" >
+        TCLOSE,
+      </if>
+      <if test="high != null" >
+        HIGH,
+      </if>
+      <if test="low != null" >
+        LOW,
+      </if>
+      <if test="topen != null" >
+        TOPEN,
+      </if>
+      <if test="lclose != null" >
+        LCLOSE,
+      </if>
+      <if test="chg != null" >
+        CHG,
+      </if>
+      <if test="pchg != null" >
+        PCHG,
+      </if>
+      <if test="voturnover != null" >
+        VOTURNOVER,
+      </if>
+      <if test="vaturnover != null" >
+        VATURNOVER,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="icode != null" >
+        #{icode,jdbcType=VARCHAR},
+      </if>
+      <if test="dateid != null" >
+        #{dateid,jdbcType=DATE},
+      </if>
+      <if test="iname != null" >
+        #{iname,jdbcType=VARCHAR},
+      </if>
+      <if test="tclose != null" >
+        #{tclose,jdbcType=DOUBLE},
+      </if>
+      <if test="high != null" >
+        #{high,jdbcType=DOUBLE},
+      </if>
+      <if test="low != null" >
+        #{low,jdbcType=DOUBLE},
+      </if>
+      <if test="topen != null" >
+        #{topen,jdbcType=DOUBLE},
+      </if>
+      <if test="lclose != null" >
+        #{lclose,jdbcType=DOUBLE},
+      </if>
+      <if test="chg != null" >
+        #{chg,jdbcType=DOUBLE},
+      </if>
+      <if test="pchg != null" >
+        #{pchg,jdbcType=DOUBLE},
+      </if>
+      <if test="voturnover != null" >
+        #{voturnover,jdbcType=INTEGER},
+      </if>
+      <if test="vaturnover != null" >
+        #{vaturnover,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.st.framework.module.stock.example.GDetailIndexExample" resultType="java.lang.Integer" >
+    select count(*) from G_DETAIL_INDEX
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update G_DETAIL_INDEX
+    <set >
+      <if test="record.icode != null" >
+        ICODE = #{record.icode,jdbcType=VARCHAR},
+      </if>
+      <if test="record.dateid != null" >
+        DATEID = #{record.dateid,jdbcType=DATE},
+      </if>
+      <if test="record.iname != null" >
+        INAME = #{record.iname,jdbcType=VARCHAR},
+      </if>
+      <if test="record.tclose != null" >
+        TCLOSE = #{record.tclose,jdbcType=DOUBLE},
+      </if>
+      <if test="record.high != null" >
+        HIGH = #{record.high,jdbcType=DOUBLE},
+      </if>
+      <if test="record.low != null" >
+        LOW = #{record.low,jdbcType=DOUBLE},
+      </if>
+      <if test="record.topen != null" >
+        TOPEN = #{record.topen,jdbcType=DOUBLE},
+      </if>
+      <if test="record.lclose != null" >
+        LCLOSE = #{record.lclose,jdbcType=DOUBLE},
+      </if>
+      <if test="record.chg != null" >
+        CHG = #{record.chg,jdbcType=DOUBLE},
+      </if>
+      <if test="record.pchg != null" >
+        PCHG = #{record.pchg,jdbcType=DOUBLE},
+      </if>
+      <if test="record.voturnover != null" >
+        VOTURNOVER = #{record.voturnover,jdbcType=INTEGER},
+      </if>
+      <if test="record.vaturnover != null" >
+        VATURNOVER = #{record.vaturnover,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update G_DETAIL_INDEX
+    set ICODE = #{record.icode,jdbcType=VARCHAR},
+      DATEID = #{record.dateid,jdbcType=DATE},
+      INAME = #{record.iname,jdbcType=VARCHAR},
+      TCLOSE = #{record.tclose,jdbcType=DOUBLE},
+      HIGH = #{record.high,jdbcType=DOUBLE},
+      LOW = #{record.low,jdbcType=DOUBLE},
+      TOPEN = #{record.topen,jdbcType=DOUBLE},
+      LCLOSE = #{record.lclose,jdbcType=DOUBLE},
+      CHG = #{record.chg,jdbcType=DOUBLE},
+      PCHG = #{record.pchg,jdbcType=DOUBLE},
+      VOTURNOVER = #{record.voturnover,jdbcType=INTEGER},
+      VATURNOVER = #{record.vaturnover,jdbcType=VARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.st.framework.module.stock.GDetailIndex" >
+    update G_DETAIL_INDEX
+    <set >
+      <if test="iname != null" >
+        INAME = #{iname,jdbcType=VARCHAR},
+      </if>
+      <if test="tclose != null" >
+        TCLOSE = #{tclose,jdbcType=DOUBLE},
+      </if>
+      <if test="high != null" >
+        HIGH = #{high,jdbcType=DOUBLE},
+      </if>
+      <if test="low != null" >
+        LOW = #{low,jdbcType=DOUBLE},
+      </if>
+      <if test="topen != null" >
+        TOPEN = #{topen,jdbcType=DOUBLE},
+      </if>
+      <if test="lclose != null" >
+        LCLOSE = #{lclose,jdbcType=DOUBLE},
+      </if>
+      <if test="chg != null" >
+        CHG = #{chg,jdbcType=DOUBLE},
+      </if>
+      <if test="pchg != null" >
+        PCHG = #{pchg,jdbcType=DOUBLE},
+      </if>
+      <if test="voturnover != null" >
+        VOTURNOVER = #{voturnover,jdbcType=INTEGER},
+      </if>
+      <if test="vaturnover != null" >
+        VATURNOVER = #{vaturnover,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where ICODE = #{icode,jdbcType=VARCHAR}
+      and DATEID = #{dateid,jdbcType=DATE}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.st.framework.module.stock.GDetailIndex" >
+    update G_DETAIL_INDEX
+    set INAME = #{iname,jdbcType=VARCHAR},
+      TCLOSE = #{tclose,jdbcType=DOUBLE},
+      HIGH = #{high,jdbcType=DOUBLE},
+      LOW = #{low,jdbcType=DOUBLE},
+      TOPEN = #{topen,jdbcType=DOUBLE},
+      LCLOSE = #{lclose,jdbcType=DOUBLE},
+      CHG = #{chg,jdbcType=DOUBLE},
+      PCHG = #{pchg,jdbcType=DOUBLE},
+      VOTURNOVER = #{voturnover,jdbcType=INTEGER},
+      VATURNOVER = #{vaturnover,jdbcType=VARCHAR}
+    where ICODE = #{icode,jdbcType=VARCHAR}
+      and DATEID = #{dateid,jdbcType=DATE}
+  </update>
+  <!-- 
+  ICODE, DATEID, INAME, 
+  TCLOSE, HIGH, LOW, TOPEN, LCLOSE, 
+  CHG, PCHG, VOTURNOVER, VATURNOVER -->
+  <insert id="insertBatch" parameterType="map" >
+    insert ignore into G_DETAIL_INDEX
+	(
+	<include refid="Base_Column_List" />
+    )
+	values
+	<foreach collection="list" item="item" index="index" separator=",">
+		(
+		#{item.icode},#{item.dateid},#{item.iname}
+		,#{item.tclose},#{item.high},#{item.low},#{item.topen}
+		,#{item.lclose},#{item.chg},#{item.pchg}
+		,#{item.voturnover},#{item.vaturnover}
+		)
+	</foreach>
+  </insert>
+</mapper>

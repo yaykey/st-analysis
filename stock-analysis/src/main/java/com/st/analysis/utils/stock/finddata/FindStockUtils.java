@@ -1,4 +1,4 @@
-package com.st.analysis.utils.stock;
+package com.st.analysis.utils.stock.finddata;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -16,10 +16,10 @@ import org.jsoup.select.Elements;
 import org.springframework.dao.DuplicateKeyException;
 
 import com.st.analysis.utils.network.ProxyUtils;
-import com.st.framework.business.impl.DStockManager;
 import com.st.framework.business.impl.PStockMapManager;
 import com.st.framework.business.impl.dim.DDimManager;
 import com.st.framework.business.impl.dim.DDimtypeManager;
+import com.st.framework.business.impl.dim.DStockManager;
 import com.st.framework.business.impl.fact.FactSinaParamMapManager;
 import com.st.framework.module.stock.DDim;
 import com.st.framework.module.stock.DStock;

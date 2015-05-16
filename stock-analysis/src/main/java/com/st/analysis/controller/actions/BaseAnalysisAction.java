@@ -8,9 +8,9 @@ import org.apache.struts2.convention.annotation.Result;
 import org.apache.struts2.convention.annotation.Results;
 import org.springframework.beans.factory.annotation.Autowired;
 
-import com.st.framework.business.impl.DStockManager;
 import com.st.framework.business.impl.GDetailManager;
 import com.st.framework.business.impl.GStockDayManager;
+import com.st.framework.business.impl.dim.DStockManager;
 import com.st.framework.controller.actions.BaseAction;
 
 

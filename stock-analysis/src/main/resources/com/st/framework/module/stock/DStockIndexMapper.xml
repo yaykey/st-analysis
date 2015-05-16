@@ -1,0 +1,224 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.st.framework.persistence.mapper.stock.DStockIndexMapper" >
+  <resultMap id="BaseResultMap" type="com.st.framework.module.stock.DStockIndex" >
+    <id column="INDEX_ID" property="indexId" jdbcType="VARCHAR" />
+    <result column="INDEX_NAME" property="indexName" jdbcType="VARCHAR" />
+    <result column="INDEX_TYPE" property="indexType" jdbcType="VARCHAR" />
+    <result column="QUERY_TYPE" property="queryType" jdbcType="VARCHAR" />
+    <result column="BEGIN_DATE" property="beginDate" jdbcType="DATE" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    INDEX_ID, INDEX_NAME, INDEX_TYPE, QUERY_TYPE, BEGIN_DATE
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.st.framework.module.stock.example.DStockIndexExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from D_STOCK_INDEX
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from D_STOCK_INDEX
+    where INDEX_ID = #{indexId,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from D_STOCK_INDEX
+    where INDEX_ID = #{indexId,jdbcType=VARCHAR}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.st.framework.module.stock.example.DStockIndexExample" >
+    delete from D_STOCK_INDEX
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.st.framework.module.stock.DStockIndex" >
+    insert into D_STOCK_INDEX (INDEX_ID, INDEX_NAME, INDEX_TYPE, 
+      QUERY_TYPE, BEGIN_DATE)
+    values (#{indexId,jdbcType=VARCHAR}, #{indexName,jdbcType=VARCHAR}, #{indexType,jdbcType=VARCHAR}, 
+      #{queryType,jdbcType=VARCHAR}, #{beginDate,jdbcType=DATE})
+  </insert>
+  <insert id="insertSelective" parameterType="com.st.framework.module.stock.DStockIndex" >
+    insert into D_STOCK_INDEX
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="indexId != null" >
+        INDEX_ID,
+      </if>
+      <if test="indexName != null" >
+        INDEX_NAME,
+      </if>
+      <if test="indexType != null" >
+        INDEX_TYPE,
+      </if>
+      <if test="queryType != null" >
+        QUERY_TYPE,
+      </if>
+      <if test="beginDate != null" >
+        BEGIN_DATE,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="indexId != null" >
+        #{indexId,jdbcType=VARCHAR},
+      </if>
+      <if test="indexName != null" >
+        #{indexName,jdbcType=VARCHAR},
+      </if>
+      <if test="indexType != null" >
+        #{indexType,jdbcType=VARCHAR},
+      </if>
+      <if test="queryType != null" >
+        #{queryType,jdbcType=VARCHAR},
+      </if>
+      <if test="beginDate != null" >
+        #{beginDate,jdbcType=DATE},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.st.framework.module.stock.example.DStockIndexExample" resultType="java.lang.Integer" >
+    select count(*) from D_STOCK_INDEX
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update D_STOCK_INDEX
+    <set >
+      <if test="record.indexId != null" >
+        INDEX_ID = #{record.indexId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.indexName != null" >
+        INDEX_NAME = #{record.indexName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.indexType != null" >
+        INDEX_TYPE = #{record.indexType,jdbcType=VARCHAR},
+      </if>
+      <if test="record.queryType != null" >
+        QUERY_TYPE = #{record.queryType,jdbcType=VARCHAR},
+      </if>
+      <if test="record.beginDate != null" >
+        BEGIN_DATE = #{record.beginDate,jdbcType=DATE},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update D_STOCK_INDEX
+    set INDEX_ID = #{record.indexId,jdbcType=VARCHAR},
+      INDEX_NAME = #{record.indexName,jdbcType=VARCHAR},
+      INDEX_TYPE = #{record.indexType,jdbcType=VARCHAR},
+      QUERY_TYPE = #{record.queryType,jdbcType=VARCHAR},
+      BEGIN_DATE = #{record.beginDate,jdbcType=DATE}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.st.framework.module.stock.DStockIndex" >
+    update D_STOCK_INDEX
+    <set >
+      <if test="indexName != null" >
+        INDEX_NAME = #{indexName,jdbcType=VARCHAR},
+      </if>
+      <if test="indexType != null" >
+        INDEX_TYPE = #{indexType,jdbcType=VARCHAR},
+      </if>
+      <if test="queryType != null" >
+        QUERY_TYPE = #{queryType,jdbcType=VARCHAR},
+      </if>
+      <if test="beginDate != null" >
+        BEGIN_DATE = #{beginDate,jdbcType=DATE},
+      </if>
+    </set>
+    where INDEX_ID = #{indexId,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.st.framework.module.stock.DStockIndex" >
+    update D_STOCK_INDEX
+    set INDEX_NAME = #{indexName,jdbcType=VARCHAR},
+      INDEX_TYPE = #{indexType,jdbcType=VARCHAR},
+      QUERY_TYPE = #{queryType,jdbcType=VARCHAR},
+      BEGIN_DATE = #{beginDate,jdbcType=DATE}
+    where INDEX_ID = #{indexId,jdbcType=VARCHAR}
+  </update>
+  <!--  INDEX_ID, INDEX_NAME, INDEX_TYPE, QUERY_TYPE, BEGIN_DATE -->
+  <insert id="insertBatch" parameterType="map" >
+    insert ignore into D_STOCK_INDEX
+	(
+	<include refid="Base_Column_List" />
+    )
+	values
+	<foreach collection="list" item="item" index="index" separator=",">
+		(
+		#{item.indexId},#{item.indexName},#{item.indexType},#{item.queryType},#{item.beginDate}
+		)
+	</foreach>
+  </insert>
+</mapper>

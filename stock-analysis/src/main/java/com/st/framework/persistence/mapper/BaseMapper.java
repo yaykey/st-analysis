@@ -4,8 +4,6 @@ import java.util.List;
 
 import org.apache.ibatis.annotations.Param;
 
-import com.st.framework.module.stock.GDetail;
-
 public interface BaseMapper<K, T, E> {
 	int countByExample(E example);
 
@@ -29,6 +27,6 @@ public interface BaseMapper<K, T, E> {
 	int updateByPrimaryKeySelective(T record);
 
 	int updateByPrimaryKey(T record);
-	
+
 	void insertBatch(@Param("list") List<T> list);
 }

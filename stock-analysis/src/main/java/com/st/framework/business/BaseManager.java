@@ -2,16 +2,13 @@ package com.st.framework.business;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import org.apache.ibatis.session.SqlSessionFactory;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DuplicateKeyException;
 
 import com.st.framework.module.example.BaseExample;
-import com.st.framework.module.stock.GDetail;
 import com.st.framework.persistence.mapper.BaseMapper;
 import com.st.framework.utils.page.Page;
 
@@ -21,10 +18,9 @@ public abstract class BaseManager<K, T, E extends BaseExample> {
 	 */
 	private static final Log logger = LogFactory.getLog(BaseManager.class);
 
-//	@Autowired
-//	public SqlSessionFactory sqlSessionFactory;
-	
-	
+	// @Autowired
+	// public SqlSessionFactory sqlSessionFactory;
+
 	public abstract BaseMapper<K, T, E> getMapper();
 
 	public int countByExample(E example) {
@@ -155,10 +151,10 @@ public abstract class BaseManager<K, T, E extends BaseExample> {
 				maxBatchBufferSize = 0;
 			}
 
-//			try {
-//				Thread.sleep(10);
-//			} catch (InterruptedException e) {
-//			}
+			// try {
+			// Thread.sleep(10);
+			// } catch (InterruptedException e) {
+			// }
 		}
 	}
 

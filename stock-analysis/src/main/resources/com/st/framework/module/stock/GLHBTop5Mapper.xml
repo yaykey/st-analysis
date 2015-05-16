@@ -1,0 +1,269 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.st.framework.persistence.mapper.stock.GLHBTop5Mapper" >
+  <resultMap id="BaseResultMap" type="com.st.framework.module.stock.GLHBTop5" >
+    <id column="STOCK_CODE" property="stockCode" jdbcType="VARCHAR" />
+    <id column="DATE_ID" property="dateId" jdbcType="DATE" />
+    <id column="SEC_ID" property="secId" jdbcType="BIGINT" />
+    <result column="SEC_NAME" property="secName" jdbcType="VARCHAR" />
+    <result column="BUY_AMOUNT" property="buyAmount" jdbcType="DOUBLE" />
+    <result column="SELL_AMOUNT" property="sellAmount" jdbcType="DOUBLE" />
+    <result column="NET_AMOUNT" property="netAmount" jdbcType="DOUBLE" />
+    <result column="TYPE" property="type" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    STOCK_CODE, DATE_ID, SEC_ID, SEC_NAME, BUY_AMOUNT, SELL_AMOUNT, NET_AMOUNT, TYPE
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.st.framework.module.stock.example.GLHBTop5Example" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from G_LHB_TOP5
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="com.st.framework.module.stock.GLHBTop5Key" >
+    select 
+    <include refid="Base_Column_List" />
+    from G_LHB_TOP5
+    where STOCK_CODE = #{stockCode,jdbcType=VARCHAR}
+      and DATE_ID = #{dateId,jdbcType=DATE}
+      and SEC_ID = #{secId,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="com.st.framework.module.stock.GLHBTop5Key" >
+    delete from G_LHB_TOP5
+    where STOCK_CODE = #{stockCode,jdbcType=VARCHAR}
+      and DATE_ID = #{dateId,jdbcType=DATE}
+      and SEC_ID = #{secId,jdbcType=BIGINT}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.st.framework.module.stock.example.GLHBTop5Example" >
+    delete from G_LHB_TOP5
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.st.framework.module.stock.GLHBTop5" >
+    insert into G_LHB_TOP5 (STOCK_CODE, DATE_ID, SEC_ID, 
+      SEC_NAME, BUY_AMOUNT, SELL_AMOUNT, 
+      NET_AMOUNT, TYPE)
+    values (#{stockCode,jdbcType=VARCHAR}, #{dateId,jdbcType=DATE}, #{secId,jdbcType=BIGINT}, 
+      #{secName,jdbcType=VARCHAR}, #{buyAmount,jdbcType=DOUBLE}, #{sellAmount,jdbcType=DOUBLE}, 
+      #{netAmount,jdbcType=DOUBLE}, #{type,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.st.framework.module.stock.GLHBTop5" >
+    insert into G_LHB_TOP5
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="stockCode != null" >
+        STOCK_CODE,
+      </if>
+      <if test="dateId != null" >
+        DATE_ID,
+      </if>
+      <if test="secId != null" >
+        SEC_ID,
+      </if>
+      <if test="secName != null" >
+        SEC_NAME,
+      </if>
+      <if test="buyAmount != null" >
+        BUY_AMOUNT,
+      </if>
+      <if test="sellAmount != null" >
+        SELL_AMOUNT,
+      </if>
+      <if test="netAmount != null" >
+        NET_AMOUNT,
+      </if>
+      <if test="type != null" >
+        TYPE,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="stockCode != null" >
+        #{stockCode,jdbcType=VARCHAR},
+      </if>
+      <if test="dateId != null" >
+        #{dateId,jdbcType=DATE},
+      </if>
+      <if test="secId != null" >
+        #{secId,jdbcType=BIGINT},
+      </if>
+      <if test="secName != null" >
+        #{secName,jdbcType=VARCHAR},
+      </if>
+      <if test="buyAmount != null" >
+        #{buyAmount,jdbcType=DOUBLE},
+      </if>
+      <if test="sellAmount != null" >
+        #{sellAmount,jdbcType=DOUBLE},
+      </if>
+      <if test="netAmount != null" >
+        #{netAmount,jdbcType=DOUBLE},
+      </if>
+      <if test="type != null" >
+        #{type,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.st.framework.module.stock.example.GLHBTop5Example" resultType="java.lang.Integer" >
+    select count(*) from G_LHB_TOP5
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update G_LHB_TOP5
+    <set >
+      <if test="record.stockCode != null" >
+        STOCK_CODE = #{record.stockCode,jdbcType=VARCHAR},
+      </if>
+      <if test="record.dateId != null" >
+        DATE_ID = #{record.dateId,jdbcType=DATE},
+      </if>
+      <if test="record.secId != null" >
+        SEC_ID = #{record.secId,jdbcType=BIGINT},
+      </if>
+      <if test="record.secName != null" >
+        SEC_NAME = #{record.secName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.buyAmount != null" >
+        BUY_AMOUNT = #{record.buyAmount,jdbcType=DOUBLE},
+      </if>
+      <if test="record.sellAmount != null" >
+        SELL_AMOUNT = #{record.sellAmount,jdbcType=DOUBLE},
+      </if>
+      <if test="record.netAmount != null" >
+        NET_AMOUNT = #{record.netAmount,jdbcType=DOUBLE},
+      </if>
+      <if test="record.type != null" >
+        TYPE = #{record.type,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update G_LHB_TOP5
+    set STOCK_CODE = #{record.stockCode,jdbcType=VARCHAR},
+      DATE_ID = #{record.dateId,jdbcType=DATE},
+      SEC_ID = #{record.secId,jdbcType=BIGINT},
+      SEC_NAME = #{record.secName,jdbcType=VARCHAR},
+      BUY_AMOUNT = #{record.buyAmount,jdbcType=DOUBLE},
+      SELL_AMOUNT = #{record.sellAmount,jdbcType=DOUBLE},
+      NET_AMOUNT = #{record.netAmount,jdbcType=DOUBLE},
+      TYPE = #{record.type,jdbcType=VARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.st.framework.module.stock.GLHBTop5" >
+    update G_LHB_TOP5
+    <set >
+      <if test="secName != null" >
+        SEC_NAME = #{secName,jdbcType=VARCHAR},
+      </if>
+      <if test="buyAmount != null" >
+        BUY_AMOUNT = #{buyAmount,jdbcType=DOUBLE},
+      </if>
+      <if test="sellAmount != null" >
+        SELL_AMOUNT = #{sellAmount,jdbcType=DOUBLE},
+      </if>
+      <if test="netAmount != null" >
+        NET_AMOUNT = #{netAmount,jdbcType=DOUBLE},
+      </if>
+      <if test="type != null" >
+        TYPE = #{type,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where STOCK_CODE = #{stockCode,jdbcType=VARCHAR}
+      and DATE_ID = #{dateId,jdbcType=DATE}
+      and SEC_ID = #{secId,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.st.framework.module.stock.GLHBTop5" >
+    update G_LHB_TOP5
+    set SEC_NAME = #{secName,jdbcType=VARCHAR},
+      BUY_AMOUNT = #{buyAmount,jdbcType=DOUBLE},
+      SELL_AMOUNT = #{sellAmount,jdbcType=DOUBLE},
+      NET_AMOUNT = #{netAmount,jdbcType=DOUBLE},
+      TYPE = #{type,jdbcType=VARCHAR}
+    where STOCK_CODE = #{stockCode,jdbcType=VARCHAR}
+      and DATE_ID = #{dateId,jdbcType=DATE}
+      and SEC_ID = #{secId,jdbcType=BIGINT}
+  </update>
+  
+  <insert id="insertBatch" parameterType="map" >
+    insert ignore into G_LHB_TOP5
+	(<include refid="Base_Column_List" />)
+	values
+	<foreach collection="list" item="item" index="index" separator=",">
+		(
+		#{item.stockCode},#{item.dateId},#{item.secId},#{item.secName},#{item.buyAmount},#{item.sellAmount},#{item.netAmount},#{item.type}
+		)
+	</foreach>
+  </insert>
+</mapper>

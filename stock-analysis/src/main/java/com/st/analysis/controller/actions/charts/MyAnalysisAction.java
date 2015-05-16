@@ -28,6 +28,9 @@ public class MyAnalysisAction extends BaseAnalysisAction {
 	 */
 	private static final long serialVersionUID = 3269008539878815902L;
 
+	//>=100手 >=200手 >=500手 >=1000手 >=2000手 >=5000手 >=10000手
+	private int [] valRange  = {100,200,500,1000,2000,5000,10000};
+	
 	@Action("aw")
 	public String analysisWave() {
 
