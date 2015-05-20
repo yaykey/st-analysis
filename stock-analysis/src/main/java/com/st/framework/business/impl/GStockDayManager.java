@@ -24,6 +24,8 @@ import com.st.framework.persistence.mapper.BaseMapper;
 import com.st.framework.persistence.mapper.stock.GStockDayMapper;
 import com.st.framework.utils.ConfigUtil;
 import com.st.framework.utils.DateUtil;
+import com.st.framework.utils.db.route.DbContextHolder;
+import com.st.framework.utils.page.Page;
 
 @Component("gStockDayManager")
 public class GStockDayManager extends
@@ -39,7 +41,7 @@ public class GStockDayManager extends
 
 	@Override
 	public BaseMapper<GStockDayKey, GStockDay, GStockDayExample> getMapper() {
-
+		DbContextHolder.setDefaultDbType();
 		return this.gStockDayMapper;
 	}
 
@@ -49,12 +51,34 @@ public class GStockDayManager extends
 	private static Object lock = new Object();
 
 	public int insert(GStockDay gStockDay) {
+		DbContextHolder.setDefaultDbType();
 		synchronized (lock) {
 			return this.getMapper().insert(gStockDay);
 		}
 	}
+	
+	public synchronized void insertOrUpdateSelective(GStockDay gStockDay) {
+		DbContextHolder.setDefaultDbType();
+		try {
+			this.insertSelective(gStockDay);
+		} catch (DuplicateKeyException ex) {
+			logger.warn(ex);
+			this.updateByPrimaryKeySelective(gStockDay);
+		}
+	}
+	
+	public synchronized int updateByPrimaryKeySelective(GStockDay gStockDay) {
+		DbContextHolder.setDefaultDbType();
+		return this.gStockDayMapper.updateByPrimaryKeySelective(gStockDay);
+	}
+	
+	public synchronized int insertSelective (GStockDay gStockDay) {
+		DbContextHolder.setDefaultDbType();
+		return gStockDayMapper.insertSelective(gStockDay);
+	}
 
 	public void insertOrUpdate(GStockDay gStockDay) {
+		DbContextHolder.setDefaultDbType();
 		if (gStockDay == null) {
 			return;
 		}
@@ -65,8 +89,9 @@ public class GStockDayManager extends
 			this.updateByPrimaryKey(gStockDay);
 		}
 	}
-
-	public Integer selectMaxDateId(Integer stockCode) {
+	
+	public Integer selectMaxDateId(String stockCode) {
+		DbContextHolder.setDefaultDbType();
 		GStockDayExample example = new GStockDayExample();
 
 		example.setDistinct(true);
@@ -87,27 +112,29 @@ public class GStockDayManager extends
 		return null;
 	}
 
-	public void updatePriceChanges(Integer stock) {
+	public void updatePriceChanges(String stock) {
+		DbContextHolder.setDefaultDbType();
 		this.gStockDayMapper.updatePriceChanges(stock);
 	}
 
 	public void batchUpdateMMByPrimaryKey(List<GStockDay> list) {
+		DbContextHolder.setDefaultDbType();
 		this.gStockDayMapper.batchUpdateMMByPrimaryKey(list);
 	}
 
 	@SuppressWarnings("unchecked")
-	public List<List<GStockDay>> selectRangePer(Integer stockCode, int sec,
+	public List<List<GStockDay>> selectRangePer(String stockCode, int sec,
 			Date startDateId, Date endDateId, String type) {
-
+		DbContextHolder.setDefaultDbType();
 		List<String> timeIds = DateUtil.getRangeTimes(sec);
 
 		return this.selectRangePer(stockCode, timeIds, startDateId, endDateId,
 				type);
 	}
 
-	public List<List<GStockDay>> selectRangePer(Integer stockCode,
+	public List<List<GStockDay>> selectRangePer(String stockCode,
 			List<String> timeIds, Date startDateId, Date endDateId, String type) {
-
+		DbContextHolder.setDefaultDbType();
 		// List<String> timeIds = DateUtil.getRangeTimes(60*5);
 
 		List<List<GStockDay>> list = new ArrayList<List<GStockDay>>();
@@ -143,6 +170,7 @@ public class GStockDayManager extends
 	}
 
 	public List<GStockDay> selectList(Date dateid, Map<String, Integer> order) {
+		DbContextHolder.setDefaultDbType();
 		GStockDayExample example = new GStockDayExample();
 
 		example.setDistinct(true);
@@ -160,7 +188,7 @@ public class GStockDayManager extends
 
 	public List<GStockDay> selectListByExample(GStockDayExample example,
 			Map<String, Integer> order) {
-
+		DbContextHolder.setDefaultDbType();
 		appendOrderBy(example, order);
 
 		return this.selectByExample(example);
@@ -389,6 +417,7 @@ public class GStockDayManager extends
 	}
 
 	public List<GStockDay> selectList(Date dateid, String orderby) {
+		DbContextHolder.setDefaultDbType();
 		GStockDayExample example = new GStockDayExample();
 
 		example.setDistinct(true);
@@ -408,6 +437,7 @@ public class GStockDayManager extends
 
 	public void selectPer(Date startDate, Date endDate, Double startPer,
 			Double endPer) {
+		DbContextHolder.setDefaultDbType();
 		GStockDayExample example = new GStockDayExample();
 
 		example.setDistinct(true);
@@ -434,8 +464,9 @@ public class GStockDayManager extends
 		List<GStockDay> list = this.selectByExample(example);
 	}
 
-	public List selectMMValidTimeId(String stockCode,
-			String startDateId, String endDateId) {
+	public List selectMMValidTimeId(String stockCode, String startDateId,
+			String endDateId) {
+		DbContextHolder.setDefaultDbType();
 		if (logger.isDebugEnabled()) {
 			logger.debug("selectMMValidTimeId(String, String, String) - start");
 		}
@@ -465,26 +496,26 @@ public class GStockDayManager extends
 
 			}
 		}
-		
+
 		c.andHighTimeIdIsNotNull();
 		c.andLowTimeIdIsNotNull();
-		
+
 		c.andHighPerIsNotNull();
 		c.andLowPerIsNotNull();
 		c.andClosePerIsNotNull();
 		c.andOpenPerIsNotNull();
-		
+
 		List<GStockDay> list = this.selectByExample(example);
-		
+
 		if (list != null && list.size() > 0) {
 			List timeids = new ArrayList();
 			for (GStockDay gStockDay : list) {
 				timeids.add(dfDateId.format(gStockDay.getDate()));
 			}
-			
+
 			return timeids;
 		}
-		
+
 		if (logger.isDebugEnabled()) {
 			logger.debug("selectMMValidTimeId(String, String, String) - end");
 		}
@@ -499,7 +530,7 @@ public class GStockDayManager extends
 		List<String> timeIds = DateUtil.getRangeTimes(60 * 1);
 		{
 			List<List<GStockDay>> list = gStockDayManager.selectRangePer(
-					300002, timeIds, new Date("2014/01/01"), new Date(
+					"300002", timeIds, new Date("2014/01/01"), new Date(
 							"2014/12/31"), "hightimeid");
 
 			if (logger.isInfoEnabled()) {
@@ -518,7 +549,7 @@ public class GStockDayManager extends
 		// ---------------------//
 		{
 			List<List<GStockDay>> list = gStockDayManager.selectRangePer(
-					300002, timeIds, new Date("2014/01/01"), new Date(
+					"300002", timeIds, new Date("2014/01/01"), new Date(
 							"2014/12/31"), "lowtimeid");
 
 			if (logger.isInfoEnabled()) {
@@ -537,41 +568,72 @@ public class GStockDayManager extends
 		}
 	}
 
-	
-	public List<TimeRangeCountBeanResponse> selectByTimeRange(String timeClause,
-			List<TimeRangeCountBeanRequest> list,
+	public List<TimeRangeCountBeanResponse> selectByTimeRange(
+			String timeClause, List<TimeRangeCountBeanRequest> list,
 			GStockDayExample example) {
-		return this.gStockDayMapper.selectByTimeRange(timeClause, list, example);
+		return this.gStockDayMapper
+				.selectByTimeRange(timeClause, list, example);
 	}
-	
+
 	public List<String> selectValidDateByExample(GStockDayExample example) {
 		return this.gStockDayMapper.selectValidDateByExample(example);
 	}
-	
-	public Date findMaxDateByCode (Integer stockCode) {
+
+	public Date findMaxDateByCode(String stockCode) {
 		GStockDayExample example = new GStockDayExample();
 
 		example.setOrderByClause("DATE desc");
 		example.setStart(0);
 		example.setPageSize(1);
-		
+
 		GStockDayExample.Criteria c = example.createCriteria();
-		c.andStockGreaterThanOrEqualTo(stockCode);
-		
+		c.andStockEqualTo(stockCode);
+
 		List<GStockDay> list = this.gStockDayMapper.selectByExample(example);
-		
+
 		if (list == null || list.size() == 0) {
 			return null;
 		} else {
 			return list.get(0).getDate();
 		}
 	}
-	
+
 	public List<GStockDay> selectMA5(Integer stockCode, Integer dateId) {
 		return this.gStockDayMapper.selectMA5(stockCode, dateId);
 	}
-    
+
 	public List<GStockDay> selectMA10(Integer stockCode, Integer dateId) {
 		return this.gStockDayMapper.selectMA10(stockCode, dateId);
+	}
+
+	public List<Date> selectFailTurnvolumeDate(String stockCode) {
+		GStockDayExample example = new GStockDayExample();
+
+		example.setOrderByClause("DATE asc");
+
+		GStockDayExample.Criteria c = example.createCriteria();
+		c.andStockEqualTo(stockCode);
+		c.andTurnVolumeIsNull();
+
+		Page pageInfo = this.selectPageByExample(example, 200);
+		List<Date> dts = new ArrayList<Date>();
+
+		for (int p = 1; p <= pageInfo.getTotalPage(); p++) {
+			//System.out.println("p=" + p);
+
+			pageInfo.setPage(p);
+			example.setPage(pageInfo);
+
+			List<GStockDay> list = this.gStockDayMapper
+					.selectByExample(example);
+
+			if (list != null) {
+				for (GStockDay gsd : list) {
+					dts.add(gsd.getDate());
+				}
+			}
+		}
+
+		return dts;
 	}
 }

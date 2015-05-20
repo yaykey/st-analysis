@@ -73,6 +73,8 @@ public class LoadConfigUtils
 	/** 上传文件夹. */
 	private String downloadFilePath = null;
 	
+	private String scriptFilePath = null;
+	
 	
 	/** 负载地址列表;. */
 	private String[] loadBalancePath = null;
@@ -181,6 +183,8 @@ public class LoadConfigUtils
 //			this.ftpPassword = root.element("ftpPassword").getTextTrim();
 			
 			this.downloadFilePath = root.element("downloadFilePath").getTextTrim();
+			
+			this.scriptFilePath = root.element("scriptFilePath").getTextTrim();
 			
 			
 			
@@ -408,6 +412,18 @@ public class LoadConfigUtils
 
 	public void setDownloadFilePath(String downloadFilePath) {
 		this.downloadFilePath = downloadFilePath;
+	}
+
+
+
+	public String getScriptFilePath() {
+		return scriptFilePath;
+	}
+
+
+
+	public void setScriptFilePath(String scriptFilePath) {
+		this.scriptFilePath = scriptFilePath;
 	}
 
 	

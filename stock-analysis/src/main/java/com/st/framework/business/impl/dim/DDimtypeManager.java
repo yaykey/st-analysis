@@ -7,6 +7,7 @@ import com.st.framework.business.BaseManager;
 import com.st.framework.module.stock.DDimtype;
 import com.st.framework.module.stock.example.DDimtypeExample;
 import com.st.framework.persistence.mapper.stock.DDimtypeMapper;
+import com.st.framework.utils.db.route.DbContextHolder;
 
 @Component("dDimtypeManager")
 public class DDimtypeManager extends
@@ -16,6 +17,7 @@ public class DDimtypeManager extends
 	private DDimtypeMapper dDimtypeMapper;
 
 	public DDimtypeMapper getMapper() {
+		DbContextHolder.setDefaultDbType();
 		return this.dDimtypeMapper;
 	}
 

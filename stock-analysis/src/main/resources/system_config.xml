@@ -25,7 +25,9 @@
 	
 	
 	<!-- 上面根目录下的子文件夹 -->
-	<downloadFilePath>F:/file/downloadFile</downloadFilePath>
+	<!-- <downloadFilePath>F:/file/downloadFile</downloadFilePath> -->
+	<downloadFilePath>g:/file/downloadFile</downloadFilePath>
+	<scriptFilePath>z:/file/script</scriptFilePath>
 	
 	
 	<!-- 服务器,负载地址 -->

@@ -4,19 +4,23 @@ import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.List;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
 
 import com.st.framework.business.impl.GDetailFileErrorManager;
 import com.st.framework.business.impl.GDetailIndexManager;
 import com.st.framework.business.impl.GDetailManager;
 import com.st.framework.business.impl.GDetailNoDataManager;
+import com.st.framework.business.impl.GDividendSchemeManager;
 import com.st.framework.business.impl.GIpoManager;
-import com.st.framework.business.impl.GLHBReportManager;
-import com.st.framework.business.impl.GLHBSecuritiesManager;
-import com.st.framework.business.impl.GLHBTop5Manager;
+import com.st.framework.business.impl.GQgqpManager;
 import com.st.framework.business.impl.GStockDayManager;
+import com.st.framework.business.impl.PDateManager;
+import com.st.framework.business.impl.PMapManager;
 import com.st.framework.business.impl.PStockMapManager;
+import com.st.framework.business.impl.RRangeManager;
 import com.st.framework.business.impl.dim.DDimManager;
+import com.st.framework.business.impl.dim.DDimRangeManager;
 import com.st.framework.business.impl.dim.DDimtypeManager;
 import com.st.framework.business.impl.dim.DStockIndexManager;
 import com.st.framework.business.impl.dim.DStockManager;
@@ -25,6 +29,14 @@ import com.st.framework.business.impl.fact.FactDownloadFileConfigManager;
 import com.st.framework.business.impl.fact.FactProxyManager;
 import com.st.framework.business.impl.factdate.FactDateHolidayListManager;
 import com.st.framework.business.impl.factdate.FactDateHolidayManager;
+import com.st.framework.business.impl.lhb.GLHBReportManager;
+import com.st.framework.business.impl.lhb.GLHBSecuritiesManager;
+import com.st.framework.business.impl.lhb.GLHBTop5Manager;
+import com.st.framework.business.impl.room.ChatroomChatManager;
+import com.st.framework.business.impl.room.CircleChatDetailManager;
+import com.st.framework.business.impl.room.CircleChatManager;
+import com.st.framework.business.impl.room.ThsOwnerManager;
+import com.st.framework.business.impl.room.ThsUserManager;
 import com.st.framework.utils.ConfigUtil;
 
 public class BaseDBUtils {
@@ -99,10 +111,44 @@ public class BaseDBUtils {
 	
 	protected static DStockIndexManager dStockIndexManager = (DStockIndexManager) getHelper()
 			.getBean("dStockIndexManager");
+	
+	protected static PDateManager pDateManager = (PDateManager) getHelper()
+			.getBean("pDateManager");
+	
+	protected static PMapManager pMapManager = (PMapManager) getHelper()
+			.getBean("pMapManager");
+	
+	protected static RRangeManager rRangeManager = (RRangeManager) getHelper()
+			.getBean("rRangeManager");
+	
+	protected static DDimRangeManager dDimRangeManager = (DDimRangeManager) getHelper()
+			.getBean("dDimRangeManager");
+	
+	protected static GDividendSchemeManager gDividendSchemeManager = (GDividendSchemeManager) getHelper()
+			.getBean("gDividendSchemeManager");
+	
+	protected static GQgqpManager gQgqpManager = (GQgqpManager) getHelper()
+			.getBean("gQgqpManager");
+	
+	protected static ThsOwnerManager thsOwnerManager = (ThsOwnerManager) getHelper()
+			.getBean("thsOwnerManager");
+	
+	protected static ThsUserManager thsUserManager = (ThsUserManager) getHelper()
+			.getBean("thsUserManager");
+	
+	protected static CircleChatManager circleChatManager = (CircleChatManager) getHelper()
+			.getBean("circleChatManager");
+	
+	protected static CircleChatDetailManager circleChatDetailManager = (CircleChatDetailManager) getHelper()
+			.getBean("circleChatDetailManager");
+	
+	protected static ChatroomChatManager chatroomChatManager = (ChatroomChatManager) getHelper()
+			.getBean("chatroomChatManager");
+	
 
-	protected static DateFormat df_simple = new SimpleDateFormat("yyyyMMdd");
+//	protected static DateFormat df_simple = new SimpleDateFormat("yyyyMMdd");
 
-	protected final static DateFormat df = new SimpleDateFormat("yyyy-MM-dd");
+//	protected final static DateFormat df = new SimpleDateFormat("yyyy-MM-dd");
 
 	public static void print (List<?> list) {
 		if (list != null && list.size() > 0) {

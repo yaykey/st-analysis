@@ -15,6 +15,7 @@ import com.st.framework.module.stock.example.GDetailFileErrorExample;
 import com.st.framework.persistence.mapper.BaseMapper;
 import com.st.framework.persistence.mapper.stock.GDetailFileErrorMapper;
 import com.st.framework.utils.ConfigUtil;
+import com.st.framework.utils.db.route.DbContextHolder;
 
 @Component("gDetailFileErrorManager")
 public class GDetailFileErrorManager extends
@@ -30,11 +31,17 @@ public class GDetailFileErrorManager extends
 
 	@Override
 	public BaseMapper<GDetailFileErrorKey, GDetailFileError, GDetailFileErrorExample> getMapper() {
-
+		DbContextHolder.setDefaultDbType();
 		return gDetailFileErrorMapper;
 	}
+	
+	public synchronized List<GDetailFileError> selectByExample (GDetailFileErrorExample example) {
+		DbContextHolder.setDefaultDbType();
+		return this.gDetailFileErrorMapper.selectByExample(example);
+	}
 
-	public void increaseBalance(GDetailFileError gDetailFileErrorKey) {
+	public synchronized void increaseBalance(GDetailFileError gDetailFileErrorKey) {
+		DbContextHolder.setDefaultDbType();
 		GDetailFileError gDetailFileError = this.selectByPrimaryKey(gDetailFileErrorKey);
 		
 		if (gDetailFileError == null) {			
@@ -51,6 +58,7 @@ public class GDetailFileErrorManager extends
 	}
 	
 	public List selectErrorDateIds (String stockCode, Integer yearDateId) {
+		DbContextHolder.setDefaultDbType();
 		if (stockCode == null) {
 			return null;
 		}

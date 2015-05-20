@@ -12,6 +12,8 @@ public class GDetailExample extends BaseExample {
 	protected List<Criteria> oredCriteria;
 
 	protected String stockCode;
+	
+	protected String stockType;
 
 	public GDetailExample() {
 		oredCriteria = new ArrayList<Criteria>();
@@ -654,5 +656,13 @@ public class GDetailExample extends BaseExample {
 
 	public void setStockCode(String stockCode) {
 		this.stockCode = stockCode;
+	}
+
+	public String getStockType() {
+		return stockType;
+	}
+
+	public void setStockType(String stockType) {
+		this.stockType = stockType;
 	}
 }

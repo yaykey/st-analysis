@@ -10,7 +10,7 @@ import org.apache.struts2.convention.annotation.Action;
 import org.apache.struts2.convention.annotation.Namespace;
 import org.apache.struts2.convention.annotation.Result;
 import org.apache.struts2.convention.annotation.Results;
-import org.codehaus.jackson.map.ObjectMapper;
+
 
 import com.st.analysis.controller.actions.BaseAnalysisAction;
 import com.st.analysis.utils.wave.WaveUtils;
@@ -40,6 +40,7 @@ public class MyChartsAction extends BaseAnalysisAction{
 			this.stockCode = "sz300002";
 		}
 		
+		
 		if (this.dateId == null) {
 			this.dateId = 20141224;
 		}
@@ -55,9 +56,9 @@ public class MyChartsAction extends BaseAnalysisAction{
 //            LOG.error("writeJson error!msg:\n" + e.getMessage());
 //        }
 		
-		this.getRequest().setAttribute("jsonData", getJsonData(list).toString());
+		this.getRequest().setAttribute("jsonData", getJsonData(list, 0).toString());
 		
-		this.getRequest().setAttribute("jsonData2", getJsonData(WaveUtils.getWaveOptimize(list, 0.01)).toString());
+		this.getRequest().setAttribute("jsonData2", getJsonData(WaveUtils.getWaveOptimize(list, 0.01), 0).toString());
 		
 		
 		return "charts";
@@ -99,13 +100,13 @@ public class MyChartsAction extends BaseAnalysisAction{
 //            LOG.error("writeJson error!msg:\n" + e.getMessage());
 //        }
 		
-		this.getRequest().setAttribute("jsonData", getJsonData(list).toString());
+		this.getRequest().setAttribute("jsonData", getJsonData(list, 8).toString());
 		
-		this.getRequest().setAttribute("jsonData2", getJsonData(WaveUtils.getWaveOptimize(list, 0)).toString());
+		this.getRequest().setAttribute("jsonData2", getJsonData(WaveUtils.getWaveOptimize(list, 0), 8).toString());
 		
 //		this.getRequest().setAttribute("jsonData3", getJsonData(WaveUtils.getWaveOptimize(list, 0, true)).toString());
 		
-		this.getRequest().setAttribute("jsonData4", getJsonData(WaveUtils.getWaveOptimize(list, 0.01, true)).toString());
+		this.getRequest().setAttribute("jsonData4", getJsonData(WaveUtils.getWaveOptimize(list, 0.01, true), 8).toString());
 //		this.getRequest().setAttribute("jsonData2", getJsonData(WaveUtils.getWave(list)).toString());
 		
 		
@@ -146,7 +147,11 @@ public class MyChartsAction extends BaseAnalysisAction{
 		return list;
 	}
 	
-	private StringBuilder getJsonData (List<GDetail> list) {
+	private StringBuilder getJsonData (List<GDetail> list, Integer TZ) {
+		if (TZ == null) {
+			TZ = 0;
+		}
+		
 		DateFormat df = new SimpleDateFormat("yyyyMMdd hh:mm:ss");
 		
 		StringBuilder buffer = new StringBuilder();
@@ -166,7 +171,7 @@ public class MyChartsAction extends BaseAnalysisAction{
 					df.parse(
 						detail.getDateId() + " " + detail.getTimeId()
 					).getTime()
-					+ 1000*60*60*8
+					+ 1000*60*60*TZ
 				);
 			} catch (ParseException e) {
 				e.printStackTrace();

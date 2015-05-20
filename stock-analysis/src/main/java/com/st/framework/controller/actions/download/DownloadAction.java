@@ -10,7 +10,7 @@ import org.apache.struts2.convention.annotation.Results;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import com.st.analysis.utils.download.DownloadFileBean;
-import com.st.analysis.utils.stock.DownloadSinaDataUtils;
+import com.st.analysis.utils.stock.download.DownloadSinaDataUtils;
 import com.st.framework.business.impl.fact.FactProxyManager;
 import com.st.framework.controller.actions.ConventionAction;
 import com.st.framework.persistence.mapper.stock.FactDownloadFileConfigMapper;

@@ -1,0 +1,209 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.st.framework.persistence.mapper.stock.PDateMapper" >
+  <resultMap id="BaseResultMap" type="com.st.framework.module.stock.PDate" >
+    <id column="RPT_ID" property="rptId" jdbcType="INTEGER" />
+    <result column="START_DATE_ID" property="startDateId" jdbcType="DATE" />
+    <result column="END_DATE_ID" property="endDateId" jdbcType="DATE" />
+    <result column="UPT_DATE" property="uptDate" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    RPT_ID, START_DATE_ID, END_DATE_ID, UPT_DATE
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.st.framework.module.stock.example.PDateExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from P_DATE
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+    <if test="start != null and pageSize != null" >
+      limit #{start}, #{pageSize}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from P_DATE
+    where RPT_ID = #{rptId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from P_DATE
+    where RPT_ID = #{rptId,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.st.framework.module.stock.example.PDateExample" >
+    delete from P_DATE
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.st.framework.module.stock.PDate" >
+    insert into P_DATE (RPT_ID, START_DATE_ID, END_DATE_ID, 
+      UPT_DATE)
+    values (#{rptId,jdbcType=INTEGER}, #{startDateId,jdbcType=DATE}, #{endDateId,jdbcType=DATE}, 
+      #{uptDate,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" parameterType="com.st.framework.module.stock.PDate" >
+    insert into P_DATE
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="rptId != null" >
+        RPT_ID,
+      </if>
+      <if test="startDateId != null" >
+        START_DATE_ID,
+      </if>
+      <if test="endDateId != null" >
+        END_DATE_ID,
+      </if>
+      <if test="uptDate != null" >
+        UPT_DATE,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="rptId != null" >
+        #{rptId,jdbcType=INTEGER},
+      </if>
+      <if test="startDateId != null" >
+        #{startDateId,jdbcType=DATE},
+      </if>
+      <if test="endDateId != null" >
+        #{endDateId,jdbcType=DATE},
+      </if>
+      <if test="uptDate != null" >
+        #{uptDate,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.st.framework.module.stock.example.PDateExample" resultType="java.lang.Integer" >
+    select count(*) from P_DATE
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update P_DATE
+    <set >
+      <if test="record.rptId != null" >
+        RPT_ID = #{record.rptId,jdbcType=INTEGER},
+      </if>
+      <if test="record.startDateId != null" >
+        START_DATE_ID = #{record.startDateId,jdbcType=DATE},
+      </if>
+      <if test="record.endDateId != null" >
+        END_DATE_ID = #{record.endDateId,jdbcType=DATE},
+      </if>
+      <if test="record.uptDate != null" >
+        UPT_DATE = #{record.uptDate,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update P_DATE
+    set RPT_ID = #{record.rptId,jdbcType=INTEGER},
+      START_DATE_ID = #{record.startDateId,jdbcType=DATE},
+      END_DATE_ID = #{record.endDateId,jdbcType=DATE},
+      UPT_DATE = #{record.uptDate,jdbcType=TIMESTAMP}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.st.framework.module.stock.PDate" >
+    update P_DATE
+    <set >
+      <if test="startDateId != null" >
+        START_DATE_ID = #{startDateId,jdbcType=DATE},
+      </if>
+      <if test="endDateId != null" >
+        END_DATE_ID = #{endDateId,jdbcType=DATE},
+      </if>
+      <if test="uptDate != null" >
+        UPT_DATE = #{uptDate,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where RPT_ID = #{rptId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.st.framework.module.stock.PDate" >
+    update P_DATE
+    set START_DATE_ID = #{startDateId,jdbcType=DATE},
+      END_DATE_ID = #{endDateId,jdbcType=DATE},
+      UPT_DATE = #{uptDate,jdbcType=TIMESTAMP}
+    where RPT_ID = #{rptId,jdbcType=INTEGER}
+  </update>
+  <insert id="insertBatch" parameterType="map" >
+    insert into P_DATE
+    (<include refid="Base_Column_List" />)
+    values
+    <foreach collection="list" item="item" index="index" separator="," >
+      (
+      #{item.rptId},#{item.startDateId},#{item.endDateId},#{item.uptDate}
+      )
+    </foreach>
+  </insert>
+</mapper>

@@ -17,7 +17,7 @@ public class DateUtils extends BaseDBUtils {
      * @param formatLength 
      * @return 重组后的数据 
      */  
-    public static String frontCompWithZore(int sourceDate,int formatLength)  
+    public synchronized static String frontCompWithZore(int sourceDate,int formatLength)  
     {
      /* 
       * 0 指前面补充零 
@@ -28,7 +28,7 @@ public class DateUtils extends BaseDBUtils {
      return  newString;  
     }  
 
-	public static List<Integer> getTimeIds(Integer startDateId,
+	public synchronized static List<Integer> getTimeIds(Integer startDateId,
 			Integer endDateId) {
 
 		if (startDateId == null) {
@@ -79,7 +79,7 @@ public class DateUtils extends BaseDBUtils {
 		return result;
 	}
 	
-	public static List<String> getStringSimpleTimeIds(Date startDateId,
+	public synchronized static List<String> getStringSimpleTimeIds(Date startDateId,
 			Date endDateId) {
 		List<Date> list = getTimeIds(startDateId, endDateId);
 		
@@ -94,7 +94,7 @@ public class DateUtils extends BaseDBUtils {
 		return result;
 	}
 	
-	public static List<Date> getTimeIds(Date startDateId,
+	public synchronized static List<Date> getTimeIds(Date startDateId,
 			Date endDateId) {
 
 		if (startDateId == null) {
@@ -141,7 +141,7 @@ public class DateUtils extends BaseDBUtils {
 		return result;
 	}
 
-	public static List<Integer> getYearDateIds(Date begin, Date end) {
+	public synchronized static List<Integer> getYearDateIds(Date begin, Date end) {
 
 		if (begin == null || end == null) {
 			return null;

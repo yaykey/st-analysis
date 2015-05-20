@@ -3,7 +3,12 @@ package com.st.framework.module.stock;
 import com.st.framework.module.PersistentObject;
 
 public class FactActiveDateIdIndexKey extends PersistentObject {
-    private Integer stockCode;
+    /**
+	 * 
+	 */
+	private static final long serialVersionUID = -1320313271085232547L;
+
+	private Integer stockCode;
 
     private Integer dateId;
 

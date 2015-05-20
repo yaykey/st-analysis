@@ -8,6 +8,7 @@ import com.st.framework.module.stock.DStockIndex;
 import com.st.framework.module.stock.example.DStockIndexExample;
 import com.st.framework.persistence.mapper.BaseMapper;
 import com.st.framework.persistence.mapper.stock.DStockIndexMapper;
+import com.st.framework.utils.db.route.DbContextHolder;
 
 @Component("dStockIndexManager")
 public class DStockIndexManager extends
@@ -18,7 +19,7 @@ public class DStockIndexManager extends
 
 	@Override
 	public BaseMapper<String, DStockIndex, DStockIndexExample> getMapper() {
-
+		DbContextHolder.setDefaultDbType();
 		return this.dStockIndexMapper;
 	}
 

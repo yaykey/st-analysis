@@ -243,15 +243,15 @@ public class Detail2Utils extends BaseDBUtils {
 
 		boolean res = false;
 
-		String stockCode = fileName.substring(0, 8).toUpperCase();
+		String stockCode = fileName.substring(2, 8).toUpperCase();
 		// String stockCode=fileName.substring(2, 8);
-
+		String stockType = fileName.substring(0, 2).toUpperCase();
 		// D:\eclipse\eclipse-jee-helios-SR2-x86_64\workspace\stock-analysis\src\main\webapp\downloadFile\sz300001\2010\sz300001_成交明细_2010-01-07.xls
 		String filePath = xlsFile.getAbsolutePath();
 		filePath = filePath.substring(filePath.length() - 43,
 				filePath.length() - 29);
 
-		gDetailManager.createGDetailTable(stockCode);
+		gDetailManager.createGDetailTable(stockCode, stockType);
 
 		// gDetailManager.insertFlushBatch(stockCode);
 
@@ -391,12 +391,12 @@ public class Detail2Utils extends BaseDBUtils {
 					}
 //					newSqlBuffer.append(")");
 
-					 gDetailManager.insertBatch(stockCode, gDetail);
+					 gDetailManager.insertBatch(stockCode, stockType, gDetail);
 					 
 					 gDetail = null;
 				}
 				// newSqlBuffer.append(";\r\n");
-				 gDetailManager.insertFlushBatch(stockCode);
+				 gDetailManager.insertFlushBatch(stockCode, stockType);
 
 				// gDetailManager.insertStringBatch(sqlBuffer.toString());
 				// sqlBuffer = null;

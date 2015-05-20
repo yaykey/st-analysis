@@ -13,6 +13,7 @@ import com.st.framework.module.stock.DDim;
 import com.st.framework.module.stock.example.DDimExample;
 import com.st.framework.persistence.mapper.BaseMapper;
 import com.st.framework.persistence.mapper.stock.DDimMapper;
+import com.st.framework.utils.db.route.DbContextHolder;
 
 @Component("dDimManager")
 public class DDimManager extends BaseManager<DDimKey, DDim, DDimExample> {
@@ -22,7 +23,7 @@ public class DDimManager extends BaseManager<DDimKey, DDim, DDimExample> {
 
 	@Override
 	public BaseMapper<DDimKey, DDim, DDimExample> getMapper() {
-
+		DbContextHolder.setDefaultDbType();
 		return this.dDimMapper;
 	}
 
@@ -36,6 +37,8 @@ public class DDimManager extends BaseManager<DDimKey, DDim, DDimExample> {
 	 * @return
 	 */
 	public DDim selectByDimId(Integer dimId) {
+		DbContextHolder.setDefaultDbType();
+		
 		DDimExample example = new DDimExample();
 
 		DDimExample.Criteria c = example.createCriteria();
@@ -59,7 +62,7 @@ public class DDimManager extends BaseManager<DDimKey, DDim, DDimExample> {
 	 * @return
 	 */
 	public List<DDim> selectByDimtypeId(Integer dimtypeId) {
-
+		DbContextHolder.setDefaultDbType();
 		DDimExample example = new DDimExample();
 
 		DDimExample.Criteria c = example.createCriteria();
@@ -78,7 +81,7 @@ public class DDimManager extends BaseManager<DDimKey, DDim, DDimExample> {
 	 * @return
 	 */
 	public List<DDim> selectSinaSIDimAndDimIdNotIn(List<Integer> dimIdNotInList) {
-
+		DbContextHolder.setDefaultDbType();
 		DDimExample example = new DDimExample();
 
 		DDimExample.Criteria c = example.createCriteria();
@@ -98,6 +101,7 @@ public class DDimManager extends BaseManager<DDimKey, DDim, DDimExample> {
 	 * @return
 	 */
 	public List<DDim> selectSinaHasSi () {
+		DbContextHolder.setDefaultDbType();
 		return this.dDimMapper.selectSinaHasSi();
 	}
 	
@@ -107,7 +111,7 @@ public class DDimManager extends BaseManager<DDimKey, DDim, DDimExample> {
 	 * @return
 	 */
 	public List<DDim> selectSinaSIDimAndDimIdNotIn() {
-		
+		DbContextHolder.setDefaultDbType();
 		List<DDim> sinaHasSiList = selectSinaHasSi();
 		
 		List<Integer> dimIdNotInList = new ArrayList<Integer>();
@@ -128,6 +132,7 @@ public class DDimManager extends BaseManager<DDimKey, DDim, DDimExample> {
 	}
 
 	public List<DDim> selectAddSinaSIDim(List<Integer> addList) {
+		DbContextHolder.setDefaultDbType();
 		DDimExample example = new DDimExample();
 
 		DDimExample.Criteria c = example.createCriteria();

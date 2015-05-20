@@ -5,8 +5,8 @@
 	<head>
 		<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 		<title>Highstock Example</title>
-<script src="${base }/js/Highstock-2.0.3/js/highstock.src.js"></script>
-<script src="${base }/js/Highstock-2.0.3/js/modules/exporting.src.js"></script>
+<script src="${base }/js/High/Highstock-2.1.5/js/highstock.src.js"></script>
+<script src="${base }/js/High/Highstock-2.1.5/js/modules/exporting.src.js"></script>
 		<!-- <script type="text/javascript" src="../js/jquery/jquery-1.8.1.min.js"></script> -->
 		<style type="text/css">
 ${demo.css}
@@ -69,18 +69,18 @@ $(function() {
 		exporting: {
 			enabled: false
 		},
-		tooltip : {
+		/* tooltip : {
 			//dateTimeLabelFormats : "second",
 			xDateFormat : "%H:%M:%S",
 			valueDecimals : 2
-		},
+		}, */
 		xAxis : {
 			type: 'datetime',
-            dateTimeLabelFormats: { // don't display the dummy year
+            /* dateTimeLabelFormats: { // don't display the dummy year
                 month: '%e. %b',
                 year: '%b',
                 
-            },
+            }, */
             title: {
                 text: 'Date'
             }
@@ -88,7 +88,7 @@ $(function() {
 				afterSetExtremes : afterSetExtremes
 			}, */
 			//minRange: 3600 * 1000 // one hour
-			,minRange: 60 * 1000
+			//,minRange: 60 * 1000
 		},
 		/* yAxis: {
 	    	labels: {

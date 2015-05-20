@@ -6,9 +6,12 @@ package com.st.framework.utils;
 import java.io.IOException;
 import java.io.OutputStream;
 
-import org.codehaus.jackson.map.ObjectMapper;
+
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
+import com.fasterxml.jackson.databind.ObjectMapper;
 
 /**
  * 类 <code>JsonUtil</code>

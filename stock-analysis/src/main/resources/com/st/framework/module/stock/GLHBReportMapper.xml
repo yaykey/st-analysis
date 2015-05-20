@@ -9,6 +9,21 @@
     <result column="TOTAL_VOLUME" property="totalVolume" jdbcType="DOUBLE" />
     <result column="TOTAL_CAPITAL_PER" property="totalCapitalPer" jdbcType="DOUBLE" />
     <result column="A_SHARE_PER" property="aSharePer" jdbcType="DOUBLE" />
+    
+    <collection property="buyTop5" fetchType="lazy" 
+    	column="{stockCode=STOCK_CODE, dateId=DATE_ID}" 
+    	ofType="GLHBTop5" javaType="ArrayList" 
+    	select="com.st.framework.persistence.mapper.stock.GLHBTop5Mapper.buyTop5" />
+    	
+    <collection property="sellTop5" fetchType="lazy" 
+    	column="{stockCode=STOCK_CODE, dateId=DATE_ID}" 
+    	ofType="GLHBTop5" javaType="ArrayList" 
+    	select="com.st.framework.persistence.mapper.stock.GLHBTop5Mapper.sellTop5" />
+    	
+    <collection property="next" fetchType="lazy" 
+    	column="{stockCode=STOCK_CODE, dateId=DATE_ID}" 
+    	ofType="GLHBReport" select="next" />
+    
   </resultMap>
   <sql id="Example_Where_Clause" >
     <where >
@@ -251,4 +266,16 @@
 		)
 	</foreach>
   </insert>
+  
+  <select id="next" parameterType="map" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" /> 
+    from G_LHB_REPORT
+    where STOCK_CODE = #{stockCode,jdbcType=VARCHAR}
+	<![CDATA[
+		and DATE_ID > #{dateId,jdbcType=DATE}
+	]]>
+	order by DATE_ID desc
+	limit 1
+  </select>
 </mapper>

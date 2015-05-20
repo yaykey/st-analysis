@@ -1,0 +1,272 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.st.framework.persistence.mapper.stock.DDimRangeMapper" >
+  <resultMap id="BaseResultMap" type="com.st.framework.module.stock.DDimRange" >
+    <id column="DIMTYPE_ID" property="dimtypeId" jdbcType="INTEGER" />
+    <id column="DIM_ID" property="dimId" jdbcType="INTEGER" />
+    <result column="DIMTYPE_NAME" property="dimtypeName" jdbcType="VARCHAR" />
+    <result column="DIM_NAME" property="dimName" jdbcType="VARCHAR" />
+    <result column="DIM_ID_BEGIN" property="dimIdBegin" jdbcType="INTEGER" />
+    <result column="DIM_ID_END" property="dimIdEnd" jdbcType="INTEGER" />
+    <result column="DIMTYPE_CODE" property="dimtypeCode" jdbcType="VARCHAR" />
+    <result column="DESCRIPTION" property="description" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    DIMTYPE_ID, DIM_ID, DIMTYPE_NAME, DIM_NAME, DIM_ID_BEGIN, DIM_ID_END, DIMTYPE_CODE, 
+    DESCRIPTION
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.st.framework.module.stock.example.DDimRangeExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from D_DIM_RANGE
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+    <if test="start != null and pageSize != null" >
+      limit #{start}, #{pageSize}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="com.st.framework.module.stock.DDimRangeKey" >
+    select 
+    <include refid="Base_Column_List" />
+    from D_DIM_RANGE
+    where DIMTYPE_ID = #{dimtypeId,jdbcType=INTEGER}
+      and DIM_ID = #{dimId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="com.st.framework.module.stock.DDimRangeKey" >
+    delete from D_DIM_RANGE
+    where DIMTYPE_ID = #{dimtypeId,jdbcType=INTEGER}
+      and DIM_ID = #{dimId,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.st.framework.module.stock.example.DDimRangeExample" >
+    delete from D_DIM_RANGE
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.st.framework.module.stock.DDimRange" >
+    insert into D_DIM_RANGE (DIMTYPE_ID, DIM_ID, DIMTYPE_NAME, 
+      DIM_NAME, DIM_ID_BEGIN, DIM_ID_END, 
+      DIMTYPE_CODE, DESCRIPTION)
+    values (#{dimtypeId,jdbcType=INTEGER}, #{dimId,jdbcType=INTEGER}, #{dimtypeName,jdbcType=VARCHAR}, 
+      #{dimName,jdbcType=VARCHAR}, #{dimIdBegin,jdbcType=INTEGER}, #{dimIdEnd,jdbcType=INTEGER}, 
+      #{dimtypeCode,jdbcType=VARCHAR}, #{description,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.st.framework.module.stock.DDimRange" >
+    insert into D_DIM_RANGE
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="dimtypeId != null" >
+        DIMTYPE_ID,
+      </if>
+      <if test="dimId != null" >
+        DIM_ID,
+      </if>
+      <if test="dimtypeName != null" >
+        DIMTYPE_NAME,
+      </if>
+      <if test="dimName != null" >
+        DIM_NAME,
+      </if>
+      <if test="dimIdBegin != null" >
+        DIM_ID_BEGIN,
+      </if>
+      <if test="dimIdEnd != null" >
+        DIM_ID_END,
+      </if>
+      <if test="dimtypeCode != null" >
+        DIMTYPE_CODE,
+      </if>
+      <if test="description != null" >
+        DESCRIPTION,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="dimtypeId != null" >
+        #{dimtypeId,jdbcType=INTEGER},
+      </if>
+      <if test="dimId != null" >
+        #{dimId,jdbcType=INTEGER},
+      </if>
+      <if test="dimtypeName != null" >
+        #{dimtypeName,jdbcType=VARCHAR},
+      </if>
+      <if test="dimName != null" >
+        #{dimName,jdbcType=VARCHAR},
+      </if>
+      <if test="dimIdBegin != null" >
+        #{dimIdBegin,jdbcType=INTEGER},
+      </if>
+      <if test="dimIdEnd != null" >
+        #{dimIdEnd,jdbcType=INTEGER},
+      </if>
+      <if test="dimtypeCode != null" >
+        #{dimtypeCode,jdbcType=VARCHAR},
+      </if>
+      <if test="description != null" >
+        #{description,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.st.framework.module.stock.example.DDimRangeExample" resultType="java.lang.Integer" >
+    select count(*) from D_DIM_RANGE
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update D_DIM_RANGE
+    <set >
+      <if test="record.dimtypeId != null" >
+        DIMTYPE_ID = #{record.dimtypeId,jdbcType=INTEGER},
+      </if>
+      <if test="record.dimId != null" >
+        DIM_ID = #{record.dimId,jdbcType=INTEGER},
+      </if>
+      <if test="record.dimtypeName != null" >
+        DIMTYPE_NAME = #{record.dimtypeName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.dimName != null" >
+        DIM_NAME = #{record.dimName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.dimIdBegin != null" >
+        DIM_ID_BEGIN = #{record.dimIdBegin,jdbcType=INTEGER},
+      </if>
+      <if test="record.dimIdEnd != null" >
+        DIM_ID_END = #{record.dimIdEnd,jdbcType=INTEGER},
+      </if>
+      <if test="record.dimtypeCode != null" >
+        DIMTYPE_CODE = #{record.dimtypeCode,jdbcType=VARCHAR},
+      </if>
+      <if test="record.description != null" >
+        DESCRIPTION = #{record.description,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update D_DIM_RANGE
+    set DIMTYPE_ID = #{record.dimtypeId,jdbcType=INTEGER},
+      DIM_ID = #{record.dimId,jdbcType=INTEGER},
+      DIMTYPE_NAME = #{record.dimtypeName,jdbcType=VARCHAR},
+      DIM_NAME = #{record.dimName,jdbcType=VARCHAR},
+      DIM_ID_BEGIN = #{record.dimIdBegin,jdbcType=INTEGER},
+      DIM_ID_END = #{record.dimIdEnd,jdbcType=INTEGER},
+      DIMTYPE_CODE = #{record.dimtypeCode,jdbcType=VARCHAR},
+      DESCRIPTION = #{record.description,jdbcType=VARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.st.framework.module.stock.DDimRange" >
+    update D_DIM_RANGE
+    <set >
+      <if test="dimtypeName != null" >
+        DIMTYPE_NAME = #{dimtypeName,jdbcType=VARCHAR},
+      </if>
+      <if test="dimName != null" >
+        DIM_NAME = #{dimName,jdbcType=VARCHAR},
+      </if>
+      <if test="dimIdBegin != null" >
+        DIM_ID_BEGIN = #{dimIdBegin,jdbcType=INTEGER},
+      </if>
+      <if test="dimIdEnd != null" >
+        DIM_ID_END = #{dimIdEnd,jdbcType=INTEGER},
+      </if>
+      <if test="dimtypeCode != null" >
+        DIMTYPE_CODE = #{dimtypeCode,jdbcType=VARCHAR},
+      </if>
+      <if test="description != null" >
+        DESCRIPTION = #{description,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where DIMTYPE_ID = #{dimtypeId,jdbcType=INTEGER}
+      and DIM_ID = #{dimId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.st.framework.module.stock.DDimRange" >
+    update D_DIM_RANGE
+    set DIMTYPE_NAME = #{dimtypeName,jdbcType=VARCHAR},
+      DIM_NAME = #{dimName,jdbcType=VARCHAR},
+      DIM_ID_BEGIN = #{dimIdBegin,jdbcType=INTEGER},
+      DIM_ID_END = #{dimIdEnd,jdbcType=INTEGER},
+      DIMTYPE_CODE = #{dimtypeCode,jdbcType=VARCHAR},
+      DESCRIPTION = #{description,jdbcType=VARCHAR}
+    where DIMTYPE_ID = #{dimtypeId,jdbcType=INTEGER}
+      and DIM_ID = #{dimId,jdbcType=INTEGER}
+  </update>
+  <insert id="insertBatch" parameterType="map" >
+    insert into D_DIM_RANGE
+    (<include refid="Base_Column_List" />)
+    values
+    <foreach collection="list" item="item" index="index" separator="," >
+      (
+      #{item.dimtypeId},#{item.dimId},#{item.dimtypeName},#{item.dimName},#{item.dimIdBegin},#{item.dimIdEnd},#{item.dimtypeCode},#{item.description}
+      )
+    </foreach>
+  </insert>
+</mapper>

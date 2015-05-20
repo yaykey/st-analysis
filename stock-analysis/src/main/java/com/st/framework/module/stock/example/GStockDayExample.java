@@ -143,52 +143,62 @@ public class GStockDayExample extends BaseExample {
             return (Criteria) this;
         }
 
-        public Criteria andStockEqualTo(Integer value) {
+        public Criteria andStockEqualTo(String value) {
             addCriterion("STOCK =", value, "stock");
             return (Criteria) this;
         }
 
-        public Criteria andStockNotEqualTo(Integer value) {
+        public Criteria andStockNotEqualTo(String value) {
             addCriterion("STOCK <>", value, "stock");
             return (Criteria) this;
         }
 
-        public Criteria andStockGreaterThan(Integer value) {
+        public Criteria andStockGreaterThan(String value) {
             addCriterion("STOCK >", value, "stock");
             return (Criteria) this;
         }
 
-        public Criteria andStockGreaterThanOrEqualTo(Integer value) {
+        public Criteria andStockGreaterThanOrEqualTo(String value) {
             addCriterion("STOCK >=", value, "stock");
             return (Criteria) this;
         }
 
-        public Criteria andStockLessThan(Integer value) {
+        public Criteria andStockLessThan(String value) {
             addCriterion("STOCK <", value, "stock");
             return (Criteria) this;
         }
 
-        public Criteria andStockLessThanOrEqualTo(Integer value) {
+        public Criteria andStockLessThanOrEqualTo(String value) {
             addCriterion("STOCK <=", value, "stock");
             return (Criteria) this;
         }
 
-        public Criteria andStockIn(List<Integer> values) {
+        public Criteria andStockLike(String value) {
+            addCriterion("STOCK like", value, "stock");
+            return (Criteria) this;
+        }
+
+        public Criteria andStockNotLike(String value) {
+            addCriterion("STOCK not like", value, "stock");
+            return (Criteria) this;
+        }
+
+        public Criteria andStockIn(List<String> values) {
             addCriterion("STOCK in", values, "stock");
             return (Criteria) this;
         }
 
-        public Criteria andStockNotIn(List<Integer> values) {
+        public Criteria andStockNotIn(List<String> values) {
             addCriterion("STOCK not in", values, "stock");
             return (Criteria) this;
         }
 
-        public Criteria andStockBetween(Integer value1, Integer value2) {
+        public Criteria andStockBetween(String value1, String value2) {
             addCriterion("STOCK between", value1, value2, "stock");
             return (Criteria) this;
         }
 
-        public Criteria andStockNotBetween(Integer value1, Integer value2) {
+        public Criteria andStockNotBetween(String value1, String value2) {
             addCriterion("STOCK not between", value1, value2, "stock");
             return (Criteria) this;
         }
@@ -503,52 +513,52 @@ public class GStockDayExample extends BaseExample {
             return (Criteria) this;
         }
 
-        public Criteria andVolumeEqualTo(Integer value) {
+        public Criteria andVolumeEqualTo(Double value) {
             addCriterion("VOLUME =", value, "volume");
             return (Criteria) this;
         }
 
-        public Criteria andVolumeNotEqualTo(Integer value) {
+        public Criteria andVolumeNotEqualTo(Double value) {
             addCriterion("VOLUME <>", value, "volume");
             return (Criteria) this;
         }
 
-        public Criteria andVolumeGreaterThan(Integer value) {
+        public Criteria andVolumeGreaterThan(Double value) {
             addCriterion("VOLUME >", value, "volume");
             return (Criteria) this;
         }
 
-        public Criteria andVolumeGreaterThanOrEqualTo(Integer value) {
+        public Criteria andVolumeGreaterThanOrEqualTo(Double value) {
             addCriterion("VOLUME >=", value, "volume");
             return (Criteria) this;
         }
 
-        public Criteria andVolumeLessThan(Integer value) {
+        public Criteria andVolumeLessThan(Double value) {
             addCriterion("VOLUME <", value, "volume");
             return (Criteria) this;
         }
 
-        public Criteria andVolumeLessThanOrEqualTo(Integer value) {
+        public Criteria andVolumeLessThanOrEqualTo(Double value) {
             addCriterion("VOLUME <=", value, "volume");
             return (Criteria) this;
         }
 
-        public Criteria andVolumeIn(List<Integer> values) {
+        public Criteria andVolumeIn(List<Double> values) {
             addCriterion("VOLUME in", values, "volume");
             return (Criteria) this;
         }
 
-        public Criteria andVolumeNotIn(List<Integer> values) {
+        public Criteria andVolumeNotIn(List<Double> values) {
             addCriterion("VOLUME not in", values, "volume");
             return (Criteria) this;
         }
 
-        public Criteria andVolumeBetween(Integer value1, Integer value2) {
+        public Criteria andVolumeBetween(Double value1, Double value2) {
             addCriterion("VOLUME between", value1, value2, "volume");
             return (Criteria) this;
         }
 
-        public Criteria andVolumeNotBetween(Integer value1, Integer value2) {
+        public Criteria andVolumeNotBetween(Double value1, Double value2) {
             addCriterion("VOLUME not between", value1, value2, "volume");
             return (Criteria) this;
         }

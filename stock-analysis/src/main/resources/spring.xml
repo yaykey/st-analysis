@@ -66,17 +66,82 @@
 		<property name="testConnectionOnCheckin" value="false" />
 		<property name="usesTraditionalReflectiveProxies" value="false" />
 	</bean>
-	<bean id="dataSource" class="com.mchange.v2.c3p0.ComboPooledDataSource"
+	<!-- <bean id="dataSource" class="com.mchange.v2.c3p0.ComboPooledDataSource"
 		destroy-method="close" parent="BaseDataSource">
 		<property name="jdbcUrl" value="${datasource.url}" />
 		<property name="user" value="${datasource.username}" />
 		<property name="password" value="${datasource.password}" />
 		<property name="maxPoolSize" value="${datasource.maxActive}" />
 		<property name="minPoolSize" value="${datasource.minActive}" />
-		<!--<property name="initialPoolSize" value="3" /> -->
+		<property name="initialPoolSize" value="3" />
+	</bean> -->
+	
+	<bean id="abstractDataSource" abstract="true"
+		class="com.mchange.v2.c3p0.ComboPooledDataSource" destroy-method="close">
+		<property name="driverClass" value="${datasource.driverClassName}" />
+		
+		<property name="acquireIncrement" value="5" />
+		
+		<property name="idleConnectionTestPeriod" value="270" />
+		
+		<property name="maxIdleTime" value="600" />
+		<property name="maxConnectionAge" value="0" />
+
+		<property name="maxStatements" value="20000" />
+		<property name="maxStatementsPerConnection" value="300" />
+		<property name="numHelperThreads" value="20" />
+		<property name="maxAdministrativeTaskTime" value="30" />
+		<property name="acquireRetryAttempts" value="30" />
+		<property name="acquireRetryDelay" value="1000" />
+		<property name="autoCommitOnClose" value="false" />
+
+		<property name="automaticTestTable" value="Test" />
+		<!-- <property name="preferredTestQuery" value="select id from test where 
+			id=1" /> -->
+		<property name="breakAfterAcquireFailure" value="false" />
+		<property name="checkoutTimeout" value="30000" />
+		<property name="factoryClassLocation" value="" />
+		<property name="forceIgnoreUnresolvedTransactions" value="false" />
+		<property name="propertyCycle" value="300" />
+		
+		<property name="testConnectionOnCheckout" value="true" />
+		
+		<property name="testConnectionOnCheckin" value="false" />
+		<property name="usesTraditionalReflectiveProxies" value="false" />
 	</bean>
+	
+	<bean id="defDS" parent="abstractDataSource">
+		<property name="jdbcUrl" value="${datasource.url}" />
+		<property name="user" value="${datasource.username}" />
+		<property name="password" value="${datasource.password}" />
+	</bean>
+	
+	<bean id="gszDS" parent="abstractDataSource">
+		<property name="jdbcUrl" value="${datasource.g_sz.url}" />
+		<property name="user" value="${datasource.g_sz.username}" />
+		<property name="password" value="${datasource.g_sz.password}" />
+	</bean>
+	
+	<bean id="gshDS" parent="abstractDataSource">
+		<property name="jdbcUrl" value="${datasource.g_sh.url}" />
+		<property name="user" value="${datasource.g_sh.username}" />
+		<property name="password" value="${datasource.g_sh.password}" />
+	</bean>
+
+	<!-- 一个master和一个slaver 读写分离的数据源 -->
+	<bean id="routingDS" class="com.st.framework.utils.db.route.RoutingDataSource">
+		<property name="targetDataSources">
+			<map key-type="java.lang.String">
+				<entry key="ds" value-ref="defDS"></entry>			
+				<entry key="gsz" value-ref="gszDS"></entry>
+				<entry key="gsh" value-ref="gshDS"></entry>
+			</map>
+		</property>
+		<property name="defaultTargetDataSource" ref="defDS"></property>
+	</bean>
+	
 	<bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
-		<property name="dataSource" ref="dataSource" />
+		<property name="dataSource" ref="routingDS" />
 		<property name="configLocation" value="classpath:mybatis-configration.xml" />
 		<property name="mapperLocations">
 			<list>
@@ -85,10 +150,16 @@
 		</property>
 
 	</bean>
-
-	<bean id="SqlSessionTemplate" class="org.mybatis.spring.SqlSessionTemplate">
-		<constructor-arg index="0" ref="sqlSessionFactory" />
+	
+	
+	
+	<bean id="sqlSession" class="org.mybatis.spring.SqlSessionTemplate" scope="prototype">
+	    <constructor-arg index="0" ref="sqlSessionFactory"/>
 	</bean>
+
+	<!-- <bean id="SqlSessionTemplate" class="org.mybatis.spring.SqlSessionTemplate">
+		<constructor-arg index="0" ref="sqlSessionFactory" />
+	</bean> -->
 
 	<!-- 配置事务 -->
 	<!-- <bean id="transactionManager"

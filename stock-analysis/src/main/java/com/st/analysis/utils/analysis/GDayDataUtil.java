@@ -38,11 +38,11 @@ public class GDayDataUtil extends DetailUtils {
 	// getHelper()
 	// .getBean("rptTrendManager");
 
-	public void appendPerData(Integer stock) {
+	public void appendPerData(String stock) {
 		appendPerData(stock, null, null);
 	}
 
-	public void appendPerData(Integer stock, Date startDate, Date endDate) {
+	public void appendPerData(String stock, Date startDate, Date endDate) {
 
 		Long timeBegainId = System.currentTimeMillis();
 
@@ -69,7 +69,7 @@ public class GDayDataUtil extends DetailUtils {
 		}
 
 		Long updatePriceChangesTimeId = System.currentTimeMillis();
-		gStockDayManager.updatePriceChanges(stock);
+		gStockDayManager.updatePriceChanges("" + stock);
 		System.out.println("appendPerData->updatePriceChanges->"
 				+ (System.currentTimeMillis() - updatePriceChangesTimeId));
 
@@ -133,7 +133,7 @@ public class GDayDataUtil extends DetailUtils {
 	}
 
 	@SuppressWarnings({ "rawtypes", "unchecked" })
-	public void appendTimeDate(String stockCode, String startDateId,
+	public void appendTimeDate(String stockCode,String stockType, String startDateId,
 			String endDateId) {
 
 		Date d1 = new Date(), d2 = null;
@@ -194,7 +194,7 @@ public class GDayDataUtil extends DetailUtils {
 		// startDateId, endDateId));
 
 		try {
-			list = gDetailManager.selectMMBaseData(stockCode, dateIds);
+			list = gDetailManager.selectMMBaseData(stockCode,stockType, dateIds);
 		} catch (Exception ex) {
 			logger.warn(ex.getMessage());
 		}
@@ -215,10 +215,11 @@ public class GDayDataUtil extends DetailUtils {
 		for (MMBean mm : list) {
 			try {
 				key = new GStockDayKey();
-				key.setStock(Integer.parseInt(stockCode.substring(2)));
+				key.setStock((stockCode.substring(2)));
 
 				try {
-					key.setDate(df_simple.parse("" + mm.getDateId()));
+					DateFormat DF_SIMPLE = new SimpleDateFormat("yyyyMMdd");
+					key.setDate(DF_SIMPLE.parse("" + mm.getDateId()));
 				} catch (ParseException e) {
 					logger.error("appendTimeDate(String, String, String)", e);
 
@@ -230,7 +231,7 @@ public class GDayDataUtil extends DetailUtils {
 				if (gd == null) {
 					// logger.info("key=" + key);
 					List<GStockDay> tmpList = gDetailManager.selectStockDay(
-							stockCode, mm.getDateId(), mm.getDateId());
+							stockCode, stockType, mm.getDateId(), mm.getDateId());
 					// if (logger.isInfoEnabled()) {
 					// logger.info("appendTimeDate(String, String, String) - List<GStockDay> tmpList="
 					// + tmpList);
@@ -278,7 +279,7 @@ public class GDayDataUtil extends DetailUtils {
 
 	}
 
-	public void appendTimeDatePage(final String stockCode, Date begin, Date end) {
+	public void appendTimeDatePage(final String stockCode,final String stockType, Date begin, Date end) {
 		Calendar cal = Calendar.getInstance();
 		cal.setTime(begin);
 
@@ -290,7 +291,7 @@ public class GDayDataUtil extends DetailUtils {
 				final Date fend = cal.getTime();
 //				Global.threadPoolExecutor.execute(new Thread() {
 //					public void run() {
-						appendTimeDate(stockCode, fbegin, fend);
+						appendTimeDate(stockCode,stockType, fbegin, fend);
 //					}
 //				});
 
@@ -299,7 +300,7 @@ public class GDayDataUtil extends DetailUtils {
 				final Date fend = end;
 //				Global.threadPoolExecutor.execute(new Thread() {
 //					public void run() {
-						appendTimeDate(stockCode, fbegin, fend);
+						appendTimeDate(stockCode,stockType, fbegin, fend);
 //					}
 //				});
 				break;
@@ -311,7 +312,7 @@ public class GDayDataUtil extends DetailUtils {
 		}
 	}
 
-	public void appendTimeDate(String stockCode, Date startDateId,
+	public void appendTimeDate(String stockCode,String stockType, Date startDateId,
 			Date endDateId) {
 
 		if (stockCode == null || startDateId == null || endDateId == null) {
@@ -370,7 +371,7 @@ public class GDayDataUtil extends DetailUtils {
 		// startDateId, endDateId));
 
 		try {
-			list = gDetailManager.selectMMBaseData(stockCode, dateIds);
+			list = gDetailManager.selectMMBaseData(stockCode,stockType, dateIds);
 		} catch (Exception ex) {
 			logger.warn(ex.getMessage());
 		}
@@ -391,10 +392,11 @@ public class GDayDataUtil extends DetailUtils {
 		for (MMBean mm : list) {
 			try {
 				key = new GStockDayKey();
-				key.setStock(Integer.parseInt(stockCode.substring(2)));
+				key.setStock((stockCode.substring(2)));
 
 				try {
-					key.setDate(df_simple.parse("" + mm.getDateId()));
+					DateFormat DF_SIMPLE = new SimpleDateFormat("yyyyMMdd");
+					key.setDate(DF_SIMPLE.parse("" + mm.getDateId()));
 				} catch (ParseException e) {
 					logger.error("appendTimeDate(String, String, String)", e);
 
@@ -406,7 +408,7 @@ public class GDayDataUtil extends DetailUtils {
 				if (gd == null) {
 					// logger.info("key=" + key);
 					List<GStockDay> tmpList = gDetailManager.selectStockDay(
-							stockCode, mm.getDateId(), mm.getDateId());
+							stockCode, stockType, mm.getDateId(), mm.getDateId());
 					// if (logger.isInfoEnabled()) {
 					// logger.info("appendTimeDate(String, String, String) - List<GStockDay> tmpList="
 					// + tmpList);
@@ -460,7 +462,8 @@ public class GDayDataUtil extends DetailUtils {
 
 		Calendar cal = Calendar.getInstance();
 		try {
-			cal.setTime(df_simple.parse(startDateId));
+			DateFormat DF_SIMPLE = new SimpleDateFormat("yyyyMMdd");
+			cal.setTime(DF_SIMPLE.parse(startDateId));
 
 		} catch (ParseException e) {
 			e.printStackTrace();
@@ -479,8 +482,8 @@ public class GDayDataUtil extends DetailUtils {
 			} else if (cal.get(Calendar.DAY_OF_WEEK) == 1) {
 				cal.add(Calendar.DAY_OF_MONTH, 1);
 			}
-
-			start = df_simple.format(cal.getTime());
+			DateFormat DF_SIMPLE = new SimpleDateFormat("yyyyMMdd");
+			start = DF_SIMPLE.format(cal.getTime());
 		}
 
 		return list;
@@ -543,9 +546,9 @@ public class GDayDataUtil extends DetailUtils {
 		String endDateId = "20141223";
 
 		for (int i = 300001; i < 300406; i++) {
-			u.appendTimeDate("SZ" + i, startDateId, endDateId);
+			u.appendTimeDate("" + i,"SZ", startDateId, endDateId);
 
-			u.appendPerData(i);
+			u.appendPerData("" + i);
 		}
 
 	}

@@ -1,0 +1,720 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.st.framework.persistence.mapper.stock.GDividendSchemeMapper" >
+  <resultMap id="BaseResultMap" type="com.st.framework.module.stock.GDividendScheme" >
+    <id column="STOCK_CODE" property="stockCode" jdbcType="VARCHAR" />
+    <id column="ANNOUNCEMENT_DATE" property="announcementDate" jdbcType="DATE" />
+    <result column="SECURITIES" property="securities" jdbcType="VARCHAR" />
+    <result column="DELIVERING" property="delivering" jdbcType="DOUBLE" />
+    <result column="TRANSFER" property="transfer" jdbcType="DOUBLE" />
+    <result column="DIVIDEND" property="dividend" jdbcType="DOUBLE" />
+    <result column="SCHEDULE" property="schedule" jdbcType="VARCHAR" />
+    <result column="EX_DIVIDEND_DATE" property="exDividendDate" jdbcType="DATE" />
+    <result column="RECORD_DATE" property="recordDate" jdbcType="DATE" />
+    <result column="LISTING_DATE" property="listingDate" jdbcType="DATE" />
+    <result column="PRE_TAX_BONUS" property="preTaxBonus" jdbcType="VARCHAR" />
+    <result column="NON_GAPP_EARNING" property="nonGappEarning" jdbcType="VARCHAR" />
+    <result column="BH_SHARES_BEFORE_TAX_DIVIDEND" property="bhSharesBeforeTaxDividend" jdbcType="VARCHAR" />
+    <result column="BH_SHARES_AFTER_TAX_DIVIDEND" property="bhSharesAfterTaxDividend" jdbcType="VARCHAR" />
+    <result column="PROPORTION_BONUS" property="proportionBonus" jdbcType="VARCHAR" />
+    <result column="CAPITALIZATION_RATIO" property="capitalizationRatio" jdbcType="VARCHAR" />
+    <result column="SURPLUS_RESERVE_RATIO" property="surplusReserveRatio" jdbcType="VARCHAR" />
+    <result column="CAPITAL_RESERVE_RATIO" property="capitalReserveRatio" jdbcType="VARCHAR" />
+    <result column="ISSUANCE_TARGET" property="issuanceTarget" jdbcType="VARCHAR" />
+    <result column="EQUITY_REFERENCE_DAY" property="equityReferenceDay" jdbcType="VARCHAR" />
+    <result column="LAST_TRADING_DAY" property="lastTradingDay" jdbcType="VARCHAR" />
+    <result column="ARRIVAL_DATE" property="arrivalDate" jdbcType="VARCHAR" />
+    <result column="DIVIDEND_DATE_OF_TERMINATION" property="dividendDateOfTermination" jdbcType="VARCHAR" />
+    <result column="MEETING_ANNOUNCEMENT_DATE" property="meetingAnnouncementDate" jdbcType="VARCHAR" />
+    <result column="RIGHTS_DEADLINE" property="rightsDeadline" jdbcType="VARCHAR" />
+    <result column="ALLOTMENT_RATIO" property="allotmentRatio" jdbcType="VARCHAR" />
+    <result column="SHS_PLACING" property="shsPlacing" jdbcType="VARCHAR" />
+    <result column="TRANSFERRED_RATIO" property="transferredRatio" jdbcType="VARCHAR" />
+    <result column="TURN_VALENCE" property="turnValence" jdbcType="VARCHAR" />
+    <result column="VALID_ALLOTMENT" property="validAllotment" jdbcType="VARCHAR" />
+    <result column="ACTUAL_SHARES_NUMBER" property="actualSharesNumber" jdbcType="VARCHAR" />
+    <result column="SHARES_BEFOR_ISSUE" property="sharesBeforIssue" jdbcType="VARCHAR" />
+    <result column="ACTUAL_RATIO" property="actualRatio" jdbcType="VARCHAR" />
+    <result column="SHARE_SPLIT_COUNT" property="shareSplitCount" jdbcType="VARCHAR" />
+    <result column="FOREIGN_CURRENCY_EXCHANGE_RATE" property="foreignCurrencyExchangeRate" jdbcType="VARCHAR" />
+    <result column="WEIGHT_NOTE" property="weightNote" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    STOCK_CODE, ANNOUNCEMENT_DATE, SECURITIES, DELIVERING, TRANSFER, DIVIDEND, SCHEDULE, 
+    EX_DIVIDEND_DATE, RECORD_DATE, LISTING_DATE, PRE_TAX_BONUS, NON_GAPP_EARNING, BH_SHARES_BEFORE_TAX_DIVIDEND, 
+    BH_SHARES_AFTER_TAX_DIVIDEND, PROPORTION_BONUS, CAPITALIZATION_RATIO, SURPLUS_RESERVE_RATIO, 
+    CAPITAL_RESERVE_RATIO, ISSUANCE_TARGET, EQUITY_REFERENCE_DAY, LAST_TRADING_DAY, ARRIVAL_DATE, 
+    DIVIDEND_DATE_OF_TERMINATION, MEETING_ANNOUNCEMENT_DATE, RIGHTS_DEADLINE, ALLOTMENT_RATIO, 
+    SHS_PLACING, TRANSFERRED_RATIO, TURN_VALENCE, VALID_ALLOTMENT, ACTUAL_SHARES_NUMBER, 
+    SHARES_BEFOR_ISSUE, ACTUAL_RATIO, SHARE_SPLIT_COUNT, FOREIGN_CURRENCY_EXCHANGE_RATE, 
+    WEIGHT_NOTE
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.st.framework.module.stock.example.GDividendSchemeExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from G_DIVIDEND_SCHEME
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+    <if test="start != null and pageSize != null" >
+      limit #{start}, #{pageSize}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="com.st.framework.module.stock.GDividendSchemeKey" >
+    select 
+    <include refid="Base_Column_List" />
+    from G_DIVIDEND_SCHEME
+    where STOCK_CODE = #{stockCode,jdbcType=VARCHAR}
+      and ANNOUNCEMENT_DATE = #{announcementDate,jdbcType=DATE}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="com.st.framework.module.stock.GDividendSchemeKey" >
+    delete from G_DIVIDEND_SCHEME
+    where STOCK_CODE = #{stockCode,jdbcType=VARCHAR}
+      and ANNOUNCEMENT_DATE = #{announcementDate,jdbcType=DATE}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.st.framework.module.stock.example.GDividendSchemeExample" >
+    delete from G_DIVIDEND_SCHEME
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.st.framework.module.stock.GDividendScheme" >
+    insert into G_DIVIDEND_SCHEME (STOCK_CODE, ANNOUNCEMENT_DATE, SECURITIES, 
+      DELIVERING, TRANSFER, DIVIDEND, 
+      SCHEDULE, EX_DIVIDEND_DATE, RECORD_DATE, 
+      LISTING_DATE, PRE_TAX_BONUS, NON_GAPP_EARNING, 
+      BH_SHARES_BEFORE_TAX_DIVIDEND, BH_SHARES_AFTER_TAX_DIVIDEND, 
+      PROPORTION_BONUS, CAPITALIZATION_RATIO, SURPLUS_RESERVE_RATIO, 
+      CAPITAL_RESERVE_RATIO, ISSUANCE_TARGET, EQUITY_REFERENCE_DAY, 
+      LAST_TRADING_DAY, ARRIVAL_DATE, DIVIDEND_DATE_OF_TERMINATION, 
+      MEETING_ANNOUNCEMENT_DATE, RIGHTS_DEADLINE, 
+      ALLOTMENT_RATIO, SHS_PLACING, TRANSFERRED_RATIO, 
+      TURN_VALENCE, VALID_ALLOTMENT, ACTUAL_SHARES_NUMBER, 
+      SHARES_BEFOR_ISSUE, ACTUAL_RATIO, SHARE_SPLIT_COUNT, 
+      FOREIGN_CURRENCY_EXCHANGE_RATE, WEIGHT_NOTE
+      )
+    values (#{stockCode,jdbcType=VARCHAR}, #{announcementDate,jdbcType=DATE}, #{securities,jdbcType=VARCHAR}, 
+      #{delivering,jdbcType=DOUBLE}, #{transfer,jdbcType=DOUBLE}, #{dividend,jdbcType=DOUBLE}, 
+      #{schedule,jdbcType=VARCHAR}, #{exDividendDate,jdbcType=DATE}, #{recordDate,jdbcType=DATE}, 
+      #{listingDate,jdbcType=DATE}, #{preTaxBonus,jdbcType=VARCHAR}, #{nonGappEarning,jdbcType=VARCHAR}, 
+      #{bhSharesBeforeTaxDividend,jdbcType=VARCHAR}, #{bhSharesAfterTaxDividend,jdbcType=VARCHAR}, 
+      #{proportionBonus,jdbcType=VARCHAR}, #{capitalizationRatio,jdbcType=VARCHAR}, #{surplusReserveRatio,jdbcType=VARCHAR}, 
+      #{capitalReserveRatio,jdbcType=VARCHAR}, #{issuanceTarget,jdbcType=VARCHAR}, #{equityReferenceDay,jdbcType=VARCHAR}, 
+      #{lastTradingDay,jdbcType=VARCHAR}, #{arrivalDate,jdbcType=VARCHAR}, #{dividendDateOfTermination,jdbcType=VARCHAR}, 
+      #{meetingAnnouncementDate,jdbcType=VARCHAR}, #{rightsDeadline,jdbcType=VARCHAR}, 
+      #{allotmentRatio,jdbcType=VARCHAR}, #{shsPlacing,jdbcType=VARCHAR}, #{transferredRatio,jdbcType=VARCHAR}, 
+      #{turnValence,jdbcType=VARCHAR}, #{validAllotment,jdbcType=VARCHAR}, #{actualSharesNumber,jdbcType=VARCHAR}, 
+      #{sharesBeforIssue,jdbcType=VARCHAR}, #{actualRatio,jdbcType=VARCHAR}, #{shareSplitCount,jdbcType=VARCHAR}, 
+      #{foreignCurrencyExchangeRate,jdbcType=VARCHAR}, #{weightNote,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.st.framework.module.stock.GDividendScheme" >
+    insert into G_DIVIDEND_SCHEME
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="stockCode != null" >
+        STOCK_CODE,
+      </if>
+      <if test="announcementDate != null" >
+        ANNOUNCEMENT_DATE,
+      </if>
+      <if test="securities != null" >
+        SECURITIES,
+      </if>
+      <if test="delivering != null" >
+        DELIVERING,
+      </if>
+      <if test="transfer != null" >
+        TRANSFER,
+      </if>
+      <if test="dividend != null" >
+        DIVIDEND,
+      </if>
+      <if test="schedule != null" >
+        SCHEDULE,
+      </if>
+      <if test="exDividendDate != null" >
+        EX_DIVIDEND_DATE,
+      </if>
+      <if test="recordDate != null" >
+        RECORD_DATE,
+      </if>
+      <if test="listingDate != null" >
+        LISTING_DATE,
+      </if>
+      <if test="preTaxBonus != null" >
+        PRE_TAX_BONUS,
+      </if>
+      <if test="nonGappEarning != null" >
+        NON_GAPP_EARNING,
+      </if>
+      <if test="bhSharesBeforeTaxDividend != null" >
+        BH_SHARES_BEFORE_TAX_DIVIDEND,
+      </if>
+      <if test="bhSharesAfterTaxDividend != null" >
+        BH_SHARES_AFTER_TAX_DIVIDEND,
+      </if>
+      <if test="proportionBonus != null" >
+        PROPORTION_BONUS,
+      </if>
+      <if test="capitalizationRatio != null" >
+        CAPITALIZATION_RATIO,
+      </if>
+      <if test="surplusReserveRatio != null" >
+        SURPLUS_RESERVE_RATIO,
+      </if>
+      <if test="capitalReserveRatio != null" >
+        CAPITAL_RESERVE_RATIO,
+      </if>
+      <if test="issuanceTarget != null" >
+        ISSUANCE_TARGET,
+      </if>
+      <if test="equityReferenceDay != null" >
+        EQUITY_REFERENCE_DAY,
+      </if>
+      <if test="lastTradingDay != null" >
+        LAST_TRADING_DAY,
+      </if>
+      <if test="arrivalDate != null" >
+        ARRIVAL_DATE,
+      </if>
+      <if test="dividendDateOfTermination != null" >
+        DIVIDEND_DATE_OF_TERMINATION,
+      </if>
+      <if test="meetingAnnouncementDate != null" >
+        MEETING_ANNOUNCEMENT_DATE,
+      </if>
+      <if test="rightsDeadline != null" >
+        RIGHTS_DEADLINE,
+      </if>
+      <if test="allotmentRatio != null" >
+        ALLOTMENT_RATIO,
+      </if>
+      <if test="shsPlacing != null" >
+        SHS_PLACING,
+      </if>
+      <if test="transferredRatio != null" >
+        TRANSFERRED_RATIO,
+      </if>
+      <if test="turnValence != null" >
+        TURN_VALENCE,
+      </if>
+      <if test="validAllotment != null" >
+        VALID_ALLOTMENT,
+      </if>
+      <if test="actualSharesNumber != null" >
+        ACTUAL_SHARES_NUMBER,
+      </if>
+      <if test="sharesBeforIssue != null" >
+        SHARES_BEFOR_ISSUE,
+      </if>
+      <if test="actualRatio != null" >
+        ACTUAL_RATIO,
+      </if>
+      <if test="shareSplitCount != null" >
+        SHARE_SPLIT_COUNT,
+      </if>
+      <if test="foreignCurrencyExchangeRate != null" >
+        FOREIGN_CURRENCY_EXCHANGE_RATE,
+      </if>
+      <if test="weightNote != null" >
+        WEIGHT_NOTE,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="stockCode != null" >
+        #{stockCode,jdbcType=VARCHAR},
+      </if>
+      <if test="announcementDate != null" >
+        #{announcementDate,jdbcType=DATE},
+      </if>
+      <if test="securities != null" >
+        #{securities,jdbcType=VARCHAR},
+      </if>
+      <if test="delivering != null" >
+        #{delivering,jdbcType=DOUBLE},
+      </if>
+      <if test="transfer != null" >
+        #{transfer,jdbcType=DOUBLE},
+      </if>
+      <if test="dividend != null" >
+        #{dividend,jdbcType=DOUBLE},
+      </if>
+      <if test="schedule != null" >
+        #{schedule,jdbcType=VARCHAR},
+      </if>
+      <if test="exDividendDate != null" >
+        #{exDividendDate,jdbcType=DATE},
+      </if>
+      <if test="recordDate != null" >
+        #{recordDate,jdbcType=DATE},
+      </if>
+      <if test="listingDate != null" >
+        #{listingDate,jdbcType=DATE},
+      </if>
+      <if test="preTaxBonus != null" >
+        #{preTaxBonus,jdbcType=VARCHAR},
+      </if>
+      <if test="nonGappEarning != null" >
+        #{nonGappEarning,jdbcType=VARCHAR},
+      </if>
+      <if test="bhSharesBeforeTaxDividend != null" >
+        #{bhSharesBeforeTaxDividend,jdbcType=VARCHAR},
+      </if>
+      <if test="bhSharesAfterTaxDividend != null" >
+        #{bhSharesAfterTaxDividend,jdbcType=VARCHAR},
+      </if>
+      <if test="proportionBonus != null" >
+        #{proportionBonus,jdbcType=VARCHAR},
+      </if>
+      <if test="capitalizationRatio != null" >
+        #{capitalizationRatio,jdbcType=VARCHAR},
+      </if>
+      <if test="surplusReserveRatio != null" >
+        #{surplusReserveRatio,jdbcType=VARCHAR},
+      </if>
+      <if test="capitalReserveRatio != null" >
+        #{capitalReserveRatio,jdbcType=VARCHAR},
+      </if>
+      <if test="issuanceTarget != null" >
+        #{issuanceTarget,jdbcType=VARCHAR},
+      </if>
+      <if test="equityReferenceDay != null" >
+        #{equityReferenceDay,jdbcType=VARCHAR},
+      </if>
+      <if test="lastTradingDay != null" >
+        #{lastTradingDay,jdbcType=VARCHAR},
+      </if>
+      <if test="arrivalDate != null" >
+        #{arrivalDate,jdbcType=VARCHAR},
+      </if>
+      <if test="dividendDateOfTermination != null" >
+        #{dividendDateOfTermination,jdbcType=VARCHAR},
+      </if>
+      <if test="meetingAnnouncementDate != null" >
+        #{meetingAnnouncementDate,jdbcType=VARCHAR},
+      </if>
+      <if test="rightsDeadline != null" >
+        #{rightsDeadline,jdbcType=VARCHAR},
+      </if>
+      <if test="allotmentRatio != null" >
+        #{allotmentRatio,jdbcType=VARCHAR},
+      </if>
+      <if test="shsPlacing != null" >
+        #{shsPlacing,jdbcType=VARCHAR},
+      </if>
+      <if test="transferredRatio != null" >
+        #{transferredRatio,jdbcType=VARCHAR},
+      </if>
+      <if test="turnValence != null" >
+        #{turnValence,jdbcType=VARCHAR},
+      </if>
+      <if test="validAllotment != null" >
+        #{validAllotment,jdbcType=VARCHAR},
+      </if>
+      <if test="actualSharesNumber != null" >
+        #{actualSharesNumber,jdbcType=VARCHAR},
+      </if>
+      <if test="sharesBeforIssue != null" >
+        #{sharesBeforIssue,jdbcType=VARCHAR},
+      </if>
+      <if test="actualRatio != null" >
+        #{actualRatio,jdbcType=VARCHAR},
+      </if>
+      <if test="shareSplitCount != null" >
+        #{shareSplitCount,jdbcType=VARCHAR},
+      </if>
+      <if test="foreignCurrencyExchangeRate != null" >
+        #{foreignCurrencyExchangeRate,jdbcType=VARCHAR},
+      </if>
+      <if test="weightNote != null" >
+        #{weightNote,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.st.framework.module.stock.example.GDividendSchemeExample" resultType="java.lang.Integer" >
+    select count(*) from G_DIVIDEND_SCHEME
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update G_DIVIDEND_SCHEME
+    <set >
+      <if test="record.stockCode != null" >
+        STOCK_CODE = #{record.stockCode,jdbcType=VARCHAR},
+      </if>
+      <if test="record.announcementDate != null" >
+        ANNOUNCEMENT_DATE = #{record.announcementDate,jdbcType=DATE},
+      </if>
+      <if test="record.securities != null" >
+        SECURITIES = #{record.securities,jdbcType=VARCHAR},
+      </if>
+      <if test="record.delivering != null" >
+        DELIVERING = #{record.delivering,jdbcType=DOUBLE},
+      </if>
+      <if test="record.transfer != null" >
+        TRANSFER = #{record.transfer,jdbcType=DOUBLE},
+      </if>
+      <if test="record.dividend != null" >
+        DIVIDEND = #{record.dividend,jdbcType=DOUBLE},
+      </if>
+      <if test="record.schedule != null" >
+        SCHEDULE = #{record.schedule,jdbcType=VARCHAR},
+      </if>
+      <if test="record.exDividendDate != null" >
+        EX_DIVIDEND_DATE = #{record.exDividendDate,jdbcType=DATE},
+      </if>
+      <if test="record.recordDate != null" >
+        RECORD_DATE = #{record.recordDate,jdbcType=DATE},
+      </if>
+      <if test="record.listingDate != null" >
+        LISTING_DATE = #{record.listingDate,jdbcType=DATE},
+      </if>
+      <if test="record.preTaxBonus != null" >
+        PRE_TAX_BONUS = #{record.preTaxBonus,jdbcType=VARCHAR},
+      </if>
+      <if test="record.nonGappEarning != null" >
+        NON_GAPP_EARNING = #{record.nonGappEarning,jdbcType=VARCHAR},
+      </if>
+      <if test="record.bhSharesBeforeTaxDividend != null" >
+        BH_SHARES_BEFORE_TAX_DIVIDEND = #{record.bhSharesBeforeTaxDividend,jdbcType=VARCHAR},
+      </if>
+      <if test="record.bhSharesAfterTaxDividend != null" >
+        BH_SHARES_AFTER_TAX_DIVIDEND = #{record.bhSharesAfterTaxDividend,jdbcType=VARCHAR},
+      </if>
+      <if test="record.proportionBonus != null" >
+        PROPORTION_BONUS = #{record.proportionBonus,jdbcType=VARCHAR},
+      </if>
+      <if test="record.capitalizationRatio != null" >
+        CAPITALIZATION_RATIO = #{record.capitalizationRatio,jdbcType=VARCHAR},
+      </if>
+      <if test="record.surplusReserveRatio != null" >
+        SURPLUS_RESERVE_RATIO = #{record.surplusReserveRatio,jdbcType=VARCHAR},
+      </if>
+      <if test="record.capitalReserveRatio != null" >
+        CAPITAL_RESERVE_RATIO = #{record.capitalReserveRatio,jdbcType=VARCHAR},
+      </if>
+      <if test="record.issuanceTarget != null" >
+        ISSUANCE_TARGET = #{record.issuanceTarget,jdbcType=VARCHAR},
+      </if>
+      <if test="record.equityReferenceDay != null" >
+        EQUITY_REFERENCE_DAY = #{record.equityReferenceDay,jdbcType=VARCHAR},
+      </if>
+      <if test="record.lastTradingDay != null" >
+        LAST_TRADING_DAY = #{record.lastTradingDay,jdbcType=VARCHAR},
+      </if>
+      <if test="record.arrivalDate != null" >
+        ARRIVAL_DATE = #{record.arrivalDate,jdbcType=VARCHAR},
+      </if>
+      <if test="record.dividendDateOfTermination != null" >
+        DIVIDEND_DATE_OF_TERMINATION = #{record.dividendDateOfTermination,jdbcType=VARCHAR},
+      </if>
+      <if test="record.meetingAnnouncementDate != null" >
+        MEETING_ANNOUNCEMENT_DATE = #{record.meetingAnnouncementDate,jdbcType=VARCHAR},
+      </if>
+      <if test="record.rightsDeadline != null" >
+        RIGHTS_DEADLINE = #{record.rightsDeadline,jdbcType=VARCHAR},
+      </if>
+      <if test="record.allotmentRatio != null" >
+        ALLOTMENT_RATIO = #{record.allotmentRatio,jdbcType=VARCHAR},
+      </if>
+      <if test="record.shsPlacing != null" >
+        SHS_PLACING = #{record.shsPlacing,jdbcType=VARCHAR},
+      </if>
+      <if test="record.transferredRatio != null" >
+        TRANSFERRED_RATIO = #{record.transferredRatio,jdbcType=VARCHAR},
+      </if>
+      <if test="record.turnValence != null" >
+        TURN_VALENCE = #{record.turnValence,jdbcType=VARCHAR},
+      </if>
+      <if test="record.validAllotment != null" >
+        VALID_ALLOTMENT = #{record.validAllotment,jdbcType=VARCHAR},
+      </if>
+      <if test="record.actualSharesNumber != null" >
+        ACTUAL_SHARES_NUMBER = #{record.actualSharesNumber,jdbcType=VARCHAR},
+      </if>
+      <if test="record.sharesBeforIssue != null" >
+        SHARES_BEFOR_ISSUE = #{record.sharesBeforIssue,jdbcType=VARCHAR},
+      </if>
+      <if test="record.actualRatio != null" >
+        ACTUAL_RATIO = #{record.actualRatio,jdbcType=VARCHAR},
+      </if>
+      <if test="record.shareSplitCount != null" >
+        SHARE_SPLIT_COUNT = #{record.shareSplitCount,jdbcType=VARCHAR},
+      </if>
+      <if test="record.foreignCurrencyExchangeRate != null" >
+        FOREIGN_CURRENCY_EXCHANGE_RATE = #{record.foreignCurrencyExchangeRate,jdbcType=VARCHAR},
+      </if>
+      <if test="record.weightNote != null" >
+        WEIGHT_NOTE = #{record.weightNote,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update G_DIVIDEND_SCHEME
+    set STOCK_CODE = #{record.stockCode,jdbcType=VARCHAR},
+      ANNOUNCEMENT_DATE = #{record.announcementDate,jdbcType=DATE},
+      SECURITIES = #{record.securities,jdbcType=VARCHAR},
+      DELIVERING = #{record.delivering,jdbcType=DOUBLE},
+      TRANSFER = #{record.transfer,jdbcType=DOUBLE},
+      DIVIDEND = #{record.dividend,jdbcType=DOUBLE},
+      SCHEDULE = #{record.schedule,jdbcType=VARCHAR},
+      EX_DIVIDEND_DATE = #{record.exDividendDate,jdbcType=DATE},
+      RECORD_DATE = #{record.recordDate,jdbcType=DATE},
+      LISTING_DATE = #{record.listingDate,jdbcType=DATE},
+      PRE_TAX_BONUS = #{record.preTaxBonus,jdbcType=VARCHAR},
+      NON_GAPP_EARNING = #{record.nonGappEarning,jdbcType=VARCHAR},
+      BH_SHARES_BEFORE_TAX_DIVIDEND = #{record.bhSharesBeforeTaxDividend,jdbcType=VARCHAR},
+      BH_SHARES_AFTER_TAX_DIVIDEND = #{record.bhSharesAfterTaxDividend,jdbcType=VARCHAR},
+      PROPORTION_BONUS = #{record.proportionBonus,jdbcType=VARCHAR},
+      CAPITALIZATION_RATIO = #{record.capitalizationRatio,jdbcType=VARCHAR},
+      SURPLUS_RESERVE_RATIO = #{record.surplusReserveRatio,jdbcType=VARCHAR},
+      CAPITAL_RESERVE_RATIO = #{record.capitalReserveRatio,jdbcType=VARCHAR},
+      ISSUANCE_TARGET = #{record.issuanceTarget,jdbcType=VARCHAR},
+      EQUITY_REFERENCE_DAY = #{record.equityReferenceDay,jdbcType=VARCHAR},
+      LAST_TRADING_DAY = #{record.lastTradingDay,jdbcType=VARCHAR},
+      ARRIVAL_DATE = #{record.arrivalDate,jdbcType=VARCHAR},
+      DIVIDEND_DATE_OF_TERMINATION = #{record.dividendDateOfTermination,jdbcType=VARCHAR},
+      MEETING_ANNOUNCEMENT_DATE = #{record.meetingAnnouncementDate,jdbcType=VARCHAR},
+      RIGHTS_DEADLINE = #{record.rightsDeadline,jdbcType=VARCHAR},
+      ALLOTMENT_RATIO = #{record.allotmentRatio,jdbcType=VARCHAR},
+      SHS_PLACING = #{record.shsPlacing,jdbcType=VARCHAR},
+      TRANSFERRED_RATIO = #{record.transferredRatio,jdbcType=VARCHAR},
+      TURN_VALENCE = #{record.turnValence,jdbcType=VARCHAR},
+      VALID_ALLOTMENT = #{record.validAllotment,jdbcType=VARCHAR},
+      ACTUAL_SHARES_NUMBER = #{record.actualSharesNumber,jdbcType=VARCHAR},
+      SHARES_BEFOR_ISSUE = #{record.sharesBeforIssue,jdbcType=VARCHAR},
+      ACTUAL_RATIO = #{record.actualRatio,jdbcType=VARCHAR},
+      SHARE_SPLIT_COUNT = #{record.shareSplitCount,jdbcType=VARCHAR},
+      FOREIGN_CURRENCY_EXCHANGE_RATE = #{record.foreignCurrencyExchangeRate,jdbcType=VARCHAR},
+      WEIGHT_NOTE = #{record.weightNote,jdbcType=VARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.st.framework.module.stock.GDividendScheme" >
+    update G_DIVIDEND_SCHEME
+    <set >
+      <if test="securities != null" >
+        SECURITIES = #{securities,jdbcType=VARCHAR},
+      </if>
+      <if test="delivering != null" >
+        DELIVERING = #{delivering,jdbcType=DOUBLE},
+      </if>
+      <if test="transfer != null" >
+        TRANSFER = #{transfer,jdbcType=DOUBLE},
+      </if>
+      <if test="dividend != null" >
+        DIVIDEND = #{dividend,jdbcType=DOUBLE},
+      </if>
+      <if test="schedule != null" >
+        SCHEDULE = #{schedule,jdbcType=VARCHAR},
+      </if>
+      <if test="exDividendDate != null" >
+        EX_DIVIDEND_DATE = #{exDividendDate,jdbcType=DATE},
+      </if>
+      <if test="recordDate != null" >
+        RECORD_DATE = #{recordDate,jdbcType=DATE},
+      </if>
+      <if test="listingDate != null" >
+        LISTING_DATE = #{listingDate,jdbcType=DATE},
+      </if>
+      <if test="preTaxBonus != null" >
+        PRE_TAX_BONUS = #{preTaxBonus,jdbcType=VARCHAR},
+      </if>
+      <if test="nonGappEarning != null" >
+        NON_GAPP_EARNING = #{nonGappEarning,jdbcType=VARCHAR},
+      </if>
+      <if test="bhSharesBeforeTaxDividend != null" >
+        BH_SHARES_BEFORE_TAX_DIVIDEND = #{bhSharesBeforeTaxDividend,jdbcType=VARCHAR},
+      </if>
+      <if test="bhSharesAfterTaxDividend != null" >
+        BH_SHARES_AFTER_TAX_DIVIDEND = #{bhSharesAfterTaxDividend,jdbcType=VARCHAR},
+      </if>
+      <if test="proportionBonus != null" >
+        PROPORTION_BONUS = #{proportionBonus,jdbcType=VARCHAR},
+      </if>
+      <if test="capitalizationRatio != null" >
+        CAPITALIZATION_RATIO = #{capitalizationRatio,jdbcType=VARCHAR},
+      </if>
+      <if test="surplusReserveRatio != null" >
+        SURPLUS_RESERVE_RATIO = #{surplusReserveRatio,jdbcType=VARCHAR},
+      </if>
+      <if test="capitalReserveRatio != null" >
+        CAPITAL_RESERVE_RATIO = #{capitalReserveRatio,jdbcType=VARCHAR},
+      </if>
+      <if test="issuanceTarget != null" >
+        ISSUANCE_TARGET = #{issuanceTarget,jdbcType=VARCHAR},
+      </if>
+      <if test="equityReferenceDay != null" >
+        EQUITY_REFERENCE_DAY = #{equityReferenceDay,jdbcType=VARCHAR},
+      </if>
+      <if test="lastTradingDay != null" >
+        LAST_TRADING_DAY = #{lastTradingDay,jdbcType=VARCHAR},
+      </if>
+      <if test="arrivalDate != null" >
+        ARRIVAL_DATE = #{arrivalDate,jdbcType=VARCHAR},
+      </if>
+      <if test="dividendDateOfTermination != null" >
+        DIVIDEND_DATE_OF_TERMINATION = #{dividendDateOfTermination,jdbcType=VARCHAR},
+      </if>
+      <if test="meetingAnnouncementDate != null" >
+        MEETING_ANNOUNCEMENT_DATE = #{meetingAnnouncementDate,jdbcType=VARCHAR},
+      </if>
+      <if test="rightsDeadline != null" >
+        RIGHTS_DEADLINE = #{rightsDeadline,jdbcType=VARCHAR},
+      </if>
+      <if test="allotmentRatio != null" >
+        ALLOTMENT_RATIO = #{allotmentRatio,jdbcType=VARCHAR},
+      </if>
+      <if test="shsPlacing != null" >
+        SHS_PLACING = #{shsPlacing,jdbcType=VARCHAR},
+      </if>
+      <if test="transferredRatio != null" >
+        TRANSFERRED_RATIO = #{transferredRatio,jdbcType=VARCHAR},
+      </if>
+      <if test="turnValence != null" >
+        TURN_VALENCE = #{turnValence,jdbcType=VARCHAR},
+      </if>
+      <if test="validAllotment != null" >
+        VALID_ALLOTMENT = #{validAllotment,jdbcType=VARCHAR},
+      </if>
+      <if test="actualSharesNumber != null" >
+        ACTUAL_SHARES_NUMBER = #{actualSharesNumber,jdbcType=VARCHAR},
+      </if>
+      <if test="sharesBeforIssue != null" >
+        SHARES_BEFOR_ISSUE = #{sharesBeforIssue,jdbcType=VARCHAR},
+      </if>
+      <if test="actualRatio != null" >
+        ACTUAL_RATIO = #{actualRatio,jdbcType=VARCHAR},
+      </if>
+      <if test="shareSplitCount != null" >
+        SHARE_SPLIT_COUNT = #{shareSplitCount,jdbcType=VARCHAR},
+      </if>
+      <if test="foreignCurrencyExchangeRate != null" >
+        FOREIGN_CURRENCY_EXCHANGE_RATE = #{foreignCurrencyExchangeRate,jdbcType=VARCHAR},
+      </if>
+      <if test="weightNote != null" >
+        WEIGHT_NOTE = #{weightNote,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where STOCK_CODE = #{stockCode,jdbcType=VARCHAR}
+      and ANNOUNCEMENT_DATE = #{announcementDate,jdbcType=DATE}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.st.framework.module.stock.GDividendScheme" >
+    update G_DIVIDEND_SCHEME
+    set SECURITIES = #{securities,jdbcType=VARCHAR},
+      DELIVERING = #{delivering,jdbcType=DOUBLE},
+      TRANSFER = #{transfer,jdbcType=DOUBLE},
+      DIVIDEND = #{dividend,jdbcType=DOUBLE},
+      SCHEDULE = #{schedule,jdbcType=VARCHAR},
+      EX_DIVIDEND_DATE = #{exDividendDate,jdbcType=DATE},
+      RECORD_DATE = #{recordDate,jdbcType=DATE},
+      LISTING_DATE = #{listingDate,jdbcType=DATE},
+      PRE_TAX_BONUS = #{preTaxBonus,jdbcType=VARCHAR},
+      NON_GAPP_EARNING = #{nonGappEarning,jdbcType=VARCHAR},
+      BH_SHARES_BEFORE_TAX_DIVIDEND = #{bhSharesBeforeTaxDividend,jdbcType=VARCHAR},
+      BH_SHARES_AFTER_TAX_DIVIDEND = #{bhSharesAfterTaxDividend,jdbcType=VARCHAR},
+      PROPORTION_BONUS = #{proportionBonus,jdbcType=VARCHAR},
+      CAPITALIZATION_RATIO = #{capitalizationRatio,jdbcType=VARCHAR},
+      SURPLUS_RESERVE_RATIO = #{surplusReserveRatio,jdbcType=VARCHAR},
+      CAPITAL_RESERVE_RATIO = #{capitalReserveRatio,jdbcType=VARCHAR},
+      ISSUANCE_TARGET = #{issuanceTarget,jdbcType=VARCHAR},
+      EQUITY_REFERENCE_DAY = #{equityReferenceDay,jdbcType=VARCHAR},
+      LAST_TRADING_DAY = #{lastTradingDay,jdbcType=VARCHAR},
+      ARRIVAL_DATE = #{arrivalDate,jdbcType=VARCHAR},
+      DIVIDEND_DATE_OF_TERMINATION = #{dividendDateOfTermination,jdbcType=VARCHAR},
+      MEETING_ANNOUNCEMENT_DATE = #{meetingAnnouncementDate,jdbcType=VARCHAR},
+      RIGHTS_DEADLINE = #{rightsDeadline,jdbcType=VARCHAR},
+      ALLOTMENT_RATIO = #{allotmentRatio,jdbcType=VARCHAR},
+      SHS_PLACING = #{shsPlacing,jdbcType=VARCHAR},
+      TRANSFERRED_RATIO = #{transferredRatio,jdbcType=VARCHAR},
+      TURN_VALENCE = #{turnValence,jdbcType=VARCHAR},
+      VALID_ALLOTMENT = #{validAllotment,jdbcType=VARCHAR},
+      ACTUAL_SHARES_NUMBER = #{actualSharesNumber,jdbcType=VARCHAR},
+      SHARES_BEFOR_ISSUE = #{sharesBeforIssue,jdbcType=VARCHAR},
+      ACTUAL_RATIO = #{actualRatio,jdbcType=VARCHAR},
+      SHARE_SPLIT_COUNT = #{shareSplitCount,jdbcType=VARCHAR},
+      FOREIGN_CURRENCY_EXCHANGE_RATE = #{foreignCurrencyExchangeRate,jdbcType=VARCHAR},
+      WEIGHT_NOTE = #{weightNote,jdbcType=VARCHAR}
+    where STOCK_CODE = #{stockCode,jdbcType=VARCHAR}
+      and ANNOUNCEMENT_DATE = #{announcementDate,jdbcType=DATE}
+  </update>
+  <insert id="insertBatch" parameterType="map" >
+    insert into G_DIVIDEND_SCHEME
+    (<include refid="Base_Column_List" />)
+    values
+    <foreach collection="list" item="item" index="index" separator="," >
+      (
+      #{item.stockCode},#{item.announcementDate},#{item.securities},#{item.delivering},#{item.transfer},#{item.dividend},#{item.schedule},#{item.exDividendDate},#{item.recordDate},#{item.listingDate},#{item.preTaxBonus},#{item.nonGappEarning},#{item.bhSharesBeforeTaxDividend},#{item.bhSharesAfterTaxDividend},#{item.proportionBonus},#{item.capitalizationRatio},#{item.surplusReserveRatio},#{item.capitalReserveRatio},#{item.issuanceTarget},#{item.equityReferenceDay},#{item.lastTradingDay},#{item.arrivalDate},#{item.dividendDateOfTermination},#{item.meetingAnnouncementDate},#{item.rightsDeadline},#{item.allotmentRatio},#{item.shsPlacing},#{item.transferredRatio},#{item.turnValence},#{item.validAllotment},#{item.actualSharesNumber},#{item.sharesBeforIssue},#{item.actualRatio},#{item.shareSplitCount},#{item.foreignCurrencyExchangeRate},#{item.weightNote}
+      )
+    </foreach>
+  </insert>
+</mapper>

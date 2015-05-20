@@ -8,6 +8,8 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -228,7 +230,10 @@ public class DownloadYahooManager extends BaseDBUtils {
 					// Date,Open,High,Low,Close,Volume,Adj Close
 					// 2014-11-27,21.85,22.17,21.40,21.73,7218600,21.73
 
-					gStockDay.setStock(stockCode);
+					gStockDay.setStock("" + stockCode);
+//					protected static DateFormat df_simple = new SimpleDateFormat("yyyyMMdd");
+
+					DateFormat df = new SimpleDateFormat("yyyy-MM-dd");
 					gStockDay.setDate(df.parse(temp[0]));
 
 					gStockDay.setOpen(Double.parseDouble(temp[1]));

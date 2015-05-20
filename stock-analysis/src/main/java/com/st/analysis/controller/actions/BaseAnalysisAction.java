@@ -2,6 +2,7 @@ package com.st.analysis.controller.actions;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
+import java.util.Date;
 
 import org.apache.struts2.convention.annotation.Namespace;
 import org.apache.struts2.convention.annotation.Result;
@@ -11,6 +12,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import com.st.framework.business.impl.GDetailManager;
 import com.st.framework.business.impl.GStockDayManager;
 import com.st.framework.business.impl.dim.DStockManager;
+import com.st.framework.business.impl.lhb.GLHBReportManager;
+import com.st.framework.business.impl.lhb.GLHBSecuritiesManager;
+import com.st.framework.business.impl.lhb.GLHBTop5Manager;
 import com.st.framework.controller.actions.BaseAction;
 
 
@@ -30,9 +34,24 @@ public class BaseAnalysisAction extends BaseAction{
 	@Autowired
 	protected DStockManager dStockManager;
 	
+	@Autowired
+	protected GLHBTop5Manager gLHBTop5Manager;
+	
+	@Autowired
+	protected GLHBSecuritiesManager gLHBSecuritiesManager;
+	
+	@Autowired
+	protected GLHBReportManager gLHBReportManager;
+	
 	public static final DateFormat DF_DATE_ID = new SimpleDateFormat("yyyy-MM-dd");
 	
 	protected Integer dateId;
+	
+	protected Date timeId;
+	
+	protected Date startTimeId;
+	
+	protected Date endTimeId;
 	
 	protected String stockCode;
 	
@@ -110,6 +129,30 @@ public class BaseAnalysisAction extends BaseAction{
 
 	public void setLowPer(Double lowPer) {
 		this.lowPer = lowPer;
+	}
+
+	public Date getTimeId() {
+		return timeId;
+	}
+
+	public void setTimeId(Date timeId) {
+		this.timeId = timeId;
+	}
+
+	public Date getStartTimeId() {
+		return startTimeId;
+	}
+
+	public void setStartTimeId(Date startTimeId) {
+		this.startTimeId = startTimeId;
+	}
+
+	public Date getEndTimeId() {
+		return endTimeId;
+	}
+
+	public void setEndTimeId(Date endTimeId) {
+		this.endTimeId = endTimeId;
 	}
 
 	

@@ -10,6 +10,20 @@
     <result column="SELL_AMOUNT" property="sellAmount" jdbcType="DOUBLE" />
     <result column="NET_AMOUNT" property="netAmount" jdbcType="DOUBLE" />
     <result column="TYPE" property="type" jdbcType="VARCHAR" />
+    
+    <collection property="stock" fetchType="lazy" 
+    	column="STOCK_CODE" ofType="DStock"
+    	select="com.st.framework.persistence.mapper.stock.DStockMapper.selectByPrimaryKey" />
+    
+    <collection property="nextList" fetchType="lazy" ofType="GLHBTop5" javaType="ArrayList"
+    	column="{secId=SEC_ID, dateId=DATE_ID}" 
+    	select="nextList" />
+    	
+    <collection property="prevList" fetchType="lazy" ofType="GLHBTop5" javaType="ArrayList"
+    	column="{secId=SEC_ID, dateId=DATE_ID}" 
+    	select="prevList" />
+    
+    	
   </resultMap>
   <sql id="Example_Where_Clause" >
     <where >
@@ -266,4 +280,51 @@
 		)
 	</foreach>
   </insert>
+  
+  <select id="buyTop5" resultMap="BaseResultMap" parameterType="map">
+	  select 
+	    <include refid="Base_Column_List" />
+	    from G_LHB_TOP5
+	    where STOCK_CODE = #{stockCode,jdbcType=VARCHAR}
+	      and DATE_ID = #{dateId,jdbcType=DATE}
+	      and TYPE = 'buy'
+	    order by NET_AMOUNT desc
+  </select>
+  
+  <select id="sellTop5" resultMap="BaseResultMap" parameterType="map">
+	  select 
+	    <include refid="Base_Column_List" />
+	    from G_LHB_TOP5
+	    where STOCK_CODE = #{stockCode,jdbcType=VARCHAR}
+	      and DATE_ID = #{dateId,jdbcType=DATE}
+	      and TYPE = 'sell'
+	    order by NET_AMOUNT asc
+  </select>
+  
+  <select id="nextList" resultMap="BaseResultMap" parameterType="map">
+	  select 
+	    <include refid="Base_Column_List" />
+	    from G_LHB_TOP5
+	    where SEC_ID = #{secId,jdbcType=BIGINT}
+	    <![CDATA[
+	      and DATE_ID > #{dateId,jdbcType=DATE}
+	      and DATE_ID <= date_add(#{dateId,jdbcType=DATE}, interval 15 day)
+	    ]]>
+	    order by DATE_ID desc
+	    
+  </select>
+  
+  <select id="prevList" resultMap="BaseResultMap" parameterType="map">
+	  select 
+	    <include refid="Base_Column_List" />
+	    from G_LHB_TOP5
+	    where SEC_ID = #{secId,jdbcType=BIGINT}
+	    <![CDATA[
+	      and DATE_ID < #{dateId,jdbcType=DATE}
+	      and DATE_ID >= date_sub(#{dateId,jdbcType=DATE}, interval 15 day)
+	    ]]>
+	    order by DATE_ID desc
+	    
+  </select>
+  
 </mapper>

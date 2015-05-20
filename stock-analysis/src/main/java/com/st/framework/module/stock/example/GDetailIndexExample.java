@@ -823,62 +823,52 @@ public class GDetailIndexExample extends BaseExample {
             return (Criteria) this;
         }
 
-        public Criteria andVaturnoverEqualTo(String value) {
+        public Criteria andVaturnoverEqualTo(Long value) {
             addCriterion("VATURNOVER =", value, "vaturnover");
             return (Criteria) this;
         }
 
-        public Criteria andVaturnoverNotEqualTo(String value) {
+        public Criteria andVaturnoverNotEqualTo(Long value) {
             addCriterion("VATURNOVER <>", value, "vaturnover");
             return (Criteria) this;
         }
 
-        public Criteria andVaturnoverGreaterThan(String value) {
+        public Criteria andVaturnoverGreaterThan(Long value) {
             addCriterion("VATURNOVER >", value, "vaturnover");
             return (Criteria) this;
         }
 
-        public Criteria andVaturnoverGreaterThanOrEqualTo(String value) {
+        public Criteria andVaturnoverGreaterThanOrEqualTo(Long value) {
             addCriterion("VATURNOVER >=", value, "vaturnover");
             return (Criteria) this;
         }
 
-        public Criteria andVaturnoverLessThan(String value) {
+        public Criteria andVaturnoverLessThan(Long value) {
             addCriterion("VATURNOVER <", value, "vaturnover");
             return (Criteria) this;
         }
 
-        public Criteria andVaturnoverLessThanOrEqualTo(String value) {
+        public Criteria andVaturnoverLessThanOrEqualTo(Long value) {
             addCriterion("VATURNOVER <=", value, "vaturnover");
             return (Criteria) this;
         }
 
-        public Criteria andVaturnoverLike(String value) {
-            addCriterion("VATURNOVER like", value, "vaturnover");
-            return (Criteria) this;
-        }
-
-        public Criteria andVaturnoverNotLike(String value) {
-            addCriterion("VATURNOVER not like", value, "vaturnover");
-            return (Criteria) this;
-        }
-
-        public Criteria andVaturnoverIn(List<String> values) {
+        public Criteria andVaturnoverIn(List<Long> values) {
             addCriterion("VATURNOVER in", values, "vaturnover");
             return (Criteria) this;
         }
 
-        public Criteria andVaturnoverNotIn(List<String> values) {
+        public Criteria andVaturnoverNotIn(List<Long> values) {
             addCriterion("VATURNOVER not in", values, "vaturnover");
             return (Criteria) this;
         }
 
-        public Criteria andVaturnoverBetween(String value1, String value2) {
+        public Criteria andVaturnoverBetween(Long value1, Long value2) {
             addCriterion("VATURNOVER between", value1, value2, "vaturnover");
             return (Criteria) this;
         }
 
-        public Criteria andVaturnoverNotBetween(String value1, String value2) {
+        public Criteria andVaturnoverNotBetween(Long value1, Long value2) {
             addCriterion("VATURNOVER not between", value1, value2, "vaturnover");
             return (Criteria) this;
         }

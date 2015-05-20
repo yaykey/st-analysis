@@ -16,9 +16,10 @@ import org.springframework.dao.DuplicateKeyException;
 import org.springframework.stereotype.Component;
 
 
-import com.st.framework.module.stock.FactDateAlmanac;
 
+import com.st.framework.module.stock.FactDateAlmanac;
 import com.st.framework.module.stock.example.FactDateAlmanacExample;
+import com.st.framework.utils.db.route.DbContextHolder;
 
 @Component("factDateAlmanacManager")
 public class FactDateAlmanacManager extends BaseFactDateManager {
@@ -32,60 +33,60 @@ public class FactDateAlmanacManager extends BaseFactDateManager {
 	protected FactDateHolidayManager factDateHolidayManager;
 
 	public int countByExample(FactDateAlmanacExample example) {
-
+		DbContextHolder.setDefaultDbType();
 		return this.factDateAlmanacMapper.countByExample(example);
 	}
 
 	public int deleteByExample(FactDateAlmanacExample example) {
-
+		DbContextHolder.setDefaultDbType();
 		return this.factDateAlmanacMapper.deleteByExample(example);
 	}
 
 	public int deleteByPrimaryKey(String date) {
-
+		DbContextHolder.setDefaultDbType();
 		return this.factDateAlmanacMapper.deleteByPrimaryKey(date);
 	}
 
 	public int insert(FactDateAlmanac record) {
-
+		DbContextHolder.setDefaultDbType();
 		return this.factDateAlmanacMapper.insert(record);
 	}
 
 	public int insertSelective(FactDateAlmanac record) {
-
+		DbContextHolder.setDefaultDbType();
 		return this.factDateAlmanacMapper.insertSelective(record);
 	}
 
 	public List<FactDateAlmanac> selectByExample(FactDateAlmanacExample example) {
-
+		DbContextHolder.setDefaultDbType();
 		return this.factDateAlmanacMapper.selectByExample(example);
 	}
 
 	public FactDateAlmanac selectByPrimaryKey(String date) {
-
+		DbContextHolder.setDefaultDbType();
 		return this.factDateAlmanacMapper.selectByPrimaryKey(date);
 	}
 
 	public int updateByExampleSelective(FactDateAlmanac record,
 			FactDateAlmanacExample example) {
-
+		DbContextHolder.setDefaultDbType();
 		return this.factDateAlmanacMapper.updateByExampleSelective(record,
 				example);
 	}
 
 	public int updateByExample(FactDateAlmanac record,
 			FactDateAlmanacExample example) {
-
+		DbContextHolder.setDefaultDbType();
 		return this.factDateAlmanacMapper.updateByExample(record, example);
 	}
 
 	public int updateByPrimaryKeySelective(FactDateAlmanac record) {
-
+		DbContextHolder.setDefaultDbType();
 		return this.factDateAlmanacMapper.updateByPrimaryKeySelective(record);
 	}
 
 	public int updateByPrimaryKey(FactDateAlmanac record) {
-
+		DbContextHolder.setDefaultDbType();
 		return this.factDateAlmanacMapper.updateByPrimaryKey(record);
 	}
 
@@ -141,7 +142,7 @@ public class FactDateAlmanacManager extends BaseFactDateManager {
 		if (logger.isDebugEnabled()) {
 			logger.debug("insertAlmanacArray(JSONArray) - start");
 		}
-
+		DbContextHolder.setDefaultDbType();
 		Calendar calWeek = Calendar.getInstance();
 
 		for (int i = 0; i < almanacArray.size(); i++) {

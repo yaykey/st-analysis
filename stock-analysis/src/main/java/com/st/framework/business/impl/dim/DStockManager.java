@@ -14,6 +14,7 @@ import com.st.framework.module.stock.example.DStockExample;
 import com.st.framework.module.stock.example.PStockMapExample;
 import com.st.framework.persistence.mapper.BaseMapper;
 import com.st.framework.persistence.mapper.stock.DStockMapper;
+import com.st.framework.utils.db.route.DbContextHolder;
 
 @Component("dStockManager")
 public class DStockManager extends BaseManager<String, DStock, DStockExample> {
@@ -26,7 +27,7 @@ public class DStockManager extends BaseManager<String, DStock, DStockExample> {
 
 	@Override
 	public BaseMapper<String, DStock, DStockExample> getMapper() {
-
+		DbContextHolder.setDefaultDbType();
 		return this.dStockMapper;
 	}
 
@@ -40,6 +41,7 @@ public class DStockManager extends BaseManager<String, DStock, DStockExample> {
 	 */
 	public List<DStock> selectByDimAndNotIn(Integer dimId,
 			List<String> notInStockCodes) {
+		DbContextHolder.setDefaultDbType();
 		PStockMapExample pStockMapExample = new PStockMapExample();
 
 		PStockMapExample.Criteria c = pStockMapExample.createCriteria();
@@ -69,7 +71,7 @@ public class DStockManager extends BaseManager<String, DStock, DStockExample> {
 	}
 	
 	public List<DStock> selectByCYB () {
-		
+		DbContextHolder.setDefaultDbType();
 		DStockExample dStockExample = new DStockExample();
 		dStockExample.setOrderByClause("STOCK_CODE");
 

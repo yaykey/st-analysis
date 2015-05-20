@@ -197,10 +197,31 @@
   </insert>
   
   <select id="selectActiveDateId" resultType="java.lang.Integer" parameterType="map">
-  	select DATE_ID from FACT_ACTIVE_DATE_ID_INDEX
+  	select distinct DATE_ID from FACT_ACTIVE_DATE_ID_INDEX
     where STOCK_CODE = #{stockCode,jdbcType=INTEGER}
-      <if test="dateYearId != null">
-      	and DATE_YEAR_ID = #{dateYearId,jdbcType=INTEGER}
-      </if>
+ 		<if test="dateYearId != null or dateYearIds != null">
+ 		and (
+	 		<if test="dateYearId != null">
+	      		DATE_YEAR_ID = #{dateYearId,jdbcType=INTEGER}
+	      	</if>
+
+			<if test="dateYearIds != null">
+				<if test="dateYearId != null">
+					or
+				</if>
+				
+				<foreach collection="dateYearIds" item="yearId" separator="or">
+					DATE_YEAR_ID = #{yearId,jdbcType=INTEGER}
+				</foreach>
+			</if>
+ 		)
+ 		</if>   
+    
+      
+      
+      
+      
   </select>
+  
+  
 </mapper>

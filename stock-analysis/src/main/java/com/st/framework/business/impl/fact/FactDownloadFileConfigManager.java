@@ -16,6 +16,7 @@ import com.st.framework.module.stock.FactDownloadFileConfigKey;
 import com.st.framework.module.stock.example.FactDownloadFileConfigExample;
 import com.st.framework.persistence.mapper.BaseMapper;
 import com.st.framework.persistence.mapper.stock.FactDownloadFileConfigMapper;
+import com.st.framework.utils.db.route.DbContextHolder;
 
 @Component("factDownloadFileConfigManager")
 public class FactDownloadFileConfigManager
@@ -32,7 +33,7 @@ public class FactDownloadFileConfigManager
 
 	@Override
 	public BaseMapper<FactDownloadFileConfigKey, FactDownloadFileConfig, FactDownloadFileConfigExample> getMapper() {
-
+		DbContextHolder.setDefaultDbType();
 		return this.factDownloadFileConfigMapper;
 	}
 
@@ -40,6 +41,7 @@ public class FactDownloadFileConfigManager
 	private static int maxBatchSize = 0;
 
 	public void insertBatch(List<FactDownloadFileConfig> list) {
+		DbContextHolder.setDefaultDbType();
 		this.factDownloadFileConfigMapper.insertBatch(list);
 	}
 
@@ -47,7 +49,7 @@ public class FactDownloadFileConfigManager
 		if (logger.isDebugEnabled()) {
 			logger.debug("insertBatch(FactDownloadFileConfig) - start");
 		}
-
+		DbContextHolder.setDefaultDbType();
 		synchronized (batchList) {
 			batchList.add(factDownloadFileConfig);
 			maxBatchSize++;
@@ -70,6 +72,7 @@ public class FactDownloadFileConfigManager
 	}
 
 	public void flushInsertBatch() {
+		DbContextHolder.setDefaultDbType();
 		if (batchList.size() > 0) {
 			try {
 				this.insertBatch(batchList);
@@ -84,23 +87,25 @@ public class FactDownloadFileConfigManager
 
 	public List<String> selectStFailTimeId(String startTime, String endTime,
 			String stCode) {
+		DbContextHolder.setDefaultDbType();
 		return this.factDownloadFileConfigMapper.selectStFailTimeId(startTime,
 				endTime, stCode);
 	}
 
 	public List<String> selectSuccessTimeId(String startTime, String endTime) {
+		DbContextHolder.setDefaultDbType();
 		return this.selectStSuccessTimeId(startTime, endTime, null);
 	}
 
 	public List<String> selectStSuccessTimeId(String startTime, String endTime,
 			String stCode) {
-
+		DbContextHolder.setDefaultDbType();
 		return this.factDownloadFileConfigMapper.selectStSuccessTimeId(
 				startTime, endTime, stCode);
 	}
 	
 	public String selectLastSuccessTimeId (String stockCode) {
-		
+		DbContextHolder.setDefaultDbType();
 		FactDownloadFileConfigExample example = new FactDownloadFileConfigExample();
 		
 		example.setDistinct(true);

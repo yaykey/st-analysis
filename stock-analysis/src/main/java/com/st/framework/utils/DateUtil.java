@@ -115,7 +115,7 @@ public class DateUtil extends BaseDBUtils {
 
 //		System.out.println(list.size() + ":" + list);
 		
-		int days = getDaysDec(new Date("2015/05/01"), new Date("2015/05/11"));
+		int days = getDaysDec(new Date("2015/05/19"), new Date("2015/05/20"));
 		System.out.println(days);
 	}
 }

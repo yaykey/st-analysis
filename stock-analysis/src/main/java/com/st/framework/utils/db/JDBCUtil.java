@@ -9,15 +9,27 @@ import javax.sql.DataSource;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.apache.ibatis.session.SqlSession;
 
 import com.st.Global;
+import com.st.framework.utils.ConfigUtil;
 
 public class JDBCUtil {
+	
 	private static final Log logger = LogFactory.getLog(JDBCUtil.class);
 
-	// 数据源对象
+	static {
+		if (Global._ctx == null) {
+			Global._ctx = ConfigUtil.getHelper();
+		}
+	}
+	
+//	// 数据源对象
 	private static DataSource dataSource = (DataSource) Global._ctx
-			.getBean("dataSource");
+			.getBean("routingDS");
+	
+//	private SqlSession sqlSession = (SqlSession)Global._ctx.getBean("sqlSession");
+	
 	private Connection con = null;
 	private ResultSet rs = null;
 	private Statement stmt = null;
@@ -28,6 +40,8 @@ public class JDBCUtil {
 	 * @return
 	 */
 	public Connection getConnection() {
+		
+		//con = sqlSession.getConnection();
 		try {
 			con = dataSource.getConnection();
 		} catch (SQLException e) {

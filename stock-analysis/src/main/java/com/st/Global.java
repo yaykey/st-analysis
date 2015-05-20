@@ -278,6 +278,21 @@ public class Global {
 	
 	public static final DateFormat DF_SIMPLE = new SimpleDateFormat("yyyyMMdd");
 	
+	public static DateFormat DF_SIMPLE () {
+		return new SimpleDateFormat("yyyyMMdd");
+	}
+	
+	public static DateFormat DF_DAY () {
+		return new SimpleDateFormat("yyyy-MM-dd");
+	}
+	
+	public static DateFormat DF_TIME () {
+		return new SimpleDateFormat("HH:mm:ss");
+	}
+	
+	public static DateFormat DF_YEAR () {
+		return new SimpleDateFormat("yyyy");
+	}
 	
 	/**
 	 * JS,CSS等静态资源自动版本号,保证系统更新是,用户浏览器自动更新.
@@ -296,13 +311,13 @@ public class Global {
     public static BlockingQueue<Runnable> AnsyTaskQueue;
 
     static {
-        AnsyTaskQueue = new ArrayBlockingQueue<Runnable>(5000);
+        AnsyTaskQueue = new ArrayBlockingQueue<Runnable>(100);
         // corePoolSize - 池中所保存的线程数，包括空闲线程。
         // maximumPoolSize - 池中允许的最大线程数。
         // keepAliveTime - 当线程数大于核心时，此为终止前多余的空闲线程等待新任务的最长时间。
         // unit - keepAliveTime 参数的时间单位。
         // workQueue - 执行前用于保持任务的队列。此队列仅保持由 execute 方法提交的 Runnable 任务。
-        threadPoolExecutor = new ThreadPoolExecutor(3, 25, 3L, TimeUnit.SECONDS, AnsyTaskQueue, new ThreadPoolExecutor.CallerRunsPolicy());
+        threadPoolExecutor = new ThreadPoolExecutor(3, 10, 3L, TimeUnit.SECONDS, AnsyTaskQueue, new ThreadPoolExecutor.CallerRunsPolicy());
     }
 	
 }

@@ -328,7 +328,7 @@ public class NioDownload {
 		} catch (ClientProtocolException e) {
 			logger.error("start() - exception ignored", e);
 		} catch (DataNotGeneratedException e) {
-			logger.warn("start() - exception ignored", e);
+			logger.warn(e.getMessage());
 			
 			Global.threadPoolExecutor.execute(new Thread() {
 				public void run () {

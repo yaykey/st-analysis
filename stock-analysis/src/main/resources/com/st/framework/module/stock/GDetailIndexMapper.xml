@@ -12,8 +12,8 @@
     <result column="LCLOSE" property="lclose" jdbcType="DOUBLE" />
     <result column="CHG" property="chg" jdbcType="DOUBLE" />
     <result column="PCHG" property="pchg" jdbcType="DOUBLE" />
-    <result column="VOTURNOVER" property="voturnover" jdbcType="INTEGER" />
-    <result column="VATURNOVER" property="vaturnover" jdbcType="VARCHAR" />
+    <result column="VOTURNOVER" property="voturnover" jdbcType="BIGINT" />
+    <result column="VATURNOVER" property="vaturnover" jdbcType="BIGINT" />
   </resultMap>
   <sql id="Example_Where_Clause" >
     <where >
@@ -115,8 +115,8 @@
       VATURNOVER)
     values (#{icode,jdbcType=VARCHAR}, #{dateid,jdbcType=DATE}, #{iname,jdbcType=VARCHAR}, 
       #{tclose,jdbcType=DOUBLE}, #{high,jdbcType=DOUBLE}, #{low,jdbcType=DOUBLE}, #{topen,jdbcType=DOUBLE}, 
-      #{lclose,jdbcType=DOUBLE}, #{chg,jdbcType=DOUBLE}, #{pchg,jdbcType=DOUBLE}, #{voturnover,jdbcType=INTEGER}, 
-      #{vaturnover,jdbcType=VARCHAR})
+      #{lclose,jdbcType=DOUBLE}, #{chg,jdbcType=DOUBLE}, #{pchg,jdbcType=DOUBLE}, #{voturnover,jdbcType=BIGINT}, 
+      #{vaturnover,jdbcType=BIGINT})
   </insert>
   <insert id="insertSelective" parameterType="com.st.framework.module.stock.GDetailIndex" >
     insert into G_DETAIL_INDEX
@@ -190,10 +190,10 @@
         #{pchg,jdbcType=DOUBLE},
       </if>
       <if test="voturnover != null" >
-        #{voturnover,jdbcType=INTEGER},
+        #{voturnover,jdbcType=BIGINT},
       </if>
       <if test="vaturnover != null" >
-        #{vaturnover,jdbcType=VARCHAR},
+        #{vaturnover,jdbcType=BIGINT},
       </if>
     </trim>
   </insert>
@@ -237,10 +237,10 @@
         PCHG = #{record.pchg,jdbcType=DOUBLE},
       </if>
       <if test="record.voturnover != null" >
-        VOTURNOVER = #{record.voturnover,jdbcType=INTEGER},
+        VOTURNOVER = #{record.voturnover,jdbcType=BIGINT},
       </if>
       <if test="record.vaturnover != null" >
-        VATURNOVER = #{record.vaturnover,jdbcType=VARCHAR},
+        VATURNOVER = #{record.vaturnover,jdbcType=BIGINT},
       </if>
     </set>
     <if test="_parameter != null" >
@@ -259,8 +259,8 @@
       LCLOSE = #{record.lclose,jdbcType=DOUBLE},
       CHG = #{record.chg,jdbcType=DOUBLE},
       PCHG = #{record.pchg,jdbcType=DOUBLE},
-      VOTURNOVER = #{record.voturnover,jdbcType=INTEGER},
-      VATURNOVER = #{record.vaturnover,jdbcType=VARCHAR}
+      VOTURNOVER = #{record.voturnover,jdbcType=BIGINT},
+      VATURNOVER = #{record.vaturnover,jdbcType=BIGINT}
     <if test="_parameter != null" >
       <include refid="Update_By_Example_Where_Clause" />
     </if>
@@ -293,10 +293,10 @@
         PCHG = #{pchg,jdbcType=DOUBLE},
       </if>
       <if test="voturnover != null" >
-        VOTURNOVER = #{voturnover,jdbcType=INTEGER},
+        VOTURNOVER = #{voturnover,jdbcType=BIGINT},
       </if>
       <if test="vaturnover != null" >
-        VATURNOVER = #{vaturnover,jdbcType=VARCHAR},
+        VATURNOVER = #{vaturnover,jdbcType=BIGINT},
       </if>
     </set>
     where ICODE = #{icode,jdbcType=VARCHAR}
@@ -312,8 +312,8 @@
       LCLOSE = #{lclose,jdbcType=DOUBLE},
       CHG = #{chg,jdbcType=DOUBLE},
       PCHG = #{pchg,jdbcType=DOUBLE},
-      VOTURNOVER = #{voturnover,jdbcType=INTEGER},
-      VATURNOVER = #{vaturnover,jdbcType=VARCHAR}
+      VOTURNOVER = #{voturnover,jdbcType=BIGINT},
+      VATURNOVER = #{vaturnover,jdbcType=BIGINT}
     where ICODE = #{icode,jdbcType=VARCHAR}
       and DATEID = #{dateid,jdbcType=DATE}
   </update>

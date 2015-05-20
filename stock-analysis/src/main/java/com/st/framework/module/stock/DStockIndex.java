@@ -2,6 +2,9 @@ package com.st.framework.module.stock;
 
 import java.util.Date;
 
+import org.springframework.beans.BeanUtils;
+
+import com.st.analysis.utils.stock.bean.netease.StockIndexBean;
 import com.st.framework.module.PersistentObject;
 
 public class DStockIndex extends PersistentObject{
@@ -20,6 +23,23 @@ public class DStockIndex extends PersistentObject{
 
     private Date beginDate;
 
+    public DStockIndex () {}
+    
+    public DStockIndex (StockIndexBean stockIndex, String queryType) {
+    	
+    	this.indexId = stockIndex.getSYMBOL();
+    	
+    	this.indexName = stockIndex.getNAME();
+    	
+    	this.queryType = queryType;
+    	
+    	if ("sz".equalsIgnoreCase(this.queryType)) {
+    		indexType = "1";
+    	} else if ("sh".equalsIgnoreCase(this.queryType)) {
+    		indexType = "0";
+    	}
+    }
+    
     public String getIndexId() {
         return indexId;
     }

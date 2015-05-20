@@ -49,7 +49,7 @@ public class MyAnalysisAction extends BaseAnalysisAction {
 			List<GStockDayExample.Criteria> list = gStockDayExample.getOredCriteria();			
 			for (GStockDayExample.Criteria c : list) {
 				if (this.stockCode != null) {
-					c.andStockEqualTo(Integer.parseInt(this.stockCode));
+					c.andStockEqualTo(this.stockCode);
 				}
 			}
 			
@@ -81,7 +81,7 @@ public class MyAnalysisAction extends BaseAnalysisAction {
 			List<GStockDayExample.Criteria> list = gStockDayExample.getOredCriteria();			
 			for (GStockDayExample.Criteria c : list) {
 				if (this.stockCode != null) {
-					c.andStockNotEqualTo(Integer.parseInt(this.stockCode));
+					c.andStockNotEqualTo((this.stockCode));
 					c.andOpenPerGreaterThanOrEqualTo(-11.0);
 					c.andClosePerLessThanOrEqualTo(-9.5);
 					

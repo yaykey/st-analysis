@@ -1,7 +1,16 @@
 package com.st.framework.module.stock;
 
+import org.springframework.beans.BeanUtils;
+
+import com.st.analysis.utils.stock.bean.netease.StockIndexBean;
+
 public class GDetailIndex extends GDetailIndexKey {
-    private String iname;
+    /**
+	 * 
+	 */
+	private static final long serialVersionUID = 7647644152818533421L;
+
+	private String iname;
 
     private Double tclose;
 
@@ -17,10 +26,14 @@ public class GDetailIndex extends GDetailIndexKey {
 
     private Double pchg;
 
-    private Integer voturnover;
+    private Long voturnover;
 
-    private String vaturnover;
-
+    private Long vaturnover;
+    
+    public GDetailIndex () {
+    	
+    }
+    
     public String getIname() {
         return iname;
     }
@@ -85,20 +98,20 @@ public class GDetailIndex extends GDetailIndexKey {
         this.pchg = pchg;
     }
 
-    public Integer getVoturnover() {
+    public Long getVoturnover() {
         return voturnover;
     }
 
-    public void setVoturnover(Integer voturnover) {
+    public void setVoturnover(Long voturnover) {
         this.voturnover = voturnover;
     }
 
-    public String getVaturnover() {
+    public Long getVaturnover() {
         return vaturnover;
     }
 
-    public void setVaturnover(String vaturnover) {
-        this.vaturnover = vaturnover == null ? null : vaturnover.trim();
+    public void setVaturnover(Long vaturnover) {
+        this.vaturnover = vaturnover;
     }
 
     @Override

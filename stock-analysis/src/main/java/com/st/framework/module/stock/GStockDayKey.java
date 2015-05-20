@@ -5,17 +5,25 @@ import java.util.Date;
 import org.apache.commons.lang.builder.ToStringBuilder;
 import org.apache.commons.lang.builder.ToStringStyle;
 
-public class GStockDayKey {
-    private Integer stock;
+
+import com.st.framework.module.PersistentObject;
+
+public class GStockDayKey extends PersistentObject{
+    /**
+	 * 
+	 */
+	private static final long serialVersionUID = -7323452930274914253L;
+
+	private String stock;
 
     private Date date;
 
-    public Integer getStock() {
+    public String getStock() {
         return stock;
     }
 
-    public void setStock(Integer stock) {
-        this.stock = stock;
+    public void setStock(String stock) {
+        this.stock = stock == null ? null : stock.trim();
     }
 
     public Date getDate() {
@@ -50,8 +58,4 @@ public class GStockDayKey {
         result = prime * result + ((getDate() == null) ? 0 : getDate().hashCode());
         return result;
     }
-    
-    public String toString() {		
-		return ToStringBuilder.reflectionToString(this, ToStringStyle.SIMPLE_STYLE);
-	}
 }

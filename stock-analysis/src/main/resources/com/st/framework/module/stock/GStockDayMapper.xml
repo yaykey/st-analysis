@@ -2,13 +2,13 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.st.framework.persistence.mapper.stock.GStockDayMapper" >
   <resultMap id="BaseResultMap" type="com.st.framework.module.stock.GStockDay" >
-    <id column="STOCK" property="stock" jdbcType="INTEGER" />
+    <id column="STOCK" property="stock" jdbcType="VARCHAR" />
     <id column="DATE" property="date" jdbcType="DATE" />
     <result column="OPEN" property="open" jdbcType="DOUBLE" />
     <result column="HIGH" property="high" jdbcType="DOUBLE" />
     <result column="LOW" property="low" jdbcType="DOUBLE" />
     <result column="CLOSE" property="close" jdbcType="DOUBLE" />
-    <result column="VOLUME" property="volume" jdbcType="INTEGER" />
+    <result column="VOLUME" property="volume" jdbcType="DOUBLE" />
     <result column="ADJ_CLOSE" property="adjClose" jdbcType="DOUBLE" />
     <result column="PRICE_CHANGES" property="priceChanges" jdbcType="DOUBLE" />
     <result column="HIGH_TIME_ID" property="highTimeId" jdbcType="VARCHAR" />
@@ -131,12 +131,12 @@
     select 
     <include refid="Base_Column_List" />
     from G_STOCK_DAY
-    where STOCK = #{stock,jdbcType=INTEGER}
+    where STOCK = #{stock,jdbcType=VARCHAR}
       and DATE = #{date,jdbcType=DATE}
   </select>
   <delete id="deleteByPrimaryKey" parameterType="com.st.framework.module.stock.GStockDayKey" >
     delete from G_STOCK_DAY
-    where STOCK = #{stock,jdbcType=INTEGER}
+    where STOCK = #{stock,jdbcType=VARCHAR}
       and DATE = #{date,jdbcType=DATE}
   </delete>
   <delete id="deleteByExample" parameterType="com.st.framework.module.stock.example.GStockDayExample" >
@@ -152,8 +152,8 @@
       LOW_TIME_ID, AMPLITUDE, HIGH_PER, 
       LOW_PER, CLOSE_PER, OPEN_PER, 
       TURN_VOLUME, TURNOVER_RATE)
-    values (#{stock,jdbcType=INTEGER}, #{date,jdbcType=DATE}, #{open,jdbcType=DOUBLE}, 
-      #{high,jdbcType=DOUBLE}, #{low,jdbcType=DOUBLE}, #{close,jdbcType=DOUBLE}, #{volume,jdbcType=INTEGER}, 
+    values (#{stock,jdbcType=VARCHAR}, #{date,jdbcType=DATE}, #{open,jdbcType=DOUBLE}, 
+      #{high,jdbcType=DOUBLE}, #{low,jdbcType=DOUBLE}, #{close,jdbcType=DOUBLE}, #{volume,jdbcType=DOUBLE}, 
       #{adjClose,jdbcType=DOUBLE}, #{priceChanges,jdbcType=DOUBLE}, #{highTimeId,jdbcType=VARCHAR}, 
       #{lowTimeId,jdbcType=VARCHAR}, #{amplitude,jdbcType=DOUBLE}, #{highPer,jdbcType=DOUBLE}, 
       #{lowPer,jdbcType=DOUBLE}, #{closePer,jdbcType=DOUBLE}, #{openPer,jdbcType=DOUBLE}, 
@@ -219,7 +219,7 @@
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides="," >
       <if test="stock != null" >
-        #{stock,jdbcType=INTEGER},
+        #{stock,jdbcType=VARCHAR},
       </if>
       <if test="date != null" >
         #{date,jdbcType=DATE},
@@ -237,7 +237,7 @@
         #{close,jdbcType=DOUBLE},
       </if>
       <if test="volume != null" >
-        #{volume,jdbcType=INTEGER},
+        #{volume,jdbcType=DOUBLE},
       </if>
       <if test="adjClose != null" >
         #{adjClose,jdbcType=DOUBLE},
@@ -284,7 +284,7 @@
     update G_STOCK_DAY
     <set >
       <if test="record.stock != null" >
-        STOCK = #{record.stock,jdbcType=INTEGER},
+        STOCK = #{record.stock,jdbcType=VARCHAR},
       </if>
       <if test="record.date != null" >
         DATE = #{record.date,jdbcType=DATE},
@@ -302,7 +302,7 @@
         CLOSE = #{record.close,jdbcType=DOUBLE},
       </if>
       <if test="record.volume != null" >
-        VOLUME = #{record.volume,jdbcType=INTEGER},
+        VOLUME = #{record.volume,jdbcType=DOUBLE},
       </if>
       <if test="record.adjClose != null" >
         ADJ_CLOSE = #{record.adjClose,jdbcType=DOUBLE},
@@ -344,13 +344,13 @@
   </update>
   <update id="updateByExample" parameterType="map" >
     update G_STOCK_DAY
-    set STOCK = #{record.stock,jdbcType=INTEGER},
+    set STOCK = #{record.stock,jdbcType=VARCHAR},
       DATE = #{record.date,jdbcType=DATE},
       OPEN = #{record.open,jdbcType=DOUBLE},
       HIGH = #{record.high,jdbcType=DOUBLE},
       LOW = #{record.low,jdbcType=DOUBLE},
       CLOSE = #{record.close,jdbcType=DOUBLE},
-      VOLUME = #{record.volume,jdbcType=INTEGER},
+      VOLUME = #{record.volume,jdbcType=DOUBLE},
       ADJ_CLOSE = #{record.adjClose,jdbcType=DOUBLE},
       PRICE_CHANGES = #{record.priceChanges,jdbcType=DOUBLE},
       HIGH_TIME_ID = #{record.highTimeId,jdbcType=VARCHAR},
@@ -382,7 +382,7 @@
         CLOSE = #{close,jdbcType=DOUBLE},
       </if>
       <if test="volume != null" >
-        VOLUME = #{volume,jdbcType=INTEGER},
+        VOLUME = #{volume,jdbcType=DOUBLE},
       </if>
       <if test="adjClose != null" >
         ADJ_CLOSE = #{adjClose,jdbcType=DOUBLE},
@@ -418,7 +418,7 @@
         TURNOVER_RATE = #{turnoverRate,jdbcType=DOUBLE},
       </if>
     </set>
-    where STOCK = #{stock,jdbcType=INTEGER}
+    where STOCK = #{stock,jdbcType=VARCHAR}
       and DATE = #{date,jdbcType=DATE}
   </update>
   <update id="updateByPrimaryKey" parameterType="com.st.framework.module.stock.GStockDay" >
@@ -427,7 +427,7 @@
       HIGH = #{high,jdbcType=DOUBLE},
       LOW = #{low,jdbcType=DOUBLE},
       CLOSE = #{close,jdbcType=DOUBLE},
-      VOLUME = #{volume,jdbcType=INTEGER},
+      VOLUME = #{volume,jdbcType=DOUBLE},
       ADJ_CLOSE = #{adjClose,jdbcType=DOUBLE},
       PRICE_CHANGES = #{priceChanges,jdbcType=DOUBLE},
       HIGH_TIME_ID = #{highTimeId,jdbcType=VARCHAR},
@@ -439,9 +439,19 @@
       OPEN_PER = #{openPer,jdbcType=DOUBLE},
       TURN_VOLUME = #{turnVolume,jdbcType=DOUBLE},
       TURNOVER_RATE = #{turnoverRate,jdbcType=DOUBLE}
-    where STOCK = #{stock,jdbcType=INTEGER}
+    where STOCK = #{stock,jdbcType=VARCHAR}
       and DATE = #{date,jdbcType=DATE}
   </update>
+  <insert id="insertBatch" parameterType="map" >
+    insert into G_STOCK_DAY
+    (<include refid="Base_Column_List" />)
+    values
+    <foreach collection="list" item="item" index="index" separator="," >
+      (
+      #{item.stock},#{item.date},#{item.open},#{item.high},#{item.low},#{item.close},#{item.volume},#{item.adjClose},#{item.priceChanges},#{item.highTimeId},#{item.lowTimeId},#{item.amplitude},#{item.highPer},#{item.lowPer},#{item.closePer},#{item.openPer},#{item.turnVolume},#{item.turnoverRate}
+      )
+    </foreach>
+  </insert>
   
   <update id="batchUpdateMMByPrimaryKey"  parameterType="java.util.List">
 	<foreach collection="list" item="item" index="index" open=""
@@ -454,16 +464,6 @@
 		and DATE = #{item.date,jdbcType=DATE}
 	</foreach>
   </update>
-  
-  <insert id="insertBatch" parameterType="map" >
-    insert ignore into G_STOCK_DAY
-	(STOCK,DATE,OPEN,HIGH,LOW,CLOSE,VOLUME,ADJ_CLOSE,PRICE_CHANGES,HIGH_TIME_ID,LOW_TIME_ID,AMPLITUDE,HIGH_PER,LOW_PER,CLOSE_PER,OPEN_PER,TURN_VOLUME,TURNOVER_RATE)
-	values
-	<foreach collection="list" item="item" index="index" separator=",">
-		(#{item.stock},#{item.date},#{item.open},#{item.high},#{item.low},#{item.close},#{item.volume},#{item.adjClose},#{item.priceChanges},#{item.highTimeId},#{item.lowTimeId},#{item.amplitude},#{item.highPer},#{item.lowPer},#{item.closePer},#{item.openPer},#{item.turnVolume},#{item.turnoverRate})
-	</foreach>
-  </insert>
-  
   
   <update id="updatePriceChanges" parameterType="map">
   		update G_STOCK_DAY

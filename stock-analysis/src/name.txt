@@ -11,3 +11,208 @@
 总冻结资金(亿元) FREEZE_FUNDS
 中签率 SUCCESS_RATE
 中签号 SUCCESS_NUMBER
+
+---------------------------------------------
+公告日期
+[经] declaration date DECLARATION_DATE
+股利 dividend
+红利 dividend, bonus
+额外津贴 bonus stock, dividend, perk
+
+送股(股) delivering the stock DELIVERING_STOCK
+转增(股) Transfer of Capital Reserve TRANSFER
+派息(税前)(元) DIVIDEND
+
+G_DIVIDEND_SCHEME 
+送股  
+
+
+进度  SCHEDULE
+除权除息日 ex-dividend date EX_DIVIDEND_DATE
+股权登记日 date of record RECORD_DATE
+红股上市日The date of listing  LISTING_DATE
+查看详细
+
+##################
+0 税前红利（报价币种）	3.00 Pre tax bonus 
+PRE_TAX_BONUS
+1 税后红利（报价币种）	--  NON-GAPP EARNING 
+NON_GAPP_EARNING
+2 B、H股税前红利（人民币）	-- 
+B, H shares before tax dividend 
+BH_SHARES_BEFORE_TAX_DIVIDEND
+3 B、H股税后红利（人民币）	-- 
+B, H shares after tax dividend
+BH_SHARES_AFTER_TAX_DIVIDEND
+
+4 送股比例（10送）	-- 
+The proportion of bonus
+PROPORTION_BONUS
+5 转增比例（10转增）	15.00 转增比例 
+Capitalization ratio
+CAPITALIZATION_RATIO
+6 盈余公积金转增比例（10转增）	-- Surplus reserve ratio
+SURPLUS_RESERVE_RATIO
+7 资本公积金转增比例（10转增）	15.00 Capital reserve ratio
+CAPITAL_RESERVE_RATIO
+8 发放对象	-- 
+    the issuance of the target；
+    ISSUANCE_TARGET
+    
+
+9 股本基准日	2009-12-31 Equity reference day
+EQUITY_REFERENCE_DAY
+10 最后交易日	-- 
+    last trading day
+    LAST_TRADING_DAY
+    
+11 登记日	2010-04-16 date of record
+DATE_RECORD
+12 除息日	2010-04-19 
+    Ex-Dividend Date
+    EX_DIVIDEND_DATE
+    
+13 红利/配股起始日（送、转股到账日）	2010-04-19 Dividend date
+DIVIDEND_DATE 到账日 Arrival date ARRIVAL_DATE
+
+
+14 红利/配股终止日	-- Dividend date of termination
+DIVIDEND_DATE_OF_TERMINATION
+15 上市日	2010-04-19 
+Listing day
+LISTING_DATE
+
+16 股东大会决议公告日期	2010-04-09 
+	Announcement date of the general meeting of shareholders
+	MEETING_ANNOUNCEMENT_DATE
+17 可转债享受权益转股截止日	--
+	Enjoy the rights and interests of convertible bonds conversion deadline
+	RIGHTS_DEADLINE
+	
+18 配股比例（10配）	-- allotment ratio 配股比例
+ALLOTMENT_RATIO
+19 配股价	--  Shs Placing
+SHS PLACING
+20 转配比例	-- Ratio of transferred
+TRANSFERRED_RATIO
+21 转配价	-- Turn valence
+TURN_VALENCE
+22 配股有效期	-- Valid allotment
+VALID_ALLOTMENT
+23 实际配股数	-- The actual number of shares
+ACTUAL_SHARES_NUMBER
+24 配股前总股本	-- Shares Befor Issue
+SHARES_BEFOR_ISSUE
+25 实际配股比例	-- The actual ratio of rights
+ACTUAL_RATIO
+26 每股拆细数	-- Share split count
+SHARE_SPLIT_COUNT
+27 外币折算汇率	-- Foreign currency exchange rate
+FOREIGN_CURRENCY_EXCHANGE_RATE
+28 权息说明	-- Weight note
+WEIGHT_NOTE
+
+
+ 
+ 
+ 
+分红派息配股
+DIVIDEND,BONUS AND RIGHTS ISSUES
+ 
+ — （2009.01）
+ 
+ 代码
+Code 	
+
+证券简称
+Securities
+
+SECURITIES 	
+
+红股数量
+(送股率)
+Bonus(Shs)
+(BPS) 	
+
+现金息(元)
+(每股派息)
+Cash Div.
+(DPS) 	
+
+拟配股数
+(配股率)
+Rts Issues
+(RPS) 	
+
+配股价
+(元)
+Shs Placing
+Price 	
+
+拟集资金额
+(元)
+Funds to be
+Raised(RMB) 	
+
+转配比例
+(转让费)
+Transfer Rate
+(Rts Fee) 	
+
+除净日期
+(股权日)
+Ex-Date
+Reg. Date 	
+
+除权报价
+(前收市)
+Ex-Price
+Pre-Close
+ 
+ -------------------------------------
+ 代码 	CODE
+ 名称 	NAME
+ 日期 	DATE
+ 当日千股千评 	
+ 收盘价  CLOSE
+ 涨跌额  CHANGE
+ 涨跌幅(%) CHANGE_PER	
+ 昨收 	PREV_CLOSE
+ 今开 	OPEN
+ 最高 	HIGH
+ 最低 LOW
+ 
+ `STOCK` int(10) unsigned NOT NULL,
+  `DATE` date NOT NULL,
+  `OPEN` double(9,2) NOT NULL,
+  `HIGH` double(9,2) NOT NULL,
+  `LOW` double(9,2) NOT NULL,
+  `CLOSE` double(9,2) NOT NULL,
+  `VOLUME` double(9,2) DEFAULT NULL,
+  `ADJ_CLOSE` double(9,2) DEFAULT NULL,
+  `PRICE_CHANGES` double(9,2) DEFAULT NULL,
+  `HIGH_TIME_ID` varchar(8) DEFAULT NULL,
+  `LOW_TIME_ID` varchar(8) DEFAULT NULL,
+  `AMPLITUDE` double(9,2) DEFAULT NULL,
+  `HIGH_PER` double(9,2) DEFAULT NULL,
+  `LOW_PER` double(9,2) DEFAULT NULL,
+  `CLOSE_PER` double(9,2) DEFAULT NULL,
+  `OPEN_PER` double(9,2) DEFAULT NULL,
+  `TURN_VOLUME` double(9,2) DEFAULT NULL,
+  `TURNOVER_RATE` double(9,2) DEFAULT NULL,
+ 
+ 代码 Symbol
+名称 Name
+最新价 Last Trade
+涨跌额 Change
+涨跌幅 % Chg
+买入 Bid
+卖出 Ask
+昨收 Prev Close
+今开 Open
+最低至最高 Day's Range（美国股市是标明范围的，如最高21，最低20，就会写Day's Range: 20 - 21)
+成交量 Volume
+成交额 Turnover
+自选股的话没有这个说法，Yahoo! Finance上的Add to Portfolio的功能比较接近这个～
+
+P.S:买入卖出说成buy/sell的一看就知是外行……

@@ -1,0 +1,287 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.st.framework.persistence.mapper.stock.CircleChatDetailMapper" >
+  <resultMap id="BaseResultMap" type="com.st.framework.module.stock.CircleChatDetail" >
+    <id column="ID" property="id" jdbcType="INTEGER" />
+    <result column="ROOME_ID" property="roomeId" jdbcType="INTEGER" />
+    <result column="CIRCLE_ID" property="circleId" jdbcType="INTEGER" />
+    <result column="SORT" property="sort" jdbcType="INTEGER" />
+  </resultMap>
+  <resultMap id="ResultMapWithBLOBs" type="com.st.framework.module.stock.CircleChatDetailWithBLOBs" extends="BaseResultMap" >
+    <result column="CONTENT" property="content" jdbcType="LONGVARCHAR" />
+    <result column="IMG" property="img" jdbcType="LONGVARBINARY" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    ID, ROOME_ID, CIRCLE_ID, SORT
+  </sql>
+  <sql id="Blob_Column_List" >
+    CONTENT, IMG
+  </sql>
+  <select id="selectByExampleWithBLOBs" resultMap="ResultMapWithBLOBs" parameterType="com.st.framework.module.stock.example.CircleChatDetailExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from FACT_THS_CIRCLE_CHAT_DETAIL
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.st.framework.module.stock.example.CircleChatDetailExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from FACT_THS_CIRCLE_CHAT_DETAIL
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+    <if test="start != null and pageSize != null" >
+      limit #{start}, #{pageSize}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="ResultMapWithBLOBs" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from FACT_THS_CIRCLE_CHAT_DETAIL
+    where ID = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from FACT_THS_CIRCLE_CHAT_DETAIL
+    where ID = #{id,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.st.framework.module.stock.example.CircleChatDetailExample" >
+    delete from FACT_THS_CIRCLE_CHAT_DETAIL
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.st.framework.module.stock.CircleChatDetailWithBLOBs" >
+    insert into FACT_THS_CIRCLE_CHAT_DETAIL (ID, ROOME_ID, CIRCLE_ID, 
+      SORT, CONTENT, IMG
+      )
+    values (#{id,jdbcType=INTEGER}, #{roomeId,jdbcType=INTEGER}, #{circleId,jdbcType=INTEGER}, 
+      #{sort,jdbcType=INTEGER}, #{content,jdbcType=LONGVARCHAR}, #{img,jdbcType=LONGVARBINARY}
+      )
+      <selectKey resultType="java.lang.Integer" order="AFTER" keyProperty="id" >
+      	SELECT LAST_INSERT_ID() AS ID
+      </selectKey>
+  </insert>
+  <insert id="insertSelective" parameterType="com.st.framework.module.stock.CircleChatDetailWithBLOBs" >
+    insert into FACT_THS_CIRCLE_CHAT_DETAIL
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        ID,
+      </if>
+      <if test="roomeId != null" >
+        ROOME_ID,
+      </if>
+      <if test="circleId != null" >
+        CIRCLE_ID,
+      </if>
+      <if test="sort != null" >
+        SORT,
+      </if>
+      <if test="content != null" >
+        CONTENT,
+      </if>
+      <if test="img != null" >
+        IMG,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="roomeId != null" >
+        #{roomeId,jdbcType=INTEGER},
+      </if>
+      <if test="circleId != null" >
+        #{circleId,jdbcType=INTEGER},
+      </if>
+      <if test="sort != null" >
+        #{sort,jdbcType=INTEGER},
+      </if>
+      <if test="content != null" >
+        #{content,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="img != null" >
+        #{img,jdbcType=LONGVARBINARY},
+      </if>
+    </trim>
+    <selectKey resultType="java.lang.Integer" order="AFTER" keyProperty="id" >
+      	SELECT LAST_INSERT_ID() AS ID
+      </selectKey>
+  </insert>
+  <select id="countByExample" parameterType="com.st.framework.module.stock.example.CircleChatDetailExample" resultType="java.lang.Integer" >
+    select count(*) from FACT_THS_CIRCLE_CHAT_DETAIL
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update FACT_THS_CIRCLE_CHAT_DETAIL
+    <set >
+      <if test="record.id != null" >
+        ID = #{record.id,jdbcType=INTEGER},
+      </if>
+      <if test="record.roomeId != null" >
+        ROOME_ID = #{record.roomeId,jdbcType=INTEGER},
+      </if>
+      <if test="record.circleId != null" >
+        CIRCLE_ID = #{record.circleId,jdbcType=INTEGER},
+      </if>
+      <if test="record.sort != null" >
+        SORT = #{record.sort,jdbcType=INTEGER},
+      </if>
+      <if test="record.content != null" >
+        CONTENT = #{record.content,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="record.img != null" >
+        IMG = #{record.img,jdbcType=LONGVARBINARY},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExampleWithBLOBs" parameterType="map" >
+    update FACT_THS_CIRCLE_CHAT_DETAIL
+    set ID = #{record.id,jdbcType=INTEGER},
+      ROOME_ID = #{record.roomeId,jdbcType=INTEGER},
+      CIRCLE_ID = #{record.circleId,jdbcType=INTEGER},
+      SORT = #{record.sort,jdbcType=INTEGER},
+      CONTENT = #{record.content,jdbcType=LONGVARCHAR},
+      IMG = #{record.img,jdbcType=LONGVARBINARY}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update FACT_THS_CIRCLE_CHAT_DETAIL
+    set ID = #{record.id,jdbcType=INTEGER},
+      ROOME_ID = #{record.roomeId,jdbcType=INTEGER},
+      CIRCLE_ID = #{record.circleId,jdbcType=INTEGER},
+      SORT = #{record.sort,jdbcType=INTEGER}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.st.framework.module.stock.CircleChatDetailWithBLOBs" >
+    update FACT_THS_CIRCLE_CHAT_DETAIL
+    <set >
+      <if test="roomeId != null" >
+        ROOME_ID = #{roomeId,jdbcType=INTEGER},
+      </if>
+      <if test="circleId != null" >
+        CIRCLE_ID = #{circleId,jdbcType=INTEGER},
+      </if>
+      <if test="sort != null" >
+        SORT = #{sort,jdbcType=INTEGER},
+      </if>
+      <if test="content != null" >
+        CONTENT = #{content,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="img != null" >
+        IMG = #{img,jdbcType=LONGVARBINARY},
+      </if>
+    </set>
+    where ID = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.st.framework.module.stock.CircleChatDetailWithBLOBs" >
+    update FACT_THS_CIRCLE_CHAT_DETAIL
+    set ROOME_ID = #{roomeId,jdbcType=INTEGER},
+      CIRCLE_ID = #{circleId,jdbcType=INTEGER},
+      SORT = #{sort,jdbcType=INTEGER},
+      CONTENT = #{content,jdbcType=LONGVARCHAR},
+      IMG = #{img,jdbcType=LONGVARBINARY}
+    where ID = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.st.framework.module.stock.CircleChatDetail" >
+    update FACT_THS_CIRCLE_CHAT_DETAIL
+    set ROOME_ID = #{roomeId,jdbcType=INTEGER},
+      CIRCLE_ID = #{circleId,jdbcType=INTEGER},
+      SORT = #{sort,jdbcType=INTEGER}
+    where ID = #{id,jdbcType=INTEGER}
+  </update>
+  <insert id="insertBatch" parameterType="map" >
+    insert into FACT_THS_CIRCLE_CHAT_DETAIL
+    (<include refid="Base_Column_List" />)
+    values
+    <foreach collection="list" item="item" index="index" separator="," >
+      (
+      #{item.id},#{item.roomeId},#{item.circleId},#{item.sort},#{item.content},#{item.img}
+      )
+    </foreach>
+  </insert>
+</mapper>

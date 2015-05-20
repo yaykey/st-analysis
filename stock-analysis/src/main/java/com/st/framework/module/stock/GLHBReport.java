@@ -1,7 +1,14 @@
 package com.st.framework.module.stock;
 
+import java.util.List;
+
 public class GLHBReport extends GLHBReportKey {
-    private String reasons;
+    /**
+	 * 
+	 */
+	private static final long serialVersionUID = -5525517128328295962L;
+
+	private String reasons;
 
     private Double totalAmount;
 
@@ -10,8 +17,30 @@ public class GLHBReport extends GLHBReportKey {
     private Double totalCapitalPer;
 
     private Double aSharePer;
+    
+    private List<GLHBTop5> buyTop5;
+    
+    private List<GLHBTop5> sellTop5;
+    
+    private GLHBReport next;
 
-    public String getReasons() {
+    public List<GLHBTop5> getBuyTop5() {
+		return buyTop5;
+	}
+
+	public void setBuyTop5(List<GLHBTop5> buyTop5) {
+		this.buyTop5 = buyTop5;
+	}
+
+	public List<GLHBTop5> getSellTop5() {
+		return sellTop5;
+	}
+
+	public void setSellTop5(List<GLHBTop5> sellTop5) {
+		this.sellTop5 = sellTop5;
+	}
+
+	public String getReasons() {
         return reasons;
     }
 
@@ -85,4 +114,14 @@ public class GLHBReport extends GLHBReportKey {
         result = prime * result + ((getaSharePer() == null) ? 0 : getaSharePer().hashCode());
         return result;
     }
+
+	public GLHBReport getNext() {
+		return next;
+	}
+
+	public void setNext(GLHBReport next) {
+		this.next = next;
+	}
+
+	
 }

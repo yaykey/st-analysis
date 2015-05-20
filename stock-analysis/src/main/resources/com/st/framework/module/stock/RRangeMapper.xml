@@ -1,0 +1,508 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.st.framework.persistence.mapper.stock.RRangeMapper" >
+  <resultMap id="BaseResultMap" type="com.st.framework.module.stock.RRange" >
+    <id column="RPT_ID" property="rptId" jdbcType="INTEGER" />
+    <id column="INDEX_ID" property="indexId" jdbcType="INTEGER" />
+    <id column="VOL_DIMTYPE_ID" property="volDimtypeId" jdbcType="INTEGER" />
+    <id column="VOL_DIM_ID" property="volDimId" jdbcType="INTEGER" />
+    <id column="DATE_ID" property="dateId" jdbcType="INTEGER" />
+    <id column="STOCK_CODE" property="stockCode" jdbcType="INTEGER" />
+    <id column="TIME_DIMTYPE_ID" property="timeDimtypeId" jdbcType="INTEGER" />
+    <id column="TIME_DIM_ID" property="timeDimId" jdbcType="INTEGER" />
+    <result column="VOL_VALUE" property="volValue" jdbcType="INTEGER" />
+    <result column="AMO_VALUE" property="amoValue" jdbcType="INTEGER" />
+    <result column="CJBS" property="cjbs" jdbcType="INTEGER" />
+    <result column="PRICE" property="price" jdbcType="DOUBLE" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    RPT_ID, INDEX_ID, VOL_DIMTYPE_ID, VOL_DIM_ID, DATE_ID, STOCK_CODE, TIME_DIMTYPE_ID, 
+    TIME_DIM_ID, VOL_VALUE, AMO_VALUE, CJBS, PRICE
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.st.framework.module.stock.example.RRangeExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from R_RANGE
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+    <if test="start != null and pageSize != null" >
+      limit #{start}, #{pageSize}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="com.st.framework.module.stock.RRangeKey" >
+    select 
+    <include refid="Base_Column_List" />
+    from R_RANGE
+    where RPT_ID = #{rptId,jdbcType=INTEGER}
+      and INDEX_ID = #{indexId,jdbcType=INTEGER}
+      and VOL_DIMTYPE_ID = #{volDimtypeId,jdbcType=INTEGER}
+      and VOL_DIM_ID = #{volDimId,jdbcType=INTEGER}
+      and DATE_ID = #{dateId,jdbcType=INTEGER}
+      and STOCK_CODE = #{stockCode,jdbcType=INTEGER}
+      and TIME_DIMTYPE_ID = #{timeDimtypeId,jdbcType=INTEGER}
+      and TIME_DIM_ID = #{timeDimId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="com.st.framework.module.stock.RRangeKey" >
+    delete from R_RANGE
+    where RPT_ID = #{rptId,jdbcType=INTEGER}
+      and INDEX_ID = #{indexId,jdbcType=INTEGER}
+      and VOL_DIMTYPE_ID = #{volDimtypeId,jdbcType=INTEGER}
+      and VOL_DIM_ID = #{volDimId,jdbcType=INTEGER}
+      and DATE_ID = #{dateId,jdbcType=INTEGER}
+      and STOCK_CODE = #{stockCode,jdbcType=INTEGER}
+      and TIME_DIMTYPE_ID = #{timeDimtypeId,jdbcType=INTEGER}
+      and TIME_DIM_ID = #{timeDimId,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.st.framework.module.stock.example.RRangeExample" >
+    delete from R_RANGE
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.st.framework.module.stock.RRange" >
+    insert into R_RANGE (RPT_ID, INDEX_ID, VOL_DIMTYPE_ID, 
+      VOL_DIM_ID, DATE_ID, STOCK_CODE, 
+      TIME_DIMTYPE_ID, TIME_DIM_ID, VOL_VALUE, 
+      AMO_VALUE, CJBS, PRICE
+      )
+    values (#{rptId,jdbcType=INTEGER}, #{indexId,jdbcType=INTEGER}, #{volDimtypeId,jdbcType=INTEGER}, 
+      #{volDimId,jdbcType=INTEGER}, #{dateId,jdbcType=INTEGER}, #{stockCode,jdbcType=INTEGER}, 
+      #{timeDimtypeId,jdbcType=INTEGER}, #{timeDimId,jdbcType=INTEGER}, #{volValue,jdbcType=INTEGER}, 
+      #{amoValue,jdbcType=INTEGER}, #{cjbs,jdbcType=INTEGER}, #{price,jdbcType=DOUBLE}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.st.framework.module.stock.RRange" >
+    insert into R_RANGE
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="rptId != null" >
+        RPT_ID,
+      </if>
+      <if test="indexId != null" >
+        INDEX_ID,
+      </if>
+      <if test="volDimtypeId != null" >
+        VOL_DIMTYPE_ID,
+      </if>
+      <if test="volDimId != null" >
+        VOL_DIM_ID,
+      </if>
+      <if test="dateId != null" >
+        DATE_ID,
+      </if>
+      <if test="stockCode != null" >
+        STOCK_CODE,
+      </if>
+      <if test="timeDimtypeId != null" >
+        TIME_DIMTYPE_ID,
+      </if>
+      <if test="timeDimId != null" >
+        TIME_DIM_ID,
+      </if>
+      <if test="volValue != null" >
+        VOL_VALUE,
+      </if>
+      <if test="amoValue != null" >
+        AMO_VALUE,
+      </if>
+      <if test="cjbs != null" >
+        CJBS,
+      </if>
+      <if test="price != null" >
+        PRICE,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="rptId != null" >
+        #{rptId,jdbcType=INTEGER},
+      </if>
+      <if test="indexId != null" >
+        #{indexId,jdbcType=INTEGER},
+      </if>
+      <if test="volDimtypeId != null" >
+        #{volDimtypeId,jdbcType=INTEGER},
+      </if>
+      <if test="volDimId != null" >
+        #{volDimId,jdbcType=INTEGER},
+      </if>
+      <if test="dateId != null" >
+        #{dateId,jdbcType=INTEGER},
+      </if>
+      <if test="stockCode != null" >
+        #{stockCode,jdbcType=INTEGER},
+      </if>
+      <if test="timeDimtypeId != null" >
+        #{timeDimtypeId,jdbcType=INTEGER},
+      </if>
+      <if test="timeDimId != null" >
+        #{timeDimId,jdbcType=INTEGER},
+      </if>
+      <if test="volValue != null" >
+        #{volValue,jdbcType=INTEGER},
+      </if>
+      <if test="amoValue != null" >
+        #{amoValue,jdbcType=INTEGER},
+      </if>
+      <if test="cjbs != null" >
+        #{cjbs,jdbcType=INTEGER},
+      </if>
+      <if test="price != null" >
+        #{price,jdbcType=DOUBLE},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.st.framework.module.stock.example.RRangeExample" resultType="java.lang.Integer" >
+    select count(*) from R_RANGE
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update R_RANGE
+    <set >
+      <if test="record.rptId != null" >
+        RPT_ID = #{record.rptId,jdbcType=INTEGER},
+      </if>
+      <if test="record.indexId != null" >
+        INDEX_ID = #{record.indexId,jdbcType=INTEGER},
+      </if>
+      <if test="record.volDimtypeId != null" >
+        VOL_DIMTYPE_ID = #{record.volDimtypeId,jdbcType=INTEGER},
+      </if>
+      <if test="record.volDimId != null" >
+        VOL_DIM_ID = #{record.volDimId,jdbcType=INTEGER},
+      </if>
+      <if test="record.dateId != null" >
+        DATE_ID = #{record.dateId,jdbcType=INTEGER},
+      </if>
+      <if test="record.stockCode != null" >
+        STOCK_CODE = #{record.stockCode,jdbcType=INTEGER},
+      </if>
+      <if test="record.timeDimtypeId != null" >
+        TIME_DIMTYPE_ID = #{record.timeDimtypeId,jdbcType=INTEGER},
+      </if>
+      <if test="record.timeDimId != null" >
+        TIME_DIM_ID = #{record.timeDimId,jdbcType=INTEGER},
+      </if>
+      <if test="record.volValue != null" >
+        VOL_VALUE = #{record.volValue,jdbcType=INTEGER},
+      </if>
+      <if test="record.amoValue != null" >
+        AMO_VALUE = #{record.amoValue,jdbcType=INTEGER},
+      </if>
+      <if test="record.cjbs != null" >
+        CJBS = #{record.cjbs,jdbcType=INTEGER},
+      </if>
+      <if test="record.price != null" >
+        PRICE = #{record.price,jdbcType=DOUBLE},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update R_RANGE
+    set RPT_ID = #{record.rptId,jdbcType=INTEGER},
+      INDEX_ID = #{record.indexId,jdbcType=INTEGER},
+      VOL_DIMTYPE_ID = #{record.volDimtypeId,jdbcType=INTEGER},
+      VOL_DIM_ID = #{record.volDimId,jdbcType=INTEGER},
+      DATE_ID = #{record.dateId,jdbcType=INTEGER},
+      STOCK_CODE = #{record.stockCode,jdbcType=INTEGER},
+      TIME_DIMTYPE_ID = #{record.timeDimtypeId,jdbcType=INTEGER},
+      TIME_DIM_ID = #{record.timeDimId,jdbcType=INTEGER},
+      VOL_VALUE = #{record.volValue,jdbcType=INTEGER},
+      AMO_VALUE = #{record.amoValue,jdbcType=INTEGER},
+      CJBS = #{record.cjbs,jdbcType=INTEGER},
+      PRICE = #{record.price,jdbcType=DOUBLE}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.st.framework.module.stock.RRange" >
+    update R_RANGE
+    <set >
+      <if test="volValue != null" >
+        VOL_VALUE = #{volValue,jdbcType=INTEGER},
+      </if>
+      <if test="amoValue != null" >
+        AMO_VALUE = #{amoValue,jdbcType=INTEGER},
+      </if>
+      <if test="cjbs != null" >
+        CJBS = #{cjbs,jdbcType=INTEGER},
+      </if>
+      <if test="price != null" >
+        PRICE = #{price,jdbcType=DOUBLE},
+      </if>
+    </set>
+    where RPT_ID = #{rptId,jdbcType=INTEGER}
+      and INDEX_ID = #{indexId,jdbcType=INTEGER}
+      and VOL_DIMTYPE_ID = #{volDimtypeId,jdbcType=INTEGER}
+      and VOL_DIM_ID = #{volDimId,jdbcType=INTEGER}
+      and DATE_ID = #{dateId,jdbcType=INTEGER}
+      and STOCK_CODE = #{stockCode,jdbcType=INTEGER}
+      and TIME_DIMTYPE_ID = #{timeDimtypeId,jdbcType=INTEGER}
+      and TIME_DIM_ID = #{timeDimId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.st.framework.module.stock.RRange" >
+    update R_RANGE
+    set VOL_VALUE = #{volValue,jdbcType=INTEGER},
+      AMO_VALUE = #{amoValue,jdbcType=INTEGER},
+      CJBS = #{cjbs,jdbcType=INTEGER},
+      PRICE = #{price,jdbcType=DOUBLE}
+    where RPT_ID = #{rptId,jdbcType=INTEGER}
+      and INDEX_ID = #{indexId,jdbcType=INTEGER}
+      and VOL_DIMTYPE_ID = #{volDimtypeId,jdbcType=INTEGER}
+      and VOL_DIM_ID = #{volDimId,jdbcType=INTEGER}
+      and DATE_ID = #{dateId,jdbcType=INTEGER}
+      and STOCK_CODE = #{stockCode,jdbcType=INTEGER}
+      and TIME_DIMTYPE_ID = #{timeDimtypeId,jdbcType=INTEGER}
+      and TIME_DIM_ID = #{timeDimId,jdbcType=INTEGER}
+  </update>
+  <insert id="insertBatch" parameterType="map" >
+    insert into R_RANGE
+    (<include refid="Base_Column_List" />)
+    values
+    <foreach collection="list" item="item" index="index" separator="," >
+      (
+      #{item.rptId},#{item.indexId},#{item.volDimtypeId},#{item.volDimId},#{item.dateId},#{item.stockCode},#{item.timeDimtypeId},#{item.timeDimId},#{item.volValue},#{item.amoValue},#{item.cjbs},#{item.price}
+      )
+    </foreach>
+  </insert>
+  
+  
+  <select id="">
+  
+	select rrr.*,
+		(BUY_V + SELL_V + NEUTER_V) as ALL_V,
+		(BUY_V - SELL_V) as NET_V
+	from (
+		select
+		r1.TIME_DIM_ID, 
+		r1.RPT_ID,r1.DATE_ID,r1.TIME_DIMTYPE_ID,
+		
+		IFNULL(r1.VOL_VALUE,0)  as BUY_V, 
+		IFNULL(r2.VOL_VALUE,0)  as SELL_V,
+		IFNULL(r3.VOL_VALUE,0)  as NEUTER_V
+		from (
+		select * 
+		from R_RANGE
+		where date_id = 20150528 and VOL_DIM_ID=300100500
+		and INDEX_ID=3001101
+		) r1
+		left join  (
+		select * from R_RANGE
+		where date_id = 20150528 and VOL_DIM_ID=300100500
+		and INDEX_ID=3001102
+		) r2 
+		on r1.TIME_DIM_ID=r2.TIME_DIM_ID
+		left join  (
+		select * from R_RANGE
+		where date_id = 20150528 and VOL_DIM_ID=300100500
+		and INDEX_ID=3001103
+		) r3
+		on r1.TIME_DIM_ID=r3.TIME_DIM_ID
+	
+	union
+		select
+		r1.TIME_DIM_ID,
+		r1.RPT_ID,r1.DATE_ID,r1.TIME_DIMTYPE_ID,
+		IFNULL(r1.VOL_VALUE,0)  as BUY_V, 
+		IFNULL(r2.VOL_VALUE,0)  as SELL_V,
+		IFNULL(r3.VOL_VALUE,0)  as NEUTER_V
+		from (
+		select * 
+		from R_RANGE
+		where date_id = 20150528 and VOL_DIM_ID=300100500
+		and INDEX_ID=3001101
+		) r1
+		left join  (
+		select * from R_RANGE
+		where date_id = 20150528 and VOL_DIM_ID=300100500
+		and INDEX_ID=3001103
+		) r3 
+		on r1.TIME_DIM_ID=r3.TIME_DIM_ID
+		left join  (
+		select * from R_RANGE
+		where date_id = 20150528 and VOL_DIM_ID=300100500
+		and INDEX_ID=3001102
+		) r2
+		on r1.TIME_DIM_ID=r2.TIME_DIM_ID
+	
+	union
+	
+		select
+		r2.TIME_DIM_ID,
+		r2.RPT_ID,r2.DATE_ID,r2.TIME_DIMTYPE_ID,
+		IFNULL(r1.VOL_VALUE,0)  as BUY_V, 
+		IFNULL(r2.VOL_VALUE,0)  as SELL_V,
+		IFNULL(r3.VOL_VALUE,0)  as NEUTER_V
+		from (
+		select * 
+		from R_RANGE
+		where date_id = 20150528 and VOL_DIM_ID=300100500
+		and INDEX_ID=3001102
+		) r2
+		left join  (
+		select * from R_RANGE
+		where date_id = 20150528 and VOL_DIM_ID=300100500
+		and INDEX_ID=3001101
+		) r1 
+		on r2.TIME_DIM_ID=r1.TIME_DIM_ID
+		left join  (
+		select * from R_RANGE
+		where date_id = 20150528 and VOL_DIM_ID=300100500
+		and INDEX_ID=3001103
+		) r3
+		on r2.TIME_DIM_ID=r3.TIME_DIM_ID
+	
+	union
+		select
+		r2.TIME_DIM_ID,
+		r2.RPT_ID,r2.DATE_ID,r2.TIME_DIMTYPE_ID,
+		IFNULL(r1.VOL_VALUE,0)  as BUY_V, 
+		IFNULL(r2.VOL_VALUE,0)  as SELL_V,
+		IFNULL(r3.VOL_VALUE,0)  as NEUTER_V
+		from (
+		select * 
+		from R_RANGE
+		where date_id = 20150528 and VOL_DIM_ID=300100500
+		and INDEX_ID=3001102
+		) r2
+		left join  (
+		select * from R_RANGE
+		where date_id = 20150528 and VOL_DIM_ID=300100500
+		and INDEX_ID=3001103
+		) r3 
+		on r2.TIME_DIM_ID=r3.TIME_DIM_ID
+		left join  (
+		select * from R_RANGE
+		where date_id = 20150528 and VOL_DIM_ID=300100500
+		and INDEX_ID=3001101
+		) r1
+		on r2.TIME_DIM_ID=r1.TIME_DIM_ID
+	
+	union
+	
+		select
+		r3.TIME_DIM_ID,
+		r3.RPT_ID,r3.DATE_ID,r3.TIME_DIMTYPE_ID,
+		IFNULL(r1.VOL_VALUE,0)  as BUY_V, 
+		IFNULL(r2.VOL_VALUE,0)  as SELL_V,
+		IFNULL(r3.VOL_VALUE,0)  as NEUTER_V
+		from (
+		select * 
+		from R_RANGE
+		where date_id = 20150528 and VOL_DIM_ID=300100500
+		and INDEX_ID=3001103
+		) r3
+		left join  (
+		select * from R_RANGE
+		where date_id = 20150528 and VOL_DIM_ID=300100500
+		and INDEX_ID=3001101
+		) r1 
+		on r3.TIME_DIM_ID=r1.TIME_DIM_ID
+		left join  (
+		select * from R_RANGE
+		where date_id = 20150528 and VOL_DIM_ID=300100500
+		and INDEX_ID=3001102
+		) r2
+		on r3.TIME_DIM_ID=r2.TIME_DIM_ID
+	
+	union
+		select
+		r3.TIME_DIM_ID,
+		r3.RPT_ID,r3.DATE_ID,r3.TIME_DIMTYPE_ID,
+		IFNULL(r1.VOL_VALUE,0)  as BUY_V, 
+		IFNULL(r2.VOL_VALUE,0)  as SELL_V,
+		IFNULL(r3.VOL_VALUE,0)  as NEUTER_V
+		from (
+		select * 
+		from R_RANGE
+		where date_id = 20150528 and VOL_DIM_ID=300100500
+		and INDEX_ID=3001103
+		) r3
+		left join  (
+		select * from R_RANGE
+		where date_id = 20150528 and VOL_DIM_ID=300100500
+		and INDEX_ID=3001102
+		) r2
+		on r3.TIME_DIM_ID=r2.TIME_DIM_ID
+		left join  (
+		select * from R_RANGE
+		where date_id = 20150528 and VOL_DIM_ID=300100500
+		and INDEX_ID=3001101
+		) r1
+		on r3.TIME_DIM_ID=r1.TIME_DIM_ID
+	
+	) rrr
+	order by rrr.TIME_DIM_ID
+  
+  
+  </select>
+  
+</mapper>

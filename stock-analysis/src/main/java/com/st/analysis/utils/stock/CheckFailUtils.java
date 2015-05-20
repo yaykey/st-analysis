@@ -94,13 +94,13 @@ public class CheckFailUtils extends BaseDBUtils {
 		List<GStockDay> list = null;
 
 		for (int i = 300001; i <= 300406; i++) {
-			maxDateId = gStockDayManager.selectMaxDateId(i);
+			maxDateId = gStockDayManager.selectMaxDateId("" + i);
 			if (logger.isInfoEnabled()) {
 				logger.info("checkFail() - Integer maxDateId=" + maxDateId);
 			}
 			if (maxDateId != null) {
 				try {
-					list = gDetailManager.selectStockDay("sz" + i, maxDateId,
+					list = gDetailManager.selectStockDay("" + i,"sz", maxDateId,
 							null);
 				} catch (Exception ex) {
 					logger.warn(ex.getMessage());

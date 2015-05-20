@@ -19,6 +19,7 @@ import com.st.framework.module.stock.example.GDetailNoDataExample;
 import com.st.framework.persistence.mapper.BaseMapper;
 import com.st.framework.persistence.mapper.stock.GDetailNoDataMapper;
 import com.st.framework.utils.ConfigUtil;
+import com.st.framework.utils.db.route.DbContextHolder;
 
 @Component("gDetailNoDataManager")
 public class GDetailNoDataManager extends
@@ -34,11 +35,22 @@ public class GDetailNoDataManager extends
 
 	@Override
 	public BaseMapper<GDetailNoDataKey, GDetailNoData, GDetailNoDataExample> getMapper() {
-
+		DbContextHolder.setDefaultDbType();
 		return gDetailNoDataMapper;
 	}
+	
+	public synchronized GDetailNoData selectByPrimaryKey (GDetailNoData gDetailNoDataKey) {
+		DbContextHolder.setDefaultDbType();
+		return this.gDetailNoDataMapper.selectByPrimaryKey(gDetailNoDataKey);
+	}
+	
+	public synchronized int updateByPrimaryKey (GDetailNoData gDetailNoDataKey) {
+		DbContextHolder.setDefaultDbType();
+		return this.gDetailNoDataMapper.updateByPrimaryKey(gDetailNoDataKey);
+	}
 
-	public void increaseBalance(GDetailNoData gDetailNoDataKey) {
+	public synchronized void increaseBalance(GDetailNoData gDetailNoDataKey) {
+		DbContextHolder.setDefaultDbType();
 		GDetailNoData gDetailNoData = this.selectByPrimaryKey(gDetailNoDataKey);
 
 		if (gDetailNoData == null) {
@@ -61,7 +73,7 @@ public class GDetailNoDataManager extends
 		if (stockCode == null) {
 			return null;
 		}
-
+		DbContextHolder.setDefaultDbType();
 		if (yearDateIds == null || yearDateIds.size() == 0) {
 			return selectErrorDateIds(stockCode, null);
 		} else {
@@ -102,7 +114,7 @@ public class GDetailNoDataManager extends
 		if (stockCode == null) {
 			return null;
 		}
-
+		DbContextHolder.setDefaultDbType();
 		GDetailNoDataExample example = new GDetailNoDataExample();
 		GDetailNoDataExample.Criteria c = example.createCriteria();
 
@@ -113,13 +125,13 @@ public class GDetailNoDataManager extends
 			c.andStockCodeLike("%" + stockCode + "%");
 		}
 
-		//c.andBalanceLessThanOrEqualTo(5);
+		c.andBalanceLessThanOrEqualTo(5);
 
 		if (yearDateId != null) {
 			c.andDateIdLike(yearDateId + "%");
 		}
 
-		// c.andIsDealEqualTo(false);
+		 c.andIsDealEqualTo(false);
 
 		List<GDetailNoData> list = this.selectByExample(example);
 

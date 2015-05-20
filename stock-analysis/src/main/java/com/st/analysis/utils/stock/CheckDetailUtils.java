@@ -4,9 +4,12 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
 import com.st.analysis.utils.network.ProxyUtils;
+import com.st.analysis.utils.stock.download.DownloadSinaDataUtils;
 import com.st.framework.module.stock.DStock;
 
+import java.text.DateFormat;
 import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 
@@ -47,7 +50,9 @@ public class CheckDetailUtils extends DetailUtils {
 				Calendar cal = Calendar.getInstance();
 				cal.setTime(dStock.getListingDate());
 				cal.add(Calendar.DAY_OF_MONTH, -1);
-				
+//				protected static DateFormat df_simple = new SimpleDateFormat("yyyyMMdd");
+
+				DateFormat df = new SimpleDateFormat("yyyy-MM-dd");
 				startTime = df.format(cal.getTime());
 				if (logger.isInfoEnabled()) {
 					logger.info("appendStData(getListingDate startTime=" + startTime);
@@ -71,6 +76,9 @@ public class CheckDetailUtils extends DetailUtils {
 		Calendar cal = Calendar.getInstance();
 		
 		try {
+//			protected static DateFormat df_simple = new SimpleDateFormat("yyyyMMdd");
+
+			DateFormat df = new SimpleDateFormat("yyyy-MM-dd");
 			cal.setTime(df.parse(startTime));
 			cal.add(Calendar.DAY_OF_MONTH, 1);
 			
@@ -126,7 +134,7 @@ public class CheckDetailUtils extends DetailUtils {
 		
 		for (int i=300002; i<=300002; i++) {
 			appendStData("" + i, "sz");
-			DetailUtils.DetailFile2DB("" + i, "sz");
+			new DetailUtils().DetailFile2DB("" + i, "sz");
 //			try {
 //				Thread.sleep(5000);
 //			} catch (InterruptedException e) {

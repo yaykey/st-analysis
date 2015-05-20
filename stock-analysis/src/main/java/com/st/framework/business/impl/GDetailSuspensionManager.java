@@ -8,9 +8,7 @@ import java.util.List;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-
 import org.springframework.beans.factory.annotation.Autowired;
-
 import org.springframework.stereotype.Component;
 
 import com.st.framework.business.BaseManager;
@@ -19,6 +17,7 @@ import com.st.framework.module.stock.GDetailSuspensionKey;
 import com.st.framework.module.stock.example.GDetailSuspensionExample;
 import com.st.framework.persistence.mapper.BaseMapper;
 import com.st.framework.persistence.mapper.stock.GDetailSuspensionMapper;
+import com.st.framework.utils.db.route.DbContextHolder;
 
 @Component("gDetailSuspensionManager")
 public class GDetailSuspensionManager
@@ -35,11 +34,13 @@ public class GDetailSuspensionManager
 
 	@Override
 	public BaseMapper<GDetailSuspensionKey, GDetailSuspension, GDetailSuspensionExample> getMapper() {
-
+		DbContextHolder.setDefaultDbType();
 		return gDetailSuspensionMapper;
 	}
 
 	public void increaseBalance(GDetailSuspensionKey gDetailSuspensionKey) {
+		
+		DbContextHolder.setDefaultDbType();
 		GDetailSuspension gDetailSuspension = this
 				.selectByPrimaryKey(gDetailSuspensionKey);
 
@@ -67,6 +68,7 @@ public class GDetailSuspensionManager
 	 */
 	public List<String> selectSuspensionDays(String start, String end,
 			String stockCode) {
+		DbContextHolder.setDefaultDbType();
 		GDetailSuspensionExample example = new GDetailSuspensionExample();
 		GDetailSuspensionExample.Criteria c = example.createCriteria();
 

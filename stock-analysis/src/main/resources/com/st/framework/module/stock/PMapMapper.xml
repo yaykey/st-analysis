@@ -1,0 +1,184 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.st.framework.persistence.mapper.stock.PMapMapper" >
+  <resultMap id="BaseResultMap" type="com.st.framework.module.stock.PMapKey" >
+    <id column="RPT_ID" property="rptId" jdbcType="INTEGER" />
+    <id column="DIMTYPE_ID" property="dimtypeId" jdbcType="INTEGER" />
+    <id column="DIM_ID" property="dimId" jdbcType="INTEGER" />
+    <id column="INDEX_ID" property="indexId" jdbcType="INTEGER" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    RPT_ID, DIMTYPE_ID, DIM_ID, INDEX_ID
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.st.framework.module.stock.example.PMapExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from P_MAP
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+    <if test="start != null and pageSize != null" >
+      limit #{start}, #{pageSize}
+    </if>
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="com.st.framework.module.stock.PMapKey" >
+    delete from P_MAP
+    where RPT_ID = #{rptId,jdbcType=INTEGER}
+      and DIMTYPE_ID = #{dimtypeId,jdbcType=INTEGER}
+      and DIM_ID = #{dimId,jdbcType=INTEGER}
+      and INDEX_ID = #{indexId,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.st.framework.module.stock.example.PMapExample" >
+    delete from P_MAP
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.st.framework.module.stock.PMapKey" >
+    insert into P_MAP (RPT_ID, DIMTYPE_ID, DIM_ID, 
+      INDEX_ID)
+    values (#{rptId,jdbcType=INTEGER}, #{dimtypeId,jdbcType=INTEGER}, #{dimId,jdbcType=INTEGER}, 
+      #{indexId,jdbcType=INTEGER})
+  </insert>
+  <insert id="insertSelective" parameterType="com.st.framework.module.stock.PMapKey" >
+    insert into P_MAP
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="rptId != null" >
+        RPT_ID,
+      </if>
+      <if test="dimtypeId != null" >
+        DIMTYPE_ID,
+      </if>
+      <if test="dimId != null" >
+        DIM_ID,
+      </if>
+      <if test="indexId != null" >
+        INDEX_ID,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="rptId != null" >
+        #{rptId,jdbcType=INTEGER},
+      </if>
+      <if test="dimtypeId != null" >
+        #{dimtypeId,jdbcType=INTEGER},
+      </if>
+      <if test="dimId != null" >
+        #{dimId,jdbcType=INTEGER},
+      </if>
+      <if test="indexId != null" >
+        #{indexId,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.st.framework.module.stock.example.PMapExample" resultType="java.lang.Integer" >
+    select count(*) from P_MAP
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update P_MAP
+    <set >
+      <if test="record.rptId != null" >
+        RPT_ID = #{record.rptId,jdbcType=INTEGER},
+      </if>
+      <if test="record.dimtypeId != null" >
+        DIMTYPE_ID = #{record.dimtypeId,jdbcType=INTEGER},
+      </if>
+      <if test="record.dimId != null" >
+        DIM_ID = #{record.dimId,jdbcType=INTEGER},
+      </if>
+      <if test="record.indexId != null" >
+        INDEX_ID = #{record.indexId,jdbcType=INTEGER},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update P_MAP
+    set RPT_ID = #{record.rptId,jdbcType=INTEGER},
+      DIMTYPE_ID = #{record.dimtypeId,jdbcType=INTEGER},
+      DIM_ID = #{record.dimId,jdbcType=INTEGER},
+      INDEX_ID = #{record.indexId,jdbcType=INTEGER}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <insert id="insertBatch" parameterType="map" >
+    insert into P_MAP
+    (<include refid="Base_Column_List" />)
+    values
+    <foreach collection="list" item="item" index="index" separator="," >
+      (
+      #{item.rptId},#{item.dimtypeId},#{item.dimId},#{item.indexId}
+      )
+    </foreach>
+  </insert>
+</mapper>

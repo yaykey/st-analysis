@@ -1,0 +1,334 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.st.framework.persistence.mapper.stock.GQgqpMapper" >
+  <resultMap id="BaseResultMap" type="com.st.framework.module.stock.GQgqp" >
+    <id column="CODE" property="code" jdbcType="VARCHAR" />
+    <id column="DATE" property="date" jdbcType="DATE" />
+    <id column="SOURCE_TYPE" property="sourceType" jdbcType="VARCHAR" />
+    <result column="NAME" property="name" jdbcType="VARCHAR" />
+    <result column="COMMENT" property="comment" jdbcType="VARCHAR" />
+    <result column="CLOSE" property="close" jdbcType="DOUBLE" />
+    <result column="NET_CHANGE" property="netChange" jdbcType="DOUBLE" />
+    <result column="NET_CHANGE_PER" property="netChangePer" jdbcType="VARCHAR" />
+    <result column="PREV_CLOSE" property="prevClose" jdbcType="DOUBLE" />
+    <result column="OPEN" property="open" jdbcType="DOUBLE" />
+    <result column="HIGH" property="high" jdbcType="DOUBLE" />
+    <result column="LOW" property="low" jdbcType="DOUBLE" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    CODE, DATE, SOURCE_TYPE, NAME, COMMENT, CLOSE, NET_CHANGE, NET_CHANGE_PER, PREV_CLOSE, 
+    OPEN, HIGH, LOW
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.st.framework.module.stock.example.GQgqpExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from G_QGQP
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+    <if test="start != null and pageSize != null" >
+      limit #{start}, #{pageSize}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="com.st.framework.module.stock.GQgqpKey" >
+    select 
+    <include refid="Base_Column_List" />
+    from G_QGQP
+    where CODE = #{code,jdbcType=VARCHAR}
+      and DATE = #{date,jdbcType=DATE}
+      and SOURCE_TYPE = #{sourceType,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="com.st.framework.module.stock.GQgqpKey" >
+    delete from G_QGQP
+    where CODE = #{code,jdbcType=VARCHAR}
+      and DATE = #{date,jdbcType=DATE}
+      and SOURCE_TYPE = #{sourceType,jdbcType=VARCHAR}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.st.framework.module.stock.example.GQgqpExample" >
+    delete from G_QGQP
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.st.framework.module.stock.GQgqp" >
+    insert into G_QGQP (CODE, DATE, SOURCE_TYPE, 
+      NAME, COMMENT, CLOSE, 
+      NET_CHANGE, NET_CHANGE_PER, PREV_CLOSE, 
+      OPEN, HIGH, LOW)
+    values (#{code,jdbcType=VARCHAR}, #{date,jdbcType=DATE}, #{sourceType,jdbcType=VARCHAR}, 
+      #{name,jdbcType=VARCHAR}, #{comment,jdbcType=VARCHAR}, #{close,jdbcType=DOUBLE}, 
+      #{netChange,jdbcType=DOUBLE}, #{netChangePer,jdbcType=VARCHAR}, #{prevClose,jdbcType=DOUBLE}, 
+      #{open,jdbcType=DOUBLE}, #{high,jdbcType=DOUBLE}, #{low,jdbcType=DOUBLE})
+  </insert>
+  <insert id="insertSelective" parameterType="com.st.framework.module.stock.GQgqp" >
+    insert into G_QGQP
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="code != null" >
+        CODE,
+      </if>
+      <if test="date != null" >
+        DATE,
+      </if>
+      <if test="sourceType != null" >
+        SOURCE_TYPE,
+      </if>
+      <if test="name != null" >
+        NAME,
+      </if>
+      <if test="comment != null" >
+        COMMENT,
+      </if>
+      <if test="close != null" >
+        CLOSE,
+      </if>
+      <if test="netChange != null" >
+        NET_CHANGE,
+      </if>
+      <if test="netChangePer != null" >
+        NET_CHANGE_PER,
+      </if>
+      <if test="prevClose != null" >
+        PREV_CLOSE,
+      </if>
+      <if test="open != null" >
+        OPEN,
+      </if>
+      <if test="high != null" >
+        HIGH,
+      </if>
+      <if test="low != null" >
+        LOW,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="code != null" >
+        #{code,jdbcType=VARCHAR},
+      </if>
+      <if test="date != null" >
+        #{date,jdbcType=DATE},
+      </if>
+      <if test="sourceType != null" >
+        #{sourceType,jdbcType=VARCHAR},
+      </if>
+      <if test="name != null" >
+        #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="comment != null" >
+        #{comment,jdbcType=VARCHAR},
+      </if>
+      <if test="close != null" >
+        #{close,jdbcType=DOUBLE},
+      </if>
+      <if test="netChange != null" >
+        #{netChange,jdbcType=DOUBLE},
+      </if>
+      <if test="netChangePer != null" >
+        #{netChangePer,jdbcType=VARCHAR},
+      </if>
+      <if test="prevClose != null" >
+        #{prevClose,jdbcType=DOUBLE},
+      </if>
+      <if test="open != null" >
+        #{open,jdbcType=DOUBLE},
+      </if>
+      <if test="high != null" >
+        #{high,jdbcType=DOUBLE},
+      </if>
+      <if test="low != null" >
+        #{low,jdbcType=DOUBLE},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.st.framework.module.stock.example.GQgqpExample" resultType="java.lang.Integer" >
+    select count(*) from G_QGQP
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update G_QGQP
+    <set >
+      <if test="record.code != null" >
+        CODE = #{record.code,jdbcType=VARCHAR},
+      </if>
+      <if test="record.date != null" >
+        DATE = #{record.date,jdbcType=DATE},
+      </if>
+      <if test="record.sourceType != null" >
+        SOURCE_TYPE = #{record.sourceType,jdbcType=VARCHAR},
+      </if>
+      <if test="record.name != null" >
+        NAME = #{record.name,jdbcType=VARCHAR},
+      </if>
+      <if test="record.comment != null" >
+        COMMENT = #{record.comment,jdbcType=VARCHAR},
+      </if>
+      <if test="record.close != null" >
+        CLOSE = #{record.close,jdbcType=DOUBLE},
+      </if>
+      <if test="record.netChange != null" >
+        NET_CHANGE = #{record.netChange,jdbcType=DOUBLE},
+      </if>
+      <if test="record.netChangePer != null" >
+        NET_CHANGE_PER = #{record.netChangePer,jdbcType=VARCHAR},
+      </if>
+      <if test="record.prevClose != null" >
+        PREV_CLOSE = #{record.prevClose,jdbcType=DOUBLE},
+      </if>
+      <if test="record.open != null" >
+        OPEN = #{record.open,jdbcType=DOUBLE},
+      </if>
+      <if test="record.high != null" >
+        HIGH = #{record.high,jdbcType=DOUBLE},
+      </if>
+      <if test="record.low != null" >
+        LOW = #{record.low,jdbcType=DOUBLE},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update G_QGQP
+    set CODE = #{record.code,jdbcType=VARCHAR},
+      DATE = #{record.date,jdbcType=DATE},
+      SOURCE_TYPE = #{record.sourceType,jdbcType=VARCHAR},
+      NAME = #{record.name,jdbcType=VARCHAR},
+      COMMENT = #{record.comment,jdbcType=VARCHAR},
+      CLOSE = #{record.close,jdbcType=DOUBLE},
+      NET_CHANGE = #{record.netChange,jdbcType=DOUBLE},
+      NET_CHANGE_PER = #{record.netChangePer,jdbcType=VARCHAR},
+      PREV_CLOSE = #{record.prevClose,jdbcType=DOUBLE},
+      OPEN = #{record.open,jdbcType=DOUBLE},
+      HIGH = #{record.high,jdbcType=DOUBLE},
+      LOW = #{record.low,jdbcType=DOUBLE}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.st.framework.module.stock.GQgqp" >
+    update G_QGQP
+    <set >
+      <if test="name != null" >
+        NAME = #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="comment != null" >
+        COMMENT = #{comment,jdbcType=VARCHAR},
+      </if>
+      <if test="close != null" >
+        CLOSE = #{close,jdbcType=DOUBLE},
+      </if>
+      <if test="netChange != null" >
+        NET_CHANGE = #{netChange,jdbcType=DOUBLE},
+      </if>
+      <if test="netChangePer != null" >
+        NET_CHANGE_PER = #{netChangePer,jdbcType=VARCHAR},
+      </if>
+      <if test="prevClose != null" >
+        PREV_CLOSE = #{prevClose,jdbcType=DOUBLE},
+      </if>
+      <if test="open != null" >
+        OPEN = #{open,jdbcType=DOUBLE},
+      </if>
+      <if test="high != null" >
+        HIGH = #{high,jdbcType=DOUBLE},
+      </if>
+      <if test="low != null" >
+        LOW = #{low,jdbcType=DOUBLE},
+      </if>
+    </set>
+    where CODE = #{code,jdbcType=VARCHAR}
+      and DATE = #{date,jdbcType=DATE}
+      and SOURCE_TYPE = #{sourceType,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.st.framework.module.stock.GQgqp" >
+    update G_QGQP
+    set NAME = #{name,jdbcType=VARCHAR},
+      COMMENT = #{comment,jdbcType=VARCHAR},
+      CLOSE = #{close,jdbcType=DOUBLE},
+      NET_CHANGE = #{netChange,jdbcType=DOUBLE},
+      NET_CHANGE_PER = #{netChangePer,jdbcType=VARCHAR},
+      PREV_CLOSE = #{prevClose,jdbcType=DOUBLE},
+      OPEN = #{open,jdbcType=DOUBLE},
+      HIGH = #{high,jdbcType=DOUBLE},
+      LOW = #{low,jdbcType=DOUBLE}
+    where CODE = #{code,jdbcType=VARCHAR}
+      and DATE = #{date,jdbcType=DATE}
+      and SOURCE_TYPE = #{sourceType,jdbcType=VARCHAR}
+  </update>
+  <insert id="insertBatch" parameterType="map" >
+    insert into G_QGQP
+    (<include refid="Base_Column_List" />)
+    values
+    <foreach collection="list" item="item" index="index" separator="," >
+      (
+      #{item.code},#{item.date},#{item.sourceType},#{item.name},#{item.comment},#{item.close},#{item.netChange},#{item.netChangePer},#{item.prevClose},#{item.open},#{item.high},#{item.low}
+      )
+    </foreach>
+  </insert>
+</mapper>

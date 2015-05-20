@@ -21,6 +21,7 @@ import com.st.analysis.controller.vo.baidudate.HolidayBean;
 import com.st.framework.module.stock.FactDateHoliday;
 import com.st.framework.module.stock.FactDateHolidayList;
 import com.st.framework.module.stock.example.FactDateHolidayExample;
+import com.st.framework.utils.db.route.DbContextHolder;
 
 @Component("factDateHolidayManager")
 public class FactDateHolidayManager extends BaseFactDateManager {
@@ -31,64 +32,66 @@ public class FactDateHolidayManager extends BaseFactDateManager {
 			.getLog(FactDateHolidayManager.class);
 
 	public int countByExample(FactDateHolidayExample example) {
-
+		DbContextHolder.setDefaultDbType();
 		return this.factDateHolidayMapper.countByExample(example);
 	}
 
 	public int deleteByExample(FactDateHolidayExample example) {
-
+		DbContextHolder.setDefaultDbType();
 		return this.factDateHolidayMapper.deleteByExample(example);
 	}
 
 	public int deleteByPrimaryKey(String festival) {
-
+		DbContextHolder.setDefaultDbType();
 		return this.factDateHolidayMapper.deleteByPrimaryKey(festival);
 	}
 
 	public int insert(FactDateHoliday record) {
-
+		DbContextHolder.setDefaultDbType();
 		return this.factDateHolidayMapper.insert(record);
 	}
 
 	public int insertSelective(FactDateHoliday record) {
-
+		DbContextHolder.setDefaultDbType();
 		return this.factDateHolidayMapper.insertSelective(record);
 	}
 
 	public List<FactDateHoliday> selectByExample(FactDateHolidayExample example) {
-
+		DbContextHolder.setDefaultDbType();
 		return this.factDateHolidayMapper.selectByExample(example);
 	}
 
 	public FactDateHoliday selectByPrimaryKey(String festival) {
-
+		DbContextHolder.setDefaultDbType();
 		return this.factDateHolidayMapper.selectByPrimaryKey(festival);
 	}
 
 	public int updateByExampleSelective(FactDateHoliday record,
 			FactDateHolidayExample example) {
-
+		DbContextHolder.setDefaultDbType();
 		return this.factDateHolidayMapper.updateByExampleSelective(record,
 				example);
 	}
 
 	public int updateByExample(FactDateHoliday record,
 			FactDateHolidayExample example) {
-
+		DbContextHolder.setDefaultDbType();
 		return this.factDateHolidayMapper.updateByExample(record, example);
 	}
 
 	public int updateByPrimaryKeySelective(FactDateHoliday record) {
-
+		DbContextHolder.setDefaultDbType();
 		return this.factDateHolidayMapper.updateByPrimaryKeySelective(record);
 	}
 
 	public int updateByPrimaryKey(FactDateHoliday record) {
-
+		DbContextHolder.setDefaultDbType();
 		return this.factDateHolidayMapper.updateByPrimaryKey(record);
 	}
 
 	public void insertHolidayJSONObject(JSONObject holidayJSONObject) {
+		DbContextHolder.setDefaultDbType();
+		
 		HolidayBean holiday = (HolidayBean) JSONObject.toBean(
 				holidayJSONObject, HolidayBean.class);
 
@@ -145,7 +148,7 @@ public class FactDateHolidayManager extends BaseFactDateManager {
 		if (logger.isDebugEnabled()) {
 			logger.debug("insertHolidayArray(JSONArray) - start");
 		}
-
+		DbContextHolder.setDefaultDbType();
 		if (holidayArray != null) {
 			for (int i = 0; i < holidayArray.size(); i++) {
 				JSONObject object = (JSONObject) holidayArray.get(i);
@@ -172,7 +175,7 @@ public class FactDateHolidayManager extends BaseFactDateManager {
 	 * @return
 	 */
 	public List<String> selectHolidayList(String startDate, String endDate) {
-
+		DbContextHolder.setDefaultDbType();
 		FactDateHolidayExample example = new FactDateHolidayExample();
 
 		example.setDistinct(true);
@@ -213,6 +216,8 @@ public class FactDateHolidayManager extends BaseFactDateManager {
 	 * @return
 	 */
 	public List<Integer> selectHolidayList(Integer startDate, Integer endDate) {
+		DbContextHolder.setDefaultDbType();
+		
 		DateFormat df = new SimpleDateFormat("yyyyMMdd");
 		DateFormat df2 = new SimpleDateFormat("yyyy-MM-dd");
 		List<String> list = null;

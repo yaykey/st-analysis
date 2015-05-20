@@ -52,9 +52,9 @@ public class AnalysisAction extends ConventionAction {
 
 	private String nexttimeid;
 
-	private Integer stock;
+	private String stock;
 
-	private List<Integer> stocks;
+	private List<String> stocks;
 
 	// private AnalysisOrderBean order = new AnalysisOrderBean();
 
@@ -154,9 +154,9 @@ public class AnalysisAction extends ConventionAction {
 			Calendar cal = Calendar.getInstance();
 			cal.setTime(df.parse(timeid));
 
-			cal.add(Calendar.DAY_OF_MONTH, -20);
+			cal.add(Calendar.DAY_OF_MONTH, -30);
 			c.andDateGreaterThanOrEqualTo(cal.getTime());
-			cal.add(Calendar.DAY_OF_MONTH, 41);
+			cal.add(Calendar.DAY_OF_MONTH, 61);
 			c.andDateLessThanOrEqualTo(cal.getTime());
 
 			this.getRequest().setAttribute("list",
@@ -207,13 +207,7 @@ public class AnalysisAction extends ConventionAction {
 		this.order = order;
 	}
 
-	public Integer getStock() {
-		return stock;
-	}
-
-	public void setStock(Integer stock) {
-		this.stock = stock;
-	}
+	
 
 	public List getStocks() {
 		return stocks;
@@ -245,6 +239,14 @@ public class AnalysisAction extends ConventionAction {
 
 	public void setConditions(Map<String, Map<String, String>> conditions) {
 		this.conditions = conditions;
+	}
+
+	public String getStock() {
+		return stock;
+	}
+
+	public void setStock(String stock) {
+		this.stock = stock;
 	}
 
 	

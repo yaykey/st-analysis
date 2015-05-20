@@ -12,7 +12,7 @@ import org.apache.ibatis.annotations.Param;
 public interface GStockDayMapper extends BaseMapper<GStockDayKey, GStockDay, GStockDayExample> {
     void insertBatch(@Param("list") List<GStockDay> list);
     
-    void updatePriceChanges(@Param("stock") Integer stock);
+    void updatePriceChanges(@Param("stock") String stock);
     
     void batchUpdateMMByPrimaryKey(@Param("list") List<GStockDay> list);
     

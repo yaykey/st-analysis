@@ -491,4 +491,104 @@
 			</if>
 		</if>
 	</select>
+	
+	<!-- <resultMap id="RangeBeanResultMap" type="com.st.analysis.controller.vo.range.RangeBean" >
+	    <result column="TIME_DIM_ID" property="timeDimId" jdbcType="INTEGER" />
+	    <result column="PRICE" property="price" jdbcType="DOUBLE" />
+	    
+	    <result column="NATURE" property="nature" jdbcType="VARCHAR" />
+	    <result column="CJBS" property="cjbs" jdbcType="INTEGER" />
+	    
+	    <result column="SUM_VOL" property="sumVol" jdbcType="INTEGER" />
+	    <result column="SUM_AMO" property="sumAmo" jdbcType="INTEGER" />
+	    
+	    <result column="VOL_DIM_ID" property="volDimId" jdbcType="INTEGER" />
+	  </resultMap> -->
+	
+	<sql id="Analysis_Column_List">
+		#{rptId} as RPT_ID,
+		#{dateId} as DATE_ID,
+		#{timeDimtypeId} as TIME_DIMTYPE_ID,
+		CONCAT(#{timeDimtypeId},substr(TIME_ID,1,2), substr(TIME_ID,4,2)) as TIME_DIM_ID,
+		#{volDim.dimtypeId} as VOL_DIMTYPE_ID,
+		#{volDim.dimId} as VOL_DIM_ID,
+		#{stockCode} as STOCK_CODE,
+		count(TIME_ID) as CJBS,
+		sum(VOL) as VOL_VALUE,
+		sum(AMO) as AMO_VALUE,
+		FORMAT(AVG(PRICE), 3) as PRICE,
+		FORMAT(AVG(PRICE_CHANGES), 3) as PRICE_CHANGES
+	</sql>
+	<sql id="Analysis_Select_Where">
+		select TIME_ID, PRICE, VOL, AMO, NATURE ,PRICE_CHANGES 
+		from G_DETAIL_${stockType}${stockCode}
+				where DATE_ID=${dateId} 
+				<![CDATA[
+				and VOL>=#{volDim.dimIdBegin}
+				]]>
+				
+				<if test="volDim.dimIdEnd != null">
+				<![CDATA[
+				and VOL<#{volDim.dimIdEnd}
+				]]>
+				</if>
+	</sql>
+	
+	<update id="insertAnalysisData"  parameterType="map">
+	  	Replace into R_RANGE (
+	  		RPT_ID, DATE_ID, 
+			VOL_DIMTYPE_ID, VOL_DIM_ID, 
+			TIME_DIMTYPE_ID, TIME_DIM_ID,
+			STOCK_CODE, 
+			VOL_VALUE, AMO_VALUE, 
+			CJBS, PRICE,PRICE_CHANGES,
+			INDEX_ID
+	  	)
+		select 
+			RPT_ID, DATE_ID, 
+			VOL_DIMTYPE_ID, VOL_DIM_ID, 
+			TIME_DIMTYPE_ID, TIME_DIM_ID,
+			STOCK_CODE, 
+			VOL_VALUE, AMO_VALUE, 
+			CJBS, PRICE,PRICE_CHANGES,
+			INDEX_ID
+		from (
+		<foreach collection="volDimList" item="volDim"  separator="UNION ALL" >
+			select 
+				<include refid="Analysis_Column_List" />
+				, #{indexIdMap.b} as INDEX_ID
+			from (
+				<include refid="Analysis_Select_Where" />
+				and nature='b'
+				
+			) r
+			group by TIME_DIM_ID
+			
+			union
+			
+			select 
+				<include refid="Analysis_Column_List" />
+				, ${indexIdMap.s} as INDEX_ID
+			from (
+				<include refid="Analysis_Select_Where" />
+				and nature='s'
+				
+			) r
+			group by TIME_DIM_ID
+			
+			union
+			
+			select 
+				<include refid="Analysis_Column_List" />
+				, ${indexIdMap.n} as INDEX_ID
+			from (
+				<include refid="Analysis_Select_Where" />
+				and nature='-'				
+			) r
+			group by TIME_DIM_ID
+			
+		</foreach>
+		) rr
+			
+  </update>
 </mapper>

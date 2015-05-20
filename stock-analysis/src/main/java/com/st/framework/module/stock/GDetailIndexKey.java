@@ -2,8 +2,15 @@ package com.st.framework.module.stock;
 
 import java.util.Date;
 
-public class GDetailIndexKey {
-    private String icode;
+import com.st.framework.module.PersistentObject;
+
+public class GDetailIndexKey extends PersistentObject{
+    /**
+	 * 
+	 */
+	private static final long serialVersionUID = -7018673671501776793L;
+
+	private String icode;
 
     private Date dateid;
 

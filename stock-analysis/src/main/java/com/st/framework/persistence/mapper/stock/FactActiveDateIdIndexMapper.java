@@ -12,6 +12,6 @@ import com.st.framework.persistence.mapper.BaseMapper;
 public interface FactActiveDateIdIndexMapper extends BaseMapper<FactActiveDateIdIndexKey, FactActiveDateIdIndex, FactActiveDateIdIndexExample> {
    
 	
-	List selectActiveDateId(@Param("stockCode") Integer stockCode, @Param("dateYearId") Integer dateYearId);
+	List<Integer> selectActiveDateId(@Param("stockCode") Integer stockCode, @Param("dateYearId") Integer dateYearId, @Param("dateYearIds") List dateYearIds);
 	
 }

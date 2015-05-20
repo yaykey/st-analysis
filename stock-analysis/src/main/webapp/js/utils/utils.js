@@ -72,7 +72,8 @@ Number.prototype.format = function (pos) {
 	if (pos !=0 && !(pos)) {
 		pos = 2;
 	}
-	return Math.round(this*Math.pow(10, pos)) / Math.pow(10, pos);
+	//return Math.round(this*Math.pow(10, pos)) / Math.pow(10, pos);
+	return this.toFixed(pos);
 };
 
 ///**
